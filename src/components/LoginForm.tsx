@@ -30,8 +30,11 @@ const LoginForm = () => {
           <div className="flex justify-center">
             <img src={imgLogo} alt="" />
           </div>
+          <div>
+            <p className="text-[#f58220] text-xl font-semibold text-center mt-2">Sei già registrato? Accedi</p>
+          </div>
           <div className="mt-4">
-            <label htmlFor="exampleInputEmail1">Email</label>
+            <label htmlFor="exampleInputEmail1">ID di Accesso/Email</label>
             <div className="relative">
               <div className="inline-flex items-center justify-center absolute left-0 top-0 mt-2.5 h-ful w-10 text-gray-400">
                 <i className="fas fa-user text-[#f58220]"></i>
@@ -64,7 +67,7 @@ const LoginForm = () => {
             type="submit"
             className="flex mt-4 items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-[#f58220] hover:bg-blue-6 rounded-2xl py-2 w-full transition duration-150 ease-in"
           >
-            Sign up
+            Accedi
           </button>
         </form>
       </div>
