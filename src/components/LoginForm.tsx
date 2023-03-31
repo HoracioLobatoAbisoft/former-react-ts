@@ -2,18 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import LoginService from "../services/LoginService";
 import imgLogo from "../assets/img/logo.png"
+import UtentiComponent from "./UtentiComponent";
 
 const LoginForm = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, watch, formState: { errors }, } = useForm();
+
+  const [showUtenti, setShowUtenti] = useState(false)
+
   const onSubmit = (data: any) => {
     console.log(data);
 
-    LoginService.postUser(data);
+    LoginService.postUser(data).then((res) => {
+      console.log(res)
+      localStorage.setItem("token",res?.data.token);
+      
+      setShowUtenti(true)
+    });
   };
 
   return (
@@ -63,6 +67,12 @@ const LoginForm = () => {
             Sign up
           </button>
         </form>
+      </div>
+
+
+      <div>
+        { showUtenti && <UtentiComponent></UtentiComponent> }
+        
       </div>
     </>
   );

@@ -21,7 +21,7 @@ const UtentiComponent = () => {
   return (
     <div className="flex justify-center">
       <div >
-        <div className="text-center text-xl">Utenti List</div>
+        <div className="text-center text-xl">Indici Ricerca</div>
         <table className="px-2 border py-2">
           <thead className="border-b">
             <tr>
