@@ -4,7 +4,7 @@ const CLIENTE_API_URL = "https://localhost:7143" + "/api";
 
 class LoginService {
     getUtenti() {
-        var CURRENT_API_URL = `${CLIENTE_API_URL}/utenti`;
+        var CURRENT_API_URL = `${CLIENTE_API_URL}/Ricerca`;
         console.log(CURRENT_API_URL);
         return MasterService.getDataUtenti(CURRENT_API_URL);
     }

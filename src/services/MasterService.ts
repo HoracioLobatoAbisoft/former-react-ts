@@ -9,9 +9,9 @@ class MasterService {
     getDataUtenti(apiUrl:any) {
         return axios
             .get(apiUrl, {
-                headers: {
-                       Authorization: `Bearer ${this.decryptedToken()}` 
-                },
+                // headers: {
+                //        Authorization: `Bearer ${this.decryptedToken()}` 
+                // },
             })
             .then((response) => {
                 return response;
