@@ -4,7 +4,9 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  getFilteredRowModel
 } from "@tanstack/react-table";
+import {rankItem} from '@tanstack/match-sorter-utils'
 import { defaultData } from "../utils/defaultData";
 import classNames from "classnames";
 import ClienteService from "../../src/services/LoginService";
@@ -13,6 +15,8 @@ const UtentiComponent = () => {
   const [argomentiDate, setArgomentiDate] = useState(defaultData);
 
   const [data, setData] = useState(defaultData);
+  const [globalFilter, setGlobalFilter] = useState('')
+  console.log(globalFilter)
 
   const columns = [
     {
@@ -29,11 +33,24 @@ const UtentiComponent = () => {
     },
   ];
 
+  const fuzzyFilter = (row:any, columnId:any, value:any, addMeta:any) => {
+    const itemRank = rankItem(row.getValue(columnId), value)
+
+      addMeta({itemRank})
+
+      return itemRank.passed
+  }
+
   const table = useReactTable({
     data,
     columns,
+    state: {
+      globalFilter
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn: fuzzyFilter
   });
 
   useEffect(() => {
@@ -49,6 +66,14 @@ const UtentiComponent = () => {
 
   return (
     <div className="px-6 py-4">
+      <div className="my-2 text-right">
+        <input 
+          type="text"
+          onChange={e => setGlobalFilter(e.target.value)}
+          className="text-gray-600 border border-gray-300 rounded outline-indigo- py-2 px-2" 
+          placeholder="Buscar..." 
+        />
+      </div>
       <table className="table-auto w-full">
         <thead className="">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -129,8 +154,8 @@ const UtentiComponent = () => {
           </button>
         </div>
         <div className="text-gray-600 font-semibold">
-          Mostrando de {Number(table.getRowModel().rows[0].id) + 1} a{" "}
-          {Number(table.getRowModel().rows[table.getRowModel().rows.length - 1].id) + 1} del
+          Mostrando de {Number(table.getRowModel().rows[0]?.id) + 1} a{" "}
+          {Number(table.getRowModel().rows[table.getRowModel().rows.length - 1]?.id) + 1} del
           total de {data.length} registros
         </div>
         <select 
