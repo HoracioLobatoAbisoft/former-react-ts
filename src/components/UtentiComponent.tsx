@@ -1,56 +1,138 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, HtmlHTMLAttributes } from "react";
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
-  getFilteredRowModel
+  getFilteredRowModel,
+  getSortedRowModel,
+  SortingState
 } from "@tanstack/react-table";
-import {rankItem} from '@tanstack/match-sorter-utils'
+import { rankItem } from '@tanstack/match-sorter-utils'
 import { defaultData } from "../utils/defaultData";
 import classNames from "classnames";
 import ClienteService from "../../src/services/LoginService";
 
-const UtentiComponent = () => {
-  const [argomentiDate, setArgomentiDate] = useState(defaultData);
+interface IGetStateTable {
+  totalRows: number,
+  firstIndex: number,
+  lastIndex: number,
+}
 
-  const [data, setData] = useState(defaultData);
+const UtentiComponent = ():JSX.Element => {
+  const [argomentiDate, setArgomentiDate] = useState(defaultData);
+  const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState('')
+  const [sorting, setSorting] = useState<SortingState>([])
+
   console.log(globalFilter)
 
   const columns = [
+    // {
+    //   header: 'ID Indice Ricerca',
+    //   accessorKey: "idIndiceRicerca",
+    // },
     {
-      accessorKey: "name",
+      accessorKey: "nomeListino",
+    },
+    // {
+    //   accessorKey: "percCoupon",
+    // },
+    {
+      accessorKey: "inEvidenza",
     },
     {
-      accessorKey: "lastName",
+      accessorKey: "prodottoFinito",
     },
     {
-      accessorKey: "age",
+      accessorKey: "qta1",
+      
     },
+    // {
+    //   accessorKey: "prezzo1",
+    // },
+    // {
+    //   accessorKey: "prezzo1Riv",
+    // },
     {
-      accessorKey: "status",
+      accessorKey: "qta2",
     },
+    // {
+    //   accessorKey: "prezzo2",
+    // },
+    // {
+    //   accessorKey: "prezzo2Riv",
+    // },
+    {
+      accessorKey: "qta3",
+    },
+    // {
+    //   accessorKey: "prezzo3",
+    // },
+    // {
+    //   accessorKey: "prezzo3Riv",
+    // },
+    // {
+    //   accessorKey: "totOrdini",
+    // },
   ];
 
-  const fuzzyFilter = (row:any, columnId:any, value:any, addMeta:any) => {
+  const fuzzyFilter = (row: any, columnId: any, value: any, addMeta: any) => {
     const itemRank = rankItem(row.getValue(columnId), value)
 
-      addMeta({itemRank})
+    addMeta({ itemRank })
 
-      return itemRank.passed
+    return itemRank.passed
+  }
+
+  const DebauncedInput = ({ value: keyWord, onChange, ...props }: any): JSX.Element => {
+    const [value, setValue] = useState(keyWord)
+    useEffect(() => {
+      const timeOut = setTimeout(() => {
+        onChange(value);
+      }, 700);
+      return () => clearTimeout(timeOut);
+    }, [value])
+    return (
+      <input  {...props} value={value} onChange={e => setValue(e.target.value)} />
+    )
+  }
+
+  const getStateTable = (): IGetStateTable => {
+    const totalRows = table.getFilteredRowModel().rows.length;
+    const pageSize = table.getState().pagination.pageSize;
+    const pageIndex = table.getState().pagination.pageIndex;
+    const rowsPage = table.getRowModel().rows.length;
+
+    const firstIndex = (pageIndex * pageSize) + 1;
+    const lastIndex = (pageIndex * pageSize) + rowsPage;
+
+    return {
+      totalRows,
+      firstIndex,
+      lastIndex,
+    }
+
   }
 
   const table = useReactTable({
     data,
     columns,
     state: {
-      globalFilter
+      globalFilter,
+      sorting
+    },
+    initialState: {
+      pagination: {
+        pageSize: 5
+      }
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    globalFilterFn: fuzzyFilter
+    globalFilterFn: fuzzyFilter,
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting
   });
 
   useEffect(() => {
@@ -58,7 +140,7 @@ const UtentiComponent = () => {
       let data = res?.data.data;
 
       console.log(data);
-      //setData(data);
+      setData(data);
     });
   }, []);
 
@@ -66,29 +148,44 @@ const UtentiComponent = () => {
 
   return (
     <div className="px-6 py-4">
-      <div className="my-2 text-right">
-        <input 
+      <div className="my-2 flex justify-between">
+        <h2 className="text-xl text-transform: uppercase font-weight: 900">Tavola Ricerca</h2>
+        <DebauncedInput
           type="text"
-          onChange={e => setGlobalFilter(e.target.value)}
-          className="text-gray-600 border border-gray-300 rounded outline-indigo- py-2 px-2" 
-          placeholder="Buscar..." 
+          value={globalFilter ?? ''}
+          onChange={(value: any) => setGlobalFilter(String(value))}
+          className="text-orange-600 border border-orange-300 rounded outline-indigo py-2 px-2"
+          placeholder="Buscar..."
         />
+
       </div>
       <table className="table-auto w-full">
         <thead className="">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr
               key={headerGroup.id}
-              className="border-b border-gray-300 text-gray-600 bg-gray-100"
+              className="border-b border-orange-300 text-white bg-orange-500"
             >
               {headerGroup.headers.map((header) => (
                 <th key={header.id} className="py-2 px-4 text-left uppercase">
                   {header.isPlaceholder
-                    ? null
-                    : flexRender(
+                    ? null :
+                    <div
+                      className={classNames({
+                        'cursor-pointer select-none':header.column.getCanSort(),
+                      })}
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
                       )}
+                      {{
+                        asc:<i className="fas fa-sort-up"></i>,
+                        desc:<i className="fas fa-sort-down"></i>,
+                      }[header.column.getIsSorted() as string]??null}
+                    </div>
+                  }
                 </th>
               ))}
             </tr>
@@ -96,7 +193,7 @@ const UtentiComponent = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="text-gray-600 hover:bg-slate-300">
+            <tr key={row.id} className="text-black-600 hover:bg-slate-300">
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className="py-2 px-4">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -111,14 +208,14 @@ const UtentiComponent = () => {
           <button
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
-            className="text-gray-600 bg-gray-200 py-0.5 px-2 rounded border border-gray-300 disabled:hover:bg-white disabled:hover:text-grat-200"
+            className="text-orange-600 bg-orange-200 py-0.5 px-2 rounded border border-orange-300 disabled:hover:bg-white disabled:hover:text-orange-600r"
           >
             {"<<"}
           </button>
           <button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className="text-gray-600 bg-gray-200 py-0.5 px-2 rounded border border-gray-300 disabled:hover:bg-white disabled:hover:text-grat-200"
+            className="text-orange-600 bg-orange-200 py-0.5 px-2 rounded border border-orange-300 disabled:hover:bg-white disabled:hover:text-orange-600"
           >
             {"<"}
           </button>
@@ -127,7 +224,7 @@ const UtentiComponent = () => {
               key={index}
               onClick={() => table.setPageIndex(value)}
               className={classNames({
-                "text-gray-600 bg-gray-200 py-0.5 px-2 font-bold rounded border border-gray-300 disabled:hover:bg-white disabled:hover:text-grat-200":
+                "text-orange-600 bg-orange-200 py-0.5 px-2 rounded border border-orange-300 disabled:hover:bg-white disabled:hover:text-orange-600":
                   true,
                 "bg-indigo-100 text-indigo-700":
                   value === table.getState().pagination.pageIndex,
@@ -140,7 +237,7 @@ const UtentiComponent = () => {
           <button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className="text-gray-600 bg-gray-200 py-0.5 px-2 rounded border border-gray-300 disabled:hover:bg-white disabled:hover:text-grat-200"
+            className="text-orange-600 bg-orange-200 py-0.5 px-2 rounded border border-orange-300 disabled:hover:bg-white disabled:hover:text-orange-600"
           >
             {">"}
           </button>
@@ -148,21 +245,21 @@ const UtentiComponent = () => {
           <button
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
-            className="text-gray-600 bg-gray-200 py-0.5 px-2 rounded border border-gray-300 disabled:hover:bg-white disabled:hover:text-grat-200"
+            className="text-orange-600 bg-orange-200 py-0.5 px-2 rounded border border-orange-300 disabled:hover:bg-white disabled:hover:text-orange-600"
           >
             {">>"}
           </button>
         </div>
-        <div className="text-gray-600 font-semibold">
-          Mostrando de {Number(table.getRowModel().rows[0]?.id) + 1} a{" "}
-          {Number(table.getRowModel().rows[table.getRowModel().rows.length - 1]?.id) + 1} del
-          total de {data.length} registros
+        <div className="text-black-600 font-semibold">
+          Mostrando da {getStateTable().firstIndex} a{" "}
+          {getStateTable().lastIndex} del totale di {getStateTable().totalRows} record
         </div>
-        <select 
+        <select
           onChange={e => {
             table.setPageSize(Number(e.target.value))
           }}
-          className="text-gray-600 border border-gray-300 rounded outline-indigo- py-1 px-2">
+          className="text-black-600 border border-orange-300 rounded outline-indigo- py-1 px-2">
+          <option value="5">5 pag.</option>
           <option value="10">10 pag.</option>
           <option value="20">20 pag.</option>
           <option value="30">30 pag.</option>

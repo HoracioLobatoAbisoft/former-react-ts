@@ -20,15 +20,15 @@ function App() {
     <div className="w-full h-screen mt-4">
       <Routes>
         <Route path="/" element={<UtentiComponent />}>
-         
+
           
-         
+
 
         
         </Route>
         <Route path="/about" element={<UtentiComponent />} />
       </Routes>
-     
+
     {/* <UtentiComponent />   */}
     </div>
   )
