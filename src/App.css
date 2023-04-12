@@ -46,10 +46,7 @@ body,#root,.App{
 
 
 
-button {
-  border: none;
-  
-}
+
 .content-tabs {
   flex-grow : 1;
 }
@@ -60,19 +57,8 @@ button {
   height: 100%;
   display: none;
 }
-.content h2 {
-  padding: 0px 0 5px 0px;
-}
-.content hr {
-  width: 100px;
-  height: 2px;
-  background: #222;
-  margin-bottom: 5px;
-}
-.content p {
-  width: 100%;
-  height: 100%;
-}
+
+
 .active-content {
   display: block;
 }

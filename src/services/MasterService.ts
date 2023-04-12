@@ -20,6 +20,20 @@ class MasterService {
                 //console.log(err);
             });
     }
+    getDataOrdini(apiUrl:any) {
+        return axios
+            .get(apiUrl+"?idUtn=14", {
+                // headers: {
+                //        Authorization: `Bearer ${this.decryptedToken()}` 
+                // },
+            })
+            .then((response) => {
+                return response;
+            })
+            .catch((err) => {
+                //console.log(err);
+            });
+    }
 
     postUserLogin(apiUrl:any, data:any) {
         
