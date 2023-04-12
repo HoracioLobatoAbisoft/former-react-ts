@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes} from 'react-router-dom';
 import './App.css'
 import LoginForm from './components/LoginForm'
 import UtentiComponent from './components/UtentiComponent';
+import OrdiniPage from './components/ordini/OrdiniPage';
 
 
 function App() {
@@ -17,16 +18,16 @@ function App() {
 
 
   return (
-    <div className="w-full h-screen mt-4">
+    <div className="">
       <Routes>
         <Route path="/" element={<UtentiComponent />}>
-
+        
           
 
 
         
         </Route>
-        <Route path="/about" element={<UtentiComponent />} />
+        <Route path="/nav" element={<OrdiniPage />} />
       </Routes>
 
     {/* <UtentiComponent />   */}

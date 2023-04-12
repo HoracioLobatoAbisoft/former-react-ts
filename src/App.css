@@ -1,7 +1,19 @@
-
-.title {
-  color: #f58220;
-}
-body,#root,.App{
+.links-header {
+  color: #aaaaaa !important;
+  cursor: pointer;
   
+}
+
+.links-header:hover {
+  color: black !important;
+}
+
+.header-sub {
+  color: white;
+  background-color: #009ec9 !important;
+}
+
+.button-esci {
+  cursor: pointer;
+  color: #009ec9 !important;
 }
