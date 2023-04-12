@@ -28,6 +28,8 @@ export type Employee = {
   startDate: string;
   signatureCatchPhrase: string;
   avatar: string;
+  count: string;
+  importoTotOrdiniNettoOriginaleStr: string;
 };
 
 // const data: Employee[] = [
@@ -88,7 +90,9 @@ const Example2 = () => {
       startDate: "10/20/2022",
       signatureCatchPhrase: "",
       avatar: "aaa",
-      statoStr: ""
+      statoStr: "",
+      count:"",
+      importoTotOrdiniNettoOriginaleStr:""
     },
   ])
 
@@ -110,37 +114,47 @@ const Example2 = () => {
     () => [
       {
         id: "statoStr", //id used to define `group` column
-        header: "STATO",
+        header: "",
         columns: [
           {
             accessorKey: "statoStr", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
             enableClickToCopy: true,
             header: "Stato",
-            size: 300,
+            size: 150,
             
           },
           {
             accessorKey: "idConsegnaView", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
             enableClickToCopy: true,
             header: "Ordine",
-            size: 300,
+            size: 150,
           },
         ],
       },
       {
         id: "giornoStr",
-        header: "DATA CONSEGNA",
+        header: "",
         columns: [
           {
             accessorKey: "giornoStr", //hey a simple column for once
             header: "DATA CONSEGNA",
-            size: 350,
+            size: 150,
             
           },
           {
             accessorKey: "corriereStr", //hey a simple column for once
             header: "	CORRIERE",
-            size: 350,
+            size: 150,
+          },
+          {
+            accessorKey: "count", //hey a simple column for once
+            header: "N° LAVORI",
+            size: 150,
+          },
+          {
+            accessorKey: "importoTotOrdiniNettoOriginaleStr", //hey a simple column for once
+            header: "IMPORTO NETTO",
+            size: 150,
           },
         ],
       },
