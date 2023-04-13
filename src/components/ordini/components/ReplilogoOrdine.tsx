@@ -1,6 +1,7 @@
 import { Box } from "@mui/material"
+import TablaLavori from "../../lavori/components/TablaLavori"
 
-const ReplilogoOrdine = (row:any) => {
+const ReplilogoOrdine = ({row}:any) => {
     return (
         <div className="flex justify-around items-center">
             <div>
@@ -35,6 +36,7 @@ const ReplilogoOrdine = (row:any) => {
                 <div className="mt-4">
                     <p className="text-base font-semibold">LAVORI NELL' ORDINE</p>
                     <p>Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.</p>
+                    <TablaLavori/>
                 </div>
             </div>
             <div>
@@ -44,12 +46,11 @@ const ReplilogoOrdine = (row:any) => {
                         sx={(theme) => ({
                             backgroundColor: `${row.coloreStatoHtml}`,
                             borderRadius: "0.25rem",
-
                             width: "auto",
                             padding: "8px 15px",
                         })}
                     >
-                        <span>{row.statoStr}</span>
+                        <span>{row.statoStr} </span>
                     </Box>
                 </div>
 
@@ -62,11 +63,11 @@ const ReplilogoOrdine = (row:any) => {
                     <p className="font-semibold">€ {row.importoConsegnaStr}</p>
                 </div>
                 <div className="flex space-x-4 items-center mt-2 text-sm">
-                    <p className="w-28">IVA (22%):</p>{" "}
+                    <p className="w-28">IVA (22%):</p>
                     <p className="font-semibold">€ {row.importoTotIvaStr}</p>
                 </div>
                 <div className="flex space-x-4 items-center mt-2 text-sm bg-[#d6e03d]">
-                    <p className="w-28">TOTALE:</p>{" "}
+                    <p className="w-28">TOTALE:</p>
                     <p className="font-semibold">€ {row.importoTotStr}</p>
                 </div>
             </div>

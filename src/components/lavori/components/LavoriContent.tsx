@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import imgShopping from "../../../assets/img/shopping.svg";
 import imgArrow from "../../../assets/img/arrowdown.svg";
 import SideBarPersonalArea from "../../common/SideBarPersonalArea/SideBarPersonalArea";
+import TablaLavori from "./TablaLavori";
 
 const LavoriContent = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -47,6 +48,7 @@ const LavoriContent = () => {
                 che vedi accanto a ogni Ordine per visualizzare il dettaglio
                 dell' ordine.
               </h2>
+              <TablaLavori/>
             </div>
 
             <div
