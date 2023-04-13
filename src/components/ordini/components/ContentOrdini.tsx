@@ -30,7 +30,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="">Profilo</span>
                 </a>
@@ -38,7 +38,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgUser} alt="" />
                   <span className="ml-3 hover:underline">Il tuo Profilo</span>
@@ -47,7 +47,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgPassword} alt="" />
                   <span className="ml-3 hover:underline">Cambio Password</span>
@@ -56,7 +56,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgUserEdit} alt="" />
                   <span className="ml-3 hover:underline">
@@ -67,7 +67,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgMap} alt="" />
                   <span className="ml-3 hover:underline">
@@ -78,7 +78,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center mt-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center mt-6 text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="">Ordini</span>
                 </a>
@@ -86,7 +86,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgShopping} alt="" />
                   <span className="ml-3 hover:underline">I tuoi Ordini</span>
@@ -95,7 +95,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgVisualize} alt="" />
                   <span className="ml-3 hover:underline">I tuoi Lavori</span>
@@ -104,7 +104,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgCoupon} alt="" />
                   <span className="ml-3 hover:underline">
@@ -115,7 +115,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgOfert} alt="" />
                   <span className="ml-3 hover:underline">
@@ -126,7 +126,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgPdf} alt="" />
                   <span className="ml-3 hover:underline">Le tue Fatture</span>
@@ -135,7 +135,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center mt-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center mt-6 text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="">Listino PDF</span>
                 </a>
@@ -143,7 +143,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgPdf} alt="" />
                   <span className="ml-3 hover:underline">
@@ -154,7 +154,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center mt-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center mt-6 text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="">Recensioni</span>
                 </a>
@@ -162,7 +162,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <img className="h-5 w-5" src={imgStar} alt="" />
                   <span className="ml-3 hover:underline">
@@ -174,7 +174,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center mt-6 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center mt-6 text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="">AIUTO</span>
                 </a>
@@ -182,7 +182,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="ml-3 hover:underline">Contattaci</span>
                 </a>
@@ -190,7 +190,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="ml-3 hover:underline">
                     Le nostre lavorazioni
@@ -200,7 +200,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="ml-3 hover:underline">
                     Glossario Tipografico
@@ -210,7 +210,7 @@ const ContentOrdini = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center  text-gray-900 rounded-lg dark:text-white hover:bg-gray-100"
+                  className="flex items-center  text-gray-900 rounded-lg hover:bg-gray-100"
                 >
                   <span className="ml-3 hover:underline">
                     Come creare file perfetti
