@@ -13,6 +13,7 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
+import { DensityLarge } from "@mui/icons-material";
 
 export type Employee = {
   corriereStr: string;
@@ -176,6 +177,7 @@ const TableOrdini = () => {
       data={dataOrdini}
       enableColumnFilterModes
       enableColumnOrdering
+      initialState={{density:"compact"}}
       positionToolbarAlertBanner="bottom"
       renderDetailPanel={({ row }) => (
         <div className="flex justify-around items-center">
