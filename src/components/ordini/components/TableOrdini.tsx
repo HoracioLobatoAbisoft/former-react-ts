@@ -13,6 +13,7 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
+import { DensityLarge } from "@mui/icons-material";
 
 export type Employee = {
   corriereStr: string;
@@ -30,6 +31,14 @@ export type Employee = {
   count: string;
   importoTotOrdiniNettoOriginaleStr: string;
   coloreStatoHtml: string;
+  indirizzoStr: string;
+  pesoKG: number;
+  colliStr: string;
+  pagamentoStr: string;
+  importoConsegnaStr: string;
+  importoTotIvaStr: string;
+  importoTotStr: string;
+  inseritoStr: string;
 };
 
 const TableOrdini = () => {
@@ -50,16 +59,21 @@ const TableOrdini = () => {
       count: "",
       importoTotOrdiniNettoOriginaleStr: "",
       coloreStatoHtml: "",
+      indirizzoStr: "",
+      pesoKG: 0,
+      colliStr: "",
+      pagamentoStr: "",
+      importoConsegnaStr: "",
+      importoTotIvaStr:"",
+      importoTotStr: "",
+      inseritoStr: ""
     },
   ]);
 
   useEffect(() => {
     ClienteService.getOrdini().then((res) => {
       let data = res?.data;
-
-      console.log(data);
       setDataOrdini(data);
-      console.log(dataOrdini);
     });
   }, []);
 
@@ -103,17 +117,28 @@ const TableOrdini = () => {
               </>
             ),
           },
+          {
+            accessorFn: (row) => `${row.idConsegnaView} ${row.inseritoStr}`,
+            id: "idConsegnaView", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            header: "Ordine",
+            size: 250,
+            Cell: ({ cell, row }) => (
+              <div className="flex space-x-2">
+                
+                  <p> <span className="mr-1">N°</span> {row.original.idConsegnaView}</p>
+                
+                  <p><span className="mr-1">del</span>{row.original.inseritoStr} </p>
+                
+              </div>
+            ),
+          },
           // {
           //   accessorKey: "statoStr", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
           //   enableClickToCopy: true,
           //   header: "Stato",
           //   size: 150,
           // },
-          {
-            accessorKey: "idConsegnaView", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-            header: "Ordine",
-            size: 150,
-          },
+          
         ],
       },
       {
@@ -152,23 +177,78 @@ const TableOrdini = () => {
       data={dataOrdini}
       enableColumnFilterModes
       enableColumnOrdering
+      initialState={{density:"compact"}}
       positionToolbarAlertBanner="bottom"
       renderDetailPanel={({ row }) => (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-        >
-          <h2>Datos del collapse</h2>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography variant="h4">{row.original.firstName}</Typography>
-            <Typography variant="h1">
-              {row.original.signatureCatchPhrase}
-            </Typography>
-          </Box>
-        </Box>
+        <div className="flex justify-around items-center">
+          <div>
+            <h2 className="font-semibold text-base">Riepilogo Ordine</h2>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">Data Consegna</p>{" "}
+              <p className="font-semibold">{row.original.giornoStr}</p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">N° Lavori</p>{" "}
+              <p className="font-semibold">{row.original.count}</p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">Corriere</p>{" "}
+              <p className="font-semibold">{row.original.corriereStr}</p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">Indirizzo</p>{" "}
+              <p className="font-semibold">{row.original.indirizzoStr}</p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28"></p>{" "}
+              <p className="font-semibold">
+                {" "}
+                (Colli {row.original.colliStr}, Peso {row.original.pesoKG} kg ±)
+              </p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">Pagamento</p>{" "}
+              <p className="font-semibold">{row.original.pagamentoStr}</p>
+            </div>
+            <div className="mt-4">
+              <p className="text-base font-semibold">LAVORI NELL' ORDINE</p>
+              <p>Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.</p>
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-center">
+              <Box
+                component="span"
+                sx={(theme) => ({
+                  backgroundColor: `${row.original.coloreStatoHtml}`,
+                  borderRadius: "0.25rem",
+
+                  width: "auto",
+                  padding: "8px 15px",
+                })}
+              >
+                <span>{row.original.statoStr}</span>
+              </Box>
+            </div>
+
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">Totale Lavori:</p>{" "}
+              <p className="font-semibold">€ {row.original.importoTotOrdiniNettoOriginaleStr}</p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">Totale Spedizioni:</p>{" "}
+              <p className="font-semibold">€ {row.original.importoConsegnaStr}</p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm">
+              <p className="w-28">IVA (22%):</p>{" "}
+              <p className="font-semibold">€ {row.original.importoTotIvaStr}</p>
+            </div>
+            <div className="flex space-x-4 items-center mt-2 text-sm bg-[#d6e03d]">
+              <p className="w-28">TOTALE:</p>{" "}
+              <p className="font-semibold">€ {row.original.importoTotStr}</p>
+            </div>
+          </div>
+        </div>
       )}
     />
   );

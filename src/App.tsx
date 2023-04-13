@@ -5,6 +5,7 @@ import './App.css'
 import LoginForm from './components/LoginForm'
 import UtentiComponent from './components/UtentiComponent';
 import OrdiniPage from './components/ordini/OrdiniPage';
+import LavoriPage from './components/lavori/LavoriPage';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         </Route>
         <Route path="/about" element={<UtentiComponent />} />
         <Route path="/nav" element={<OrdiniPage />} />
+        <Route path="/lavori" element={<LavoriPage />} />
       </Routes>
 
     {/* <UtentiComponent />   */}
