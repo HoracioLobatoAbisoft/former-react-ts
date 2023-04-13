@@ -5,6 +5,7 @@ import imgInstagram from "../../../assets/img/instagram.svg";
 import imgTwitter from "../../../assets/img/twitter.svg";
 import imgYoutube from "../../../assets/img/youtube.svg";
 import imgHelp from "../../../assets/img/help.svg";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -27,12 +28,12 @@ const Header = () => {
         </div>
       </div>
       <div className="flex justify-center items-center mt-4 text-gray-500">
-        <p className="mr-4 ml-4 hover:text-black cursor-pointer">Area Riservata</p> |
-        <p className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Ordini</p> |
-        <p className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Lavori</p> |
-        <p className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Coupon di Sconto</p> |
-        <p className="mr-4 ml-4 hover:text-black cursor-pointer"> Le tue Recensioni</p> |
-        <p className="mr-4 ml-4 hover:text-black cursor-pointer"> Contattaci</p> 
+       <Link to="/" className="mr-4 ml-4 hover:text-black cursor-pointer">Area Riservata</Link> |
+        <Link to="/nav" className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Ordini</Link> |
+        <Link to="/lavori" className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Lavori</Link> |
+        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Coupon di Sconto</Link> |
+        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer"> Le tue Recensioni</Link> |
+        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer"> Contattaci</Link> 
       </div>
     </>
   );

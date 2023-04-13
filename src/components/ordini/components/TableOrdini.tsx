@@ -124,11 +124,8 @@ const TableOrdini = () => {
             size: 250,
             Cell: ({ cell, row }) => (
               <div className="flex space-x-2">
-                
-                  <p> <span className="mr-1">N°</span> {row.original.idConsegnaView}</p>
-                
-                  <p><span className="mr-1">del</span>{row.original.inseritoStr} </p>
-                
+                  <p> <span className="mr-1"> {row.original.idConsegnaView? "N°" : ""} </span> {row.original.idConsegnaView}</p>
+                  <p><span className="mr-1">{row.original.inseritoStr ? "del": ""}</span>{row.original.inseritoStr} </p>
               </div>
             ),
           },
