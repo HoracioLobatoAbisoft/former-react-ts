@@ -36,7 +36,7 @@ const ReplilogoOrdine = ({row}:any) => {
                 <div className="mt-4">
                     <p className="text-base font-semibold">LAVORI NELL' ORDINE</p>
                     <p>Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.</p>
-                    <TablaLavori/>
+                    
                 </div>
             </div>
             <div>

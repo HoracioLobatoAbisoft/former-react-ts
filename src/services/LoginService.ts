@@ -15,6 +15,12 @@ class LoginService {
         return MasterService.getDataOrdini(CURRENT_API_URL);
     }
 
+    getLavori() {
+        var CURRENT_API_URL = `${CLIENTE_API_URL}/Lavori`;
+        console.log(CURRENT_API_URL);
+        return MasterService.getDataLavori(CURRENT_API_URL);
+    }
+
 
     postUser(data:any) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Login`;
