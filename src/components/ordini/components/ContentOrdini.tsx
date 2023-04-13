@@ -11,6 +11,7 @@ import imgStar from "../../../assets/img/star.svg";
 import imgCoupon from "../../../assets/img/coupon.svg";
 import imgArrow from "../../../assets/img/arrowdown.svg"
 import TableOrdini from "./TableOrdini";
+import LegendOrdini from "./LegendOrdini";
 
 const ContentOrdini = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -261,12 +262,7 @@ const ContentOrdini = () => {
                   toggleState === 2 ? "content  active-content" : "content"
                 }
               >
-                <h2>Content 2</h2>
-                <hr />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente voluptatum qui adipisci.
-                </p>
+                <LegendOrdini />
               </div>
             </div>
           </div>

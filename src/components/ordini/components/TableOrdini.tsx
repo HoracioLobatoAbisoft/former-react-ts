@@ -70,29 +70,45 @@ const TableOrdini = () => {
         header: "",
         columns: [
           {
-            accessorKey: "coloreStatoHtml", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-            header: "",
-            size: 50,
-            Cell: ({ cell }) => (
-              <Box
-                component="span"
-                sx={(theme) => ({
-                  backgroundColor: `${cell.getValue()}`,
-                  borderRadius: "0.25rem",
-                  color: `${cell.getValue()}`,
-                  width: "20px",
-                  padding: "8px 15px"
-                })}
-              >
-              </Box>
-            ),
-          },
-          {
-            accessorKey: "statoStr", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-            enableClickToCopy: true,
+            accessorFn: (row) => `${row.coloreStatoHtml} ${row.statoStr}`,
+            id: "coloreStatoHtml", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
             header: "Stato",
             size: 150,
+            Cell: ({ cell, row }) => (
+              <>
+                <Box
+                  component="span"
+                  sx={(theme) => ({
+                    backgroundColor: `${row.original.coloreStatoHtml}`,
+                    borderRadius: "0.25rem",
+                    color: `${cell.getValue()}`,
+                    width: "",
+                    padding: "8px 15px",
+                  })}
+                >
+                  <span>{}</span>
+                </Box>
+                <Box
+                  component="span"
+                  sx={(theme) => ({
+                    backgroundColor: `${cell.getValue()}`,
+                    borderRadius: "0.25rem",
+                    color: `${cell.getValue()}`,
+                    width: "",
+                    padding: "8px 15px",
+                  })}
+                >
+                  <span>{row.original.statoStr}</span>
+                </Box>
+              </>
+            ),
           },
+          // {
+          //   accessorKey: "statoStr", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+          //   enableClickToCopy: true,
+          //   header: "Stato",
+          //   size: 150,
+          // },
           {
             accessorKey: "idConsegnaView", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
             header: "Ordine",
