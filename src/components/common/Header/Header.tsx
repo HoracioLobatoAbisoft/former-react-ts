@@ -20,9 +20,9 @@ const Header = () => {
         </div>
         <div className="flex justify-center items-center">
           <img className="w-12 cursor-pointer h-10" src={imgFacebook} alt="" />
-          <img className="w-10 cursor-pointer h-8" src={imgInstagram} alt="" />
-          <img className="w-10 cursor-pointer h-8" src={imgTwitter} alt="" />
-          <img className="w-10 cursor-pointer h-10" src={imgYoutube} alt="" />
+          <img className="w-10 cursor-pointer h-7" src={imgInstagram} alt="" />
+          <img className="w-10 cursor-pointer h-7" src={imgTwitter} alt="" />
+          <img className="w-10 cursor-pointer h-9" src={imgYoutube} alt="" />
           <img className="w-10 cursor-pointer h-8" src={imgHelp} alt="" />
         </div>
       </div>
