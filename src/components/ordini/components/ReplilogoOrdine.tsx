@@ -1,7 +1,13 @@
-import { Box } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Collapse, Typography } from "@mui/material"
 import TablaLavori from "../../lavori/components/TablaLavori"
+import { useState } from "react";
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
+import imgShopping from "../../../assets/img/shopping.svg";
+const ReplilogoOrdine = ({ row }: any) => {
 
-const ReplilogoOrdine = ({row}:any) => {
+    const [open, setOpen] = useState(false);
+
     return (
         <div className="flex justify-around items-center">
             <div>
@@ -36,7 +42,38 @@ const ReplilogoOrdine = ({row}:any) => {
                 <div className="mt-4">
                     <p className="text-base font-semibold">LAVORI NELL' ORDINE</p>
                     <p>Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.</p>
-                    <TablaLavori/>
+                    {/* <Button onClick={() => setOpen(!open)} variant="text">{open ? <ExpandLess /> : <ExpandMore />}</Button>
+                    <table width={"100%"}>
+                        <th>i c</th>
+                        <th>box</th>
+                        <th>5000 biugleti da vista</th>
+                        <th>241312</th>
+                        <th>$13213</th>
+                    </table>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        
+                    </Collapse> */}
+                    <Accordion>
+                        <AccordionSummary
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <table className="table-auto ">
+                                <thead>
+                                    <tr>
+                                        <th><ExpandMore /> <img className="h-5 w-5" src={imgShopping} alt="" />i c</th>
+                                        <th>box</th>
+                                        <th>5000 biugleti da vista</th>
+                                        <th>241312</th>
+                                        <th>$13213</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            {row.qtaStr}
+                        </AccordionDetails>
+                    </Accordion>
                 </div>
             </div>
             <div>
