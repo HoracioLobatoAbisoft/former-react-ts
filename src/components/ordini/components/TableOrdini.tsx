@@ -165,11 +165,11 @@ const TableOrdini = () => {
             header: "IMPORTO NETTO",
             size: 150,
           },
-          // {
-          //   accessorKey: "pathTemplate", //hey a simple column for once
-          //   header: "pdf",
-          //   size: 150,
-          // },
+          {
+            accessorKey: "pathTemplate", //hey a simple column for once
+            header: "pdf",
+            size: 150,
+          },
           
         ],
       },

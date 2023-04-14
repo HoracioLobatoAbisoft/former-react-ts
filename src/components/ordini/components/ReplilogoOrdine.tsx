@@ -1,18 +1,8 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Collapse,
-  Grid,
-  Typography,
-} from "@mui/material";
-import TablaLavori from "../../lavori/components/TablaLavori";
+import { Box,} from "@mui/material";
 import { useState } from "react";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
-import imgShopping from "../../../assets/img/shopping.svg";
+
+import imgArrowLeft from "../../../assets/img/left-arrow.svg"
+
 import SubTables from "./SubTables";
 const ReplilogoOrdine = ({ row }: any) => {
     console.log()
@@ -93,7 +83,12 @@ const ReplilogoOrdine = ({ row }: any) => {
         </div>
       </div>
       <SubTables el={row.listLavori} />
-     
+      <div className=" flex justify-center mt-2 ml-44">
+        <div className="flex space-x-2 bg-[#ffe055] px-4 py-2 rounded-md items-center cursor-pointer">
+            <img className="h-5 w-5" src={imgArrowLeft} alt="" />   
+            <p>Vail al Dettaglio Ordine</p>
+        </div>
+      </div>
     </>
   );
 };

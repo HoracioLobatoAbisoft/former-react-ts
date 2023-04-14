@@ -32,7 +32,7 @@ const SubTables = ({ el }: any) => {
                   <table className=" w-full">
                     <thead className="w-full">
                       <tr className="px-2 py-2 w-32">
-                        <th className=" px-2 py-2 w-32">
+                        <th className=" px-2 py-2 w-48">
                           <div className="flex space-x-4">
                             <ExpandMore />
                             <img className="h-5 w-5" src={imgShopping} alt="" />
@@ -47,12 +47,13 @@ const SubTables = ({ el }: any) => {
                             >
                               <span></span>
                             </Box>
+                            <span>{data.statoStrO}</span>
                           </div>
                         </th>
 
                         <th className="w-72">{data.title}</th>
-                        <th className="">{data.nOrdineStr}</th>
-                        <th className="">{data.importoNettoStr}</th>
+                        <th className="w-32">{data.nOrdineStr}</th>
+                        <th className="w-32">{data.importoNettoStr}</th>
                       </tr>
                     </thead>
                   </table>
@@ -75,10 +76,47 @@ const SubTables = ({ el }: any) => {
                         <p className="w-28">Prodotto</p>{" "}
                         <p className="font-semibold">{data.nomeProdotto}</p>
                       </div>
+                      {data.preventizioneIdReparto != 4 && (
+                        <div className="flex space-x-4 items-center mt-2 text-sm">
+                          <p className="w-28">Dimensioni</p>{" "}
+                          <p className="font-semibold">{data.dimensioniStr}</p>
+                        </div>
+                      )}
+
+                      {data.ifOrientamento == 1 && (
+                        <div className="flex space-x-4 items-center mt-2 text-sm">
+                          <p className="w-28">Orientamento</p>{" "}
+                          <p className="font-semibold">
+                            {data.orientamentoSelezionatoStr}
+                          </p>
+                        </div>
+                      )}
+
+                      {data.ifSupporto != 4 && (
+                        <div className="flex space-x-4 items-center mt-2 text-sm">
+                          <p className="w-28">Supporto</p>{" "}
+                          <p className="font-semibold">{data.supportoStr}</p>
+                        </div>
+                      )}
+
                       <div className="flex space-x-4 items-center mt-2 text-sm">
                         <p className="w-28">Stampa</p>{" "}
                         <p className="font-semibold">{data.coloriStampaStr}</p>
                       </div>
+
+                      {data.ifFogli && (
+                        <div className="flex space-x-4 items-center mt-2 text-sm">
+                          <p className="w-28">Fogli</p>{" "}
+                          <p className="font-semibold">{data.nFogliVisStr}</p>
+                        </div>
+                      )}
+                      {data.ifOpzioni > 0 && (
+                        <div className="flex space-x-4 items-center mt-2 text-sm">
+                          <p className="w-28">Opzioni</p>{" "}
+                          <p className="font-semibold">{data.boxLavorazioni}</p>
+                        </div>
+                      )}
+
                       <div className="flex space-x-4 items-center mt-2 text-sm">
                         <p className="w-28">Imballo</p>{" "}
                         <p className="font-semibold">
@@ -90,11 +128,20 @@ const SubTables = ({ el }: any) => {
                         <p className="w-28">Pagamento</p>{" "}
                         <p className="font-semibold">aa</p>
                       </div> */}
-                      <div className="flex justify-center">
+                      <div className="flex justify-center items-center space-x-1">
                         <div className="flex items-center justify-center px-4 rounded-sm py-1 my-4 bg-[#d6e03d]">
                           <img className="h-8 w-8" src={imgEuro} alt="" />
-                          <p className="text-lg font-semibold">{data.importoNettoStr}</p>
+                          <p className="text-lg font-semibold">
+                            {data.importoNettoStr}
+                          </p>
                         </div>
+                        {data.promo > 0 && (
+                          <div>
+                            <p className="bg-[#009ec9] px-2 py-1 text-white text-xs rounded-md mb-4">
+                              Promo {data.promo} %
+                            </p>
+                          </div>
+                        )}
                       </div>
 
                       <div className="mt-4">
@@ -123,7 +170,6 @@ const SubTables = ({ el }: any) => {
                         <p className="w-28">N° Lavoro</p>{" "}
                         <p className="font-semibold">{data.nOrdineStr}</p>
                       </div>
-                      
                     </div>
                   </div>
                 </AccordionDetails>

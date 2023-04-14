@@ -35,6 +35,7 @@ const ContentOrdini = () => {
               >
                 Legenda stato ordini
               </button>
+              
             </div>
 
             <div className="content-tabs h-auto">
@@ -54,6 +55,7 @@ const ContentOrdini = () => {
               >
                 <LegendOrdini />
               </div>
+             
             </div>
           </div>
         </div>

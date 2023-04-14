@@ -22,7 +22,7 @@ class MasterService {
     }
     getDataOrdini(apiUrl:any) {
         return axios
-            .get(apiUrl+"?idUtn=1684", {
+            .get(apiUrl+"?idUtn=14", {
                 // headers: {
                 //        Authorization: `Bearer ${this.decryptedToken()}` 
                 // },
