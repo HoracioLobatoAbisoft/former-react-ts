@@ -74,6 +74,7 @@ const ReplilogoOrdine = ({ row }: any) => {
                             {row.qtaStr}
                         </AccordionDetails>
                     </Accordion>
+                    
                 </div>
             </div>
             <div>

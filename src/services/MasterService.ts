@@ -35,6 +35,21 @@ class MasterService {
             });
     }
 
+    getDataLavori(apiUrl:any) {
+        return axios
+            .get(apiUrl+"?idUt=14", {
+                // headers: {
+                //        Authorization: `Bearer ${this.decryptedToken()}` 
+                // },
+            })
+            .then((response) => {
+                return response;
+            })
+            .catch((err) => {
+                //console.log(err);
+            });
+    }
+
     postUserLogin(apiUrl:any, data:any) {
         
         return axios

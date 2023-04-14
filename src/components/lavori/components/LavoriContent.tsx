@@ -43,12 +43,18 @@ const LavoriContent = () => {
               }
             >
               <h2 className="text-lg mb-2">
-                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul{" "}
-                <img className="h-5 w-5 inline-block" src={imgArrow} alt="" />{" "}
-                che vedi accanto a ogni Ordine per visualizzare il dettaglio
-                dell' ordine.
+                {" "}
+                Da qui puoi consultare lo stato dei tuoi lavori ed essere sempre
+                informato sulla fase di lavorazione. Lo stato dei lavori viene
+                aggiornato all' incirca ogni 15 minuti.
               </h2>
-              <TablaLavori/>
+              <h2 className="text-lg mb-2">
+                Clicca sul{" "}
+                <img className="h-5 w-5 inline-block" src={imgArrow} alt="" />{" "}
+                che vedi accanto a ogni Lavoro per visualizzare il dettaglio e
+                le operazioni che puoi effettuare.
+              </h2>
+              <TablaLavori />
             </div>
 
             <div
