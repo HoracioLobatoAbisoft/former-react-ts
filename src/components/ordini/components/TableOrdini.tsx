@@ -40,6 +40,7 @@ export type Employee = {
   importoTotIvaStr: string;
   importoTotStr: string;
   inseritoStr: string;
+  pathTemplate: string;
 };
 
 const TableOrdini = () => {
@@ -67,7 +68,8 @@ const TableOrdini = () => {
       importoConsegnaStr: "",
       importoTotIvaStr:"",
       importoTotStr: "",
-      inseritoStr: ""
+      inseritoStr: "",
+      pathTemplate: ""
     },
   ]);
 
@@ -163,6 +165,12 @@ const TableOrdini = () => {
             header: "IMPORTO NETTO",
             size: 150,
           },
+          // {
+          //   accessorKey: "pathTemplate", //hey a simple column for once
+          //   header: "pdf",
+          //   size: 150,
+          // },
+          
         ],
       },
     ],
@@ -178,7 +186,7 @@ const TableOrdini = () => {
       initialState={{density:"compact"}}
       positionToolbarAlertBanner="bottom"
       renderDetailPanel={({ row }) => (
-        <ReplilogoOrdine row={row.original}/>
+        <ReplilogoOrdine row={row.original} />
       )}
     />
   );
