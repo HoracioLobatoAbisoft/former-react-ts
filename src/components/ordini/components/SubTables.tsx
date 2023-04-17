@@ -113,7 +113,11 @@ const SubTables = ({ el }: any) => {
                       {data.ifOpzioni > 0 && (
                         <div className="flex space-x-4 items-center mt-2 text-sm">
                           <p className="w-28">Opzioni</p>{" "}
-                          <p className="font-semibold">{data.boxLavorazioni}</p>
+                          {data.boxLavorazioni.map((BL: any, I: number) =>
+                            <ul>
+                              <li className="font-semibold" key={I}>{BL}</li>
+                            </ul>
+                          )}
                         </div>
                       )}
 
