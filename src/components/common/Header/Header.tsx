@@ -13,11 +13,14 @@ const Header = () => {
       <div className=" pt-4 flex justify-around items-center">
         <img src={imgLogo} alt="" />
         <div className="text-xl">
-          Benvenuto{" "}
-          <span className="bg-[#009ec9] text-white">
-            CF advertising di Fabrizi...
-          </span>
-          , <span className="text-[#009ec9] font-semibold">Esci</span>
+          Benvenuto Visitatore,
+          <Link to="/Register" className="text-[#f58220] font-semibold">
+            Registrati
+          </Link>{" "}
+          o{" "}
+          <Link to="" className="text-[#f58220] font-semibold">
+            Accedi
+          </Link>
         </div>
         <div className="flex justify-center items-center">
           <img className="w-12 cursor-pointer h-10" src={imgFacebook} alt="" />
@@ -28,12 +31,37 @@ const Header = () => {
         </div>
       </div>
       <div className="flex justify-center items-center mt-4 text-gray-500">
-       <Link to="/" className="mr-4 ml-4 hover:text-black cursor-pointer">Area Riservata</Link> |
-        <Link to="/nav" className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Ordini</Link> |
-        <Link to="/lavori" className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Lavori</Link> |
-        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer"> I tuoi Coupon di Sconto</Link> |
-        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer"> Le tue Recensioni</Link> |
-        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer"> Contattaci</Link> 
+        <Link to="/" className="mr-4 ml-4 hover:text-black cursor-pointer">
+          Area Riservata
+        </Link>{" "}
+        |
+        <Link to="/nav" className="mr-4 ml-4 hover:text-black cursor-pointer">
+          {" "}
+          le tue consegne
+        </Link>{" "}
+        |
+        <Link
+          to="/lavori"
+          className="mr-4 ml-4 hover:text-black cursor-pointer"
+        >
+          {" "}
+          I tuoi Lavori
+        </Link>{" "}
+        |
+        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer">
+          {" "}
+          I tuoi Coupon di Sconto
+        </Link>{" "}
+        |
+        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer">
+          {" "}
+          Le tue Recensioni
+        </Link>{" "}
+        |
+        <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer">
+          {" "}
+          Contattaci
+        </Link>
       </div>
     </>
   );

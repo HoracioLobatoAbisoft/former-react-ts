@@ -3,6 +3,7 @@ import imgShopping from "../../../assets/img/shopping.svg";
 import imgArrow from "../../../assets/img/arrowdown.svg";
 import SideBarPersonalArea from "../../common/SideBarPersonalArea/SideBarPersonalArea";
 import TablaLavori from "./TablaLavori";
+import LegendsLavori from "./LegendsLavori";
 
 const LavoriContent = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -54,6 +55,7 @@ const LavoriContent = () => {
                 che vedi accanto a ogni Lavoro per visualizzare il dettaglio e
                 le operazioni che puoi effettuare.
               </h2>
+              
               <TablaLavori />
             </div>
 
@@ -61,7 +63,9 @@ const LavoriContent = () => {
               className={
                 toggleState === 2 ? "content  active-content" : "content"
               }
-            ></div>
+            >
+              <LegendsLavori />
+            </div>
           </div>
         </div>
       </div>

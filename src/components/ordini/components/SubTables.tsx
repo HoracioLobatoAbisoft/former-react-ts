@@ -21,8 +21,8 @@ const SubTables = ({ el }: any) => {
       {el.map((data: any, index: number) => {
         return (
           <Grid key={index} container sx={{ marginTop: "4px" }} spacing={2}>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={8}>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={10}>
               <Accordion>
                 <AccordionSummary
                   aria-controls="panel1a-content"
@@ -47,11 +47,11 @@ const SubTables = ({ el }: any) => {
                             >
                               <span></span>
                             </Box>
-                            <span>{data.statoStrO}</span>
+                            <span>Stato: {data.statoStrO}</span>
                           </div>
                         </th>
 
-                        <th className="w-72">{data.title}</th>
+                        <th className="w-96">{data.title}</th>
                         <th className="w-32">{data.nOrdineStr}</th>
                         <th className="w-32">{data.importoNettoStr}</th>
                       </tr>
@@ -111,13 +111,15 @@ const SubTables = ({ el }: any) => {
                         </div>
                       )}
                       {data.ifOpzioni > 0 && (
-                        <div className="flex space-x-4 items-center mt-2 text-sm">
+                        <div className="flex space-x-4 mt-2 text-sm">
                           <p className="w-28">Opzioni</p>{" "}
-                          {data.boxLavorazioni.map((BL: any, I: number) =>
-                            <ul>
-                              <li className="font-semibold" key={I}>{BL}</li>
-                            </ul>
-                          )}
+                          <ul>
+                            {data.boxLavorazioni.map((BL: any, I: number) => (
+                              <li className="font-semibold" key={I}>
+                                - {BL}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       )}
 
@@ -128,10 +130,15 @@ const SubTables = ({ el }: any) => {
                           (Colli {data.colliStr}, Peso {data.pesoStr} kg ±)
                         </p>
                       </div>
-                      {/* <div className="flex space-x-4 items-center mt-2 text-sm">
-                        <p className="w-28">Pagamento</p>{" "}
-                        <p className="font-semibold">aa</p>
-                      </div> */}
+                      {data.ifCoupon != 0 && (
+                        <div className="flex space-x-4 items-center mt-2 text-sm">
+                          <p className="w-28">Coupon</p>{" "}
+                          <p className="font-semibold">
+                            {data.importoTotaleScontiStrO}
+                          </p>
+                        </div>
+                      )}
+
                       <div className="flex justify-center items-center space-x-1">
                         <div className="flex items-center justify-center px-4 rounded-sm py-1 my-4 bg-[#d6e03d]">
                           <img className="h-8 w-8" src={imgEuro} alt="" />
@@ -147,13 +154,14 @@ const SubTables = ({ el }: any) => {
                           </div>
                         )}
                       </div>
-
-                      <div className="mt-4">
-                        <div className="flex space-x-4 items-center mt-2 text-sm">
-                          <p className="w-28">Note</p>{" "}
-                          <p className="">{data.noteOrd}</p>
+                      {data.ifNote > 0 && (
+                        <div className="mt-4">
+                          <div className="flex space-x-4 items-center mt-2 text-sm">
+                            <p className="w-28">Note</p>{" "}
+                            <p className="">{data.noteOrd}</p>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                     <div>
                       <div className="flex justify-center">
@@ -180,7 +188,7 @@ const SubTables = ({ el }: any) => {
               </Accordion>
             </Grid>
 
-            <Grid item xs={2}></Grid>
+            <Grid item xs={1}></Grid>
           </Grid>
         );
       })}

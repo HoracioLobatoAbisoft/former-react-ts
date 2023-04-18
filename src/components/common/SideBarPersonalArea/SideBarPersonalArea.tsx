@@ -14,10 +14,10 @@ const SideBarPersonalArea = () => {
   return (
     <aside
           id="default-sidebar"
-          className=" z-40 w-72 min-w-72"
+          className=" z-40 w-72 min-w-72 h-full"
           aria-label="Sidebar"
         >
-          <div className="h-full px-3  w-72 min-w-72 py-4 overflow-y-auto bg-gray-100">
+          <div className=" h-screen px-3  w-72 min-w-72 py-4 overflow-y-auto bg-gray-100">
             <ul className="space-y-2 pl-2 font-medium">
               <li>
                 <a

@@ -35,9 +35,24 @@ class MasterService {
             });
     }
 
+    getDataOrdiniById(apiUrl:any, id:any) {
+        return axios
+            .get(apiUrl+`?idConsegna=${id}&idUtn=1684`, {
+                // headers: {
+                //        Authorization: `Bearer ${this.decryptedToken()}` 
+                // },
+            })
+            .then((response) => {
+                return response;
+            })
+            .catch((err) => {
+                //console.log(err);
+            });
+    }
+
     getDataLavori(apiUrl:any) {
         return axios
-            .get(apiUrl+"?idUt=14", {
+            .get(apiUrl+"?idUt=1684", {
                 // headers: {
                 //        Authorization: `Bearer ${this.decryptedToken()}` 
                 // },

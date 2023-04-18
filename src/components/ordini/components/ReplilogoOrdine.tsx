@@ -1,11 +1,12 @@
-import { Box,} from "@mui/material";
+import { Box } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import imgArrowLeft from "../../../assets/img/left-arrow.svg"
+import imgArrowLeft from "../../../assets/img/left-arrow.svg";
 
 import SubTables from "./SubTables";
 const ReplilogoOrdine = ({ row }: any) => {
-    console.log()
+  console.log();
   const [open, setOpen] = useState(false);
 
   return (
@@ -83,12 +84,15 @@ const ReplilogoOrdine = ({ row }: any) => {
         </div>
       </div>
       <SubTables el={row.listLavori} />
-      <div className=" flex justify-center mt-2 ml-44">
+      
+      <Link to={`/OrdineDetails/${row.idConsegna}`} className="flex justify-center mt-2 ml-44">
+        {" "}
         <div className="flex space-x-2 bg-[#ffe055] px-4 py-2 rounded-md items-center cursor-pointer">
-            <img className="h-5 w-5" src={imgArrowLeft} alt="" />   
-            <p>Vail al Dettaglio Ordine</p>
+          <img className="h-5 w-5" src={imgArrowLeft} alt="" />
+          <p>Vail al Dettaglio Ordine</p>
         </div>
-      </div>
+      </Link>{" "}
+      
     </>
   );
 };

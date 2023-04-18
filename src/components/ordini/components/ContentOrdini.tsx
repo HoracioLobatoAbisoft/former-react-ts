@@ -15,10 +15,10 @@ const ContentOrdini = () => {
       <div className="flex">
         <SideBarPersonalArea />
 
-        <div className="p-4 w-full">
+        <div className="p-4 overflow-hidden w-full">
         <div className="flex items-center mb-4">
           <img className="h-8 w-8 mr-4" src={imgShopping} alt="" />
-          <h2 className="text-[#f58220] font-semibold">I TUOI ORDINI</h2>
+          <h2 className="text-[#f58220] font-semibold">le tue consegne</h2>
         </div>
         
           <div className="flex flex-col relative w-full border border-[#f58220] rounded-sm">
@@ -27,13 +27,13 @@ const ContentOrdini = () => {
                 className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                 onClick={() => toggleTab(1)}
               >
-                Tutti i tuoi ordini
+                Legenda stato consegne
               </button>
               <button
                 className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                 onClick={() => toggleTab(2)}
               >
-                Legenda stato ordini
+                Legenda stato consegne
               </button>
               
             </div>
@@ -45,7 +45,10 @@ const ContentOrdini = () => {
                 }
               >
                 <h2 className="text-lg mb-2">Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul <img className="h-5 w-5 inline-block" src={imgArrow} alt="" /> che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' ordine.</h2>
-                <TableOrdini />
+                <div className=" overflow-hidden">
+                  <TableOrdini/>
+                </div>
+                
               </div>
 
               <div
