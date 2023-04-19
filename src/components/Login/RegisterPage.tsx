@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import Footer from "../common/Footer/Footer";
 import Header from "../common/Header/Header";
 import SearchOrdini from "../ordini/components/SearchOrdini";
+import BreveTour from "./components/BreveTour";
+import Contatacci from "./components/Contatacci";
 import RegisterForm from "./RegisterForm";
 
 const RegisterPage = () => {
@@ -50,18 +53,19 @@ const RegisterPage = () => {
                 toggleState === 2 ? "content  active-content" : "content"
               }
             >
-              ffff
+              <BreveTour />
             </div>
             <div
               className={
                 toggleState === 3 ? "content  active-content" : "content"
               }
             >
-              ffff
+              <Contatacci />
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
