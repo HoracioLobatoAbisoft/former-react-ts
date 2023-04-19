@@ -5,6 +5,7 @@ import OrdiniDetailstComponent from "./components/OrdiniDetailstComponent";
 import SearchOrdini from "./components/SearchOrdini";
 import OrdiniServices from "./services/OrdiniServices";
 import LoadingData from "../common/LoadingData/LoadingData";
+import Footer from "../common/Footer/Footer";
 
 const OrdineDetails = () => {
   const params = useParams();
@@ -35,6 +36,7 @@ const OrdineDetails = () => {
       <div className="container mx-auto">
         {showDate && <OrdiniDetailstComponent ordine={ordine} />}
       </div>
+      <Footer />
     </div>
   );
 };
