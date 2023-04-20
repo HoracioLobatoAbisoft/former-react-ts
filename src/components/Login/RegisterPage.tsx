@@ -4,7 +4,7 @@ import Header from "../common/Header/Header";
 import SearchOrdini from "../ordini/components/SearchOrdini";
 import BreveTour from "./components/BreveTour";
 import Contatacci from "./components/Contatacci";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "./components/RegisterForm";
 
 const RegisterPage = () => {
   const [toggleState, setToggleState] = useState(1);
