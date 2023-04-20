@@ -1,11 +1,28 @@
 import axios from "axios";
 //import Tokenize from "./Tokenize";
 //mport DataStore from "../data/DataStore";
+import Swal from 'sweetalert2'
+import SweeAlerts from "./SweeAlert";
+
 class MasterService {
+    
     
     decryptedToken = () => {
         return localStorage.getItem("token");
     };
+
+
+    swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-blue',
+            cancelButton: 'btn btn-red'
+        },
+        buttonsStyling: true
+    })
+
+
+
+
     getDataUtenti(apiUrl:any) {
         return axios
             .get(apiUrl, {
@@ -28,6 +45,7 @@ class MasterService {
                 // },
             })
             .then((response) => {
+
                 return response;
             })
             .catch((err) => {
@@ -37,7 +55,7 @@ class MasterService {
 
     getDataOrdiniById(apiUrl:any, id:any) {
         return axios
-            .get(apiUrl+`?idConsegna=${id}&idUtn=1684`, {
+            .get(apiUrl+`?idConsegna=${id}&idUtn=14`, {
                 // headers: {
                 //        Authorization: `Bearer ${this.decryptedToken()}` 
                 // },
@@ -58,13 +76,16 @@ class MasterService {
                 //      Authorization: `Bearer ${this.decryptedToken()}` ,
                 //     "Content-Type": "application/json; charset=utf-8",
                 // },
+                
             })
             .then((response) => {
+                SweeAlerts.confirmAlert('Inviato', 'La mail è stata inviata correttamente', 'success')
                 return response;
             })
             .catch((err) => {
                 console.log(err);
-                
+                SweeAlerts.confirmAlert('Error', "Errore nell'invio della posta", 'warning')
+                return err
             });
     }
 
@@ -95,11 +116,12 @@ class MasterService {
                 // },
             })
             .then((response) => {
+                
                 return response;
             })
             .catch((err) => {
                 console.log(err);
-                
+               
             });
     }
 

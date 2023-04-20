@@ -37,7 +37,7 @@ const Header = () => {
         |
         <Link to="/nav" className="mr-4 ml-4 hover:text-black cursor-pointer">
           {" "}
-          le tue consegne
+          Le tue consegne
         </Link>{" "}
         |
         <Link
