@@ -3,6 +3,8 @@ import OrdiniServices from "../services/OrdiniServices";
 import imgUserRunning from "../../../assets/img/user-runing.png";
 import imgBox from "../../../assets/img/box.svg";
 import imgTruck from "../../../assets/img/truck.svg";
+import imgSendEmail from "../../../assets/img/send-email.svg";
+
 
 //MRT Imports
 import MaterialReactTable, { type MRT_ColumnDef } from "material-react-table";
@@ -39,7 +41,6 @@ export type Employee = {
   inseritoStr: string;
   iconaCorriereAlt: string;
   idConsegna: number;
-  
 };
 
 const TableOrdini = () => {
@@ -59,21 +60,60 @@ const TableOrdini = () => {
       colliStr: "",
       pagamentoStr: "",
       importoConsegnaStr: "",
-      importoTotIvaStr:"",
+      importoTotIvaStr: "",
       importoTotStr: "",
       inseritoStr: "",
       iconaCorriereAlt: "",
-      idConsegna:0,
+      idConsegna: 0,
     },
   ]);
 
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+
+  const sendEmail = ( cell:any) => {
+    let data = cell.row.original
+    console.log(data)
+
+    let dataPost = {
+      idUt: 14,
+      email: "former-test@abisoft.it",
+      statoStr: data.statoStr,
+      idConsegnaView: data.idConsegnaView,
+      inseritoStr: data.inseritoStr,
+      importoTotNettoStr: data.importoTotNettoStr,
+      importoTotIvaStr: data.importoTotIvaStr,
+      importoTotStr: data.importoTotStr,
+      count: data.count,
+      importoTotOrdiniNettoOriginaleStr: data.importoTotOrdiniNettoOriginaleStr,
+      pagamentoStr: data.pagamentoStr,
+      idConsegna: data.idConsegna,
+      indirizzoStr: data.indirizzoStr,
+      numeroColliStr: data.numeroColliStr,
+      pesoKG: data.pesoKG,
+      coloreStatoHtml: data.coloreStatoHtml,
+      importoConsegnaStr: data.importoConsegnaStr,
+      dataInserimentoStr: data.dataInserimentoStr,
+      importoTotaleSconti: data.importoTotaleSconti,
+      idCouponUtilizzato: data.idCouponUtilizzato,
+      importoTotaleScontiStr: data.importoTotaleScontiStr,
+      dateConsegna: data.dateConsegna,
+      dataOrdiniLabel: data.dataOrdineLabel,
+      corriereStr: data.corriereStr
+    }
+
+    console.log(dataPost)
+
+
+    OrdiniServices.postOrdineEmail(dataPost)
+
+
+  };
 
   useEffect(() => {
     OrdiniServices.getOrdini().then((res) => {
       let data = res?.data;
       setDataOrdini(data);
-      setIsLoading(false)
+      setIsLoading(false);
     });
   }, []);
 
@@ -86,10 +126,26 @@ const TableOrdini = () => {
         size: 250,
         Cell: ({ cell, row }) => (
           <div className="flex">
-              { row.original.iconaCorriereAlt == "RITIRO CLIENTE" && <img className="online" src={imgUserRunning} alt="" />}
-              { row.original.iconaCorriereAlt == "Corriere GLS" && <img className="online w-7 h-7 mr-1" src={imgTruck} alt="" />}
-              { row.original.iconaCorriereAlt == "PORTO ASSEGNATO GLS (SPESE IMBALLO + 3%)" && <img className="online w-7 h-9 mr-1" src={imgBox} alt="" />}
-             
+            {
+              <button className="mr-2" onClick={() => sendEmail(cell)}>
+                <img
+                  className="online h-10 w-10 cursor-pointer"
+                  src={imgSendEmail}
+                  alt=""
+                />
+              </button>
+            }
+            {row.original.iconaCorriereAlt == "RITIRO CLIENTE" && (
+              <img className="online" src={imgUserRunning} alt="" />
+            )}
+            {(row.original.iconaCorriereAlt == "Corriere GLS" || row.original.iconaCorriereAlt == "TIPOGRAFIA FORMER"  ) && (
+              <img className="online w-7 h-7 mr-1" src={imgTruck} alt="" />
+            )}
+            {row.original.iconaCorriereAlt ==
+              "PORTO ASSEGNATO GLS (SPESE IMBALLO + 3%)" && (
+              <img className="online w-7 h-9 mr-1" src={imgBox} alt="" />
+            )}
+
             <Box
               component="span"
               sx={(theme) => ({
@@ -124,8 +180,20 @@ const TableOrdini = () => {
         size: 250,
         Cell: ({ cell, row }) => (
           <div className="flex space-x-2">
-              <p> <span className="mr-1"> {row.original.idConsegnaView? "N°" : ""} </span> {row.original.idConsegnaView}</p>
-              <p><span className="mr-1">{row.original.inseritoStr ? "del": ""}</span>{row.original.inseritoStr} </p>
+            <p>
+              {" "}
+              <span className="mr-1">
+                {" "}
+                {row.original.idConsegnaView ? "N°" : ""}{" "}
+              </span>{" "}
+              {row.original.idConsegnaView}
+            </p>
+            <p>
+              <span className="mr-1">
+                {row.original.inseritoStr ? "del" : ""}
+              </span>
+              {row.original.inseritoStr}{" "}
+            </p>
           </div>
         ),
       },
@@ -141,15 +209,13 @@ const TableOrdini = () => {
         size: 150,
         Cell: ({ cell, row }) => (
           <div className="flex">
-              
-             
             <Box
               component="span"
               sx={(theme) => ({
                 backgroundColor: `${row.original.dataOrdineClasse}`,
                 borderRadius: "0.25rem",
                 color: `${cell.getValue()}`,
-                
+
                 padding: "8px 15px",
               })}
             >
@@ -168,6 +234,7 @@ const TableOrdini = () => {
         header: "N° LAVORI",
         size: 150,
       },
+
       {
         accessorKey: "importoTotOrdiniNettoOriginaleStr", //hey a simple column for once
         header: "IMPORTO NETTO",
@@ -178,8 +245,6 @@ const TableOrdini = () => {
         header: "PDF",
         size: 150,
       },
-      
-      
     ],
     []
   );
@@ -191,11 +256,9 @@ const TableOrdini = () => {
       state={{ isLoading }}
       enableColumnFilterModes
       enableColumnOrdering
-      initialState={{density:"compact"}}
+      initialState={{ density: "compact" }}
       positionToolbarAlertBanner="bottom"
-      renderDetailPanel={({ row }) => (
-        <ReplilogoOrdine row={row.original} />
-      )}
+      renderDetailPanel={({ row }) => <ReplilogoOrdine row={row.original} />}
     />
   );
 };

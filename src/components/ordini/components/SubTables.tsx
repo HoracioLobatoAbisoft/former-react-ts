@@ -21,8 +21,8 @@ const SubTables = ({ el }: any) => {
       {el.map((data: any, index: number) => {
         return (
           <Grid key={index} container sx={{ marginTop: "4px" }} spacing={2}>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={10}>
+           
+            <Grid item xs={12}>
               <Accordion>
                 <AccordionSummary
                   aria-controls="panel1a-content"
@@ -188,7 +188,7 @@ const SubTables = ({ el }: any) => {
               </Accordion>
             </Grid>
 
-            <Grid item xs={1}></Grid>
+           
           </Grid>
         );
       })}
