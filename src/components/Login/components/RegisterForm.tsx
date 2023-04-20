@@ -4,6 +4,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const RegisterForm = () => {
   const [client, setClient] = useState("");
@@ -102,20 +103,21 @@ const RegisterForm = () => {
               >
                 <option selected>Agenzia di Cominicazione</option>
                 <option value="1">Agenzia di Comunicazione</option>
-                <option value="2">Altro professionista delle Arti Grafiche</option>
+                <option value="2">
+                  Altro professionista delle Arti Grafiche
+                </option>
                 <option value="3">Altro Stampatore</option>
                 <option value="4">Copisteria</option>
                 <option value="4">Fotografo</option>
                 <option value="4">Fotolito</option>
                 <option value="4">Grafico</option>
-                <option value="4">Litografia</option> 
+                <option value="4">Litografia</option>
                 <option value="4">Pre-stampa</option>
                 <option value="4">Servizi di Stampa Digitale</option>
                 <option value="4">Tipografia</option>
                 <option value="4">Vendita on-line di Prodotti</option>
                 <option value="4">per ia Comunicacione</option>
                 <option value="4">Web Agency</option>
-
               </select>
             </div>
           )}
@@ -180,7 +182,6 @@ const RegisterForm = () => {
               id="countries"
               className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-2xl focus:border-[#f58220]  block w-full p-2.5"
             >
-              
               <option value="US">Italia</option>
               <option value="CA">Albania</option>
               <option value="FR">Belgio</option>
@@ -194,8 +195,6 @@ const RegisterForm = () => {
               <option value="DE">Spagna</option>
               <option value="DE">Svezia</option>
               <option value="DE">Svizzera</option>
-
-
             </select>
           </div>
 
@@ -415,15 +414,27 @@ const RegisterForm = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-20">
+          <div className="flex justify-center mt-10">
             <button
               type="submit"
               className="flex px-8 mt-4 items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-[#f58220] hover:bg-blue-6 rounded-2xl py-2 transition duration-150 ease-in"
             >
               Registrati
-            </button>
+            </button>           
           </div>
-
+          <div className=" flex justify-center mt-10 items-center space-x-2">
+              <p>
+                <span className="font-semibold">Sei già registrato?</span>
+              </p>
+              <div className="flex justify-center">
+                <Link
+                  to="/Login"
+                  className="flex font-semibold items-center justify-center focus:outline-none hover:underline text-lg sm:text-base text-[#f58220] rounded-2xl py-2 transition duration-150 ease-in"
+                >
+                  Accedi
+                </Link>
+              </div>
+            </div>
           <div className="mt-4">
             <p>Cliccando sul pulsante "Registrati", acconsento che:</p>
             <div className="flex items-center mb-4 mt-2">

@@ -9,6 +9,7 @@ import LavoriPage from "./components/lavori/LavoriPage";
 import OrdineDetailsPage from "./components/ordini/OrdiniDetailsPage";
 import RegisterPage from "./components/Login/RegisterPage";
 import LoginPage from "./components/Login/LoginPage";
+import PasswordDimenticata from "./components/Login/components/PasswordDimenticata";
 
 function App() {
   // const location = useLocation();
@@ -27,6 +28,7 @@ function App() {
         <Route path="/lavori" element={<LavoriPage />} />
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/Login" element={<LoginPage />} />
+        <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
         <Route path="/OrdineDetails/:userId" element={<OrdineDetailsPage />} />
         
       </Routes>

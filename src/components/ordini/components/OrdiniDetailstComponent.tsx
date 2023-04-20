@@ -8,7 +8,7 @@ import SubTables from "./SubTables";
 const OrdiniDetailstComponent = ({ ordine }: any) => {
   return (
     <div className="py-10 container mx-auto">
-      <div className="">
+      <div className="2xl:mx-20">
         <div className=" flex space-x-4 items-center justify-center">
           <img className="h-8 w-8" src={imgShop} alt="" />
           <h2>
@@ -22,7 +22,7 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
           </h2>
         </div>
 
-        <div className="flex justify-around items-center">
+        <div className="flex justify-between items-center">
           <div>
             <h2 className="font-semibold text-base">Riepilogo Ordine</h2>
             <div className="flex space-x-4 items-center mt-2 text-sm">
@@ -94,7 +94,10 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
             </div>
           </div>
         </div>
-        <SubTables el={ordine.listLavori} />
+        <div className="w-full">
+          <SubTables el={ordine.listLavori} />
+        </div>
+        
 
         <div className="mt-10">
           <h2 className="bg-[#f58220] text-white px-4 py-2 font-semibold">

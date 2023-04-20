@@ -1,8 +1,10 @@
 import React, { useMemo, useState, useEffect } from "react";
 import OrdiniServices from "../services/OrdiniServices";
+
 import imgUserRunning from "../../../assets/img/user-runing.png";
 import imgBox from "../../../assets/img/box.svg";
 import imgTruck from "../../../assets/img/truck.svg";
+
 
 //MRT Imports
 import MaterialReactTable, { type MRT_ColumnDef } from "material-react-table";
@@ -18,6 +20,9 @@ import {
 } from "@mui/material";
 import { DensityLarge } from "@mui/icons-material";
 import ReplilogoOrdine from "./ReplilogoOrdine";
+
+import ButtonSendEmail from "./ButtonSendEmail";
+
 
 export type Employee = {
   corriereStr: string;
@@ -39,7 +44,6 @@ export type Employee = {
   inseritoStr: string;
   iconaCorriereAlt: string;
   idConsegna: number;
-  
 };
 
 const TableOrdini = () => {
@@ -59,21 +63,19 @@ const TableOrdini = () => {
       colliStr: "",
       pagamentoStr: "",
       importoConsegnaStr: "",
-      importoTotIvaStr:"",
+      importoTotIvaStr: "",
       importoTotStr: "",
       inseritoStr: "",
       iconaCorriereAlt: "",
-      idConsegna:0,
+      idConsegna: 0,
     },
   ]);
-
-  const [isLoading, setIsLoading] = useState(true)
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     OrdiniServices.getOrdini().then((res) => {
       let data = res?.data;
       setDataOrdini(data);
-      setIsLoading(false)
+      setIsLoading(false);
     });
   }, []);
 
@@ -86,10 +88,20 @@ const TableOrdini = () => {
         size: 250,
         Cell: ({ cell, row }) => (
           <div className="flex">
-              { row.original.iconaCorriereAlt == "RITIRO CLIENTE" && <img className="online" src={imgUserRunning} alt="" />}
-              { row.original.iconaCorriereAlt == "Corriere GLS" && <img className="online w-7 h-7 mr-1" src={imgTruck} alt="" />}
-              { row.original.iconaCorriereAlt == "PORTO ASSEGNATO GLS (SPESE IMBALLO + 3%)" && <img className="online w-7 h-9 mr-1" src={imgBox} alt="" />}
-             
+            {
+              <ButtonSendEmail cell={cell} />
+            }
+            {row.original.iconaCorriereAlt == "RITIRO CLIENTE" && (
+              <img className="online" src={imgUserRunning} alt="" />
+            )}
+            {(row.original.iconaCorriereAlt == "Corriere GLS" || row.original.iconaCorriereAlt == "TIPOGRAFIA FORMER") && (
+              <img className="online w-7 h-7 mr-1" src={imgTruck} alt="" />
+            )}
+            {row.original.iconaCorriereAlt ==
+              "PORTO ASSEGNATO GLS (SPESE IMBALLO + 3%)" && (
+                <img className="online w-7 h-9 mr-1" src={imgBox} alt="" />
+              )}
+
             <Box
               component="span"
               sx={(theme) => ({
@@ -100,7 +112,7 @@ const TableOrdini = () => {
                 padding: "8px 15px",
               })}
             >
-              <span>{}</span>
+              <span>{ }</span>
             </Box>
             <Box
               component="span"
@@ -124,8 +136,20 @@ const TableOrdini = () => {
         size: 250,
         Cell: ({ cell, row }) => (
           <div className="flex space-x-2">
-              <p> <span className="mr-1"> {row.original.idConsegnaView? "N°" : ""} </span> {row.original.idConsegnaView}</p>
-              <p><span className="mr-1">{row.original.inseritoStr ? "del": ""}</span>{row.original.inseritoStr} </p>
+            <p>
+              {" "}
+              <span className="mr-1">
+                {" "}
+                {row.original.idConsegnaView ? "N°" : ""}{" "}
+              </span>{" "}
+              {row.original.idConsegnaView}
+            </p>
+            <p>
+              <span className="mr-1">
+                {row.original.inseritoStr ? "del" : ""}
+              </span>
+              {row.original.inseritoStr}{" "}
+            </p>
           </div>
         ),
       },
@@ -141,15 +165,13 @@ const TableOrdini = () => {
         size: 150,
         Cell: ({ cell, row }) => (
           <div className="flex">
-              
-             
             <Box
               component="span"
               sx={(theme) => ({
                 backgroundColor: `${row.original.dataOrdineClasse}`,
                 borderRadius: "0.25rem",
                 color: `${cell.getValue()}`,
-                
+
                 padding: "8px 15px",
               })}
             >
@@ -168,6 +190,7 @@ const TableOrdini = () => {
         header: "N° LAVORI",
         size: 150,
       },
+
       {
         accessorKey: "importoTotOrdiniNettoOriginaleStr", //hey a simple column for once
         header: "IMPORTO NETTO",
@@ -178,8 +201,6 @@ const TableOrdini = () => {
         header: "PDF",
         size: 150,
       },
-      
-      
     ],
     []
   );
@@ -191,11 +212,9 @@ const TableOrdini = () => {
       state={{ isLoading }}
       enableColumnFilterModes
       enableColumnOrdering
-      initialState={{density:"compact"}}
+      initialState={{ density: "compact" }}
       positionToolbarAlertBanner="bottom"
-      renderDetailPanel={({ row }) => (
-        <ReplilogoOrdine row={row.original} />
-      )}
+      renderDetailPanel={({ row }) => <ReplilogoOrdine row={row.original} />}
     />
   );
 };

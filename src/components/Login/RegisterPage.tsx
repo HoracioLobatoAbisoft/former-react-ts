@@ -16,7 +16,7 @@ const RegisterPage = () => {
     <div>
       <Header />
       <SearchOrdini />
-      <div className="container mx-auto mt-4">
+      <div className="container mx-auto mt-4 mb-2">
         <div className="flex flex-col relative w-full border border-[#f58220] rounded-sm">
           <div className="flex">
             <button
