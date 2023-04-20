@@ -9,7 +9,7 @@ function Footer() {
         <footer className="bg-black text-white">
             <div className="flex flex-col md:flex-row justify-between mx-auto px-4 py-8">
                 {/* Columnas izquierdas */}
-                <div className="flex mb-6 md:mb-0">
+                <div className="flex mb-6 md:mb-0 ms-10">
                     <div className="flex-1 mr-4">
                         <h3 className="text-lg text-[#f58220] font-bold mb-2">Tipografia FORMER</h3>
                         <ul className="list-none list-inside mb-4">
@@ -65,10 +65,12 @@ function Footer() {
                 </div>
                 {/* Botón Ayuda en la derecha */}
                 <div className="flex flex-col justify-end">
-                    <button className="bg-[#f58220] text-[#522F10] font-bold py-2 px-4 rounded inline-flex items-center">
-                    <img className="h-8 w-8 me-1" src={imgQuestion} alt="" />
-                        <span>Ayuda</span>
-                    </button>
+                    <div className='me-5'>
+                        <button className="bg-[#f58220] text-[#522F10] font-bold py-2 px-4 rounded inline-flex items-center">
+                            <img className="h-8 w-8 me-1" src={imgQuestion} alt="" />
+                            <span>Ayuda</span>
+                        </button>
+                    </div>
                 </div>
 
             </div>
