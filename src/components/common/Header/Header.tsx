@@ -18,7 +18,7 @@ const Header = () => {
             Registrati
           </Link>{" "}
           o{" "}
-          <Link to="" className="text-[#f58220] font-semibold">
+          <Link to="/Login" className="text-[#f58220] font-semibold">
             Accedi
           </Link>
         </div>

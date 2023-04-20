@@ -3,7 +3,7 @@ import React from 'react'
 const LoadingData = () => {
   return (
     <div>
-      <div className="flex h-[400px] justify-center items-center" role="status">
+      <div className="flex h-[470px] justify-center items-center" role="status">
           <svg
             aria-hidden="true"
             className="w-32 h-32 mr-2 text-gray-200 animate-spin fill-[#f58220]"

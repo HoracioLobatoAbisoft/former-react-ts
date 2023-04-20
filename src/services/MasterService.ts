@@ -22,7 +22,7 @@ class MasterService {
     }
     getDataOrdini(apiUrl:any) {
         return axios
-            .get(apiUrl+"?idUtn=1684", {
+            .get(apiUrl+"?idUtn=14", {
                 // headers: {
                 //        Authorization: `Bearer ${this.decryptedToken()}` 
                 // },
@@ -49,6 +49,26 @@ class MasterService {
                 //console.log(err);
             });
     }
+
+    postDataOrdineEmail(apiUrl:any, data:any) {
+        
+        return axios
+            .post(apiUrl, data, {
+                // headers: {
+                //      Authorization: `Bearer ${this.decryptedToken()}` ,
+                //     "Content-Type": "application/json; charset=utf-8",
+                // },
+            })
+            .then((response) => {
+                return response;
+            })
+            .catch((err) => {
+                console.log(err);
+                
+            });
+    }
+
+
 
     getDataLavori(apiUrl:any) {
         return axios
