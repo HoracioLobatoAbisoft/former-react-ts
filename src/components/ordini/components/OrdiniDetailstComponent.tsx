@@ -6,8 +6,6 @@ import imgPdf from "../../../assets/img/pdf.svg";
 import SubTables from "./SubTables";
 
 const OrdiniDetailstComponent = ({ ordine }: any) => {
-  console.log(ordine);
-
   return (
     <div className="py-10 container mx-auto">
       <div className="">
@@ -33,7 +31,7 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
             </div>
             <div className="flex space-x-4 items-center mt-2 text-sm">
               <p className="w-28">Data Ordine</p>{" "}
-              <p className="font-semibold">{ordine.giornoStr}</p>
+              <p className="font-semibold">{ordine.dataInserimentoStr}</p>
             </div>
             <div className="flex space-x-4 items-center mt-2 text-sm">
               <p className="w-28">N° Lavori</p>{" "}
@@ -72,6 +70,16 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
                 € {ordine.importoTotOrdiniNettoOriginaleStr}
               </p>
             </div>
+            {ordine.importoTotaleSconti != 0 &&
+              ordine.idCouponUtilizzato != 0 && (
+                <div className="flex space-x-4 items-center mt-2 text-sm">
+                  <p className="w-28">Sconti per Coupon:</p>{" "}
+                  <p className="font-semibold">
+                    € {ordine.importoTotaleScontiStr}
+                  </p>
+                </div>
+              )}
+
             <div className="flex space-x-4 items-center mt-2 text-sm">
               <p className="w-28">Totale Spedizioni:</p>{" "}
               <p className="font-semibold">€ {ordine.importoConsegnaStr}</p>
@@ -95,13 +103,25 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
           <p className="mt-4 font-semibold">Riepilogo Consegna</p>
           <div className="flex space-x-4 mt-2 font-semibold">
             <p>Data Consegna</p>
-            <p>Martes 28 Febrero 2023</p>
+            <p className="uppercase">
+              {ordine.dateConsegna} {ordine.dataOrdineLabel}
+            </p>
           </div>
+
+          {ordine.tracciabile && (
+            <div className="flex space-x-4 mt-2 font-semibold">
+              <p>TRACCIA IL MIO PACCO</p>
+            </div>
+          )}
+
           <div className="flex space-x-4 mt-2 font-semibold">
             <p>Corriere</p>
             <div>
               <p>{ordine.corriereStr}</p>
-              <p> (Colli 13, Peso 38 kg ±)</p>
+              <p>
+                {" "}
+                (Colli {ordine.numeroColliStr}, Peso {ordine.pesoKG} kg ±)
+              </p>
             </div>
           </div>
           <div className="flex space-x-4 mt-2 font-semibold">
@@ -128,10 +148,10 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
                 utilizzando i seguenti dati:
               </p>
               <div className="ml-10 mt-2">
-                <p>Causale: Pagamento Ordine Online 232277</p>
-                <p>Banca di Credito Cooperativo della Provincia Romana</p>
+                <p>Causale: Pagamento Ordine Online {ordine.idConsegna}</p>
+                <p>{ordine.banca}</p>
                 <p>Conto corrente intestato a Tipografia Former S.r.l.</p>
-                <p>IBAN: IT 11 H 08787 39091 000000034748</p>
+                <p>IBAN: {ordine.iban}</p>
               </div>
             </div>
             <p className="mt-4">
