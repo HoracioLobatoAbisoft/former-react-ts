@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
 import OrdiniServices from "../services/OrdiniServices";
+
 import imgUserRunning from "../../../assets/img/user-runing.png";
 import imgBox from "../../../assets/img/box.svg";
 import imgTruck from "../../../assets/img/truck.svg";
-import imgSendEmail from "../../../assets/img/send-email.svg";
 
 
 //MRT Imports
@@ -20,6 +20,9 @@ import {
 } from "@mui/material";
 import { DensityLarge } from "@mui/icons-material";
 import ReplilogoOrdine from "./ReplilogoOrdine";
+
+import ButtonSendEmail from "./ButtonSendEmail";
+
 
 export type Employee = {
   corriereStr: string;
@@ -67,48 +70,7 @@ const TableOrdini = () => {
       idConsegna: 0,
     },
   ]);
-
   const [isLoading, setIsLoading] = useState(true);
-
-  const sendEmail = ( cell:any) => {
-    let data = cell.row.original
-    console.log(data)
-
-    let dataPost = {
-      idUt: 14,
-      email: "former-test@abisoft.it",
-      statoStr: data.statoStr,
-      idConsegnaView: data.idConsegnaView,
-      inseritoStr: data.inseritoStr,
-      importoTotNettoStr: data.importoTotNettoStr,
-      importoTotIvaStr: data.importoTotIvaStr,
-      importoTotStr: data.importoTotStr,
-      count: data.count,
-      importoTotOrdiniNettoOriginaleStr: data.importoTotOrdiniNettoOriginaleStr,
-      pagamentoStr: data.pagamentoStr,
-      idConsegna: data.idConsegna,
-      indirizzoStr: data.indirizzoStr,
-      numeroColliStr: data.numeroColliStr,
-      pesoKG: data.pesoKG,
-      coloreStatoHtml: data.coloreStatoHtml,
-      importoConsegnaStr: data.importoConsegnaStr,
-      dataInserimentoStr: data.dataInserimentoStr,
-      importoTotaleSconti: data.importoTotaleSconti,
-      idCouponUtilizzato: data.idCouponUtilizzato,
-      importoTotaleScontiStr: data.importoTotaleScontiStr,
-      dateConsegna: data.dateConsegna,
-      dataOrdiniLabel: data.dataOrdineLabel,
-      corriereStr: data.corriereStr
-    }
-
-    console.log(dataPost)
-
-
-    OrdiniServices.postOrdineEmail(dataPost)
-
-
-  };
-
   useEffect(() => {
     OrdiniServices.getOrdini().then((res) => {
       let data = res?.data;
@@ -127,24 +89,18 @@ const TableOrdini = () => {
         Cell: ({ cell, row }) => (
           <div className="flex">
             {
-              <button className="mr-2" onClick={() => sendEmail(cell)}>
-                <img
-                  className="online h-10 w-10 cursor-pointer"
-                  src={imgSendEmail}
-                  alt=""
-                />
-              </button>
+              <ButtonSendEmail cell={cell} />
             }
             {row.original.iconaCorriereAlt == "RITIRO CLIENTE" && (
               <img className="online" src={imgUserRunning} alt="" />
             )}
-            {(row.original.iconaCorriereAlt == "Corriere GLS" || row.original.iconaCorriereAlt == "TIPOGRAFIA FORMER"  ) && (
+            {(row.original.iconaCorriereAlt == "Corriere GLS" || row.original.iconaCorriereAlt == "TIPOGRAFIA FORMER") && (
               <img className="online w-7 h-7 mr-1" src={imgTruck} alt="" />
             )}
             {row.original.iconaCorriereAlt ==
               "PORTO ASSEGNATO GLS (SPESE IMBALLO + 3%)" && (
-              <img className="online w-7 h-9 mr-1" src={imgBox} alt="" />
-            )}
+                <img className="online w-7 h-9 mr-1" src={imgBox} alt="" />
+              )}
 
             <Box
               component="span"
@@ -156,7 +112,7 @@ const TableOrdini = () => {
                 padding: "8px 15px",
               })}
             >
-              <span>{}</span>
+              <span>{ }</span>
             </Box>
             <Box
               component="span"
