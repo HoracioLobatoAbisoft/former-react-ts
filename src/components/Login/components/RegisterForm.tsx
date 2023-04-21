@@ -122,8 +122,8 @@ const RegisterForm = () => {
             </div>
           )}
 
-          <div className="mt-4 flex space-x-4">
-            <div className="w-2/4">
+          <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-full sm:w-1/2">
               <label>Nome *</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -139,7 +139,7 @@ const RegisterForm = () => {
                 />
               </div>
             </div>
-            <div className="w-2/4">
+            <div className="w-full sm:w-1/2">
               <label>Cognome *</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -198,14 +198,13 @@ const RegisterForm = () => {
             </select>
           </div>
 
-          <div className="mt-4 flex space-x-4">
-            <div className="w-2/4">
+          <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-full sm:w-1/2">
               <label>Cap *</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
                   <i className="fas fa-lock text-[#f58220]"></i>
                 </div>
-
                 <input
                   type="text"
                   className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
@@ -215,7 +214,7 @@ const RegisterForm = () => {
                 />
               </div>
             </div>
-            <div className="w-2/4">
+            <div className="w-full sm:w-1/2">
               <label>Località *</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -232,8 +231,8 @@ const RegisterForm = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 flex space-x-4">
-            <div className="w-2/4">
+          <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-full sm:w-1/2">
               <label>P. Iva</label>
               <div className="relative flex items-center">
                 <p className="w-12 text-sm placeholder-gray-500 px-4 rounded-2xl border mr-2 border-gray-400 py-2">
@@ -252,7 +251,7 @@ const RegisterForm = () => {
                 />
               </div>
             </div>
-            <div className="w-2/4">
+            <div className="w-full sm:w-1/2">
               <label>Codice Fiscale *</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -268,8 +267,8 @@ const RegisterForm = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 flex space-x-4">
-            <div className="w-2/4">
+          <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-full sm:w-1/2">
               <label>Pec *</label>
               <div className="relative flex items-center">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -285,7 +284,7 @@ const RegisterForm = () => {
                 />
               </div>
             </div>
-            <div className="w-2/4">
+            <div className="w-full sm:w-1/2">
               <label>Codice SDI</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -304,8 +303,8 @@ const RegisterForm = () => {
           <h2 className="bg-[#f58220] text-white px-4 py-2 mt-6 font-semibold">
             CONTATTI{" "}
           </h2>
-          <div className="mt-4 flex space-x-4">
-            <div className="w-2/4">
+          <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-full sm:w-1/2">
               <label>Telefono *</label>
               <div className="relative flex items-center">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -321,7 +320,7 @@ const RegisterForm = () => {
                 />
               </div>
             </div>
-            <div className="w-2/4">
+            <div className="w-full sm:w-1/2">
               <label>Cellulare</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -337,8 +336,8 @@ const RegisterForm = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 flex space-x-4">
-            <div className="w-2/4">
+          <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-full sm:w-1/2">
               <label>Fax </label>
               <div className="relative flex items-center">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -354,7 +353,7 @@ const RegisterForm = () => {
                 />
               </div>
             </div>
-            <div className="w-2/4">
+            <div className="w-full sm:w-1/2">
               <label>Sito Internet</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -377,8 +376,8 @@ const RegisterForm = () => {
             Questa email sarà la login di accesso per entrare nella tua{" "}
             <span className="font-semibold">Area Riservata</span>{" "}
           </p>
-          <div className="mt-4 flex space-x-4">
-            <div className="w-2/4">
+          <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-full sm:w-1/2">
               <label>Email *</label>
               <div className="relative flex items-center">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -394,7 +393,7 @@ const RegisterForm = () => {
                 />
               </div>
             </div>
-            <div className="w-2/4">
+            <div className="w-full sm:w-1/2">
               <label>Ripeti Email *</label>
               <div className="relative">
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
