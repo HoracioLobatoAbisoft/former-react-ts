@@ -13,12 +13,13 @@ import imgControl from "../../../assets/img/control.png";
 import imgArrow from "../../../assets/img/arrowdown.svg";
 import LegendOrdini from "../../ordini/components/LegendOrdini";
 import TableOrdini from "../../ordini/components/TableOrdini";
+import { Link } from "react-router-dom";
 
 const SideBarPersonalArea = () => {
   const [open, setOpen] = useState(true);
   const Menus = [
     { title: "Profile" },
-    { title: "Il tuo Profilo", src: imgUser },
+    { title: "Il tuo Profilo", src: imgUser, url:"/Profilo" },
     { title: "Cambio Password", src: imgPassword },
     { title: "Aggiorna Dati Fiscali", src: imgUserEdit },
     { title: "Indirizzi e Corriere", src: imgMap },
@@ -73,7 +74,8 @@ const SideBarPersonalArea = () => {
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
-            <li
+            <Link
+              to={Menu.url? Menu.url: ""}
               key={index}
               className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-900 text-sm items-center gap-x-4`}
             >
@@ -82,7 +84,7 @@ const SideBarPersonalArea = () => {
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 {Menu.title}
               </span>
-            </li>
+            </Link>
           ))}
         </ul>
       </div>

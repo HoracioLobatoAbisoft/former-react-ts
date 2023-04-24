@@ -5,12 +5,12 @@ import imgAlert from "../../../assets/img/alert.svg"
 
 const SearchOrdini = () => {
   return (
-    <div className="flex justify-around items-center bg-gray-200 py-4">
+    <div className="lg:flex justify-around items-center bg-gray-200 py-4">
       
       <form className="flex justify-center items-center">
-        <p className="text-xl w-96">Cosa stai cercando?</p>
+        <p className="text-xl w-64 lg:w-96">Cosa stai cercando?</p>
         
-        <div className="relative w-full">
+        <div className="relative w-[300px] lg:w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
               aria-hidden="true"
@@ -43,7 +43,7 @@ const SearchOrdini = () => {
           </button>
         </div>
       </form>
-      <div className="flex justify-center items-center space-x-2">
+      <div className="flex mt-4 lg:mt-0 justify-center items-center space-x-2">
         <div className="flex justify-center items-center bg-black rounded py-2 px-2">
           <img className="h-5 w-6 p-1 text-white bg-white rounded mr-2" src={imgLock} alt="" />
           <button className="text-white uppercase font-semibold text-sm">Area Riservata</button>

@@ -15,7 +15,7 @@ const ContentOrdini = () => {
       <div className="flex overflow-x-scroll">
         <SideBarPersonalArea />
 
-        <div className="h-screen flex-1 p-7 overflow-x-scroll">
+        <div className=" overflow-x-scroll">
           <div className="p-4">
             <div className="flex items-center mb-4">
               <img className="h-8 w-8 mr-4" src={imgShopping} alt="" />
