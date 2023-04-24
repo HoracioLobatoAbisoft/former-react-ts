@@ -32,7 +32,7 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <h2 className="bg-[#f58220] text-white px-4 py-2 font-semibold">
+      <h2 className="bg-[#f58220]  mx-10 px-4 py-2 text-white font-semibold">
         TIPOLOGIA DI CLIENTE{" "}
       </h2>
       <div className="flex justify-around items-center mt-2">
@@ -383,7 +383,7 @@ const RegisterForm = () => {
                   <i className="fas fa-lock text-[#f58220]"></i>
                 </div>
                 <input
-                  type="url"
+                  type="text"
                   className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il tuo sito internet"
