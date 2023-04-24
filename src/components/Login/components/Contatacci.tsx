@@ -61,7 +61,7 @@ function Contatacci() {
               <div>
                 <div className='mb-4'>
                   <p className='text-xl'><strong>Stabilimento e Uffici</strong></p>
-                  <p className='text-xl'>Via Cassia 2010<br />zRoma (La Storta, Olgiata)</p>
+                  <p className='text-xl'>Via Cassia 2010<br />Roma (La Storta, Olgiata)</p>
                 </div>
                 <div className='mb-2'>
                   <p className='text-xl'><strong>Indicazioni stradali</strong></p>
