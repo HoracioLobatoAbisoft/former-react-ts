@@ -5,7 +5,8 @@ import imgTruck from "../../../assets/img/truck.svg";
 
 const LegendOrdini = () => {
   return (
-    <div className="flex space-x-16 overflow-y-scroll max-h-screen">
+    <div className="xl:flex space-x-16 overflow-y-scroll max-h-screen">
+
       <div className="">
         <h2 className="text-center text-xl text-[#f58220] font-semibold">
           Ordini
@@ -136,7 +137,7 @@ const LegendOrdini = () => {
         </div>
       </div>
 
-      <div>
+      <div className="mt-8 xl:mt-0">
         <h2 className="text-center text-xl text-[#f58220] font-semibold">
           Lavori
         </h2>

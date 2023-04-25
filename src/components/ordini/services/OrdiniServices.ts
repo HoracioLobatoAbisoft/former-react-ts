@@ -16,6 +16,12 @@ class OrdiniService {
     return MasterService.getDataOrdiniById(CURRENT_API_URL, id);
   }
 
+  getOrdiniIndirizo(id: any) {
+    var CURRENT_API_URL = `${CLIENTE_API_URL}/Indirizo`;
+    
+    return MasterService.getDataOrdiniIndirizo(CURRENT_API_URL, id);
+  }
+
 
   postOrdineEmail(data: any) {
     var CURRENT_API_URL = `${CLIENTE_API_URL}/Ordini/SendEmail`;

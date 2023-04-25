@@ -12,10 +12,10 @@ const LavoriContent = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex overflow-x-scroll">
       <SideBarPersonalArea />
 
-      <div className="p-4 w-full">
+      <div className="p-4 w-full overflow-x-scroll">
         <div className="flex items-center mb-4">
           <img className="h-8 w-8 mr-4" src={imgShopping} alt="" />
           <h2 className="text-[#f58220] font-semibold">I TUOI LAVORI</h2>

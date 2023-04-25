@@ -68,6 +68,21 @@ class MasterService {
             });
     }
 
+    getDataOrdiniIndirizo(apiUrl:any, id:any) {
+        return axios
+            .get(apiUrl+`?idUt=${id}`, {
+                // headers: {
+                //        Authorization: `Bearer ${this.decryptedToken()}` 
+                // },
+            })
+            .then((response) => {
+                return response;
+            })
+            .catch((err) => {
+                //console.log(err);
+            });
+    }
+
     postDataOrdineEmail(apiUrl:any, data:any) {
         
         return axios
