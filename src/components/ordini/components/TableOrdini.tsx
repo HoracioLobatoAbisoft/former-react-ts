@@ -73,7 +73,9 @@ const TableOrdini = () => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     OrdiniServices.getOrdini().then((res) => {
+
       let data = res?.data;
+      
       setDataOrdini(data);
       setIsLoading(false);
     });

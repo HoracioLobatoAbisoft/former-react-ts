@@ -17,7 +17,7 @@ const OrdineDetails = () => {
 
   useEffect(() => {
     OrdiniServices.getOrdiniById(params.userId).then((res) => {
-      let data = res?.data.data[0];
+      let data = res?.data.data;
 
       console.log(data);
       setOrdine(data);

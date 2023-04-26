@@ -15,7 +15,7 @@ import imgShopping from "../../../assets/img/shopping.svg";
 import imgEuro from "../../../assets/img/etiqueta.png";
 
 const SubTables = ({ el }: any) => {
-  console.log(el);
+  
   return (
     <div className="mt-2">
       {el.map((data: any, index: number) => {
