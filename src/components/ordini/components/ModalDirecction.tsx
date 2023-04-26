@@ -4,9 +4,7 @@ import Swal from "sweetalert2";
 import SweeAlert from "../../../services/SweeAlert";
 import OrdiniServices from "../services/OrdiniServices";
 
-const sendEmail = (cell: any) => {
-  let data = cell.row.original;
-  //preguntar si esta seguro
+const ModalDirecction = ({ cell, closeModal }: any) => {
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-blue",
@@ -15,69 +13,11 @@ const sendEmail = (cell: any) => {
     buttonsStyling: true,
   });
 
-  swalWithBootstrapButtons
-    .fire({
-      title: "Sei sicuro di voler inviare e-mail?",
-      //text: "Se va enviar a un correo a X@correo.com",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Si, mandalo",
-      cancelButtonText: "No, cancelalo",
-      reverseButtons: false,
-    })
-    .then((result: any) => {
-      if (result.isConfirmed) {
-        // enviar correo
-        // logica
-        console.log(data);
-
-        let dataPost = {
-          idUt: 14,
-          email: "former-test@abisoft.it",
-          statoStr: data.statoStr,
-          idConsegnaView: data.idConsegnaView,
-          inseritoStr: data.inseritoStr,
-          importoTotNettoStr: data.importoTotNettoStr,
-          importoTotIvaStr: data.importoTotIvaStr,
-          importoTotStr: data.importoTotStr,
-          count: data.count,
-          importoTotOrdiniNettoOriginaleStr:
-            data.importoTotOrdiniNettoOriginaleStr,
-          pagamentoStr: data.pagamentoStr,
-          idConsegna: data.idConsegna,
-          indirizzoStr: data.indirizzoStr,
-          numeroColliStr: data.numeroColliStr,
-          pesoKG: data.pesoKG,
-          coloreStatoHtml: data.coloreStatoHtml,
-          importoConsegnaStr: data.importoConsegnaStr,
-          dataInserimentoStr: data.dataInserimentoStr,
-          importoTotaleSconti: data.importoTotaleSconti,
-          idCouponUtilizzato: data.idCouponUtilizzato,
-          importoTotaleScontiStr: data.importoTotaleScontiStr,
-          dateConsegna: data.dateConsegna,
-          dataOrdiniLabel: data.dataOrdineLabel,
-          corriereStr: data.corriereStr,
-        };
-
-        console.log(dataPost);
-        OrdiniServices.postOrdineEmail(dataPost);
-      } else if (
-        // cancelar envio
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        SweeAlert.confirmAlert(
-          "Annullato",
-          "la consegna della posta è stata annullata",
-          "error"
-        );
-      }
-    });
-};
-
-const ModalDirecction = ({ cell, closeModal }: any) => {
-  const [showModal, setShowModal] = useState(false);
-
   const [dataIndirizo, setDataIndirizo] = useState();
+
+  const [showLoading, setShowLoading] = useState(false);
+
+  const [indirizzoSelected, setIndirizzoSelected] = useState(0);
 
   const {
     register,
@@ -86,13 +26,38 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
     formState: { errors },
   } = useForm();
 
-
   const saveIndirizo = () => {
+    if (indirizzoSelected != 0) {
+      let data = {
+        idConsegna: cell.row.original.idConsegna,
+        idIndirizzo: indirizzoSelected,
+        email: "former-test@abisoft.it",
+      };
 
-  }
+      setShowLoading(true);
 
+      OrdiniServices.putIndirizo(data).then((res) => {
+        if (res.status == 200) {
+          setShowLoading(false);
+          SweeAlert.confirmAlert(
+            "Inviato",
+            "Indirizzo salvato con successo",
+            "success"
+          );
+        }
+      });
+    } else {
+      SweeAlert.confirmAlert(
+        "Error",
+        "Errore nell'invio della posta",
+        "warning"
+      );
+    }
+  };
 
-
+  const handleIndirizzo = (e: any) => {
+    setIndirizzoSelected(e.target.value);
+  };
 
   useEffect(() => {
     OrdiniServices.getOrdiniIndirizo(14).then((res) => {
@@ -108,32 +73,50 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
-            <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">INDIRIZZI DI SPEDIZIONE</h3>
+            <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t relative">
+              <h3 className="text-xl text-center font-semibold text-[#f58220]">
+                INDIRIZZI DI SPEDIZIONE
+              </h3>
               <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                className=" border-0 text-black absolute top-4 right-4 text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => closeModal()}
               >
-                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                <span className="bg-transparent text-black  text-4xl block outline-none focus:outline-none">
                   ×
                 </span>
               </button>
+              <button></button>
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">
-              <div className="mt-2">
-  
+              <div className="mt-2 px-4">
                 {dataIndirizo && (
                   <select
                     id="countries"
                     className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-2xl focus:border-[#f58220]  block w-full p-2.5"
-                    {...register("indirizo")}
+                    onChange={(e) => handleIndirizzo(e)}
                   >
-                    {dataIndirizo?.map((e: any) => {
-                      return <option key={e.idIndirizzo} value={e.idIndirizzo}>{e.destinatario}</option>;
-                    })}
+                    <option value={0}>Seleccione</option>
+                    {dataIndirizo
+                      ? (dataIndirizo as unknown as any).map((e: any) => {
+                          return (
+                            <option key={e.idIndirizzo} value={e.idIndirizzo}>
+                              {e.destinatario} {e.indirisso} {e.localitaStr}
+                            </option>
+                          );
+                        })
+                      : null}
                   </select>
                 )}
+
+                <div className="relative flex space-x-2 items-center mt-4">
+                  <p>Nuovo Indirizzo</p>
+                  <input
+                    type="text"
+                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                    placeholder="Nuovo Indirizzo"
+                  />
+                </div>
               </div>
             </div>
             {/*footer*/}
@@ -143,15 +126,38 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
                 type="button"
                 onClick={() => closeModal()}
               >
-                Close
+                Anulla
               </button>
-              <button
-                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={saveIndirizo}
-              >
-                Save Changes
-              </button>
+              <div className="flex w-44  items-center bg-[#f58220] pr-2 pl-6 text-white rounded-md">
+                <button
+                  className="font-bold uppercase text-sm  py-2 rounded outline-none focus:outline-none mr-1 mb-1"
+                  type="button"
+                  onClick={saveIndirizo}
+                >
+                  Salva Indirizzo
+                </button>
+                {showLoading && (
+                  <div role="status">
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-white"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentFill"
+                      />
+                    </svg>
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

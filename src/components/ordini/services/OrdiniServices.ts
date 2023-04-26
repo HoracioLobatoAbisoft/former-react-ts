@@ -29,6 +29,12 @@ class OrdiniService {
     return MasterService.postDataOrdineEmail(CURRENT_API_URL, data);
   }
 
+  putIndirizo(data: any) {
+    var CURRENT_API_URL = `${CLIENTE_API_URL}/Ordini/ModificaOrdiniIndirizzo`;
+    
+    return MasterService.putIndirizoData(CURRENT_API_URL, data);
+  }
+
 
   
 

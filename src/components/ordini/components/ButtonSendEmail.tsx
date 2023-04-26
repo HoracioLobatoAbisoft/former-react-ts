@@ -9,6 +9,7 @@ import ModalDirecction from "./ModalDirecction";
 
 
 const ButtonSendEmail = ({ cell }: any) => {
+  
   const [showModal, setShowModal] = useState(false);
 
   const closeModal = () => {
