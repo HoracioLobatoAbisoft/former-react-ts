@@ -10,7 +10,8 @@ import OrdineDetailsPage from "./components/ordini/OrdiniDetailsPage";
 import RegisterPage from "./components/Login/RegisterPage";
 import LoginPage from "./components/Login/LoginPage";
 import PasswordDimenticata from "./components/Login/components/PasswordDimenticata";
-import ProfilePague from "./components/profile/ProfilePague";
+import ProfilePague from "./components/AreaRiservata/profile/ProfilePague";
+import PasswordPague from "./components/AreaRiservata/changuePassword/PasswordPague";
 
 function App() {
   // const location = useLocation();
@@ -30,6 +31,7 @@ function App() {
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/Profilo" element={<ProfilePague />} />
+        <Route path="/Password" element={<PasswordPague />} />
         <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
         <Route path="/OrdineDetails/:userId" element={<OrdineDetailsPage />} />
         

@@ -36,7 +36,24 @@ class OrdiniService {
   }
 
 
-  
+  getNacioni() {
+    var CURRENT_API_URL = `${CLIENTE_API_URL}/Indirizo/GetCaricaNazioni`;
+    
+    return MasterService.getNacioniData(CURRENT_API_URL);
+  }
+
+  getCaricaLocalita(Cap:string) {
+    var CURRENT_API_URL = `${CLIENTE_API_URL}/Indirizo/GetCaricaLocalita`;
+    
+    return MasterService.getDataCaricaLocalita(CURRENT_API_URL, Cap);
+  }
+
+  postNewIndirizzo(data:any) {
+    var CURRENT_API_URL = `${CLIENTE_API_URL}/Indirizo`;
+    
+    return MasterService.postNewIndirizoData(CURRENT_API_URL, data);
+  }
+
 
 
 }
