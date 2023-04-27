@@ -32,7 +32,7 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <h2 className="bg-[#f58220]  mx-10 px-4 py-2 text-white font-semibold">
+      <h2 className="bg-[#f58220] border rounded-md  mx-10 px-4 py-2 text-white font-semibold">
         TIPOLOGIA DI CLIENTE{" "}
       </h2>
       <div className="flex justify-around items-center mt-2">
@@ -80,7 +80,7 @@ const RegisterForm = () => {
 
       <div className="mt-4">
         <form className=" px-10 py-10" onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="bg-[#f58220] text-white px-4 py-2 font-semibold">
+          <h2 className="bg-[#f58220] border rounded-md text-white px-4 py-2 font-semibold">
             DATI ANAGRAFICI E DI FATTURAZIONE{" "}
           </h2>
           <div className="mt-4">
@@ -91,7 +91,7 @@ const RegisterForm = () => {
               </div>
               <input
                 type="text"
-                className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                 placeholder="Inserisci la Ragione Sociale dell'azienda"
                 {...register("RagioneSociale", { required: true, pattern: expRegValidacion })}
               />
@@ -106,7 +106,7 @@ const RegisterForm = () => {
               </label>
               <select
                 id="countries"
-                className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-2xl focus:border-[#f58220]  block w-full p-2.5"
+                className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-md focus:border-[#f58220]  block w-full p-2.5"
                 {...register("tipoAttivita")}
               >
                 <option value="1">Agenzia di Comunicazione</option>
@@ -139,7 +139,7 @@ const RegisterForm = () => {
 
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il tuo Nome"
                   {...register("Nome", { required: true, pattern: expRegValidacionSinNumeros })}
@@ -156,7 +156,7 @@ const RegisterForm = () => {
 
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il tuo Cognome"
                   {...register("Cognome", { required: true, pattern: expRegValidacionSinNumeros })}
@@ -173,7 +173,7 @@ const RegisterForm = () => {
               </div>
               <input
                 type="text"
-                className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                 placeholder="Inserisci I'indirizzo"
                 {...register("Indirizzo", { required: true, pattern: expRegValidacion })}
               />
@@ -190,7 +190,7 @@ const RegisterForm = () => {
             </label>
             <select
               id="countries"
-              className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-2xl focus:border-[#f58220]  block w-full p-2.5"
+              className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-md focus:border-[#f58220]  block w-full p-2.5"
               {...register("countries", { required: true })}
             >
               <option value="US">Italia</option>
@@ -219,7 +219,7 @@ const RegisterForm = () => {
                 </div>
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il CAP"
                   {...register("Cap", { required: true, pattern: expRegValidacion })}
@@ -236,7 +236,7 @@ const RegisterForm = () => {
 
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il tuo Cognome"
                   {...register("Localita", { required: true, pattern: expRegValidacion })}
@@ -249,7 +249,7 @@ const RegisterForm = () => {
             <div className="w-full sm:w-1/2">
               <label>P. Iva</label>
               <div className="relative flex items-center">
-                <p className="w-12 text-sm placeholder-gray-500 px-4 rounded-2xl border mr-2 border-gray-400 py-2">
+                <p className="w-12 text-sm placeholder-gray-500 px-4 rounded-md border mr-2 border-gray-400 py-2">
                   IT
                 </p>
                 <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
@@ -258,7 +258,7 @@ const RegisterForm = () => {
 
                 <input
                   type="text"
-                  className="text-sm w-full placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm w-full placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il CAP"
                   {...register("pIva", { pattern: expRegValidacion })}
@@ -274,7 +274,7 @@ const RegisterForm = () => {
                 </div>
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il Codice Fiscale"
                   {...register("codiceFiscale", { required: true, pattern: expRegValidacion })}
@@ -293,7 +293,7 @@ const RegisterForm = () => {
                 <div className="w-full">
                   <input
                     type="text"
-                    className="text-sm w-full placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+                    className="text-sm w-full placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
                     id="exampleInputPassword1"
                     placeholder="Inserisci la casella PEC"
                     {...register("pec", { required: true, pattern: expRegValidacion })}
@@ -310,7 +310,7 @@ const RegisterForm = () => {
                 </div>
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il Codice SDI"
                   {...register("codiceSdi", { pattern: expRegValidacion })}
@@ -319,7 +319,7 @@ const RegisterForm = () => {
               </div>
             </div>
           </div>
-          <h2 className="bg-[#f58220] text-white px-4 py-2 mt-6 font-semibold">
+          <h2 className="bg-[#f58220] border rounded-md text-white px-4 py-2 mt-6 font-semibold">
             CONTATTI{" "}
           </h2>
           <div className="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -332,7 +332,7 @@ const RegisterForm = () => {
                 <div className="w-full">
                   <input
                     type="tel"
-                    className="text-sm w-full placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+                    className="text-sm w-full placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
                     id="exampleInputPassword1"
                     placeholder="Inserisci un numero di rete fissa"
                     {...register("telefono", { required: true })}
@@ -349,7 +349,7 @@ const RegisterForm = () => {
                 </div>
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci un numero Cellulare"
                   {...register("cellulare")}
@@ -368,7 +368,7 @@ const RegisterForm = () => {
 
                 <input
                   type="text"
-                  className="text-sm w-full placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm w-full placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci un numero di Fax"
                   {...register("fax")}
@@ -384,7 +384,7 @@ const RegisterForm = () => {
                 </div>
                 <input
                   type="text"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Inserisci il tuo sito internet"
                   {...register("sitoInternet")}
@@ -393,7 +393,7 @@ const RegisterForm = () => {
               </div>
             </div>
           </div>
-          <h2 className="bg-[#f58220] text-white px-4 py-2 mt-6 font-semibold">
+          <h2 className="bg-[#f58220] border rounded-md text-white px-4 py-2 mt-6 font-semibold">
             EMAIL DI ACCESSO{" "}
           </h2>
           <p>
@@ -411,7 +411,7 @@ const RegisterForm = () => {
                 <div className="w-full">
                   <input
                     type="email"
-                    className="text-sm w-full placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+                    className="text-sm w-full placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
                     id="exampleInputPassword1"
                     placeholder="Inserisci la tua Email"
                     {...register("email", { required: true })}
@@ -428,7 +428,7 @@ const RegisterForm = () => {
                 </div>
                 <input
                   type="email"
-                  className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                  className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
                   placeholder="Ripeti la tua Email"
                   {...register("rEmail", { required: true })}
@@ -444,7 +444,7 @@ const RegisterForm = () => {
           <div className="flex justify-center mt-10">
             <button
               type="submit"
-              className="flex px-8 mt-4 items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-[#f58220] hover:bg-blue-6 rounded-2xl py-2 transition duration-150 ease-in"
+              className="flex px-8 mt-4 items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-[#f58220] border rounded-md hover:bg-blue-6 py-2 transition duration-150 ease-in"
             >
               Registrati
             </button>
@@ -456,7 +456,7 @@ const RegisterForm = () => {
             <div className="flex justify-center">
               <Link
                 to="/Login"
-                className="flex font-semibold items-center justify-center focus:outline-none hover:underline text-lg sm:text-base text-[#f58220] rounded-2xl py-2 transition duration-150 ease-in"
+                className="flex font-semibold items-center justify-center focus:outline-none hover:underline text-lg sm:text-base text-[#f58220] rounded-md py-2 transition duration-150 ease-in"
               >
                 Accedi
               </Link>
