@@ -1,9 +1,9 @@
 import React from "react";
-import imgUserEdit from "../../../assets/img/user-edit.svg";
-import imgCardUser from "../../../assets/img/carduser.svg";
-import imgEmail from "../../../assets/img/email.svg";
-import imgPowerButton from "../../../assets/img/power-button.svg";
-import SideBarPersonalArea from "../../common/SideBarPersonalArea/SideBarPersonalArea";
+import imgUserEdit from "../../../../assets/img/user-edit.svg";
+import imgCardUser from "../../../../assets/img/carduser.svg";
+import imgEmail from "../../../../assets/img/email.svg";
+import imgPowerButton from "../../../../assets/img/power-button.svg";
+import SideBarPersonalArea from "../../../common/SideBarPersonalArea/SideBarPersonalArea";
 
 const ProfileContent = () => {
   return (

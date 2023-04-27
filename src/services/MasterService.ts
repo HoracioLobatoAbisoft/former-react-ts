@@ -61,6 +61,66 @@ class MasterService {
       });
   }
 
+
+  getNacioniData(apiUrl: any) {
+    return axios
+      .get(apiUrl, {
+        // headers: {
+        //        Authorization: `Bearer ${this.decryptedToken()}`
+        // },
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        //console.log(err);
+      });
+  }
+
+  getDataCaricaLocalita(apiUrl: any, cap: any) {
+    return axios
+      .get(apiUrl + `?Cap=${cap}`, {
+        // headers: {
+        //        Authorization: `Bearer ${this.decryptedToken()}`
+        // },
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        //console.log(err);
+      });
+  }
+
+  postNewIndirizoData(apiUrl: any, data: any) {
+    return axios
+      .post(apiUrl, data, {
+        // headers: {
+        //      Authorization: `Bearer ${this.decryptedToken()}` ,
+        //     "Content-Type": "application/json; charset=utf-8",
+        // },
+      })
+      .then((response) => {
+        SweeAlerts.confirmAlert(
+          "Inviato",
+          "La mail è stata inviata correttamente",
+          "success"
+        );
+        return response;
+      })
+      .catch((err) => {
+        console.log(err);
+        SweeAlerts.confirmAlert(
+          "Error",
+          "Errore nell'invio della posta",
+          "warning"
+        );
+        return err;
+      });
+  }
+
+
+
   getDataOrdiniIndirizo(apiUrl: any, id: any) {
     return axios
       .get(apiUrl + `?idUt=${id}`, {

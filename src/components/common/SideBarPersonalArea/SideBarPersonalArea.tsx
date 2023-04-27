@@ -10,9 +10,13 @@ import imgPdf from "../../../assets/img/pdf.svg";
 import imgStar from "../../../assets/img/star.svg";
 import imgCoupon from "../../../assets/img/coupon.svg";
 import imgControl from "../../../assets/img/control.png";
-import imgArrow from "../../../assets/img/arrowdown.svg";
-import LegendOrdini from "../../ordini/components/LegendOrdini";
-import TableOrdini from "../../ordini/components/TableOrdini";
+import imgContact from "../../../assets/img/icons8-nuevo-contacto-60.png"
+import imgWorks from "../../../assets/img/icons8-trabajo-permanente-60.png"
+import imgGlossary from "../../../assets/img/icons8-glossary-60.png"
+import imgGuide from "../../../assets/img/icons8-matrícula-60.png"
+
+
+
 import { Link } from "react-router-dom";
 
 const SideBarPersonalArea = () => {
@@ -20,7 +24,7 @@ const SideBarPersonalArea = () => {
   const Menus = [
     { title: "Profile" },
     { title: "Il tuo Profilo", src: imgUser, url:"/Profilo" },
-    { title: "Cambio Password", src: imgPassword },
+    { title: "Cambio Password", src: imgPassword, url:"/Password" },
     { title: "Aggiorna Dati Fiscali", src: imgUserEdit },
     { title: "Indirizzi e Corriere", src: imgMap },
     { title: "Le tue consegne" },
@@ -33,10 +37,10 @@ const SideBarPersonalArea = () => {
     { title: "Crea il tuo listino", src: imgPdf },
     { title: "Recensioni" },
     { title: "Le tue Recensioni", src: imgStar },
-    { title: "Contattaci" },
-    { title: "Le nostre lavorazioni" },
-    { title: "Glossario Tipografico" },
-    { title: "Come creare file perfetti" },
+    { title: "Contattaci", src: imgContact },
+    { title: "Le nostre lavorazioni", src: imgWorks },
+    { title: "Glossario Tipografico", src: imgGlossary },
+    { title: "Come creare file perfetti", src: imgGuide },
   ];
 
   const [toggleState, setToggleState] = useState(1);
@@ -48,8 +52,8 @@ const SideBarPersonalArea = () => {
     <div className="relative">
       <div
         className={` ${
-          open ? "w-72" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+          open ? "w-64" : "w-24 "
+        } bg-dark-purple h-screen pl-4 pr-2 pt-8 relative duration-300`}
       >
         <img
           src={imgControl}
