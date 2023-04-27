@@ -41,12 +41,10 @@ const LoginForm = () => {
           <div className="mt-4">
             <label htmlFor="exampleInputEmail1">ID di Accesso/Email</label>
             <div className="relative">
-              <div className="inline-flex items-center justify-center absolute left-0 top-0 mt-2.5 h-ful w-10 text-gray-400">
-                <i className="fas fa-user text-[#f58220]"></i>
-              </div>
+              
               <input
                 type="email"
-                className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                 placeholder="Enter email"
                 {...register("id", { required: true })}
               />
@@ -55,12 +53,9 @@ const LoginForm = () => {
           <div className="mt-4">
             <label>Password</label>
             <div className="relative">
-              <div className="inline-flex items-center justify-center absolute mt-2.5 left-0 top-0 h-ful w-10 text-gray-400">
-                <i className="fas fa-lock text-[#f58220]"></i>
-              </div>
               <input
                 type="password"
-                className="text-sm placeholder-gray-500 pl-10 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                 id="exampleInputPassword1"
                 placeholder="Password"
                 {...register("chiave", { required: true })}
@@ -140,7 +135,7 @@ const LoginForm = () => {
           </p>
           <input
             type="email"
-            className="text-sm placeholder-gray-500 px-4 rounded-2xl border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+            className="text-sm placeholder-gray-500 px-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
             placeholder="Inserisci la tua email"
           />
         </div>

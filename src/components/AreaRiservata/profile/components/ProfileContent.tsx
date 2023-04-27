@@ -4,6 +4,7 @@ import imgCardUser from "../../../../assets/img/carduser.svg";
 import imgEmail from "../../../../assets/img/email.svg";
 import imgPowerButton from "../../../../assets/img/power-button.svg";
 import SideBarPersonalArea from "../../../common/SideBarPersonalArea/SideBarPersonalArea";
+import NewsLatter from "../../../common/newsLatter/NewsLatter";
 
 const ProfileContent = () => {
   return (
@@ -23,7 +24,7 @@ const ProfileContent = () => {
             <h2 className="w-44">La tua ID di accesso: </h2>
             <p className="font-semibold">2687</p>
           </div>
-          <div className="flex space-x-4 mt-2">
+          <div className="flex space-x-4 mt-4">
             <h2 className="w-44">La tua Email di accesso: </h2>
             <p className="font-semibold">info@dimmagine.com</p>
           </div>
@@ -33,35 +34,35 @@ const ProfileContent = () => {
           <img className="h-8 w-8 mr-4" src={imgCardUser} alt="" />
           <h2 className="text-[#f58220] font-semibold">I TUOI DATI FISCALI</h2>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">Ragione Sociale: </h2>
           <p className="font-semibold">Dimmagine s.r.l.</p>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">Nominativo: </h2>
           <p className="font-semibold">Donatella Bittoni</p>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">P.IVA: </h2>
           <p className="font-semibold">11359621007</p>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">Codice Fiscale: </h2>
           <p className="font-semibold"></p>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">PEC: </h2>
           <p className="font-semibold"></p>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">Codice SDI: </h2>
           <p className="font-semibold">M5UXCR1</p>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">Indirizzo: </h2>
           <p className="font-semibold">Via Veturia,44, Roma (RM) - 00181</p>
         </div>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex space-x-4 mt-4">
           <h2 className="w-44">Recapiti: </h2>
           <p className="font-semibold">tel. 067216713 fax 3393442935 cel. 3345667575</p>
         </div>
@@ -80,7 +81,7 @@ const ProfileContent = () => {
             <button>Esci</button>
           </div>
         </div>
-        
+        {/* <NewsLatter /> */}
         
       </div>
     </div>
