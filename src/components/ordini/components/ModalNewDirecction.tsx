@@ -172,7 +172,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                     onChange={(e) => setRiferimento(e.target.value)}
                     name="referimento"
                     type="text"
-                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                     placeholder="Dai un nome a questo indirizzo (es. Casa, Ufficio, ecc...)"
                   />
                 </div>
@@ -183,7 +183,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                   <input
                     onChange={(e) => setDestinatario(e.target.value)}
                     type="text"
-                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                     placeholder="Inserisci il Destinatario"
                   />
                 </div>
@@ -194,7 +194,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                   <input
                     onChange={(e) => setIndirizzo(e.target.value)}
                     type="text"
-                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                     placeholder="Inserisci il tuo indirizzo"
                   />
                 </div>
@@ -204,7 +204,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                 <div className="relative">
                   <select
                     id="countries"
-                    className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-2xl focus:border-[#f58220]  block w-full p-2.5"
+                    className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded focus:border-[#f58220]  block w-full p-2.5"
                     onChange={(e) => handleNacioniSelected(e)}
                   >
                     {nacioniText?(nacioniText as unknown as any).map((el:any) => {
@@ -226,7 +226,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                     <div className="relative">
                       <input
                         type="text"
-                        className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                        className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                         placeholder="Inserisci il tuo CAP"
                         onChange={(e) => setCapText(e.target.value)}
                       />
@@ -238,7 +238,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                       <select
                         name="localitaCap"
                         id="countries"
-                        className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-2xl focus:border-[#f58220]  block w-full p-2.5"
+                        className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded focus:border-[#f58220]  block w-full p-2.5"
                         onChange={(e) => handleLocalita(e)}
                       >
                         {localitaText?(localitaText as unknown as any).map((el:any) => {
@@ -269,7 +269,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                     <input
                       onChange={(e) => setLocalitaCap(e.target.value)}
                       type="text"
-                      className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                      className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                       placeholder="Inserisci il tuo CAP"
                     />
                   </div>
@@ -282,7 +282,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                   <input
                     onChange={(e) => setTelefono(e.target.value)}
                     type="text"
-                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                    className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                     placeholder="Inserisci un numero di Telefono"
                   />
                 </div>
@@ -298,7 +298,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
               >
                 Anulla
               </button>
-              <div className="flex w-56  items-center bg-[#f58220] pr-2 pl-6 text-white rounded-md">
+              <div className="flex w-56  items-center bg-[#f58220] pr-2 pl-6 text-white rounded">
                 <button
                   className="font-bold uppercase text-sm  py-2 rounded outline-none focus:outline-none mr-1 mb-1"
                   type="button"

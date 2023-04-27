@@ -112,7 +112,7 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
                 {dataIndirizo && (
                   <select
                     id="listIndirizzo"
-                    className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded-2xl focus:border-[#f58220]  block w-full px-4 py-2"
+                    className="bg-gray-50 focus:outline-none border border-gray-300 text-sm rounded focus:border-[#f58220]  block w-full px-4 py-2"
                     onChange={(e) => handleIndirizzo(e)}
                   >
                     <option value={0}>Seleccione</option>
@@ -135,10 +135,10 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
                 <div className="mt-4">
                   <p>Nota</p>
                   <textarea
-                    className="px-4 placeholder-gray-500 pl-4 pr-4 rounded-2xl border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
+                    
+                    className="px-4 placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220] resize-none"
                     onChange={(e) => setTextNota(e.target.value)}
-                    name=""
-                    id=""
+                    
                     rows={4}
                   ></textarea>
                 </div>
@@ -152,10 +152,10 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
               </div>
             </div>
             {/*footer*/}
-            <div className="flex items-center justify-between p-6 border-t border-solid border-slate-200 rounded-b">
+            <div className="flex items-center justify-between p-5 border-t border-solid border-slate-200 rounded">
               <button
                 onClick={() => setShowModalNew(true)}
-                className="w-44 font-bold py-2 ml-4 uppercase  items-center bg-[#f58220] px-4 text-white rounded-md"
+                className="w-44 font-bold py-2 ml-4 uppercase  items-center bg-[#f58220] px-4 text-white rounded"
               >
                 Nuovo indirizzo
               </button>
@@ -167,15 +167,15 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
                 >
                   Anulla
                 </button>
-                <div className="flex w-44  items-center bg-[#f58220] pr-2 pl-6 text-white rounded-md">
+                {/* <div className="flex w-44  items-center bg-[#f58220] pr-2 pl-6 text-white rounded"> */}
                   <button
-                    className="font-bold uppercase text-sm  py-2 rounded outline-none focus:outline-none mr-1 mb-1"
+                    className="font-bold p-5 uppercase text-sm bg-[#f58220] text-white py-2 rounded outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     onClick={saveIndirizo}
                   >
                     Salva Indirizzo
                   </button>
-                  {showLoading && (
+                  {/* {showLoading && (
                     <div role="status">
                       <svg
                         aria-hidden="true"
@@ -195,8 +195,8 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
                       </svg>
                       <span className="sr-only">Loading...</span>
                     </div>
-                  )}
-                </div>
+                  )} */}
+                {/* </div> */}
               </div>
             </div>
           </div>
