@@ -38,7 +38,7 @@ function App() {
         <Route path="/OrdineDetails/:userId" element={<OrdineDetailsPage />} />
         <Route path="/Contact" element={<ContactPage />} />
         
-        <Route path="/glosario" element={<GlosarioTipografico />} />
+        
       </Routes>
 
       {/* <UtentiComponent />   */}

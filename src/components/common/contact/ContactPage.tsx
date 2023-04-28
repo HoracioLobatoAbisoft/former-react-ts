@@ -3,6 +3,8 @@ import Header from '../Header/Header'
 import SearchOrdini from '../../ordini/components/SearchOrdini'
 import Contatacci from '../../Login/components/Contatacci';
 import QuestionsPage from './QuestionsPage';
+import Footer from '../Footer/Footer';
+import GlosarioTipografico from '../../GlosarioTipografico/GlosarioTipografico';
 
 const ContactPage = () => {
 
@@ -59,11 +61,12 @@ const ContactPage = () => {
                 toggleState === 3 ? "content  active-content" : "content"
               }
             >
-             
+             <GlosarioTipografico />
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
