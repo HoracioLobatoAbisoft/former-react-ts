@@ -39,6 +39,9 @@ function App() {
         <Route path="/glosario" element={<GlosarioTipografico />} />
         <Route path="/Contact" element={<ContactPage />} />
         
+        <Route path="/Contact" element={<ContactPage />} />
+        
+        <Route path="/glosario" element={<GlosarioTipografico />} />
       </Routes>
 
       {/* <UtentiComponent />   */}
