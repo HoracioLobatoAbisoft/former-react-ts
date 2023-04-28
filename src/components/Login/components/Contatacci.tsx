@@ -35,7 +35,7 @@ function Contatacci() {
               <img className="h-24 w-24 " src={imgMap} alt="" />
             </div>
             <h2 className="text-3xl font-bold flex-grow">Indirizzo</h2>
-            <p className="text-white">
+            <div className="text-white">
               <div>
                 <div className="mb-4 mt-4">
                   <p className="text-xl">
@@ -46,7 +46,7 @@ function Contatacci() {
                   <p className="text-lg">
                     <strong>Indicazioni stradali</strong>
                   </p>
-                  <p className="">
+                  <div className="">
                     <ul className="list-disc list-inside text-sm">
                       <li className="">
                         Da Roma centro: seguire la via Cassia fino a La Storta
@@ -60,10 +60,10 @@ function Contatacci() {
                         Da Viterbo: uscita Cesano direzione Roma (Olgiata)
                       </li>
                     </ul>
-                  </p>
+                  </div>
                 </div>
               </div>
-            </p>
+            </div>
           </div>
 
           <div className="px-8 pt-2 bg-[#E8E8E8] rounded-md shadow-2xl ">
@@ -73,7 +73,7 @@ function Contatacci() {
             <h2 className="text-3xl text-[#444141] font-bold flex-grow">
               Telefono
             </h2>
-            <p className="text-[#444141] mt-4">
+            <div className="text-[#444141] mt-4">
               <div className="text-center">
                 <div className="mb-1 flex space-x-2">
                   <p className="text-xl">Commerciale</p>
@@ -84,7 +84,7 @@ function Contatacci() {
                   <p className="text-xl ">06.30884057</p>
                 </div>
               </div>
-            </p>
+            </div>
           </div>
 
           <div className="px-8 pt-2 bg-[#444141] rounded-md shadow-2xl">
@@ -94,13 +94,13 @@ function Contatacci() {
             <h2 className="text-3xl font-bold flex-grow text-white">
               E-mail
             </h2>
-            <p className="text-white mt-4">
+            <div className="text-white mt-4">
               <div className=" mt-11">
                 <p className="text-xl">
                   info@tipografiaformer.it
                 </p>
               </div>
-            </p>
+            </div>
           </div>
         </div>
         <NewsLatter />

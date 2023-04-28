@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 const NewsLatter = () => {
   return (
-    <div className="p-8 bg-white mt-20 rounded-md shadow-2xl lg:flex justify-between items-center">
-    <div className="flex justify-center">
-      <img className="w-92 h-56  xl:ml-48 2xl:ml-72" src={imgContacto} alt="" />
-    </div>
+    <div className="p-8 bg-white mt-20 rounded-md shadow-2xl lg:flex justify-around items-center w-full">
+      <div className="">
+        <img className="w-92 h-56 " src={imgContacto} alt="" />
+      </div>
     
     <div className="mt-4 lg:mt-0">
       <p className="text-[#e87a23] text-4xl font-semibold">

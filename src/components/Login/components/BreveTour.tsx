@@ -66,12 +66,12 @@ function BreveTour() {
                     </li>
                 </ul>
             </div>
-            <p className="text-2xl mt-5 mb-2 flex items-center justify-center">
+            <div className="text-2xl mt-5 mb-2 flex items-center justify-center">
                 <div><strong>Quindi che aspetti?</strong><br />
                     Riempi il breve modulo di registrazione e ti invieremo tramite email i codici di accesso!<br />
                     <strong>Tipografia Former</strong>
                 </div>
-            </p>
+            </div>
         </div>
     )
 }

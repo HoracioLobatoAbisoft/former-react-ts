@@ -1,8 +1,5 @@
-import React from "react";
 import imgUserEdit from "../../../../assets/img/user-edit.svg";
 import imgCardUser from "../../../../assets/img/carduser.svg";
-import imgEmail from "../../../../assets/img/email.svg";
-import imgPowerButton from "../../../../assets/img/power-button.svg";
 import SideBarPersonalArea from "../../../common/SideBarPersonalArea/SideBarPersonalArea";
 import NewsLatter from "../../../common/newsLatter/NewsLatter";
 
@@ -66,8 +63,8 @@ const ProfileContent = () => {
           <h2 className="w-44">Recapiti: </h2>
           <p className="font-semibold">tel. 067216713 fax 3393442935 cel. 3345667575</p>
         </div>
-
-        <div className="flex items-center mt-10">
+        
+        {/* <div className="flex items-center mt-10">
           <img className="h-8 w-8 mr-4" src={imgEmail} alt="" />
           <h2 className="text-[#f58220] font-semibold">NEWSLETTER E OFFERTE</h2>
         </div>
@@ -80,8 +77,8 @@ const ProfileContent = () => {
             <img className="h-5 w-5" src={imgPowerButton} alt="" />
             <button>Esci</button>
           </div>
-        </div>
-        {/* <NewsLatter /> */}
+        </div> */}
+        <NewsLatter />
         
       </div>
     </div>
