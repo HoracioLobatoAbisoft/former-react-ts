@@ -13,6 +13,7 @@ import PasswordDimenticata from "./components/Login/components/PasswordDimentica
 import ProfilePague from "./components/AreaRiservata/profile/ProfilePague";
 import PasswordPague from "./components/AreaRiservata/changuePassword/PasswordPague";
 import GlosarioTipografico from "./components/GlosarioTipografico/GlosarioTipografico";
+import ContactPage from "./components/common/contact/ContactPage";
 
 function App() {
   // const location = useLocation();
@@ -36,6 +37,8 @@ function App() {
         <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
         <Route path="/OrdineDetails/:userId" element={<OrdineDetailsPage />} />
         <Route path="/glosario" element={<GlosarioTipografico />} />
+        <Route path="/Contact" element={<ContactPage />} />
+        
       </Routes>
 
       {/* <UtentiComponent />   */}

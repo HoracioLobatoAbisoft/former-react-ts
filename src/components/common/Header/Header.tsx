@@ -97,7 +97,7 @@ const Header = () => {
                   Le tue Recensioni
                 </Link>{" "}
                 <Link
-                  to=""
+                  to="/Contact"
                   className="cursor-pointer block py-2 px-2 hover:bg-[#f58220] hover:text-white"
                 >
                   {" "}
@@ -200,7 +200,7 @@ const Header = () => {
                 Le tue Recensioni
               </Link>{" "}
               |
-              <Link to="" className="mr-4 ml-4 hover:text-black cursor-pointer">
+              <Link to="/Contact" className="mr-4 ml-4 hover:text-black cursor-pointer">
                 {" "}
                 Contattaci
               </Link>
