@@ -12,6 +12,7 @@ import LoginPage from "./components/Login/LoginPage";
 import PasswordDimenticata from "./components/Login/components/PasswordDimenticata";
 import ProfilePague from "./components/AreaRiservata/profile/ProfilePague";
 import PasswordPague from "./components/AreaRiservata/changuePassword/PasswordPague";
+import GlosarioTipografico from "./components/GlosarioTipografico/GlosarioTipografico";
 
 function App() {
   // const location = useLocation();
@@ -34,7 +35,7 @@ function App() {
         <Route path="/Password" element={<PasswordPague />} />
         <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
         <Route path="/OrdineDetails/:userId" element={<OrdineDetailsPage />} />
-        
+        <Route path="/glosario" element={<GlosarioTipografico />} />
       </Routes>
 
       {/* <UtentiComponent />   */}
