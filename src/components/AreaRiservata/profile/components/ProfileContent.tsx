@@ -2,68 +2,70 @@ import imgUserEdit from "../../../../assets/img/user-edit.svg";
 import imgCardUser from "../../../../assets/img/carduser.svg";
 import SideBarPersonalArea from "../../../common/SideBarPersonalArea/SideBarPersonalArea";
 import NewsLatter from "../../../common/newsLatter/NewsLatter";
-
+import icona1 from '../../../../assets/iconsLast/iconoProfilo.png'
+import icona2 from '../../../../assets/iconsLast/iconoFiscali.png'
 const ProfileContent = () => {
   return (
     <div className="flex ">
       <SideBarPersonalArea />
 
       <div className="p-4  w-full mt-10 ml-10">
-        <div className="flex items-center mb-4">
-          <img className="h-8 w-8 mr-4" src={imgUserEdit} alt="" />
-          <h2 className="text-[#f58220] font-semibold">
-            AGGIORNA DATI FISCALI
-          </h2>
+        <div className="w-[40%] p-5 flex flex-col gap-5">
+          <div className="flex items-center gap-3  bg-[#f58220] rounded">
+            <img className="h-10 w-10 " src={icona1} alt="" />
+            <h2 className=" text-white font-semibold text-xl">
+              AGGIORNA DATI FISCALI
+            </h2>
+          </div>
+          <div className="flex flex-col gap-5">
+            <div className="flex space-x-4 items-center">
+              <h2 className="w-44 font-bold">La tua ID di accesso: </h2>
+              <p className="font-semibold bg-gray-200 w-3/6 p-2 rounded">2687</p>
+            </div>
+            <div className="flex space-x-4 items-center">
+              <h2 className="w-44 font-bold">La tua Email di accesso: </h2>
+              <p className="font-semibold bg-gray-200 w-3/6 p-2 rounded">info@dimmagine.com</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3  bg-[#f58220] rounded">
+            <img className="h-10 w-10 mr-4" src={icona2} alt="" /> 
+            <h2 className=" text-white font-semibold text-xl">I TUOI DATI FISCALI</h2>
+          </div>
+          <div className="flex space-x-4 items-center">
+            <h2 className="w-44 font-bold">Ragione Sociale: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">Dimmagine s.r.l.</p>
+          </div>
+          <div className="flex space-x-4 ">
+            <h2 className="w-44 font-bold">Nominativo: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">Donatella Bittoni</p>
+          </div>
+          <div className="flex space-x-4 ">
+            <h2 className="w-44 font-bold">P.IVA: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">11359621007</p>
+          </div>
+          <div className="flex space-x-4 ">
+            <h2 className="w-44 font-bold">Codice Fiscale: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">saf</p>
+          </div>
+          <div className="flex space-x-4 ">
+            <h2 className="w-44 font-bold">PEC: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">asf</p>
+          </div>
+          <div className="flex space-x-4 ">
+            <h2 className="w-44 font-bold">Codice SDI: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">M5UXCR1</p>
+          </div>
+          <div className="flex space-x-4 ">
+            <h2 className="w-44 font-bold">Indirizzo: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">Via Veturia,44, Roma (RM) - 00181</p>
+          </div>
+          <div className="flex space-x-4 ">
+            <h2 className="w-44 font-bold">Recapiti: </h2>
+            <p className="font-semibold bg-gray-200 w-[70%] p-2 rounded">tel. 067216713 fax 3393442935 cel. 3345667575</p>
+          </div>
         </div>
 
-        <div>
-          <div className="flex space-x-4">
-            <h2 className="w-44">La tua ID di accesso: </h2>
-            <p className="font-semibold">2687</p>
-          </div>
-          <div className="flex space-x-4 mt-4">
-            <h2 className="w-44">La tua Email di accesso: </h2>
-            <p className="font-semibold">info@dimmagine.com</p>
-          </div>
-        </div>
-
-        <div className="flex items-center mt-10">
-          <img className="h-8 w-8 mr-4" src={imgCardUser} alt="" />
-          <h2 className="text-[#f58220] font-semibold">I TUOI DATI FISCALI</h2>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">Ragione Sociale: </h2>
-          <p className="font-semibold">Dimmagine s.r.l.</p>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">Nominativo: </h2>
-          <p className="font-semibold">Donatella Bittoni</p>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">P.IVA: </h2>
-          <p className="font-semibold">11359621007</p>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">Codice Fiscale: </h2>
-          <p className="font-semibold"></p>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">PEC: </h2>
-          <p className="font-semibold"></p>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">Codice SDI: </h2>
-          <p className="font-semibold">M5UXCR1</p>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">Indirizzo: </h2>
-          <p className="font-semibold">Via Veturia,44, Roma (RM) - 00181</p>
-        </div>
-        <div className="flex space-x-4 mt-4">
-          <h2 className="w-44">Recapiti: </h2>
-          <p className="font-semibold">tel. 067216713 fax 3393442935 cel. 3345667575</p>
-        </div>
-        
         {/* <div className="flex items-center mt-10">
           <img className="h-8 w-8 mr-4" src={imgEmail} alt="" />
           <h2 className="text-[#f58220] font-semibold">NEWSLETTER E OFFERTE</h2>
@@ -79,7 +81,7 @@ const ProfileContent = () => {
           </div>
         </div> */}
         <NewsLatter />
-        
+
       </div>
     </div>
   );
