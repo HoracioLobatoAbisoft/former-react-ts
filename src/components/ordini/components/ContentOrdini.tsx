@@ -28,7 +28,7 @@ const ContentOrdini = () => {
                   className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
                   onClick={() => toggleTab(1)}
                 >
-                  Legenda stato consegne
+                  Le tue consegne
                 </button>
                 <button
                   className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
@@ -45,15 +45,14 @@ const ContentOrdini = () => {
                   }
                 >
                   <h2 className="text-lg mb-2">
-                    Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca
+                    Da qui puoi visualizzare lo stato dei tuoi ordini. Clicca
                     sul{" "}
                     <img
                       className="h-5 w-5 inline-block"
                       src={imgArrow}
                       alt=""
                     />{" "}
-                    che vedi accanto a ogni Ordine per visualizzare il dettaglio
-                    dell' ordine.
+                    che vedi accanto a ogni ordine per visualizzare il dettaglio.
                   </h2>
                   <div className="">
                     <TableOrdini />

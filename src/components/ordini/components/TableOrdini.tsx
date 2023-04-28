@@ -86,7 +86,7 @@ const TableOrdini = () => {
       {
         accessorFn: (row) => `${row.coloreStatoHtml} ${row.statoStr}`,
         id: "coloreStatoHtml", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-        header: "Stato",
+        header: "STATO",
         size: 250,
         Cell: ({ cell, row }) => (
           <div className="flex">
@@ -134,7 +134,7 @@ const TableOrdini = () => {
       {
         accessorFn: (row) => `${row.idConsegnaView} ${row.inseritoStr}`,
         id: "idConsegnaView", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-        header: "Ordine",
+        header: "ORDINE",
         size: 250,
         Cell: ({ cell, row }) => (
           <div className="flex space-x-2">
