@@ -24,7 +24,7 @@ const NewsLatter = () => {
         />
         <Link
           to="/Register"
-          className="flex  items-center justify-center px-10 focus:outline-none text-white text-sm sm:text-base bg-[#f58220] rounded-2xl py-2 transition duration-150 ease-in"
+          className="flex  items-center justify-center px-10 focus:outline-none text-white text-sm sm:text-base bg-[#f58220] rounded-md py-2 transition duration-150 ease-in"
         >
           Registrati
         </Link>

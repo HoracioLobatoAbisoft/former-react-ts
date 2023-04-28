@@ -41,7 +41,7 @@ function App() {
         
         <Route path="/Contact" element={<ContactPage />} />
         
-        <Route path="/glosario" element={<GlosarioTipografico />} />
+        
       </Routes>
 
       {/* <UtentiComponent />   */}

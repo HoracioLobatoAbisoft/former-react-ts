@@ -8,10 +8,9 @@ import SearchIcon from '@mui/icons-material/Search';
 const GlosarioTipografico = () => {
     return (
         <>
-            <Header />
-            <SearchOrdini />
-            <div className="flex gap-5">
-                <SideBarPersonalArea />
+            
+            <div className="flex gap-5 mt-4">
+                
                 <div className="w-full
                     flex
                     flex-col
