@@ -115,7 +115,7 @@ const LoginForm = () => {
               Registrati ora! E' veloce e facile
             </p>
             <p className="mt-2 text-lg font-semibold">
-              Potrai accedere a tutte le funzionalita riservate ai nostri utenti
+              Potrai accedere a tutte le funzionalità riservate ai nostri utenti
             </p>
           </div>
           <div className="mt-4">

@@ -17,20 +17,20 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
               DETTAGLIO DEL TUO ORDINE N°
             </span>{" "}
             {ordine.idConsegnaView}{" "}
-            <span className="text-[#f58220] font-semibold">del</span>{" "}
+            <span className="text-[#f58220] font-semibold">DEL</span>{" "}
             {ordine.giornoStr}
           </h2>
         </div>
 
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="font-semibold text-base">Riepilogo Ordine</h2>
+            <h2 className="font-semibold text-base">Riepilogo ordine</h2>
             <div className="flex space-x-4 items-center mt-2 text-sm">
-              <p className="w-28">N° Ordine</p>{" "}
+              <p className="w-28">N° ordine</p>{" "}
               <p className="font-semibold">{ordine.idConsegnaView}</p>
             </div>
             <div className="flex space-x-4 items-center mt-2 text-sm">
-              <p className="w-28">Data Ordine</p>{" "}
+              <p className="w-28">Data ordine</p>{" "}
               <p className="font-semibold">{ordine.dataInserimentoStr}</p>
             </div>
             <div className="flex space-x-4 items-center mt-2 text-sm">
@@ -45,7 +45,7 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
               <p className="text-base font-semibold">LAVORI NELL' ORDINE</p>
               <p>
                 Qui trovi l'elenco dei lavori che sono contenuti in questo
-                Ordine.
+                ordine.
               </p>
             </div>
           </div>
@@ -100,12 +100,12 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
         
 
         <div className="mt-10">
-          <h2 className="bg-[#f58220] text-white px-4 py-2 font-semibold">
+          <h2 className="bg-[#f58220] text-white rounded-md px-4 py-2 font-semibold">
             RIEPILOGO CONSEGNA{" "}
           </h2>
-          <p className="mt-4 font-semibold">Riepilogo Consegna</p>
-          <div className="flex space-x-4 mt-2 font-semibold">
-            <p>Data Consegna</p>
+          <p className="mt-4 font-semibold ml-4">Riepilogo consegna</p>
+          <div className="flex space-x-4 mt-2 font-semibold ml-4">
+            <p>Data consegna</p>
             <p className="uppercase">
               {ordine.dateConsegna} {ordine.dataOrdineLabel}
             </p>
@@ -117,7 +117,7 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
             </div>
           )}
 
-          <div className="flex space-x-4 mt-2 font-semibold">
+          <div className="flex space-x-4 mt-2 font-semibold ml-4">
             <p>Corriere</p>
             <div>
               <p>{ordine.corriereStr}</p>
@@ -127,17 +127,17 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
               </p>
             </div>
           </div>
-          <div className="flex space-x-4 mt-2 font-semibold">
+          <div className="flex space-x-4 mt-2 font-semibold ml-4">
             <p>Indirizzo</p>
             <p>{ordine.indirizzoStr}</p>
           </div>
         </div>
 
         <div className="mt-10">
-          <h2 className="bg-[#f58220] text-white px-4 py-2 font-semibold">
+          <h2 className="bg-[#f58220] text-white rounded-md px-4 py-2 font-semibold">
             PAGAMENTO{" "}
           </h2>
-          <p className="mt-4 font-semibold">
+          <p className="mt-4 font-semibold ml-4">
             Puoi effettuare il pagamento di questo ordine tramite:
           </p>
           <div className="border px-10 py-10 rounded-md border-black font-semibold mt-2">
@@ -172,7 +172,7 @@ const OrdiniDetailstComponent = ({ ordine }: any) => {
           </div>
         </div>
         <div className="mt-10">
-          <h2 className="bg-[#f58220] text-white px-4 py-2 font-semibold">
+          <h2 className="bg-[#f58220] text-white rounded-md px-4 py-2 font-semibold">
             DOCUMENTO FISCALE{" "}
           </h2>
           <p className="font-semibold">

@@ -15,11 +15,11 @@ const ReplilogoOrdine = ({ row }: any) => {
         <div>
           <h2 className="font-semibold text-base">Riepilogo Ordine</h2>
           <div className="flex space-x-4 items-center mt-2 text-sm">
-            <p className="w-28">Data Consegna</p>{" "}
+            <p className="w-28">Data consegna</p>{" "}
             <p className="font-semibold">{row.giornoStr}</p>
           </div>
           <div className="flex space-x-4 items-center mt-2 text-sm">
-            <p className="w-28">N° Lavori</p>{" "}
+            <p className="w-28">N° lavori</p>{" "}
             <p className="font-semibold">{row.count}</p>
           </div>
           <div className="flex space-x-4 items-center mt-2 text-sm">
@@ -64,7 +64,7 @@ const ReplilogoOrdine = ({ row }: any) => {
           </div>
 
           <div className="flex space-x-4 items-center mt-2 text-sm">
-            <p className="w-28">Totale Lavori:</p>{" "}
+            <p className="w-28">Totale lavori:</p>{" "}
             <p className="font-semibold">
               € {row.importoTotOrdiniNettoOriginaleStr}
             </p>
@@ -89,7 +89,7 @@ const ReplilogoOrdine = ({ row }: any) => {
         {" "}
         <div className="flex space-x-2 bg-[#ffe055] px-4 py-2 rounded-md items-center cursor-pointer">
           <img className="h-5 w-5" src={imgArrowLeft} alt="" />
-          <p>Vail al Dettaglio Ordine</p>
+          <p>Vai al dettaglio ordine</p>
         </div>
       </Link>{" "}
       

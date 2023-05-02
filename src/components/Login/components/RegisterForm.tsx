@@ -92,7 +92,7 @@ const RegisterForm = () => {
               <input
                 type="text"
                 className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
-                placeholder="Inserisci la Ragione Sociale dell'azienda"
+                placeholder="Inserisci la ragione sociale dell'azienda"
                 {...register("RagioneSociale", { required: true, pattern: expRegValidacion })}
               />
               {errors.RagioneSociale && <p className="text-red-500 text-sm">Ragione Sociale no valido</p>}
@@ -141,7 +141,7 @@ const RegisterForm = () => {
                   type="text"
                   className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
-                  placeholder="Inserisci il tuo Nome"
+                  placeholder="Inserisci il tuo nome"
                   {...register("Nome", { required: true, pattern: expRegValidacionSinNumeros })}
                 />
                 {errors.Nome && <p className="text-red-500 text-sm">Nome no valido</p>}
@@ -158,7 +158,7 @@ const RegisterForm = () => {
                   type="text"
                   className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
-                  placeholder="Inserisci il tuo Cognome"
+                  placeholder="Inserisci il tuo cognome"
                   {...register("Cognome", { required: true, pattern: expRegValidacionSinNumeros })}
                 />
                 {errors.Cognome && <p className="text-red-500 text-sm">Cognome no valido</p>}
@@ -238,7 +238,7 @@ const RegisterForm = () => {
                   type="text"
                   className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
-                  placeholder="Inserisci il tuo Cognome"
+                  placeholder="Inserisci la tua località"
                   {...register("Localita", { required: true, pattern: expRegValidacion })}
                 />
                 {errors.Localita && <p className="text-red-500 text-sm">Localita no valido</p>}
@@ -276,7 +276,7 @@ const RegisterForm = () => {
                   type="text"
                   className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
-                  placeholder="Inserisci il Codice Fiscale"
+                  placeholder="Inserisci il codice fiscale"
                   {...register("codiceFiscale", { required: true, pattern: expRegValidacion })}
                 />
                 {errors.codiceFiscale && <p className="text-red-500 text-sm">Codice Fiscale no valido</p>}
@@ -312,7 +312,7 @@ const RegisterForm = () => {
                   type="text"
                   className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
-                  placeholder="Inserisci il Codice SDI"
+                  placeholder="Inserisci il codice SDI"
                   {...register("codiceSdi", { pattern: expRegValidacion })}
                 />
                 {errors.codiceSdi && <p className="text-red-500 text-sm">Codice SDI Fiscale no valido</p>}
@@ -351,7 +351,7 @@ const RegisterForm = () => {
                   type="text"
                   className="text-sm placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
-                  placeholder="Inserisci un numero Cellulare"
+                  placeholder="Inserisci un numero cellulare"
                   {...register("cellulare")}
                 />
                 {errors.cellulare && <p className="text-red-500 text-sm">Cellulare no valido</p>}
@@ -370,7 +370,7 @@ const RegisterForm = () => {
                   type="text"
                   className="text-sm w-full placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
                   id="exampleInputPassword1"
-                  placeholder="Inserisci un numero di Fax"
+                  placeholder="Inserisci un numero di fax"
                   {...register("fax")}
                 />
                 {errors.fax && <p className="text-red-500 text-sm">Fax no valido</p>}

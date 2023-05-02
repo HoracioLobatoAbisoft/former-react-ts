@@ -16,10 +16,10 @@ function Contatacci() {
           </h2>
           <p className="flex justify-center text-xl mt-4">
             Potete contattarci dalle 8.00 alle 18.30 orario non stop tutti i
-            giorni visita la nostra
+            giorni. 
           </p>
           <p className="flex justify-center text-xl">
-            sezione di Domande e Risposte Frequenti dove troverai risposte alle
+            Visita la nostra sezione di Domande e Risposte Frequenti dove troverai risposte alle
             domande più
           </p>
           <p className="flex justify-center text-xl">
