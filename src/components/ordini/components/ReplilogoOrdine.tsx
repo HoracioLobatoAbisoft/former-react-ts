@@ -6,7 +6,7 @@ import imgArrowLeft from "../../../assets/img/left-arrow.svg";
 
 import SubTables from "./SubTables";
 const ReplilogoOrdine = ({ row }: any) => {
-  console.log();
+  console.log(row);
   const [open, setOpen] = useState(false);
 
   return (

@@ -14,6 +14,8 @@ import ProfilePague from "./components/AreaRiservata/profile/ProfilePague";
 import PasswordPague from "./components/AreaRiservata/changuePassword/PasswordPague";
 import GlosarioTipografico from "./components/GlosarioTipografico/GlosarioTipografico";
 import ContactPage from "./components/common/contact/ContactPage";
+import DatiFiscali from "./components/AreaRiservata/datiFiscali/DatiFiscali";
+import DiscountPage from "./components/AreaRiservata/discount/DiscountPage";
 
 function App() {
   // const location = useLocation();
@@ -33,6 +35,8 @@ function App() {
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/Profilo" element={<ProfilePague />} />
+        <Route path="/DatiFiscali" element={<DatiFiscali />} />
+        <Route path="/Discount" element={<DiscountPage />} />
         <Route path="/Password" element={<PasswordPague />} />
         <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
         <Route path="/OrdineDetails/:userId" element={<OrdineDetailsPage />} />
