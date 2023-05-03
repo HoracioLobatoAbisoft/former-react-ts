@@ -32,14 +32,14 @@ const SearchOrdini = () => {
             type="search"
             id="default-search"
             className="block focus:outline-none w-full py-2 px-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#f58220] focus:border-[#f58220]"
-            placeholder="Cercare"
+            placeholder="Cerca"
             required
           />
           <button
             type="submit"
             className="text-white absolute right-2.5 bottom-1.5 bg-[#f58220] hover:bg-[#f58220] focus:ring-4 focus:outline-none focus:ring-[#f58220] font-medium rounded-lg text-sm px-4 py-1"
           >
-            Cercare
+            Cerca
           </button>
         </div>
       </form>

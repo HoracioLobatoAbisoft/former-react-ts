@@ -26,8 +26,8 @@ const IndirizziCorriereContent = () => {
         <div className='w-full gap-4 flex'>
             <SideBarPersonalArea />
             <div className="p-5">
-                <h2 className="my-3 bg-[#f58220] text-white p-1 font-semibold tracking-wide w-3/5 rounded"><RoomSharpIcon /> INDIRIZZI DI SPEDIZIONE</h2>
-                <p className="">Da qui puoi gestire i tuoi indirizzi per la consegna degli ordini. Clicca sul + che vedi accanto a ogni Indirizzo per visualizzare il dettaglio dell'indirizzo.</p>
+                <h2 className="my-3 bg-[#f58220] text-white p-1 font-semibold tracking-wide w-full rounded"><RoomSharpIcon /> INDIRIZZI DI SPEDIZIONE</h2>
+                <p className="">Da qui puoi gestire i tuoi indirizzi per la consegna degli ordini. Clicca sul + che vedi accanto a ogni indirizzo per visualizzare il dettaglio.</p>
                 <div className="flex flex-col">
                     <div className="flex  ">
                         <h3 className="mx-[10%] text-[#f58220] font-semibold my-5">RIFERIMENTO</h3>
@@ -75,7 +75,7 @@ const IndirizziCorriereContent = () => {
                                     <hr className='bg-[#f58220] border-0 h-1 rounded mt-5' />
                                     <div className="flex justify-end mt-3 gap-5">
                                         <button className='bg-[#f58220] p-2 rounded text-white font-semibold'><StarPurple500SharpIcon sx={{color:
-                                        'yellow'}}/> Rendi Predefinito </button>
+                                        'yellow'}}/> Rendi predefinito </button>
                                         <button className='bg-[#f58220] p-2 rounded text-white font-semibold'><DeleteIcon/> Elimina indirizzo</button>
                                     </div>
                                 </AccordionDetails>
