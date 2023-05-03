@@ -1,16 +1,16 @@
 import React from 'react'
 import Header from '../../common/Header/Header'
 import SearchOrdini from '../../ordini/components/SearchOrdini'
-import ProfileContent from './components/ProfileContent'
+import DiscountContent from './components/DiscountContent'
 
-const ProfilePague = () => {
+const DiscountPage = () => {
   return (
     <>
       <Header />
       <SearchOrdini />
-      <ProfileContent />
+      <DiscountContent />
     </>
   )
 }
 
-export default ProfilePague
+export default DiscountPage

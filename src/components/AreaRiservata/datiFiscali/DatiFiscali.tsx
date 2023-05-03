@@ -1,16 +1,17 @@
 import React from 'react'
 import Header from '../../common/Header/Header'
 import SearchOrdini from '../../ordini/components/SearchOrdini'
-import ProfileContent from './components/ProfileContent'
+import DatiFiscaliPage from './componentes/DatiFiscaliPage'
 
-const ProfilePague = () => {
+
+const DatiFiscali = () => {
   return (
     <>
       <Header />
       <SearchOrdini />
-      <ProfileContent />
+      <DatiFiscaliPage />
     </>
   )
 }
 
-export default ProfilePague
+export default DatiFiscali

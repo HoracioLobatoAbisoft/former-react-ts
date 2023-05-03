@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
 import OrdiniServices from "../services/OrdiniServices";
-
+import {OrdineTable} from "../interfaces/IOrdine"
 import imgUserRunning from "../../../assets/img/user-runing.png";
 import imgBox from "../../../assets/img/box.svg";
 import imgTruck from "../../../assets/img/truck.svg";
@@ -23,28 +23,6 @@ import ReplilogoOrdine from "./ReplilogoOrdine";
 
 import ButtonSendEmail from "./ButtonSendEmail";
 
-
-export type Employee = {
-  corriereStr: string;
-  idConsegnaView: string;
-  giornoStr: string;
-  dataOrdineClasse: string;
-  signatureCatchPhrase: string;
-  statoStr: string;
-  count: string;
-  importoTotOrdiniNettoOriginaleStr: string;
-  coloreStatoHtml: string;
-  indirizzoStr: string;
-  pesoKG: number;
-  colliStr: string;
-  pagamentoStr: string;
-  importoConsegnaStr: string;
-  importoTotIvaStr: string;
-  importoTotStr: string;
-  inseritoStr: string;
-  iconaCorriereAlt: string;
-  idConsegna: number;
-};
 
 const TableOrdini = () => {
   const [dataOrdini, setDataOrdini] = useState([
@@ -81,7 +59,7 @@ const TableOrdini = () => {
     });
   }, []);
 
-  const columns = useMemo<MRT_ColumnDef<Employee>[]>(
+  const columns = useMemo<MRT_ColumnDef<OrdineTable>[]>(
     () => [
       {
         accessorFn: (row) => `${row.coloreStatoHtml} ${row.statoStr}`,
@@ -155,12 +133,6 @@ const TableOrdini = () => {
           </div>
         ),
       },
-      // {
-      //   accessorKey: "statoStr", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
-      //   enableClickToCopy: true,
-      //   header: "Stato",
-      //   size: 150,
-      // },
       {
         accessorKey: "giornoStr", //hey a simple column for once
         header: "DATA CONSEGNA",
