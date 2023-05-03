@@ -21,8 +21,11 @@ import DiscountPage from "./components/AreaRiservata/discount/DiscountPage";
 function App() {
   // const location = useLocation();
 
-  // const searchParams = new URLSearchParams(location.search);
-  //   const token = searchParams.get('token') ?? '';
+   const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get('token') ?? '';
+    const idUtd = searchParams.get('id') ?? '';
+    console.log("Token: "+token);
+    console.log("IdUt: "+idUtd);
   //   //dataStore.setToken();
   //   localStorage.setItem("token",token);
 
