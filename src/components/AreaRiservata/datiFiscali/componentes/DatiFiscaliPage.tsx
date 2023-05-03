@@ -27,7 +27,7 @@ const DatiFiscaliPage = () => {
               </p>
             </div>
             <div className="flex space-x-4 items-center">
-              <h2 className="w-44 lg:w-56 font-bold text-lg">La tua Email di accesso: </h2>
+              <h2 className="w-44 lg:w-56 font-bold text-lg">La tua email di accesso: </h2>
               <p className="font-semibold  w-44 p-2 rounded lg:w-[400px] text-lg">
                 info@dimmagine.com
               </p>
@@ -41,7 +41,7 @@ const DatiFiscaliPage = () => {
             </h2>
           </div>
           <div className="flex space-x-4 items-center">
-            <h2 className="w-44 lg:w-56 font-bold text-lg">Ragione Sociale: </h2>
+            <h2 className="w-44 lg:w-56 font-bold text-lg">Ragione sociale: </h2>
             <p className="font-semibold w-44 p-2 rounded lg:w-[400px] text-lg">
               Dimmagine s.r.l.
             </p>
@@ -59,25 +59,25 @@ const DatiFiscaliPage = () => {
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
-            <h2 className="w-44 lg:w-56 font-bold text-lg">Codice Fiscale: </h2>
+            <h2 className="w-44 lg:w-56 font-bold text-lg">Codice fiscale: </h2>
             <p className="font-semibold w-44 p-2 rounded lg:w-[400px] text-lg">saf</p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">PEC: </h2>
             <input
               type="text"
-              className="text-sm w-32 md:w-56 placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+              className="text-xs w-48 md:w-64 placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
               id="exampleInputPassword1"
-              placeholder="Pec"
+              placeholder="Inserisci la posta elettronica certificata"
             />
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Codice SDI: </h2>
             <input
               type="text"
-              className="text-sm w-32 md:w-56 placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
+              className="text-xs w-48 md:w-64 placeholder-gray-500 pl-4 pr-4 rounded-md border border-gray-400 py-2 focus:outline-none focus:border-[#f58220]"
               id="exampleInputPassword1"
-              placeholder="Codice SDI"
+              placeholder="Inserisci il codice sistema di intercambio"
             />
           </div>
           <div className="flex justify-center">
