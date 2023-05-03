@@ -6,6 +6,11 @@ import OrdiniServices from "../services/OrdiniServices";
 import ModalNewDirecction from "./ModalNewDirecction";
 
 const ModalDirecction = ({ cell, closeModal }: any) => {
+
+  const idUdt =  localStorage.getItem('idUtd')
+  
+
+
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-blue",
@@ -25,7 +30,7 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
   const [textNota, setTextNota] = useState("");
 
   const updateList = () => {
-    OrdiniServices.getOrdiniIndirizo(14).then((res) => {
+    OrdiniServices.getOrdiniIndirizo(idUdt).then((res) => {
       let data = res?.data.data;
       setDataIndirizo(data);
     });
@@ -79,7 +84,7 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
   };
 
   useEffect(() => {
-    OrdiniServices.getOrdiniIndirizo(14).then((res) => {
+    OrdiniServices.getOrdiniIndirizo(idUdt).then((res) => {
       let data = res?.data.data;
       setDataIndirizo(data);
     });

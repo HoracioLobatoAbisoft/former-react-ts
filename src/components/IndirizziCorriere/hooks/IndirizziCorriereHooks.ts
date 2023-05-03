@@ -4,12 +4,15 @@ import { dataIndirizzo } from '../Interfaces/IndirizziCorriereInferface'
 
 const IndirizziCorriereHooks = () => {
 
+    const idUdt =  localStorage.getItem('idUtd')
+    
     const [indirizoList, setIndirizzoList] = useState<dataIndirizzo[]>()
 
     
 
     useEffect(() => {
-        OrdiniService.getOrdiniIndirizo(14).then(R=>{console.log(R?.data.data); setIndirizzoList(R?.data.data)})
+        console.log(idUdt)
+        OrdiniService.getOrdiniIndirizo(idUdt).then(R=>{console.log(R?.data.data); setIndirizzoList(R?.data.data)})
     }, [])
     
 

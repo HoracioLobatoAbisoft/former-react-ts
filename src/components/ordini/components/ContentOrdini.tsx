@@ -4,12 +4,22 @@ import imgArrow from "../../../assets/img/arrowdown.svg";
 import TableOrdini from "./TableOrdini";
 import LegendOrdini from "./LegendOrdini";
 import SideBarPersonalArea from "../../common/SideBarPersonalArea/SideBarPersonalArea";
+import useUser from "../../../context/useUser";
 
 const ContentOrdini = () => {
   const [toggleState, setToggleState] = useState(1);
   const toggleTab = (index: any) => {
     setToggleState(index);
   };
+
+  const user = useUser()
+
+    console.log(user)
+
+
+  
+
+
   return (
     <>
       <div className="flex overflow-x-scroll">

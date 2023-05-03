@@ -12,6 +12,8 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
     buttonsStyling: true,
   });
 
+  const idUdt =  localStorage.getItem('idUtd')
+
   const [showLoading, setShowLoading] = useState(false);
 
   const [riferimento, setRiferimento] = useState("");
@@ -82,7 +84,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
         return;
       }
       data = {
-        idut: 14,
+        idut: idUdt,
         indirizzo: Indirizzo,
         referimento: riferimento,
         destinatario: destinatario,
@@ -105,7 +107,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
       }
 
       data = {
-        idut: 14,
+        idut: idUdt,
         indirizzo: Indirizzo,
         referimento: riferimento,
         destinatario: destinatario,

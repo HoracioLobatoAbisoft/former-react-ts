@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { Route, useLocation } from "react-router-dom";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
@@ -17,42 +18,56 @@ import ContactPage from "./components/common/contact/ContactPage";
 import IndirizziCorriere from "./components/IndirizziCorriere/IndirizziCorriere";
 import DatiFiscali from "./components/AreaRiservata/datiFiscali/DatiFiscali";
 import DiscountPage from "./components/AreaRiservata/discount/DiscountPage";
+import Hijo from "./components/Hijo";
+import UserContext from "./context/UserContext";
+
+export const userContext = React.createContext({});
 
 function App() {
-  // const location = useLocation();
+  const location = useLocation();
 
-   const searchParams = new URLSearchParams(location.search);
-    const token = searchParams.get('token') ?? '';
-    const idUtd = searchParams.get('id') ?? '';
-    console.log("Token: "+token);
-    console.log("IdUt: "+idUtd);
-  //   //dataStore.setToken();
-  //   localStorage.setItem("token",token);
+  const searchParams = new URLSearchParams(location.search);
+
+  const idUtd = searchParams.get("id") ?? "";
+  const token = searchParams.get("token") ?? "";
+
+
+  localStorage.setItem("token",token)
+  localStorage.setItem("idUtd", idUtd);
+
+  
+  const userData = {
+    id: idUtd? idUtd: 'null',
+    token: token? token: 'null'
+  } 
 
   return (
     <div className="w-full h-screen">
-      <Routes>
-        <Route path="/" element={<UtentiComponent />}></Route>
 
-        <Route path="/nav" element={<OrdiniPage />} />
-        <Route path="/lavori" element={<LavoriPage />} />
-        <Route path="/Register" element={<RegisterPage />} />
-        <Route path="/Login" element={<LoginPage />} />
-        <Route path="/Profilo" element={<ProfilePague />} />
-        <Route path="/DatiFiscali" element={<DatiFiscali />} />
-        <Route path="/Discount" element={<DiscountPage />} />
-        <Route path="/Password" element={<PasswordPague />} />
-        <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
-        <Route path="/OrdineDetails/:userId" element={<OrdineDetailsPage />} />
-        <Route path="/glosario" element={<GlosarioTipografico />} />
-        <Route path="/Contact" element={<ContactPage />} />
+      <UserContext.Provider value={userData}>
         
-        <Route path="/Contact" element={<ContactPage />} />
-        <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
-        
-      </Routes>
+        <Routes>
+          <Route path="/" element={<OrdiniPage />}></Route>
+          <Route path="/nav" element={<OrdiniPage />} />
+          <Route path="/lavori" element={<LavoriPage />} />
+          <Route path="/Register" element={<RegisterPage />} />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/Profilo" element={<ProfilePague  />} />
+          <Route path="/DatiFiscali" element={<DatiFiscali />} />
+          <Route path="/Discount" element={<DiscountPage />} />
+          <Route path="/Password" element={<PasswordPague />} />
+          <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
+          <Route
+            path="/OrdineDetails/:userId"
+            element={<OrdineDetailsPage />}
+          />
+          <Route path="/glosario" element={<GlosarioTipografico />} />
+          <Route path="/Contact" element={<ContactPage />} />
 
-      {/* <UtentiComponent />   */}
+          <Route path="/Contact" element={<ContactPage />} />
+          <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
+        </Routes>
+      </UserContext.Provider>
     </div>
   );
 }

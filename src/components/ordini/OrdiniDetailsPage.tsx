@@ -9,12 +9,13 @@ import Footer from "../common/Footer/Footer";
 
 const OrdineDetails = () => {
   const params = useParams();
-  console.log(params.userId);
-
+  
+  
   const [ordine, setOrdine] = useState();
 
   const [showDate, setShowDate] = useState(false);
-
+  const idUdt =  localStorage.getItem('idUtd')
+  console.log(idUdt);
   useEffect(() => {
     OrdiniServices.getOrdiniById(params.userId).then((res) => {
       let data = res?.data.data;
