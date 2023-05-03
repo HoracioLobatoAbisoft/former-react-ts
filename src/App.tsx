@@ -14,6 +14,7 @@ import ProfilePague from "./components/AreaRiservata/profile/ProfilePague";
 import PasswordPague from "./components/AreaRiservata/changuePassword/PasswordPague";
 import GlosarioTipografico from "./components/GlosarioTipografico/GlosarioTipografico";
 import ContactPage from "./components/common/contact/ContactPage";
+import IndirizziCorriere from "./components/IndirizziCorriere/IndirizziCorriere";
 
 function App() {
   // const location = useLocation();
@@ -40,7 +41,7 @@ function App() {
         <Route path="/Contact" element={<ContactPage />} />
         
         <Route path="/Contact" element={<ContactPage />} />
-        
+        <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
         
       </Routes>
 
