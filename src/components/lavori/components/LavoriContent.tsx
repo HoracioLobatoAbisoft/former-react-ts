@@ -1,17 +1,19 @@
-import React, { useState,useContext} from "react";
+import React, { useState} from "react";
 import imgShopping from "../../../assets/img/shopping.svg";
 import imgArrow from "../../../assets/img/arrowdown.svg";
 import SideBarPersonalArea from "../../common/SideBarPersonalArea/SideBarPersonalArea";
 import TablaLavori from "./TablaLavori";
 import LegendsLavori from "./LegendsLavori";
-import UserContext from "../../../context/UserContext";
+
+
+
+
 const LavoriContent = () => {
   const [toggleState, setToggleState] = useState(1);
   const toggleTab = (index: any) => {
     setToggleState(index);
   };
-  const userData = useContext(UserContext);
-  console.log(userData)
+  
   return (
     <div className="flex overflow-x-scroll">
       <SideBarPersonalArea />

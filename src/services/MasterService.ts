@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import SweeAlerts from "./SweeAlert";
 
-const idUdt =  localStorage.getItem('idUtd')
+import UserContext from "../context/UserContext";
 
 class MasterService {
   decryptedToken = () => {
@@ -35,9 +35,9 @@ class MasterService {
         //console.log(err);
       });
   }
-  getDataOrdini(apiUrl: any, ) {
+  getDataOrdini(apiUrl: any, idUdt:string ) {
     return axios
-      .get(apiUrl + `?idUtn=${14}`, {
+      .get(apiUrl + `?idUtn=${idUdt}`, {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },
@@ -50,10 +50,10 @@ class MasterService {
       });
   }
 
-  getDataOrdiniById(apiUrl: any, id: any) {
-    console.log(idUdt)
+  getDataOrdiniById(apiUrl: any, id: any, idUdt:string) {
+   
     return axios
-      .get(apiUrl + `?idConsegna=${id}&idUtn=${14}`, {
+      .get(apiUrl + `?idConsegna=${id}&idUtn=${idUdt}`, {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },
@@ -128,7 +128,7 @@ class MasterService {
 
   getDataOrdiniIndirizo(apiUrl: any, id: any) {
     return axios
-      .get(apiUrl + `?idUt=${14}`, {
+      .get(apiUrl + `?idUt=${id}`, {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },
@@ -188,9 +188,9 @@ class MasterService {
       });
   }
 
-  getDataLavori(apiUrl: any) {
+  getDataLavori(apiUrl: any, idUdt:string) {
     return axios
-      .get(apiUrl + "?idUt=14", {
+      .get(`${apiUrl}?idUt=${idUdt}`, {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },

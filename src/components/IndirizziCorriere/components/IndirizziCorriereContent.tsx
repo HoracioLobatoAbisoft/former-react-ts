@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import SideBarPersonalArea from '../../common/SideBarPersonalArea/SideBarPersonalArea'
 import RoomSharpIcon from '@mui/icons-material/RoomSharp';
 import Accordion from '@mui/material/Accordion';
@@ -9,11 +9,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import StarPurple500SharpIcon from '@mui/icons-material/StarPurple500Sharp';
 import { Box } from '@mui/material';
 import IndirizziCorriereHooks from '../hooks/IndirizziCorriereHooks';
+import UserContext from "../../../context/UserContext";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const IndirizziCorriereContent = () => {
 
-    const { indirizoList } = IndirizziCorriereHooks()
+    const userData = useContext(UserContext);
+    console.log(userData)
+
+    const { indirizoList } = IndirizziCorriereHooks(userData.id)
     const [activeAccordion, setActiveAccordion] = useState(-1);
     const [expanded, setExpanded] = useState<string | false>(false);
 

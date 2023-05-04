@@ -26,7 +26,7 @@ const SideBarPersonalArea = () => {
     { title: "Il tuo profilo", src: imgUser, url:"/Profilo" },
     { title: "Cambio password", src: imgPassword, url:"/Password" },
     { title: "Aggiorna dati fiscali", src: imgUserEdit, url:"/DatiFiscali" },
-    { title: "Indirizzi e corriere", src: imgMap },
+    { title: "Indirizzi e corriere", src: imgMap, url:"/indirizziCorriere" },
     { title: "Le tue consegne" },
     { title: "Le tue consegne", src: imgShopping },
     { title: "I tuoi lavori", src: imgVisualize },
