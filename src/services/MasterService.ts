@@ -35,6 +35,24 @@ class MasterService {
         //console.log(err);
       });
   }
+
+  getDataUser(apiUrl: any, idUdt:string) {
+    return axios
+      .get(apiUrl +`?idUt=${idUdt}` , {
+        // headers: {
+        //        Authorization: `Bearer ${this.decryptedToken()}`
+        // },
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        //console.log(err);
+      });
+  }
+
+
+
   getDataOrdini(apiUrl: any, idUdt:string ) {
     return axios
       .get(apiUrl + `?idUtn=${idUdt}`, {

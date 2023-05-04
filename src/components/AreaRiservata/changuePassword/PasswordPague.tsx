@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import imgPassword from "../../../assets/img/password.svg";
 import SideBarPersonalArea from "../../common/SideBarPersonalArea/SideBarPersonalArea";
 import Header from "../../common/Header/Header";
 import SearchOrdini from "../../ordini/components/SearchOrdini";
 import NewsLatter from "../../common/newsLatter/NewsLatter";
+import imgEyeOff from "../../../assets/img/eye-off.svg";
+import imgEyeOn from "../../../assets/img/eye-on.svg";
 
 const PasswordPague = () => {
+  
+
   return (
     <>
       <Header />
@@ -29,9 +33,9 @@ const PasswordPague = () => {
           <button className="mt-10 flex-grow-0 text-white bg-[#f58220] font-semibold px-5 py-3 rounded text-lg">Esci</button>
            <NewsLatter />
         </div>
-        
+
+       
       </div>
-     
     </>
   );
 };

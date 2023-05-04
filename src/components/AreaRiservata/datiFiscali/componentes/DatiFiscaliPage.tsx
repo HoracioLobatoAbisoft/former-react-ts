@@ -1,12 +1,47 @@
-import React from "react";
+import React, {useState, useEffect, useContext} from "react";
 import imgUserEdit from "../../../../assets/img/user-edit.svg";
 import imgCardUser from "../../../../assets/img/carduser.svg";
 import icona1 from "../../../../assets/iconsLast/iconoProfilo.png";
 import icona2 from "../../../../assets/iconsLast/iconoFiscali.png";
 import SideBarPersonalArea from "../../../common/SideBarPersonalArea/SideBarPersonalArea";
 import NewsLatter from "../../../common/newsLatter/NewsLatter";
+import UserContext from "../../../../context/UserContext";
+import LoginService from "../../../../services/LoginService";
+
 
 const DatiFiscaliPage = () => {
+
+  const userData = useContext(UserContext);
+
+  const [userInfo, setUserInfo] = useState<user>();
+
+  interface user {
+    idRubricaInt: number;
+    email: string;
+    ragSoc: string;
+    nominativo: string;
+    piva: string;
+    codFisc: string;
+    pec: string;
+    codiceSDI: string;
+    indirizzo: string;
+    tel: string;
+    fax: string;
+    cellulare: string;
+  }
+
+  useEffect(() => {
+    LoginService.getUser(userData.id).then((res) => {
+      let data = res?.data.data;
+
+      setUserInfo(data);
+      
+    });
+  }, []);
+
+  
+
+
   return (
     <div className="flex">
       <SideBarPersonalArea />
@@ -23,13 +58,13 @@ const DatiFiscaliPage = () => {
             <div className="flex space-x-4 items-center">
               <h2 className="w-44 lg:w-56 font-bold text-lg">La tua ID di accesso: </h2>
               <p className="font-semibold  w-44 p-2 rounded lg:w-[400px] text-lg">
-                2687
+                {userInfo?.idRubricaInt}
               </p>
             </div>
             <div className="flex space-x-4 items-center">
               <h2 className="w-44 lg:w-56 font-bold text-lg">La tua email di accesso: </h2>
               <p className="font-semibold  w-44 p-2 rounded lg:w-[400px] text-lg">
-                info@dimmagine.com
+                {userInfo?.email}
               </p>
             </div>
           </div>
@@ -43,24 +78,24 @@ const DatiFiscaliPage = () => {
           <div className="flex space-x-4 items-center">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Ragione sociale: </h2>
             <p className="font-semibold w-44 p-2 rounded lg:w-[400px] text-lg">
-              Dimmagine s.r.l.
+              {userInfo?.ragSoc}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Nominativo: </h2>
             <p className="font-semibold w-44 p-2 rounded lg:w-[400px] text-lg">
-              Donatella Bittoni
+             {userInfo?.nominativo}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">P.IVA: </h2>
             <p className="font-semibold w-44 p-2 rounded lg:w-[400px] text-lg">
-              11359621007
+              {userInfo?.piva}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Codice fiscale: </h2>
-            <p className="font-semibold w-44 p-2 rounded lg:w-[400px] text-lg">saf</p>
+            <p className="font-semibold w-44 p-2 rounded lg:w-[400px] text-lg">{userInfo?.codFisc}</p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">PEC: </h2>
