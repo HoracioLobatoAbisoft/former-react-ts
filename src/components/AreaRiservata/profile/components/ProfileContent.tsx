@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from "react";
+
 import imgUserEdit from "../../../../assets/img/user-edit.svg";
 import imgCardUser from "../../../../assets/img/carduser.svg";
 import SideBarPersonalArea from "../../../common/SideBarPersonalArea/SideBarPersonalArea";
@@ -5,7 +7,39 @@ import NewsLatter from "../../../common/newsLatter/NewsLatter";
 import icona1 from "../../../../assets/iconsLast/iconoProfilo.png";
 import icona2 from "../../../../assets/iconsLast/iconoFiscali.png";
 import { Link } from "react-router-dom";
+import UserContext from "../../../../context/UserContext";
+import LoginService from "../../../../services/LoginService";
+
 const ProfileContent = () => {
+  const userData = useContext(UserContext);
+
+  const [userInfo, setUserInfo] = useState<user>();
+
+  interface user {
+    idRubricaInt: number;
+    email: string;
+    ragSoc: string;
+    nominativo: string;
+    piva: string;
+    codFisc: string;
+    pec: string;
+    codiceSDI: string;
+    indirizzo: string;
+    tel: string;
+    fax: string;
+    cellulare: string;
+  }
+
+  useEffect(() => {
+    LoginService.getUser(userData.id).then((res) => {
+      let data = res?.data.data;
+
+      setUserInfo(data);
+     
+    });
+  }, []);
+
+  
   return (
     <div className="flex ">
       <SideBarPersonalArea />
@@ -20,15 +54,19 @@ const ProfileContent = () => {
           </div>
           <div className="flex flex-col gap-3">
             <div className="flex space-x-4 items-center">
-              <h2 className="w-44 lg:w-56 font-bold text-lg">La tua ID di accesso: </h2>
-              <p className="font-semibold  w-44 p-2 rounded text-lg">2687</p>
+              <h2 className="w-44 lg:w-56 font-bold text-lg">
+                La tua ID di accesso:{" "}
+              </h2>
+              <p className="font-semibold  w-44 p-2 rounded text-lg">
+                {userInfo?.idRubricaInt}
+              </p>
             </div>
             <div className="flex space-x-4 items-center">
               <h2 className="w-44 lg:w-56 font-bold text-lg">
                 La tua email di accesso:{" "}
               </h2>
               <p className="font-semibold  w-44 p-2 rounded text-lg">
-                info@dimmagine.com
+                {userInfo?.email}
               </p>
             </div>
           </div>
@@ -40,49 +78,57 @@ const ProfileContent = () => {
             </h2>
           </div>
           <div className="flex space-x-4 items-center">
-            <h2 className="w-44 lg:w-56 font-bold text-lg">Ragione sociale: </h2>
+            <h2 className="w-44 lg:w-56 font-bold text-lg">
+              Ragione sociale:{" "}
+            </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
-              Dimmagine s.r.l.
+              {userInfo?.ragSoc}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Nominativo: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
-              Donatella Bittoni
+              {userInfo?.nominativo}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">P.IVA: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
-              11359621007
+              {userInfo?.piva}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Codice fiscale: </h2>
-            <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">saf</p>
+            <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
+              {userInfo?.codFisc}
+            </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">PEC: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
-              fabrizio.calo@pec.it
+              {userInfo?.pec}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Codice SDI: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
-              M5UXCR1
+              {userInfo?.codiceSDI}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Indirizzo: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
-              Via Andrea Fulvio 12/a, Roma (RM) - 00162
+              {userInfo?.indirizzo}
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
             <h2 className="w-44 lg:w-56 font-bold text-lg">Recapiti: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
-              tel. 068608733 fax cel. 3398610929
+              
+             <span className="mr-2"> tel.{userInfo?.tel } </span>
+              {/* fax.{userInfo?.fax}  */}
+              <span> cel.{userInfo?.cellulare}</span>
+             
             </p>
           </div>
           <div className="flex justify-center">

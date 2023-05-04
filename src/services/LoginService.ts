@@ -10,6 +10,11 @@ class LoginService {
         return MasterService.getDataUtenti(CURRENT_API_URL);
     }
 
+    getUser(idUdt:string) {
+        var CURRENT_API_URL = `${CLIENTE_API_URL}/Login/GetUserLoginById`;
+        console.log(CURRENT_API_URL);
+        return MasterService.getDataUser(CURRENT_API_URL, idUdt);
+    }
 
     getLavori(idUdt:string) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Lavori`;

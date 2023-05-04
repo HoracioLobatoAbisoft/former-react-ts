@@ -11,6 +11,7 @@ interface UserData {
   
 function UserContextProvider(props: Props) {
   const [userData, setUserData] = useState<UserData>({ id: "", token: "" });
+  
 
   useEffect(() => {
     const id = localStorage.getItem("idUtd");

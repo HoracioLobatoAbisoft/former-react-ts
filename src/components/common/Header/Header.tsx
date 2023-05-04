@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import imgLogo from "../../../assets/img/logo.png";
 import imgFacebook from "../../../assets/img/facebook.svg";
 import imgInstagram from "../../../assets/img/instagram.svg";
@@ -6,9 +6,44 @@ import imgTwitter from "../../../assets/img/twitter.svg";
 import imgYoutube from "../../../assets/img/youtube.svg";
 import imgHelp from "../../../assets/img/help.svg";
 import { Link } from "react-router-dom";
+import UserContext from "../../../context/UserContext";
+import LoginService from "../../../services/LoginService";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+
+  const userData = useContext(UserContext);
+
+  const [userInfo, setUserInfo] = useState<user>();
+
+  const id = localStorage.getItem("idUtd");
+
+  const dataId = id ? id : userData.id;
+
+  interface user {
+    idRubricaInt: number;
+    email: string;
+    ragSoc: string;
+    nominativo: string;
+    piva: string;
+    codFisc: string;
+    pec: string;
+    codiceSDI: string;
+    indirizzo: string;
+    tel: string;
+    fax: string;
+    cellulare: string;
+  }
+
+  useEffect(() => {
+    LoginService.getUser(dataId).then((res) => {
+      let data = res?.data.data;
+
+      setUserInfo(data);
+    });
+  }, []);
+
+  
 
   return (
     <>
@@ -58,7 +93,7 @@ const Header = () => {
           {/* header responsive */}
           {open && (
             <div
-              className="block absolute top-12 z-50 bg-white justify-between items-center w-full lg:hidden"
+              className="block absolute top-12 z-50 bg-white justify-between items-center w-full lg:hidden mb-2"
               id="mobile-menu-2"
             >
               <ul className="block  z-50 mt-4 font-medium px-4 pt-4">
@@ -130,16 +165,13 @@ const Header = () => {
                     alt=""
                   />
                 </div>
-                <div className="flex justify-center space-x-2">
-                  <Link
-                    to="/Register"
-                    className="text-[#f58220] font-semibold mr-2"
-                  >
-                    Registrati
-                  </Link>{" "}
+                <div className="flex justify-center space-x-2 pb-2">
+                  <div>
+                  Benvenuto, <span className="mr-2 bg-[#009ec9] text-white px-2 py-1">{userInfo?.nominativo}</span>
+                  </div>
                   o{" "}
                   <Link to="/Login" className="text-[#f58220] font-semibold">
-                    Accedi
+                    Esci
                   </Link>
                 </div>
               </ul>
@@ -154,13 +186,9 @@ const Header = () => {
             <div className="flex justify-center">
               <ul className=" mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                 <div className="text-xl">
-                  Benvenuto Visitatore,
-                  <Link to="/Register" className="text-[#f58220] font-semibold">
-                    Registrati
-                  </Link>{" "}
-                  o{" "}
-                  <Link to="/Login" className="text-[#f58220] font-semibold">
-                    Accedi
+                  Benvenuto, <span className="mr-2 bg-[#009ec9] text-white px-2 py-1">{userInfo?.nominativo}</span>
+                  <Link to="" className="text-[#f58220] font-semibold">
+                    Esci
                   </Link>
                 </div>
               </ul>
@@ -200,7 +228,10 @@ const Header = () => {
                 Le tue Recensioni
               </Link>{" "}
               |
-              <Link to="/Contact" className="mr-4 ml-4 hover:text-black cursor-pointer">
+              <Link
+                to="/Contact"
+                className="mr-4 ml-4 hover:text-black cursor-pointer"
+              >
                 {" "}
                 Contattaci
               </Link>
