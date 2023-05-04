@@ -1,9 +1,10 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useContext } from "react";
 import OrdiniServices from "../services/OrdiniServices";
 import {OrdineTable} from "../interfaces/IOrdine"
 import imgUserRunning from "../../../assets/img/user-runing.png";
 import imgBox from "../../../assets/img/box.svg";
 import imgTruck from "../../../assets/img/truck.svg";
+import UserContext from "../../../context/UserContext";
 
 
 //MRT Imports
@@ -25,7 +26,15 @@ import ButtonSendEmail from "./ButtonSendEmail";
 
 
 const TableOrdini = () => {
-  const idUdt =  localStorage.getItem('idUtd')
+  const userData = useContext(UserContext);
+  
+
+  
+  const id = localStorage.getItem("idUtd");
+
+  const dataId = id? id : userData.id
+
+
   const [dataOrdini, setDataOrdini] = useState([
     {
       corriereStr: "",
@@ -50,8 +59,10 @@ const TableOrdini = () => {
     },
   ]);
   const [isLoading, setIsLoading] = useState(true);
+  
+
   useEffect(() => {
-    OrdiniServices.getOrdini().then((res) => {
+    OrdiniServices.getOrdini(dataId).then((res) => {
 
       let data = res?.data;
       
@@ -59,6 +70,8 @@ const TableOrdini = () => {
       setIsLoading(false);
     });
   }, []);
+
+
 
   const columns = useMemo<MRT_ColumnDef<OrdineTable>[]>(
     () => [

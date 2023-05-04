@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OrdiniServices from "../services/OrdiniServices";
 import Swal from "sweetalert2";
 import SweeAlert from "../../../services/SweeAlert";
+import UserContext from "../../../context/UserContext";
 
 const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
   const swalWithBootstrapButtons = Swal.mixin({
@@ -11,6 +12,9 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
     },
     buttonsStyling: true,
   });
+
+  const userData = useContext(UserContext);
+  
 
   const idUdt =  localStorage.getItem('idUtd')
 
@@ -84,7 +88,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
         return;
       }
       data = {
-        idut: idUdt,
+        idut: userData.id,
         indirizzo: Indirizzo,
         referimento: riferimento,
         destinatario: destinatario,
@@ -107,7 +111,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
       }
 
       data = {
-        idut: idUdt,
+        idut: userData.id,
         indirizzo: Indirizzo,
         referimento: riferimento,
         destinatario: destinatario,

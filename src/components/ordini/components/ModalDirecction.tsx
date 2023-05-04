@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import SweeAlert from "../../../services/SweeAlert";
 import OrdiniServices from "../services/OrdiniServices";
 import ModalNewDirecction from "./ModalNewDirecction";
+import UserContext from "../../../context/UserContext";
 
 const ModalDirecction = ({ cell, closeModal }: any) => {
 
   const idUdt =  localStorage.getItem('idUtd')
   
-
+  const userData = useContext(UserContext);
+ 
 
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -30,7 +32,7 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
   const [textNota, setTextNota] = useState("");
 
   const updateList = () => {
-    OrdiniServices.getOrdiniIndirizo(idUdt).then((res) => {
+    OrdiniServices.getOrdiniIndirizo(userData.id).then((res) => {
       let data = res?.data.data;
       setDataIndirizo(data);
     });
@@ -84,7 +86,7 @@ const ModalDirecction = ({ cell, closeModal }: any) => {
   };
 
   useEffect(() => {
-    OrdiniServices.getOrdiniIndirizo(idUdt).then((res) => {
+    OrdiniServices.getOrdiniIndirizo(userData.id).then((res) => {
       let data = res?.data.data;
       setDataIndirizo(data);
     });

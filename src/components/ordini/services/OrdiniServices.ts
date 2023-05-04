@@ -4,16 +4,16 @@ import { conf } from "../../../../config";
 const CLIENTE_API_URL = "http://localhost:5183" + "/api";
 
 class OrdiniService {
-  getOrdini() {
+  getOrdini(idUdt:string) {
     var CURRENT_API_URL = `${CLIENTE_API_URL}/Ordini`;
     
-    return MasterService.getDataOrdini(CURRENT_API_URL);
+    return MasterService.getDataOrdini(CURRENT_API_URL, idUdt);
   }
 
-  getOrdiniById(id: any) {
+  getOrdiniById(id: any, idUdt:string) {
     var CURRENT_API_URL = `${CLIENTE_API_URL}/Ordini/GetById`;
     
-    return MasterService.getDataOrdiniById(CURRENT_API_URL, id);
+    return MasterService.getDataOrdiniById(CURRENT_API_URL, id, idUdt);
   }
 
   getOrdiniIndirizo(id: any) {

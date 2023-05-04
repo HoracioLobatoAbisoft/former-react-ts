@@ -28,18 +28,19 @@ function App() {
   const searchParams = new URLSearchParams(location.search);
   const idUtd = searchParams.get("id") ?? "";
   const token = searchParams.get("token") ?? "";
-  localStorage.setItem("token",token);
-  localStorage.setItem("idUtd", idUtd);  
+  localStorage.setItem("token", token);
+  localStorage.setItem("idUtd", idUtd);
+  
   return (
     <div className="w-full h-screen">
-    <UserContextProvider>        
+      <UserContextProvider>
         <Routes>
           <Route path="/" element={<OrdiniPage />}></Route>
           <Route path="/nav" element={<OrdiniPage />} />
           <Route path="/lavori" element={<LavoriPage />} />
           <Route path="/Register" element={<RegisterPage />} />
           <Route path="/Login" element={<LoginPage />} />
-          <Route path="/Profilo" element={<ProfilePague  />} />
+          <Route path="/Profilo" element={<ProfilePague />} />
           <Route path="/DatiFiscali" element={<DatiFiscali />} />
           <Route path="/Discount" element={<DiscountPage />} />
           <Route path="/Password" element={<PasswordPague />} />
@@ -54,8 +55,7 @@ function App() {
           <Route path="/Contact" element={<ContactPage />} />
           <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
         </Routes>
-        </UserContextProvider>
-
+      </UserContextProvider>
     </div>
   );
 }

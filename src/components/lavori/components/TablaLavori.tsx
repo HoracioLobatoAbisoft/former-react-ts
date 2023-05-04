@@ -1,8 +1,9 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState, useContext } from "react";
 import ClienteService from "../../../services/LoginService";
 import MaterialReactTable, { type MRT_ColumnDef } from "material-react-table";
 import { Box, Typography } from "@mui/material";
 import SubTableLavori from "./SubTableLavori";
+import UserContext from "../../../context/UserContext";
 
 const TablaLavori = () => {
 
@@ -36,8 +37,11 @@ const TablaLavori = () => {
     },
   ]);
 
+  const userData = useContext(UserContext);
+  
+
   useEffect(() => {
-    ClienteService.getLavori().then((res) => {
+    ClienteService.getLavori(userData.id).then((res) => {
       let data = res?.data;
       
       setDataLavori(data);

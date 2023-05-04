@@ -11,10 +11,10 @@ class LoginService {
     }
 
 
-    getLavori() {
+    getLavori(idUdt:string) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Lavori`;
         console.log(CURRENT_API_URL);
-        return MasterService.getDataLavori(CURRENT_API_URL);
+        return MasterService.getDataLavori(CURRENT_API_URL, idUdt);
     }
 
 
