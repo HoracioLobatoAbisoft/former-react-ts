@@ -4,6 +4,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import SweeAlerts from "./SweeAlert";
 
+const idUdt =  localStorage.getItem('idUtd')
+
 class MasterService {
   decryptedToken = () => {
     return localStorage.getItem("token");
@@ -16,6 +18,8 @@ class MasterService {
     },
     buttonsStyling: true,
   });
+
+
 
   getDataUtenti(apiUrl: any) {
     return axios
@@ -31,9 +35,9 @@ class MasterService {
         //console.log(err);
       });
   }
-  getDataOrdini(apiUrl: any) {
+  getDataOrdini(apiUrl: any, ) {
     return axios
-      .get(apiUrl + "?idUtn=14", {
+      .get(apiUrl + `?idUtn=${14}`, {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },
@@ -47,8 +51,9 @@ class MasterService {
   }
 
   getDataOrdiniById(apiUrl: any, id: any) {
+    console.log(idUdt)
     return axios
-      .get(apiUrl + `?idConsegna=${id}&idUtn=14`, {
+      .get(apiUrl + `?idConsegna=${id}&idUtn=${14}`, {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },
@@ -123,7 +128,7 @@ class MasterService {
 
   getDataOrdiniIndirizo(apiUrl: any, id: any) {
     return axios
-      .get(apiUrl + `?idUt=${id}`, {
+      .get(apiUrl + `?idUt=${14}`, {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },
@@ -185,7 +190,7 @@ class MasterService {
 
   getDataLavori(apiUrl: any) {
     return axios
-      .get(apiUrl + "?idUt=1684", {
+      .get(apiUrl + "?idUt=14", {
         // headers: {
         //        Authorization: `Bearer ${this.decryptedToken()}`
         // },

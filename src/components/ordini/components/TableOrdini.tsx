@@ -25,6 +25,7 @@ import ButtonSendEmail from "./ButtonSendEmail";
 
 
 const TableOrdini = () => {
+  const idUdt =  localStorage.getItem('idUtd')
   const [dataOrdini, setDataOrdini] = useState([
     {
       corriereStr: "",

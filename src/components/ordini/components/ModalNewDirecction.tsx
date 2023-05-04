@@ -12,6 +12,8 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
     buttonsStyling: true,
   });
 
+  const idUdt =  localStorage.getItem('idUtd')
+
   const [showLoading, setShowLoading] = useState(false);
 
   const [riferimento, setRiferimento] = useState("");
@@ -82,7 +84,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
         return;
       }
       data = {
-        idut: 14,
+        idut: idUdt,
         indirizzo: Indirizzo,
         referimento: riferimento,
         destinatario: destinatario,
@@ -105,7 +107,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
       }
 
       data = {
-        idut: 14,
+        idut: idUdt,
         indirizzo: Indirizzo,
         referimento: riferimento,
         destinatario: destinatario,
@@ -184,7 +186,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                     onChange={(e) => setDestinatario(e.target.value)}
                     type="text"
                     className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
-                    placeholder="Inserisci il Destinatario"
+                    placeholder="Inserisci il destinatario"
                   />
                 </div>
               </div>
@@ -195,7 +197,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                     onChange={(e) => setIndirizzo(e.target.value)}
                     type="text"
                     className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
-                    placeholder="Inserisci il tuo indirizzo"
+                    placeholder="Inserisci indirizzo"
                   />
                 </div>
               </div>
@@ -227,7 +229,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                       <input
                         type="text"
                         className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
-                        placeholder="Inserisci il tuo CAP"
+                        placeholder="Inserisci il Codice di Avviamento Postale"
                         onChange={(e) => setCapText(e.target.value)}
                       />
                     </div>
@@ -270,7 +272,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                       onChange={(e) => setLocalitaCap(e.target.value)}
                       type="text"
                       className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
-                      placeholder="Inserisci il tuo CAP"
+                      placeholder="Inserisci il Codice di Avviamento Postale"
                     />
                   </div>
                 </div>
@@ -283,7 +285,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                     onChange={(e) => setTelefono(e.target.value)}
                     type="text"
                     className="text-sm placeholder-gray-500 pl-4 pr-4 rounded border border-gray-400 w-full py-2 focus:outline-none focus:border-[#f58220]"
-                    placeholder="Inserisci un numero di Telefono"
+                    placeholder="Inserisci un numero di telefono"
                   />
                 </div>
               </div>
@@ -304,7 +306,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
                   type="button"
                   onClick={saveNewIndirizzo}
                 >
-                  salvare nuovo indirizzo
+                  salva nuovo indirizzo
                 </button>
                 
               </div>

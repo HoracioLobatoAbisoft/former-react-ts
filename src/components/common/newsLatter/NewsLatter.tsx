@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NewsLatter = () => {
   return (
-    <div className="p-8 bg-white mt-20 rounded-md shadow-2xl lg:flex justify-around items-center w-full">
+    <div className="p-8 bg-[#E8E8E8] mt-20 rounded-md shadow-2xl lg:flex justify-around items-center w-full">
       <div className="">
         <img className="w-92 h-56 " src={imgContacto} alt="" />
       </div>

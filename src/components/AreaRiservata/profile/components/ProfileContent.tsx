@@ -25,7 +25,7 @@ const ProfileContent = () => {
             </div>
             <div className="flex space-x-4 items-center">
               <h2 className="w-44 lg:w-56 font-bold text-lg">
-                La tua Email di accesso:{" "}
+                La tua email di accesso:{" "}
               </h2>
               <p className="font-semibold  w-44 p-2 rounded text-lg">
                 info@dimmagine.com
@@ -40,7 +40,7 @@ const ProfileContent = () => {
             </h2>
           </div>
           <div className="flex space-x-4 items-center">
-            <h2 className="w-44 lg:w-56 font-bold text-lg">Ragione Sociale: </h2>
+            <h2 className="w-44 lg:w-56 font-bold text-lg">Ragione sociale: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">
               Dimmagine s.r.l.
             </p>
@@ -58,7 +58,7 @@ const ProfileContent = () => {
             </p>
           </div>
           <div className="flex space-x-4 items-center ">
-            <h2 className="w-44 lg:w-56 font-bold text-lg">Codice Fiscale: </h2>
+            <h2 className="w-44 lg:w-56 font-bold text-lg">Codice fiscale: </h2>
             <p className="font-semibold w-44 p-2 rounded text-lg lg:w-[400px]">saf</p>
           </div>
           <div className="flex space-x-4 items-center ">
