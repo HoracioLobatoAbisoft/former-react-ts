@@ -5,10 +5,6 @@ const UserContext = createContext({
   token: ""
  
 })
-
-
-
-
 export default UserContext;
 
 

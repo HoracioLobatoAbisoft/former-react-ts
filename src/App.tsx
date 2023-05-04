@@ -20,32 +20,19 @@ import DatiFiscali from "./components/AreaRiservata/datiFiscali/DatiFiscali";
 import DiscountPage from "./components/AreaRiservata/discount/DiscountPage";
 import Hijo from "./components/Hijo";
 import UserContext from "./context/UserContext";
-
+import UserContextProvider from "./context/UserContextProvider";
 export const userContext = React.createContext({});
 
 function App() {
   const location = useLocation();
-
   const searchParams = new URLSearchParams(location.search);
-
   const idUtd = searchParams.get("id") ?? "";
   const token = searchParams.get("token") ?? "";
-
-
-  localStorage.setItem("token",token)
-  localStorage.setItem("idUtd", idUtd);
-
-  
-  const userData = {
-    id: idUtd? idUtd: 'null',
-    token: token? token: 'null'
-  } 
-
+  localStorage.setItem("token",token);
+  localStorage.setItem("idUtd", idUtd);  
   return (
     <div className="w-full h-screen">
-
-      <UserContext.Provider value={userData}>
-        
+    <UserContextProvider>        
         <Routes>
           <Route path="/" element={<OrdiniPage />}></Route>
           <Route path="/nav" element={<OrdiniPage />} />
@@ -67,7 +54,8 @@ function App() {
           <Route path="/Contact" element={<ContactPage />} />
           <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
         </Routes>
-      </UserContext.Provider>
+        </UserContextProvider>
+
     </div>
   );
 }

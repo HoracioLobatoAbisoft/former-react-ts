@@ -7,12 +7,6 @@ import useUser from '../../context/useUser'
 
 
 const LavoriPage = () => {
-  const user = useUser()
-
-    console.log(user)
-  
-  
-
 
   return (
     <div>

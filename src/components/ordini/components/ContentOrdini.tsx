@@ -12,14 +12,8 @@ const ContentOrdini = () => {
     setToggleState(index);
   };
 
-  const user = useUser()
-
-    console.log(user)
-
-
-  
-
-
+  const user = useUser()    
+  console.log(user)
   return (
     <>
       <div className="flex overflow-x-scroll">

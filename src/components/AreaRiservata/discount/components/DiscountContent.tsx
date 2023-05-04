@@ -1,10 +1,10 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import icona1 from "../../../../assets/iconsLast/iconoProfilo.png";
 import imgDiscontoWhite from "../../../../assets/img/coupon-white.png"
 import SideBarPersonalArea from '../../../common/SideBarPersonalArea/SideBarPersonalArea'
 import DiscountComponent from './DiscountComponent';
 import DiscountExplication from './DiscountExplication';
-
+import UserContext from "../../../../context/UserContext";
 const DiscountContent = () => {
 
   const [toggleState, setToggleState] = useState(1);
@@ -12,6 +12,8 @@ const DiscountContent = () => {
     setToggleState(index);
   };
 
+  const userData = useContext(UserContext);
+  console.log(userData)
   return (
     <div className="flex ">
       <SideBarPersonalArea />
