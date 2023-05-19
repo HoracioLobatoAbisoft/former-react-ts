@@ -21,6 +21,7 @@ import DiscountPage from "./components/AreaRiservata/discount/DiscountPage";
 import Hijo from "./components/Hijo";
 import UserContext from "./context/UserContext";
 import UserContextProvider from "./context/UserContextProvider";
+import ContentOrdini from "./components/ordini/components/ContentOrdini";
 export const userContext = React.createContext({});
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
       <UserContextProvider>
         <Routes>
           <Route path="/" element={<OrdiniPage />}></Route>
+          <Route path="/ordiniTabella" element={<ContentOrdini />} />
           <Route path="/nav" element={<OrdiniPage />} />
           <Route path="/lavori" element={<LavoriPage />} />
           <Route path="/Register" element={<RegisterPage />} />

@@ -15,7 +15,7 @@ const ContentOrdini = () => {
   return (
     <>
       <div className="flex overflow-x-scroll">
-        <SideBarPersonalArea />
+        {/* <SideBarPersonalArea /> */}
 
         <div className=" overflow-x-scroll">
           <div className="p-4">
