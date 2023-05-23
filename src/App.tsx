@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { Route, useLocation } from "react-router-dom";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
@@ -21,7 +20,12 @@ import DiscountPage from "./components/AreaRiservata/discount/DiscountPage";
 import Hijo from "./components/Hijo";
 import UserContext from "./context/UserContext";
 import UserContextProvider from "./context/UserContextProvider";
+<<<<<<< Updated upstream
 import ContentOrdini from "./components/ordini/components/ContentOrdini";
+=======
+import { FormProdotto } from "./components/formProdotto";
+import { FormProdottoModificated } from "./components/formProdottoV1";
+>>>>>>> Stashed changes
 export const userContext = React.createContext({});
 
 function App() {
@@ -31,7 +35,7 @@ function App() {
   const token = searchParams.get("token") ?? "";
   localStorage.setItem("token", token);
   localStorage.setItem("idUtd", idUtd);
-  
+
   return (
     <div className="w-full h-screen">
       <UserContextProvider>
@@ -47,6 +51,8 @@ function App() {
           <Route path="/Discount" element={<DiscountPage />} />
           <Route path="/Password" element={<PasswordPague />} />
           <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
+          <Route path="/form-prodotto" element={<FormProdotto />} />
+          <Route path="/form-prodotto-v1/:idPrev/:idFormProd" element={<FormProdottoModificated />} />
           <Route
             path="/OrdineDetails/:userId"
             element={<OrdineDetailsPage />}

@@ -1,3 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .row {
+    @apply flex flex-wrap -mx-4;
+  }
+
+  .col {
+    @apply relative w-full px-4 flex-grow-0 flex-shrink-0;
+  }
+
+  .col-1 {
+    @apply basis-1/12 max-w-1/12;
+  }
+
+  .col-2 {
+    @apply basis-1/6 max-w-1/6;
+  }
+
+  .col-3 {
+    @apply basis-1/4 max-w-1/4;
+  }
+
+  .col-4 {
+    @apply basis-1/3 max-w-1/3;
+  }
+
+  .col-5 {
+    @apply basis-5/12 max-w-5/12;
+  }
+
+  .col-6 {
+    @apply basis-1/2 max-w-1/2;
+  }
+
+  .col-7 {
+    @apply basis-7/12 max-w-7/12;
+  }
+
+  .col-8 {
+    @apply basis-8/12 max-w-8/12;
+  }
+
+  .col-9 {
+    @apply basis-3/4 max-w-3/4;
+  }
+
+  .col-10 {
+    @apply basis-5/6 max-w-5/6;
+  }
+
+  .col-11 {
+    @apply basis-11/12 max-w-11/12;
+  }
+
+  .col-12 {
+    @apply basis-full max-w-full;
+  }
+}
+
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}
