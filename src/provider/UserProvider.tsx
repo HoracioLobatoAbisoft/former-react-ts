@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const userContext = React.createContext({});
 
-const userToggleContext = React.createContext();
+const userToggleContext = React.createContext(()=>{});
 
 
 

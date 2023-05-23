@@ -1,41 +1,54 @@
 import React, { useMemo, useEffect, useState, useContext } from "react";
 import ClienteService from "../../../services/LoginService";
-import MaterialReactTable, { type MRT_ColumnDef } from "material-react-table";
+import MaterialReactTable, { type MRT_ColumnDef } from 'material-react-table';
 import { Box, Typography } from "@mui/material";
 import SubTableLavori from "./SubTableLavori";
 import UserContext from "../../../context/UserContext";
+
+interface ILavori {
+  boxImgRif:string,
+    nomeLavoro: string,
+    idOrdineWeb: number,
+    statoStrO: string,
+    coloreStatoHTMLO:string,
+    nOrdineStr: string,
+    anteprimaWeb: string,
+    qtaStr: number,
+    nomeProdotto: string,
+    dimensioniStr: string,
+    orientamentoSelezionatoStr: string,
+    supportoStr: string,
+    coloriStampaStr: string,
+    nFogliVisStr: number,
+    boxLavorazioni: string[],
+    colliStr: number,
+    pesoStr: number,
+    idCoupon: number,
+    importoTotaleScontiStrO: number,
+    omaggio: number,
+    importoNettoStr: number,
+    noteOrd: string,
+    promo: number,
+    pathTemplate: string,
+    collapseInterno: string,
+    boxTitolo: string,
+    title: string,
+    preventizioneIdReparto: number,
+    ifOrientamento: number,
+    ifSupporto: number,
+    ifFogli: number,
+    fogliLabel: string,
+    ifOpzioni: number,
+    ifCoupon: number,
+    colorCoupon: string,
+    ifNote: number,
+}[]
 
 const TablaLavori = () => {
 
   const [isLoading, setIsLoading] = useState(true)
 
-  const [dataLavori, setDataLavori] = useState([
-    {
-      firstName: "John",
-      corriereStr: "",
-      idConsegnaView: "",
-      giornoStr: "",
-      lastName: "Whitch",
-      email: "jhon@rmail.com",
-      jobTitle: "programer",
-      salary: 10000,
-      startDate: "10/20/2022",
-      signatureCatchPhrase: "",
-      avatar: "aaa",
-      statoStr: "",
-      count: "",
-      importoTotOrdiniNettoOriginaleStr: "",
-      coloreStatoHtml: "",
-      indirizzoStr: "",
-      pesoKG: 0,
-      colliStr: "",
-      pagamentoStr: "",
-      importoConsegnaStr: "",
-      importoTotIvaStr: "",
-      importoTotStr: "",
-      inseritoStr: "",
-    },
-  ]);
+  const [dataLavori, setDataLavori] = useState<ILavori[]>([]);
 
   const userData = useContext(UserContext);
   
@@ -43,13 +56,13 @@ const TablaLavori = () => {
   useEffect(() => {
     ClienteService.getLavori(userData.id).then((res) => {
       let data = res?.data;
-      
+      console.log(data);
       setDataLavori(data);
       setIsLoading(false)
     });
   }, []);
 
-  const columns = useMemo<MRT_ColumnDef[]>(
+  const columns = useMemo<MRT_ColumnDef<ILavori>[]>(
     () =>
       [
         {
@@ -57,7 +70,7 @@ const TablaLavori = () => {
           header: "",
           columns: [
             {
-              accessorFn: (row) => `${row.coloreStatoHTMLO}`,
+              //accessorFn: (row) => `${row.coloreStatoHTMLO}`,
               id: "coloreStatoHTMLO", //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
               header: "Stato",
               size: 150,
@@ -139,7 +152,7 @@ const TablaLavori = () => {
           header: "PDF",
           size: 150,
         },
-      ] as MRT_ColumnDef[],
+      ],
     []
   );
 

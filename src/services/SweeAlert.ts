@@ -9,7 +9,7 @@ class SweeAlerts {
     buttonsStyling: true,
   });
 
-  confirmAlert = (title: string, message: string, type: string) => {
+  confirmAlert = (title: string, message: string, type: any) => {
     this.swalWithBootstrapButtons.fire(title, message, type);
   };
 
