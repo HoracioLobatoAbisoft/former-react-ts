@@ -8,5 +8,5 @@ export interface InitialValuesProdotto {
 
 export interface OptionsSelect{
   label:string
-  value:string
+  value:string | number
 }

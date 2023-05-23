@@ -3,7 +3,7 @@ import { InputCustomSelect } from "./components/InputCustomSelect";
 import { useConfiguraProdotto } from "./hooks/useConfiguraProdotto";
 
 export const ConfiguraProdotto = () => {
-  const { handleOptionsFormat, handleChange } = useConfiguraProdotto();
+  const { handleOptionsFormat, handleChange, handleOptionsTipoCarta } = useConfiguraProdotto();
   return (
     <div className="row max-w-[900px]">
       <div className="col col-12 bg-main text-white py-[2px]">
@@ -15,8 +15,8 @@ export const ConfiguraProdotto = () => {
           {handleOptionsFormat()}
         </span>
       </div>
-      <InputCustomSelect label="Tipo di Carta" />
-      <InputCustomSelect label="Colore di stampa" />
+      <InputCustomSelect label="Tipo di Carta" options={handleOptionsTipoCarta()} />
+      <InputCustomSelect label="Colore di stampa" options={[]} />
       <InputCustom
         handleChange={handleChange}
         name="base"
@@ -43,8 +43,8 @@ export const ConfiguraProdotto = () => {
         classCustomLabel="font-bold"
         info
       />
-      <InputCustomSelect label="Stampa a Caldo" />
-      <InputCustomSelect label="Plastificazione" />
+      <InputCustomSelect label="Stampa a Caldo" options={[]} />
+      <InputCustomSelect label="Plastificazione" options={[]} />
     </div>
   );
 };

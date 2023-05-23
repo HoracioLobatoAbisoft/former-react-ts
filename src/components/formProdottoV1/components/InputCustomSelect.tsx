@@ -1,11 +1,13 @@
 import { Collapse } from "react-collapse";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { useState } from "react";
+import { OptionsSelect } from "../../formProdotto/interfaces/prodotto";
 
 interface Props {
   label: string;
+  options: OptionsSelect[]
 }
-export const InputCustomSelect = ({ label }: Props) => {
+export const InputCustomSelect = ({ label, options }: Props) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   return (
     <div className="col col-12 pb-2 text-left border-[#e2e2e2] border-b">
@@ -13,7 +15,13 @@ export const InputCustomSelect = ({ label }: Props) => {
         <h2 className="font-normal text-base mb-1">{label}</h2>
         <div className="flex items-center">
           <select className="rounded-3xl block w-2/3 text-gray-700 border outline-none border-gray-200
-          py-1 px-4 mb-3 leading-tight"></select>
+          py-1 px-4 mb-3 leading-tight">
+            {
+              options.map(elem => (
+                <option value={elem.value}>{elem.label}</option>
+              ))
+            }
+          </select>
           <span
             className={`${!isCollapsed ? "opacity-100 shadow-md" : "opacity-70"
               } text-base text-gray-800 ml-2 mb-3 cursor-pointer`}

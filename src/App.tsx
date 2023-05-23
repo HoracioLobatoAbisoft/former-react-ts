@@ -1,9 +1,6 @@
 import React from "react";
 import { Route, useLocation } from "react-router-dom";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
-import "./App.css";
-import LoginForm from "./components/Login/components/LoginForm";
-import UtentiComponent from "./components/UtentiComponent";
 import OrdiniPage from "./components/ordini/OrdiniPage";
 import LavoriPage from "./components/lavori/LavoriPage";
 import OrdineDetailsPage from "./components/ordini/OrdiniDetailsPage";
@@ -18,15 +15,12 @@ import IndirizziCorriere from "./components/IndirizziCorriere/IndirizziCorriere"
 import DatiFiscali from "./components/AreaRiservata/datiFiscali/DatiFiscali";
 import DiscountPage from "./components/AreaRiservata/discount/DiscountPage";
 import Hijo from "./components/Hijo";
-import UserContext from "./context/UserContext";
 import UserContextProvider from "./context/UserContextProvider";
-<<<<<<< Updated upstream
 import ContentOrdini from "./components/ordini/components/ContentOrdini";
-=======
 import { FormProdotto } from "./components/formProdotto";
 import { FormProdottoModificated } from "./components/formProdottoV1";
->>>>>>> Stashed changes
 export const userContext = React.createContext({});
+import "./App.css";
 
 function App() {
   const location = useLocation();
