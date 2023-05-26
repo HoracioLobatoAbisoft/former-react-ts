@@ -25,8 +25,10 @@ import "./App.css";
 function App() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  //debugger
   const idUtd = searchParams.get("id") ?? "";
   const token = searchParams.get("token") ?? "";
+
   localStorage.setItem("token", token);
   localStorage.setItem("idUtd", idUtd);
 
@@ -47,6 +49,7 @@ function App() {
           <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
           <Route path="/form-prodotto" element={<FormProdotto />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd" element={<FormProdottoModificated />} />
+          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa" element={<FormProdottoModificated />} />
           <Route
             path="/OrdineDetails/:userId"
             element={<OrdineDetailsPage />}

@@ -1,34 +1,47 @@
 import { Collapse } from "react-collapse";
 import { BsInfoCircleFill } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { OptionsSelect } from "../../formProdotto/interfaces/prodotto";
 
 interface Props {
   label: string;
   options: OptionsSelect[]
+  name:string;
+  handleChange: any;
+  valueSelect?:any;
+  showIcon:boolean;
 }
-export const InputCustomSelect = ({ label, options }: Props) => {
+export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect, showIcon }: Props) => {
+
+  const [position, setPosition] = useState(valueSelect === null?0:valueSelect)
   const [isCollapsed, setIsCollapsed] = useState(true);
+  //console.log("werewrewr",position,valueSelect)
+  useEffect(() => {
+    if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
+  }, [valueSelect]);
   return (
-    <div className="col col-12 pb-2 text-left border-[#e2e2e2] border-b">
-      <div className="w-full">
-        <h2 className="font-normal text-base mb-1">{label}</h2>
-        <div className="flex items-center">
-          <select className="rounded-3xl block w-2/3 text-gray-700 border outline-none border-gray-200
+    <div className="col col-12 pb-2 border-[#e2e2e2] border-b flex w-full flex-col">
+      <div className="w-full flex flex-col ">
+        <h2 className="font-bold uppercase my-1 text-base mb-1">{label}</h2>
+        <div className="flex w-full">
+          <select name={name} onChange={handleChange} className="rounded-3xl block w-2/3 text-gray-700 border outline-none border-gray-200
           py-1 px-4 mb-3 leading-tight">
             {
-              options.map(elem => (
-                <option value={elem.value}>{elem.label}</option>
+              options.map((elem,i) => (
+                <option key={elem.value} value={elem.value} >{elem.label}</option>
               ))
             }
           </select>
-          <span
-            className={`${!isCollapsed ? "opacity-100 shadow-md" : "opacity-70"
-              } text-base text-gray-800 ml-2 mb-3 cursor-pointer`}
-            onClick={() => setIsCollapsed((prev) => !prev)}
-          >
-            <BsInfoCircleFill />
-          </span>
+          {
+           ( showIcon===true &&position === 0 || position === undefined) ?null: <span
+                className={`${!isCollapsed ? "opacity-100 shadow-md" : "opacity-70"
+                  } text-base text-gray-800 ml-2 mb-3 cursor-pointer`}
+                onClick={() => setIsCollapsed((prev) => !prev)}
+              >
+                <BsInfoCircleFill />
+              </span>
+          }
+         
         </div>
       </div>
       <Collapse isOpened={!isCollapsed}>
@@ -37,7 +50,7 @@ export const InputCustomSelect = ({ label, options }: Props) => {
             <div className="col md:col-5 lg:col-4">
               <div className="w-48 max-w-full h-full">
                 <img
-                  src="https://www.biaginionline.it/96079-thickbox_default/cartoncino-bristol-a3-rosso-fabriano-lr-gr220.jpg"
+                  src={options && (position === 0 || position === undefined)?`https://localhost:44311/listino/`+options[0]?.image:`https://localhost:44311/listino/`+options.find(x => Number(x.value) === Number(position))?.image}
                   alt=""
                 />
               </div>
@@ -45,15 +58,16 @@ export const InputCustomSelect = ({ label, options }: Props) => {
             <div className="col md:col-7 lg:col-8">
               <div className="relative mb-3">
                 <h2 className="text-yellow-400 capitalize">
-                  What is Lorem Ipsum?
+                {options && (position === 0 || position === undefined) ?options[0]?.label:options.find(x => Number(x.value) === Number(position))?.label
+                }
                 </h2>
               </div>
-
               <p className="max-w-[500px] text-justify text-white">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen bookm.
+                {
+                 options && (position === 0 || position === undefined)?options[0]?.description:options.find(x => Number(x.value) === Number(position))?.description
+                //options[position].description
+
+                }
               </p>
             </div>
           </div>
