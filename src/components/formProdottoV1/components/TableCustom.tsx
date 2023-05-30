@@ -55,7 +55,8 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate }: Props) => {
                                 </div>
                             <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center">
                                 <p className="text-[15px]">€ {elem.prezzoRiv}</p></div>
-                            <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center text-[15px]">€ {elem.prezzoPubbl}</div>
+                            <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center ">
+                                <p className="text-[15px]">€ {elem.prezzoPubbl}</p></div>
                         </div>
                     )
                 })

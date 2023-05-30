@@ -16,16 +16,16 @@ export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect
   const [position, setPosition] = useState(valueSelect === null?0:valueSelect)
   const [isCollapsed, setIsCollapsed] = useState(true);
   //console.log("werewrewr",position,valueSelect)
-  useEffect(() => {
-    if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
-  }, [valueSelect]);
+  // useEffect(() => {
+  //   if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
+  // }, [valueSelect]);
   return (
-    <div className="col col-12 pb-2 border-[#e2e2e2] border-b flex w-full flex-col">
-      <div className="w-full flex flex-col ">
-        <h2 className="font-bold uppercase my-1 text-base mb-1">{label}</h2>
-        <div className="flex w-full">
-          <select name={name} onChange={handleChange} className="rounded-3xl block w-2/3 text-gray-700 border outline-none border-gray-200
-          py-1 px-4 mb-3 leading-tight">
+    <div className="border-[#e2e2e2] border-b flex w-full flex-col pt-3">
+      <div className="w-full flex justify-between gap-5 items-center">
+        <h2 className="font-  w-[28%]">{label}</h2>
+        <div className="flex w-[72%] justify-between">
+          <select name={name} onChange={handleChange} className="rounded-3xl block w-3/4 text-gray-700 border outline-none border-gray-200
+          py-1 px-3 mb-3 leading-tight">
             {
               options.map((elem,i) => (
                 <option key={elem.value} value={elem.value} >{elem.label}</option>
@@ -33,15 +33,14 @@ export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect
             }
           </select>
           {
-           ( showIcon===true &&position === 0 || position === undefined) ?null: <span
+          ( showIcon===true &&position === 0 || position === undefined) ?null: <span
                 className={`${!isCollapsed ? "opacity-100 shadow-md" : "opacity-70"
-                  } text-base text-gray-800 ml-2 mb-3 cursor-pointer`}
+                  } text-base text-gray-800 cursor-pointer`}
                 onClick={() => setIsCollapsed((prev) => !prev)}
               >
                 <BsInfoCircleFill />
               </span>
           }
-         
         </div>
       </div>
       <Collapse isOpened={!isCollapsed}>
@@ -58,14 +57,16 @@ export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect
             <div className="col md:col-7 lg:col-8">
               <div className="relative mb-3">
                 <h2 className="text-yellow-400 capitalize">
-                {options && (position === 0 || position === undefined) ?options[0]?.label:options.find(x => Number(x.value) === Number(position))?.label
+                {/* {options && (position === 0 || position === undefined) ?options[0]?.label:options.find(x => Number(x.value) === Number(position))?.label */}
+                {
+                  options[position]?.label
                 }
                 </h2>
               </div>
               <p className="max-w-[500px] text-justify text-white">
                 {
-                 options && (position === 0 || position === undefined)?options[0]?.description:options.find(x => Number(x.value) === Number(position))?.description
-                //options[position].description
+                // options && (position === 0 || position === undefined)?options[0]?.description:options.find(x => Number(x.value) === Number(position))?.description
+                options[position]?.description
 
                 }
               </p>

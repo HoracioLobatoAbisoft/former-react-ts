@@ -14,13 +14,13 @@ const ListCustom = ({ label, options }: Props) => {
     const [option, setOption] = useState(0)
     return (
         <div className=" pb-2 w-full flex flex-col ">
-            <div className="w-full flex gap-5 ">
-                <h2 className="font-bold uppercase text-base mb-1">{label}</h2>
-                <div className="flex ">
-                    <ul className='w-full'>
+            <div className="w-full flex gap-5">
+                <h2 className="font- text-base mb-1 w-[38%]">{label}</h2>
+                <div className="flex w-full justify-between">
+                    <ul className='w-full '>
                         {options.map((item, i) => {
                             return (
-                                <li className='flex w-full items-center  rounded-xl p-1' key={i}>
+                                <li className='flex w-full items-center justify-between rounded-xl p-1' key={i}>
                                     {item.label}
                                     <span
                                         className={`${!isCollapsed ? "opacity-100 shadow-md" : "opacity-70"

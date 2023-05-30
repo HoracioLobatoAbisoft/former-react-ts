@@ -6,22 +6,35 @@ import TableCustom from "./components/TableCustom";
 import { CardCustom } from "./components/CardCustom";
 import { useConfiguraProdotto } from "./hooks/useConfiguraProdotto";
 import Cube from "./components/Cube";
+import { BsInfoCircleFill } from "react-icons/bs";
 export const ConfiguraProdotto = () => {
-  const { handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato,handleDepth } = useConfiguraProdotto();
+  const { handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth } = useConfiguraProdotto();
   return (
     <div className="row w-[100%] felx p-5">
-      <div className="col col-12 bg-main text-white py-[2px]">
+      <div className="col col-12 bg-main text-white py-[2px] font-semibold rounded">
         <h2>CONFIGURA IL TUO PRODOTTO</h2>
       </div>
-      {/* 
-      <div className="col col-12 flex border-b border-[#e2e2e2] py-2 mt-4 w-full text-center justify-center">
-        <h2 className="font-semibold text-base">Formato:</h2>{" "}
-        <span className="ml-2 font-normal text-base">
-          {handleOptionsFormat()}
-        </span>
-      </div> */}
 
-      {/* <InputCustom
+      <div className=" flex justify-between border-b border-[#e2e2e2] py-2 mt-4 w-full ">
+        <h2 className="font- w-[18%]  ">Formato:</h2>{" "}
+        <select name="" id="" className="w-[55%] rounded-3xl block  text-gray-700 border outline-none border-gray-200 
+          py-1 px-3 mb-3 leading-tight">
+          <option value="">{handleOptionsFormat()}
+          </option>
+        </select>
+        <span
+          className={`"opacity-100 shadow-md" : "opacity-70"  text-gray-800 cursor-pointer`}
+        >
+          <BsInfoCircleFill />
+        </span>
+
+      </div>
+
+      <InputCustomSelect valueSelect={tipoCarta} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} />
+
+      <InputCustomSelect valueSelect={coloreStampa} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
+
+      <InputCustom
         handleChange={handleChange}
         name="base"
         label="Base"
@@ -38,8 +51,8 @@ export const ConfiguraProdotto = () => {
         name="height"
         label="Altezza"
         placeHolder="20 mm"
-        disabled={true}
-      /> */}
+
+      />
 
       {/* <div className="">
         <select name="" id="">
@@ -48,15 +61,15 @@ export const ConfiguraProdotto = () => {
           <option value="">13 cm</option>
           <option value="">20 cm</option>
         </select>
-      </div> */}
-      <div className=" w-full flex h-[160px]">
+      </div>
+      {/* <div className=" w-full flex h-[160px]">
         <CardCustom valueSelect={handleChange} title="Tipo di Carta" options={handleOptionsTipoCarta()} />
       </div>
       <div className=" w-full flex  h-[160px]">
         <CardCustom width={100} height={100} valueSelect={handleChange} title="Colore" options={handleOptionsColoreStampa()} />
-      </div>
-      {/* <InputCustomSelect valueSelect={coloreStampa} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} /> */}
-      <div className=" flex w-full ">
+      </div> */}
+
+      {/* <div className=" flex w-full ">
         <div className="w-full flex flex-col mb-1.5">
           <h2 className="font-bold uppercase  text-base mb-1.5 ">Base</h2>
           <div className="flex w-full  ">
@@ -87,14 +100,12 @@ export const ConfiguraProdotto = () => {
       </div>
       <div className="w-full  flex  h-[170px] overflow-y-hidden box-border">
         <CardCustom width={80} height={80} valueSelect={handleDepth} title="Formato" options={handleOptionsFormato()} />
-      </div>
+      </div> */}
 
 
-      <div className="">
+      {/* <div className="">
         <img src={formatImage} alt="" />
-      </div>
-
-      {/* <InputCustomSelect valueSelect={tipoCarta} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} /> */}
+      </div> */}
 
       <InputCustom
         handleChange={handleChange}
@@ -105,20 +116,28 @@ export const ConfiguraProdotto = () => {
         info
       />
       <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
-      {/* <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} /> */}
-      <div className=" w-full flex h-[170px]">
+      <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} />
+      {/* <div className=" w-full flex h-[170px]">
         <CardCustom  valueSelect={handleChange} title="Stampa a Caldo" options={handleOptionsStampaCaldo()} />
       </div>
       <div className=" w-full flex h-[170px]">
         <CardCustom valueSelect={handleChange} title="Plastificazione" options={handleOptionsPlastificazione()} />
-      </div>
-      {/* <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} /> */}
-      <div className=" w-full flex  gap-5 my-1">
+      </div> */}
+      <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} />
+      <div className=" w-full flex gap-5 my-1 justify-end">
+        <i>Visualizza prezzo </i>
         <RadioCustom name={"radio2"} value={2} checked={radioIva === 2} label="CAD." handleCheckboxChange={handleCheckboxChange} />
         <RadioCustom name={"radio0"} value={0} checked={radioIva === 0} label="Senza IVA" handleCheckboxChange={handleCheckboxChange} />
         <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
       </div>
-      <h2 className="col col-12 bg-main text-white py-[2px] mb-2">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h2>
+      <div className="w-full text-sm ">
+        <li className="bg-gray-100 rounded p-2 my-2"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
+        <li className="bg-gray-100 rounded p-2 my-2">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
+      </div>
+
+
+
+      <h2 className="col col-12 bg-main text-white py-[2px] mb-2 rounded font-semibold">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h2>
       <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} />
     </div>
   );

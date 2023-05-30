@@ -313,23 +313,23 @@ export const useConfiguraProdotto = () => {
       }
     })
     
-    let optionsFake= [{
-      label: "",
-      value:  33,
-      description:  "",
-      image: "a-colori-solo-Fronte-20200204144342861385.png"
-    },{
-      label: "",
-      value:  34,
-      description:  "",
-      image: "lamineted_gold.jpg"
-    },{
-      label: "",
-      value:  35,
-      description:  "",
-      image: "lamineted_silver.jpg"
-    }]
-    return optionsFake
+    // let optionsFake= [{
+    //   label: "",
+    //   value:  33,
+    //   description:  "",
+    //   image: "a-colori-solo-Fronte-20200204144342861385.png"
+    // },{
+    //   label: "",
+    //   value:  34,
+    //   description:  "",
+    //   image: "lamineted_gold.jpg"
+    // },{
+    //   label: "",
+    //   value:  35,
+    //   description:  "",
+    //   image: "lamineted_silver.jpg"
+    // }]
+    return options
   }
 
   const handleOptionsStampaCaldo = (): OptionsSelect[] => {
@@ -343,8 +343,8 @@ export const useConfiguraProdotto = () => {
         image:elem.imgRif,
       }
     })
-    // let guion = { label: "-", value: 0 }
-    // options.unshift(guion);
+    let guion = { label: "-", value: 0 }
+    options.unshift(guion);
     return options
   }
   const handleOptionsPlastificazione = (): OptionsSelect[] => {
@@ -357,8 +357,8 @@ export const useConfiguraProdotto = () => {
         image:elem.imgRif
       }
     })
-    // let guion = { label: "-", value: 0 }
-    // options.unshift(guion);
+    let guion = { label: "-", value: 0 }
+    options.unshift(guion);
     return options
   }
   const handleChangeSelectProfunditta = () =>{
@@ -408,8 +408,8 @@ export const useConfiguraProdotto = () => {
     handleTable();
   }, [initialState.base, initialState.depth, initialState.tipoCarta, initialState.height, initialState.quantity, initialState.stampaCaldo, initialState.plastificazione, radioIva]);
   useEffect(() => {
-    initialState.base = 20
-    initialState.depth = 20
+    //initialState.base = 20
+    //initialState.depth = 20
     handleData();
     handleTableDate();
   }, []);
