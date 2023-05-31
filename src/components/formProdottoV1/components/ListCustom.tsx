@@ -18,12 +18,10 @@ const ListCustom = ({ label, options }: Props) => {
   return (
     <div className=" pb-2 w-full flex flex-col ">
       <div className="w-full flex gap-5">
-        <h2 className="font- text-base mb-1 w-[38%]">{label}</h2>
+        <h2 className="font- text-xs mb-1 w-[38%]">{label}</h2>
         <div className="flex w-full justify-between">
-          <ul className="w-full ">
+          <ul className="w-full text-xs">
             {options.map((item, i) => {
-                {console.log("options", options);}
-                {console.log("item", item);}
               return (
                 <li
                   className="flex w-full items-center justify-between rounded-xl p-1"
@@ -33,7 +31,7 @@ const ListCustom = ({ label, options }: Props) => {
                   <span
                     className={`${
                       !isHovered ? "opacity-70" : "opacity-100"
-                    } text-base text-gray-800 cursor-pointer relative`}
+                    } text-xs text-gray-800 cursor-pointer relative`}
                     onMouseEnter={() => setHoveredState(true)}
                     onMouseLeave={() => setHoveredState(false)}
                   >                    

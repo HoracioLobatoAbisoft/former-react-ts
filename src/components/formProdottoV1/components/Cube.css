@@ -5,6 +5,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
+
 }
 
 .cube {
@@ -70,4 +72,9 @@
 
 .right {
   transform: rotateY(90deg) translateZ(50px);
+}
+
+.svg svg{
+    width: 150px !important;
+    height: 150px !important;
 }
