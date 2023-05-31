@@ -140,7 +140,10 @@ export const ConfiguraProdotto = () => {
 
       <h2 className="col col-12 bg-main text-white py-[2px] mb-2 rounded font-semibold">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h2>
       <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows}/>
-      <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows?"▼ Mostra più quantità ▼":"▲ Mostra meno quantità ▲"} />
+      {
+        tablaDataPrezzi.length>0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows?"▼ Mostra più quantità ▼":"▲ Mostra meno quantità ▲"} />
+      }
+      
     </div>
   );
 };
