@@ -4,8 +4,9 @@ import { TableDate } from '../interface/tableDate'
 interface Props {
     tablaDataPrezzi: TablePrezzi[]
     tablaDate: TableDate
+    viewRows:Boolean
 }
-const TableCustom = ({ tablaDataPrezzi, tablaDate }: Props) => {
+const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows }: Props) => {
     const formatDate = (value: Date) => {
         if (value != undefined) {
             const date = new Date(value);
@@ -16,7 +17,7 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate }: Props) => {
         }
         return ["", 0, ""]
     }
-
+    console.log("asfsdfadsfds",viewRows)
     return (
         <>
             {tablaDate &&
@@ -46,13 +47,14 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate }: Props) => {
                     </div>
                 </div>
             }
+
             {
                 tablaDataPrezzi.map((elem, i) => {
                     return (
-                        <div className=" w-full h-10 overflow-hidden flex gap-10 items-center" key={i}>
+                        <div className={`${(i>9 && viewRows) && "hidden"} w-full h-10 overflow-hidden flex gap-10 items-center`} key={i}>
                             <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center">
                                 <p className="text-[15px]">{elem.richiestaCalcoloPrezzo.qtaRichiesta}</p>
-                                </div>
+                            </div>
                             <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center">
                                 <p className="text-[15px]">€ {elem.prezzoRiv}</p></div>
                             <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center ">

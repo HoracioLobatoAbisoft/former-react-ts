@@ -140,7 +140,7 @@ export const useConfiguraProdotto = () => {
   const [tablaDate, settablaDate] = useState<TableDate[]>([])
   const [stampaCaldoList, setStampaCaldoList] = useState<OptionsSelectS[]>([])
   const [platifiacazioneList, setPlatifiacazioneList] = useState<OptionsSelectS[]>([])
-
+  const [viewRows,setViewRows] =useState<Boolean>(true)
   const [coloreStampaList, setColoreStampaList] = useState<ColoreStampa[]>([])
 
   const [radioIva, setRadioIva] = useState(0)
@@ -298,6 +298,11 @@ export const useConfiguraProdotto = () => {
     })
     return options
   }
+  const handleChangeViewTableRows = () => {
+    
+    setViewRows(!viewRows)
+    console.log("werewrw",viewRows)
+  }
   const handleTable = async () => {
 
     console.log("werwer", initialState)
@@ -325,7 +330,6 @@ export const useConfiguraProdotto = () => {
 
       }
       settablaDataPrezzi(data)
-      //console.log("initialstate",initialState)
     }
 
   }
@@ -482,6 +486,8 @@ export const useConfiguraProdotto = () => {
     handleChangeSelectProfunditta,
     ProfunditaList,
     handleOptionsFormato,
-    handleDepth
+    handleDepth,
+    handleChangeViewTableRows,
+    viewRows
   };
 };
