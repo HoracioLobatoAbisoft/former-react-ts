@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BsInfoCircleFill } from "react-icons/bs";
 
 interface Props {
@@ -20,9 +21,13 @@ export const InputCustom = ({
   disabled=false,
   classCustomLabel
 }: Props) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const setHoveredState = (stateBool: boolean) => {
+    setIsHovered(stateBool);
+  };
   return (
     <div className=" w-full mt-1">
-      <div className="w-full flex  gap-5">
+      <div className="w-full flex gap-5">
         <h2 className={`font- w-[38%] capitalize ${classCustomLabel ? classCustomLabel : 'font-'} font- mb-1`}>{label}</h2>
         <div className="flex w-full justify-between">
           <input
@@ -37,13 +42,38 @@ export const InputCustom = ({
           />
           {!info && (
             <span
-              className={`opacity-70 text-base text-gray-800 ml-2 mb-3 cursor-pointer`}
-            >
-              <BsInfoCircleFill />
-            </span>
+            className={`${
+              !isHovered ? "opacity-70" : "opacity-100"
+            } text-base text-gray-800 cursor-pointer relative `}
+            onMouseEnter={() => setHoveredState(true)}
+            onMouseLeave={() => setHoveredState(false)}
+          >
+            <BsInfoCircleFill />
+          </span>
           )}
         </div>
       </div>
+      {isHovered && (
+        <div className="absolute right-0 mr-10 bg-black text-white rounded-md shadow-md p-4 h-auto min-w-1/4 max-w-3/4">
+        <div className="flex">
+          <div className="ml-4">
+            <div className="mb-3">
+              <h2 className="text-yellow-400 capitalize">
+                Misure
+              </h2>
+              <hr className="border border-white" />
+            </div>
+            
+            <p className="max-w-[500px] text-justify text-white">
+              {(name === "base") && <span>Inserisci la <strong className="text-white">BASE (mm)</strong> del formato che desideri realizzare</span>}
+              {(name === "depth") && <span>Inserisci la <strong className="text-white">PROFONDITÀ (mm)</strong> del formato che desideri realizzare</span>}
+              {(name === "height") && <span>Inserisci la <strong className="text-white">ALTEZZA (mm)</strong> del formato che desideri realizzare</span>}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      )}
     </div>
   );
 };
