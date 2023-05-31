@@ -7,8 +7,9 @@ import { CardCustom } from "./components/CardCustom";
 import { useConfiguraProdotto } from "./hooks/useConfiguraProdotto";
 import Cube from "./components/Cube";
 import { BsInfoCircleFill } from "react-icons/bs";
+import { ButtonCustom } from "./components/ButtonCustom";
 export const ConfiguraProdotto = () => {
-  const { handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth } = useConfiguraProdotto();
+  const {viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth,handleChangeViewTableRows } = useConfiguraProdotto();
   return (
     <div className="row w-[100%] felx p-5">
       <div className="col col-12 bg-main text-white py-[2px] font-semibold rounded">
@@ -138,7 +139,8 @@ export const ConfiguraProdotto = () => {
 
 
       <h2 className="col col-12 bg-main text-white py-[2px] mb-2 rounded font-semibold">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h2>
-      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} />
+      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows}/>
+      <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows?"▼ Mostra più quantità ▼":"▲ Mostra meno quantità ▲"} />
     </div>
   );
 };
