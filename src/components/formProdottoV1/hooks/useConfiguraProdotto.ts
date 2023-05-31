@@ -204,6 +204,7 @@ export const useConfiguraProdotto = () => {
       ...initialState,
       [name]: value,
     });
+    //console.log('entra')
   };
 
   const handleOptionsTipoCarta = () => {
@@ -249,6 +250,8 @@ export const useConfiguraProdotto = () => {
     return options
   }
   const handleTable = async () => {
+
+    console.log("werwer",initialState)
     const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa } = initialState;
     if (base != null && depth != null && height != null) {
 
@@ -273,7 +276,7 @@ export const useConfiguraProdotto = () => {
 
       }
       settablaDataPrezzi(data)
-      console.log("initialstate",initialState)
+      //console.log("initialstate",initialState)
     }
 
   }
@@ -398,9 +401,9 @@ export const useConfiguraProdotto = () => {
     console.log("aqiuiiii",valueDepth,valueDepth[2],initialState)
   }
   useEffect(() => {
-    initialState.depth = null;
-    setProfunditaList([])
-    handleChangeSelectProfunditta();
+    // initialState.depth = null;
+    // setProfunditaList([])
+    // handleChangeSelectProfunditta();
     
 
   }, [initialState.base]);
@@ -413,7 +416,6 @@ export const useConfiguraProdotto = () => {
     handleData();
     handleTableDate();
   }, []);
-  console.log("werwer",initialState)
   return {
     handleOptionsFormat,
     ...initialState,

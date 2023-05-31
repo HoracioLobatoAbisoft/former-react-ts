@@ -11,7 +11,7 @@ export const ConfiguraProdotto = () => {
   const { handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth } = useConfiguraProdotto();
   return (
     <div className="row w-[100%] felx p-5">
-      <div className="col col-12 bg-main text-white py-[2px] font-semibold rounded">
+      <div className="col col-12 bg-main text-white py-[2px] font-semibold">
         <h2>CONFIGURA IL TUO PRODOTTO</h2>
       </div>
 
