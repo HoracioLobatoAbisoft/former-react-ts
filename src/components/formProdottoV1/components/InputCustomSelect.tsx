@@ -22,10 +22,10 @@ export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect
   return (
     <div className="border-[#e2e2e2] border-b flex w-full flex-col pt-3">
       <div className="w-full flex justify-between gap-5 items-center">
-        <h2 className="font-  w-[28%]">{label}</h2>
+        <h2 className="font- text-xs w-[28%]">{label}</h2>
         <div className="flex w-[72%] justify-between">
           <select name={name} onChange={handleChange} className="rounded-3xl block w-3/4 text-gray-700 border outline-none border-gray-200
-          py-1 px-3 mb-3 leading-tight">
+          py-1 px-3 mb-3 leading-tight text-xs">
             {
               options.map((elem,i) => (
                 <option key={elem.value} value={elem.value} >{elem.label}</option>

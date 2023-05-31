@@ -214,9 +214,10 @@ export const useConfiguraProdotto = () => {
             [name]: newBase,
           });
           // Actualizar el valor del campo de entrada
-          setTimeout(() => {
-            evt.target.value = newBase.toString();
-          }, 2000);
+          // setTimeout(() => {
+          //   
+          // }, 2000);
+          evt.target.value = newBase.toString();
           break;
         case 'depth':
           const newdepth = parseInt(value) < 14 ? 14 : parseInt(value);
@@ -225,9 +226,10 @@ export const useConfiguraProdotto = () => {
             [name]: newdepth,
           });
           // Actualizar el valor del campo de entrada
-          setTimeout(() => {
-            evt.target.value = newdepth.toString();
-          }, 2000);
+          // setTimeout(() => {
+          //   
+          // }, 2000);
+          evt.target.value = newdepth.toString();
           break;
         case 'height':
           const newheight = parseInt(value) < 40 ? 40 : parseInt(value);
@@ -236,9 +238,10 @@ export const useConfiguraProdotto = () => {
             [name]: newheight,
           });
           // Actualizar el valor del campo de entrada
-          setTimeout(() => {
-            evt.target.value = newheight.toString();
-          }, 2000);
+          // setTimeout(() => {
+          //   
+          // }, 2000);
+          evt.target.value = newheight.toString();
           break;
 
         default:

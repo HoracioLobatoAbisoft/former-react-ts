@@ -10,7 +10,7 @@ export const ImageCustom = ({svgImage}:Props) => {
 
     return(
         <>
-        {svgImage && <div className={(svgImage.heigth<150 || svgImage.width<150) ?"svg":""}>
+        {svgImage && <div className={"svg"}>
         <HTMLRender  htmlString={svgImage.bufferSVG}/> 
 
         </div>}

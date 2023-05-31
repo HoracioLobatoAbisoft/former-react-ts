@@ -5,5 +5,5 @@ export const HTMLRender = ({htmlString}:Props) => {
     const createMarkup = () => {
         return { __html: htmlString };
       };
-    return <div dangerouslySetInnerHTML={createMarkup()} />;
+    return <div className="flex justify-center" dangerouslySetInnerHTML={createMarkup()} />;
 }

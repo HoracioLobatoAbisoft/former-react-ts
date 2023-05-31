@@ -15,16 +15,16 @@ const ListCustom = ({ label, options }: Props) => {
     return (
         <div className=" pb-2 w-full flex flex-col ">
             <div className="w-full flex gap-5">
-                <h2 className="font- text-base mb-1 w-[38%]">{label}</h2>
+                <h2 className="font-  text-xs mb-1 w-[38%]">{label}</h2>
                 <div className="flex w-full justify-between">
-                    <ul className='w-full '>
+                    <ul className='w-full text-xs'>
                         {options.map((item, i) => {
                             return (
                                 <li className='flex w-full items-center justify-between rounded-xl p-1' key={i}>
                                     {item.label}
                                     <span
                                         className={`${!isCollapsed ? "opacity-100 shadow-md" : "opacity-70"
-                                            } text-base text-gray-800 ms-2 cursor-pointer`}
+                                            } text-xs text-gray-800 ms-2 cursor-pointer`}
                                         onClick={() => setIsCollapsed((prev) => !prev)}
                                     >
                                         <BsInfoCircleFill onClick={()=>setOption(i)}/>
