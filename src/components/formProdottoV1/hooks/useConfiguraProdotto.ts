@@ -301,7 +301,7 @@ export const useConfiguraProdotto = () => {
   const handleChangeViewTableRows = () => {
     
     setViewRows(!viewRows)
-    console.log("werewrw",viewRows)
+
   }
   const handleTable = async () => {
 
@@ -451,7 +451,6 @@ export const useConfiguraProdotto = () => {
     const valueDepth = String(value).split("x");
 
     initialState.height = Number(valueDepth[2]);
-    console.log("aqiuiiii", valueDepth, valueDepth[2], initialState)
   }
   useEffect(() => {
     // initialState.depth = null;

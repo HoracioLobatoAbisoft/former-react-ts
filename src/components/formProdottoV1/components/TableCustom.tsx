@@ -17,7 +17,7 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows }: Props) => {
         }
         return ["", 0, ""]
     }
-    console.log("asfsdfadsfds",viewRows)
+
     return (
         <>
             {tablaDate &&
