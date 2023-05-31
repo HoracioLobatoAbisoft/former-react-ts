@@ -2,6 +2,7 @@ import applicationConnect from "../../../api";
 import { ColoreStampa } from "../interface/coloreStampa";
 import { Opzioni } from "../interface/opzioni";
 import { OptionsSelectS, StaCalOpz } from "../interface/stampaCaldo";
+import { SvgImage } from "../interface/svgImage";
 import { TablePrezzi } from "../interface/table";
 import { TableDate } from "../interface/tableDate";
 import { ResponseApi, TipoDiCarta } from "../interface/tipoCarta";
@@ -115,9 +116,31 @@ export const httpGetTablePrezzi = async (
         IVA:IVA
       },
     });
-    //debugger
+
     return result.data;
   } catch (error) {
     throw new Error("");
   }
 };
+export const getSvgImageService = async (
+  Base: number,
+  Profondita: number,
+  Altezza:number,
+  idPrev: number,
+  ) => {
+  try {
+    const result = await applicationConnect.get<ResponseApi<SvgImage>>("Prodotto/SvgGraphic", {
+      params: {
+        idPrev: idPrev,
+        Base: Base,
+        Profondita: Profondita,
+        Altezza:Altezza
+        
+      },
+    });
+    return result.data;
+  } catch (error) {
+    throw new Error("");
+  }
+};
+

@@ -8,8 +8,9 @@ import { useConfiguraProdotto } from "./hooks/useConfiguraProdotto";
 import Cube from "./components/Cube";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { ButtonCustom } from "./components/ButtonCustom";
+import { ImageCustom } from "./components/ImageCustom";
 export const ConfiguraProdotto = () => {
-  const {viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth,handleChangeViewTableRows } = useConfiguraProdotto();
+  const {imageSvg,viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth,handleChangeViewTableRows } = useConfiguraProdotto();
   return (
     <div className="row w-[100%] felx p-5">
       <div className="col col-12 bg-main text-white py-[2px] font-semibold rounded">
@@ -30,7 +31,7 @@ export const ConfiguraProdotto = () => {
         </span>
 
       </div>
-
+      <ImageCustom svgImage={imageSvg}/>
       <InputCustomSelect valueSelect={tipoCarta} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} />
 
       <InputCustomSelect valueSelect={coloreStampa} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />

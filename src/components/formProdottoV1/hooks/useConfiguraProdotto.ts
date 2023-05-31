@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { InitialValuesProdotto, OptionsSelect } from "../../formProdotto/interfaces/prodotto";
-import { httpGetColoreStampa, httpGetOpzioni, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from "../services";
+import { getSvgImageService, httpGetColoreStampa, httpGetOpzioni, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from "../services";
 import { useParams } from "react-router";
 import { TipoDiCarta } from "../interface/tipoCarta";
 import { ColoreStampa } from "../interface/coloreStampa";
@@ -10,6 +10,7 @@ import { TablePrezzi } from "../interface/table";
 import UserContext from "../../../context/UserContext";
 import { TableDate } from "../interface/tableDate";
 import { Html, Sort } from "@mui/icons-material";
+import { SvgImage } from "../interface/svgImage";
 const ValueProfundita = [{
           label:"2 cm",
           value:20
@@ -144,7 +145,7 @@ export const useConfiguraProdotto = () => {
   const [coloreStampaList, setColoreStampaList] = useState<ColoreStampa[]>([])
 
   const [radioIva, setRadioIva] = useState(0)
-
+  const [imageSvg,setImageSvg] =useState<SvgImage>()
   //dataFake
   const [formatImage, setFormatImage] = useState<string>("")
   const [ProfunditaList, setProfunditaList] = useState<OptionsSelect[]>([])
@@ -253,11 +254,21 @@ export const useConfiguraProdotto = () => {
     setViewRows(!viewRows)
 
   }
+  const getSvgImage = async (Base:number,Profondita:number,Altezza:number) => {
+
+    const result = await getSvgImageService(Base,Profondita,Altezza,Number(idPrev))
+    if(result){
+        setImageSvg(result.data)
+
+    }
+  }
   const handleTable = async () => {
     const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa } = initialState;
     if (base != null && depth != null && height != null) {
 
-      const tableList = await httpGetTablePrezzi(
+        getSvgImage(base,depth,height)
+      
+        const tableList = await httpGetTablePrezzi(
         Number(idPrev),
         Number(tipoCarta ? tipoCarta : IdTipoCarta),
         Number(coloreStampa ? coloreStampa : IdColoreStampa),
@@ -437,6 +448,7 @@ export const useConfiguraProdotto = () => {
     handleOptionsFormato,
     handleDepth,
     handleChangeViewTableRows,
-    viewRows
+    viewRows,
+    imageSvg
   };
 };
