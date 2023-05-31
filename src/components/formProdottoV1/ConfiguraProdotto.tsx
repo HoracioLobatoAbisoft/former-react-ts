@@ -13,7 +13,7 @@ export const ConfiguraProdotto = () => {
   const {imageSvg,viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth,handleChangeViewTableRows } = useConfiguraProdotto();
   return (
     <div className="row w-[100%] felx p-5">
-      <div className="col col-12 bg-main text-white py-[2px] font-semibold rounded">
+      <div className="col col-12 bg-main text-white py-[2px] font-semibold">
         <h2>CONFIGURA IL TUO PRODOTTO</h2>
       </div>
 
@@ -136,8 +136,6 @@ export const ConfiguraProdotto = () => {
         <li className="bg-gray-100 rounded p-2 my-2"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
         <li className="bg-gray-100 rounded p-2 my-2">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
       </div>
-
-
 
       <h2 className="col col-12 bg-main text-white py-[2px] mb-2 rounded font-semibold">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h2>
       <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows}/>
