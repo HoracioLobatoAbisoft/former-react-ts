@@ -361,12 +361,13 @@ export const useConfiguraProdotto = () => {
   }
   const handleOptionsOpzioni = (): OptionsSelect[] => {
     if (opzioniList.length === 0) return []
-
+    console.log("adsfasfsdf",opzioniList)
     const options: OptionsSelect[] = opzioniList.map(elem => {
       return {
         label: elem.descrizione,
         value: elem.idLavoro,
-        description: elem.descrizioneEstesa
+        description: elem.descrizioneEstesa,
+        image:elem.imgRif
       }
     })
 

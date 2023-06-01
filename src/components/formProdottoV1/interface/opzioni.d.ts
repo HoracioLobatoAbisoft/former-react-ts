@@ -8,4 +8,5 @@ export interface Opzioni {
     descrizione: string;
     descrizioneEstesa: string;
     idLavoro: number;
+    imgRif:string;
 }
