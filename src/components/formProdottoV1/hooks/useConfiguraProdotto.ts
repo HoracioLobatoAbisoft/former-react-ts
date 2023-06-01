@@ -6,7 +6,7 @@ import { TipoDiCarta } from "../interface/tipoCarta";
 import { ColoreStampa } from "../interface/coloreStampa";
 import { Opzioni } from "../interface/opzioni";
 import { OptionsSelectS, StaCalOpz } from "../interface/stampaCaldo";
-import { TablePrezzi } from "../interface/table";
+import { SelectRow, TablePrezzi } from "../interface/table";
 import UserContext from "../../../context/UserContext";
 import { TableDate } from "../interface/tableDate";
 import { Html, Sort } from "@mui/icons-material";
@@ -143,7 +143,11 @@ export const useConfiguraProdotto = () => {
   const [platifiacazioneList, setPlatifiacazioneList] = useState<OptionsSelectS[]>([])
   const [viewRows,setViewRows] =useState<Boolean>(true)
   const [coloreStampaList, setColoreStampaList] = useState<ColoreStampa[]>([])
-
+  const [selectRow,setSelectRow] = useState<SelectRow>({
+    conditional: false,
+    value: 0,
+    quantity: 250
+})
   const [radioIva, setRadioIva] = useState(0)
   const [imageSvg,setImageSvg] =useState<SvgImage>()
   //dataFake
@@ -166,7 +170,9 @@ export const useConfiguraProdotto = () => {
 
     return option;
   };
-
+  const handleChangeRowSelect = (conditional:boolean,value:number,quantity:number) =>{
+        setSelectRow({conditional,value,quantity})
+  }
   const handleData = async () => {
 
     try {
@@ -317,7 +323,6 @@ export const useConfiguraProdotto = () => {
   }
   const handleTable = async () => {
 
-    console.log("werwer", initialState)
     const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa } = initialState;
     if (base != null && depth != null && height != null) {
 
@@ -341,11 +346,27 @@ export const useConfiguraProdotto = () => {
         if (quantity < 50) {
           data = tableList.data.filter(x => x.richiestaCalcoloPrezzo.qtaRichiesta >= 50 || x.richiestaCalcoloPrezzo.qtaRichiesta == quantity)
         }
-
+        const indice = findIndexByValue(data,Number(quantity))
+        setSelectRow({
+          conditional: true,
+          value: indice,
+          quantity: Number(quantity)
+        })
+      }else{
+        setSelectRow({
+          conditional: true,
+          value: 1,
+          quantity: 250
+        })
       }
+      
       settablaDataPrezzi(data)
     }
 
+  }
+
+  function findIndexByValue(arr: TablePrezzi[], valorBuscado: number): number {
+    return arr.findIndex(objeto => objeto.richiestaCalcoloPrezzo.qtaRichiesta === valorBuscado);
   }
   const handleTableDate = async () => {
     if (!idPrev || !idFormProd || !IdTipoCarta || !IdColoreStampa) return;
@@ -502,6 +523,8 @@ export const useConfiguraProdotto = () => {
     handleDepth,
     handleChangeViewTableRows,
     viewRows,
-    imageSvg
+    imageSvg,
+    handleChangeRowSelect,
+    selectRow
   };
 };
