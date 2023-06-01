@@ -18,15 +18,15 @@ export const ConfiguraProdotto = () => {
       </div>
       <div className="w-full flex ">
         <div className="flex flex-col w-[70%]">
-          <div className=" flex justify-between border-b border-[#e2e2e2] py-2 mt-4 w-full ">
-            <h2 className="font- w-[18%]  text-xs ">Formato:</h2>{" "}
-            <select name="" id="" className="w-[55%] rounded-3xl block  text-gray-700 border outline-none border-gray-200 
-          py-1 px-3 mb-3 leading-tight text-xs">
+          <div className=" flex justify-between items-center gap-6  border-b border-[#e2e2e2] py-2 mt-4 w-full ">
+            <h2 className="font- w-[32%] text-xs ">Formato:</h2>{" "}
+            <select name="" id="" className="w-[70%] rounded-3xl block  text-gray-700 border outline-none border-gray-200 
+              px-3 py-1  leading-tight text-xs">
               <option value="">{handleOptionsFormat()}
               </option>
             </select>
             <span
-              className={`"opacity-100 shadow-md" : "opacity-70"  text-gray-800 cursor-pointer`}
+              className={`opacity-70 text-gray-800 cursor-pointer`}
             >
               <BsInfoCircleFill />
             </span>
@@ -135,7 +135,7 @@ export const ConfiguraProdotto = () => {
       </div>
 
 
-      <div className=" w-full flex gap-5 my-1 justify-end">
+      <div className=" w-full flex gap-5 my-1 justify-end text-xs">
         <i>Visualizza prezzo </i>
         <RadioCustom name={"radio2"} value={2} checked={radioIva === 2} label="CAD." handleCheckboxChange={handleCheckboxChange} />
         <RadioCustom name={"radio0"} value={0} checked={radioIva === 0} label="Senza IVA" handleCheckboxChange={handleCheckboxChange} />
