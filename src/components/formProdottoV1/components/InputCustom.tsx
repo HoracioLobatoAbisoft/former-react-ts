@@ -11,6 +11,7 @@ interface Props {
   placeHolder?: string;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   on?: boolean;
+  mm?:boolean;
 }
 export const InputCustom = ({
   label,
@@ -22,6 +23,7 @@ export const InputCustom = ({
   disabled = false,
   classCustomLabel,
   on = true,
+  mm = true,
 }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const setHoveredState = (stateBool: boolean) => {
@@ -81,7 +83,7 @@ export const InputCustom = ({
   // );
 
   return (
-    <tr className="">
+    <tr className="boder border-b-4 border-[#ffff]">
       <td className={`${''} ${classCustomLabel ? classCustomLabel : 'w-[95px] p-[1px] text-[12px] text-[arial] font-normal'}`}>{label}</td>
       <td className="px-[5px] py-[4px] text-[14px] border-[2px] border-[#f1f1f1] bg-[#f1f1f1] w-[300px]">
         <input
@@ -93,13 +95,12 @@ export const InputCustom = ({
             }`}
           onBlur={on ? handleChange : undefined}
           onChange={!on ? handleChange : undefined}
-        />
+        /> {mm?'(mm)':""}
       </td>
       <td className="">
         {!info && (
           <span
-            className={`${!isHovered ? "opacity-70" : "opacity-100"
-              } text-xs text-gray-800 cursor-pointer relative `}
+            className={`text-xs text-gray-800 cursor-pointer relative `}
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >

@@ -10,7 +10,7 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { ButtonCustom } from "./components/ButtonCustom";
 import { ImageCustom } from "./components/ImageCustom";
 export const ConfiguraProdotto = () => {
-  const { imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows } = useConfiguraProdotto();
+  const { imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows,handleChangeRowSelect,selectRow, } = useConfiguraProdotto();
   // return (
   //   <div className="row w-[100%] felx p-5">
   //     <div className="col col-12 bg-main text-white py-[2px] font-semibold">
@@ -138,22 +138,22 @@ export const ConfiguraProdotto = () => {
   //     </div>
 
 
-  //     <div className=" w-full flex gap-5 my-1 justify-end text-xs">
-  //       <i>Visualizza prezzo </i>
-  //       <RadioCustom name={"radio2"} value={2} checked={radioIva === 2} label="CAD." handleCheckboxChange={handleCheckboxChange} />
-  //       <RadioCustom name={"radio0"} value={0} checked={radioIva === 0} label="Senza IVA" handleCheckboxChange={handleCheckboxChange} />
-  //       <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
-  //     </div>
-  //     <div className="w-full text-xs ">
-  //       <li className="bg-gray-100 rounded p-2 my-2"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
-  //       <li className="bg-gray-100 rounded p-2 my-2">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
-  //     </div>
+  // <div className=" w-full flex gap-5 my-1 justify-end text-xs">
+  //   <i>Visualizza prezzo </i>
+  //   <RadioCustom name={"radio2"} value={2} checked={radioIva === 2} label="CAD." handleCheckboxChange={handleCheckboxChange} />
+  //   <RadioCustom name={"radio0"} value={0} checked={radioIva === 0} label="Senza IVA" handleCheckboxChange={handleCheckboxChange} />
+  //   <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
+  // </div>
+  // <div className="w-full text-xs ">
+  //   <li className="bg-gray-100 rounded p-2 my-2"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
+  //   <li className="bg-gray-100 rounded p-2 my-2">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
+  // </div>
 
   //     <h2 className="col col-12 bg-main text-white py-[2px] mb-2 rounded font-semibold">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h2>
   //     <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} />
-  //     {
-  //       tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
-  //     }
+      // {
+      //   tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
+      // }
 
   //   </div>
 
@@ -163,9 +163,9 @@ export const ConfiguraProdotto = () => {
     <div className="w-full">
       <h5 className="ps-[20px] pt-[2px] bg-[#f58220] text-[#fff] text-[12px] font-[Arial]">CONFIGURA IL TUO PRODOTTO</h5>
       <div className="flex mt-4">
-        <table className="w-[70%]">
+        <table className="w-[70%] ">
           <tbody className="">
-            <tr className="">
+            <tr className="boder border-b-4 border-[#ffff]">
               <td className="w-[95px] p-[1px] text-[12px] text-[arial] font-normal">Formato</td>
               <td className="px-[5px] py-[4px] text-[14px] border-[2px] border-[#f1f1f1] bg-[#f1f1f1]">
                 <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans]">
@@ -175,7 +175,7 @@ export const ConfiguraProdotto = () => {
               </td>
               <td className="">
                 <span
-                  className={`opacity-70 text-gray-800 cursor-pointer text-xs`}
+                  className={` text-gray-800 cursor-pointer text-xs`}
                 >
                   <BsInfoCircleFill />
                 </span>
@@ -209,13 +209,32 @@ export const ConfiguraProdotto = () => {
               classCustomLabel=" w-[95px] p-[1px] text-[12px] text-[arial] font-bold"
               info
               on={false}
+              mm={false}
             />
             <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
+            <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} />
+            <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} />
           </tbody>
         </table>
-        <div className="bg-slate-400 w-[30%]">asf</div>
+        <div className=" w-[30%]">
+          <ImageCustom svgImage={imageSvg} />
+        </div>
       </div>
-
+      <div className="w-full text-xs ">
+        <li className="bg-gray-100 rounded p-2 my-1"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
+        <li className="bg-gray-100 rounded p-2 my-1">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
+      </div>
+      <div className=" w-full flex gap-5 my-3 justify-end text-xs">
+        <i>Visualizza prezzo </i>
+        <RadioCustom name={"radio2"} value={2} checked={radioIva === 2} label="CAD." handleCheckboxChange={handleCheckboxChange} />
+        <RadioCustom name={"radio0"} value={0} checked={radioIva === 0} label="Senza IVA" handleCheckboxChange={handleCheckboxChange} />
+        <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
+      </div>
+      <h5 className="mb-5 ps-[20px] pt-[2px] bg-[#f58220] text-[#fff] text-[12px] font-[Arial]">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
+      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect}  />
+      {
+        tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
+      }
     </div>
   );
 };

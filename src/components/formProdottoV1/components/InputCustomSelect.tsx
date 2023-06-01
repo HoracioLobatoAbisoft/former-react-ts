@@ -127,7 +127,7 @@ export const InputCustomSelect = ({
   //   </div>
   // );
   return (
-    <tr className="">
+    <tr className="boder border-b-4 border-[#ffff]">
       <td className="w-[95px] p-[1px] text-[12px] text-[arial] font-normal">
         {label}
       </td>
@@ -144,8 +144,7 @@ export const InputCustomSelect = ({
         {(showIcon === true && position === 0) ||
           position === undefined ? null : (
           <span
-            className={`text-xs ${!isHovered ? "opacity-70" : "opacity-100"
-              } text-base text-gray-800 cursor-pointer relative`}
+            className={`text-xs  text-gray-800 cursor-pointer relative`}
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
