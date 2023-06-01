@@ -1,12 +1,14 @@
 import React from 'react'
-import { TablePrezzi } from '../interface/table'
+import { SelectRow, TablePrezzi } from '../interface/table'
 import { TableDate } from '../interface/tableDate'
 interface Props {
     tablaDataPrezzi: TablePrezzi[]
     tablaDate: TableDate
-    viewRows:Boolean
+    viewRows:Boolean,
+    selectRow:SelectRow,
+    handleChangeRowSelect:(conditional:boolean,value:number,quantity:number)=> void
 }
-const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows }: Props) => {
+const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows,selectRow,handleChangeRowSelect }: Props) => {
     const formatDate = (value: Date) => {
         if (value != undefined) {
             const date = new Date(value);
@@ -17,7 +19,18 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows }: Props) => {
         }
         return ["", 0, ""]
     }
-
+    const formatValue = (value:number) => {
+        if (value <= 1000) return `€ ${value}`
+        return "-"
+    }
+    const viewSelectQuantity = (value:number) =>{
+        if (value === selectRow.quantity) return "bg-amber-400" 
+        return ""
+    }
+    const viewSelectPrice = (conditional:boolean,value:number) =>{
+        if (value === selectRow.value && conditional === selectRow.conditional) return "bg-amber-400" 
+        return ""
+    }
     return (
         <>
             {tablaDate &&
@@ -52,12 +65,12 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows }: Props) => {
                 tablaDataPrezzi.map((elem, i) => {
                     return (
                         <div className={`${(i>9 && viewRows) && "hidden"} w-full h-10 overflow-hidden flex gap-10 items-center`} key={i}>
-                            <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center">
+                            <div className={`${viewSelectQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)} w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center`}>
                                 <p className="text-[15px]">{elem.richiestaCalcoloPrezzo.qtaRichiesta}</p>
                             </div>
-                            <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center">
-                                <p className="text-[15px]">€ {elem.prezzoRiv}</p></div>
-                            <div className="w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center ">
+                            <div onClick={()=>handleChangeRowSelect(false,i,elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(false,i)} w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center`}>
+                                <p className="text-[15px]">{formatValue(elem.prezzoRiv)}</p></div>
+                            <div onClick={()=>handleChangeRowSelect(true,i,elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true,i)} w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center `}>
                                 <p className="text-[15px]">€ {elem.prezzoPubbl}</p></div>
                         </div>
                     )
