@@ -59,7 +59,7 @@ export const InputCustomSelect = ({
         </div>
       </div>
       {isHovered && (
-        <div className="absolute right-0 mt-5 mr-10 bg-black text-white rounded-md shadow-md p-4 h-auto w-3/4 max-w-3/4">
+        <div className="absolute right-0 mt-5 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
           <div className="flex">
             <div className="w-48 max-w-full">
               <img
