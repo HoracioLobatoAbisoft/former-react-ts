@@ -5,16 +5,28 @@ import { OptionsSelect } from "../../formProdotto/interfaces/prodotto";
 
 interface Props {
   label: string;
-  options: OptionsSelect[]
-  name:string;
+  options: OptionsSelect[];
+  name: string;
   handleChange: any;
-  valueSelect?:any;
-  showIcon:boolean;
+  valueSelect?: any;
+  showIcon: boolean;
 }
-export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect, showIcon }: Props) => {
-
-  const [position, setPosition] = useState(valueSelect === null?0:valueSelect)
+export const InputCustomSelect = ({
+  label,
+  options,
+  handleChange,
+  name,
+  valueSelect,
+  showIcon,
+}: Props) => {
+  const [position, setPosition] = useState(
+    valueSelect === null ? 0 : valueSelect
+  );
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const setHoveredState = (stateBool: boolean) => {
+    setIsHovered(stateBool);
+  };
   //console.log("werewrewr",position,valueSelect)
   // useEffect(() => {
   //   if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
@@ -32,24 +44,63 @@ export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect
               ))
             }
           </select>
-          {
-          ( showIcon===true &&position === 0 || position === undefined) ?null: <span
-                className={`${!isCollapsed ? "opacity-100 shadow-md" : "opacity-70"
-                  } text-base text-gray-800 cursor-pointer`}
-                onClick={() => setIsCollapsed((prev) => !prev)}
-              >
-                <BsInfoCircleFill />
-              </span>
-          }
+          {(showIcon === true && position === 0) ||
+          position === undefined ? null : (
+            <span
+              className={`${
+                !isHovered ? "opacity-70" : "opacity-100"
+              } text-base text-gray-800 cursor-pointer relative`}
+              onMouseEnter={() => setHoveredState(true)}
+              onMouseLeave={() => setHoveredState(false)}
+            >
+              <BsInfoCircleFill />
+            </span>
+          )}
         </div>
       </div>
-      <Collapse isOpened={!isCollapsed}>
+      {isHovered && (
+        <div className="absolute right-0 mt-5 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
+          <div className="flex">
+            <div className="w-48 max-w-full">
+              <img
+                src={
+                  options && (position === 0 || position === undefined)
+                    ? `https://localhost:44311/listino/` + options[0]?.image
+                    : `https://localhost:44311/listino/` +
+                      options.find((x) => Number(x.value) === Number(position))?.image
+                }
+                alt=""
+              />
+            </div>
+            <div className="ml-4">
+              <div className="mb-3">
+                <h2 className="text-yellow-400 capitalize">
+                  {options[position]?.label}
+                </h2>
+                <hr className="border border-white" />
+              </div> 
+              <p className="max-w-[500px] text-justify text-white">
+                {options[position]?.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      
+      )}
+      {/* <Collapse isOpened={!isCollapsed}>
         <div className="w-3/4 max-w-3/4 bg-black bg-opacity-80 p-4 shadow-custom rounded relative ">
           <div className="row">
             <div className="col md:col-5 lg:col-4">
               <div className="w-48 max-w-full h-full">
                 <img
-                  src={options && (position === 0 || position === undefined)?`https://localhost:44311/listino/`+options[0]?.image:`https://localhost:44311/listino/`+options.find(x => Number(x.value) === Number(position))?.image}
+                  src={
+                    options && (position === 0 || position === undefined)
+                      ? `https://localhost:44311/listino/` + options[0]?.image
+                      : `https://localhost:44311/listino/` +
+                        options.find(
+                          (x) => Number(x.value) === Number(position)
+                        )?.image
+                  }
                   alt=""
                 />
               </div>
@@ -57,23 +108,20 @@ export const InputCustomSelect = ({ label, options,handleChange,name,valueSelect
             <div className="col md:col-7 lg:col-8">
               <div className="relative mb-3">
                 <h2 className="text-yellow-400 capitalize">
-                {/* {options && (position === 0 || position === undefined) ?options[0]?.label:options.find(x => Number(x.value) === Number(position))?.label */}
-                {
-                  options[position]?.label
-                }
+                  
+                  {options[position]?.label}
                 </h2>
               </div>
               <p className="max-w-[500px] text-justify text-white">
                 {
-                // options && (position === 0 || position === undefined)?options[0]?.description:options.find(x => Number(x.value) === Number(position))?.description
-                options[position]?.description
-
+                  
+                  options[position]?.description
                 }
               </p>
             </div>
           </div>
         </div>
-      </Collapse>
+      </Collapse> */}
     </div>
   );
 };
