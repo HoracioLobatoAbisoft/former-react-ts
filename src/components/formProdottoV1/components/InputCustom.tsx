@@ -11,7 +11,7 @@ interface Props {
   placeHolder?: string;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   on?: boolean;
-  mm?:boolean;
+  mm?: boolean;
 }
 export const InputCustom = ({
   label,
@@ -83,28 +83,28 @@ export const InputCustom = ({
   // );
 
   return (
-    <tr className="boder border-b-4 border-[#ffff]">
-      <td className={`${''} ${classCustomLabel ? classCustomLabel : 'w-[95px] p-[1px] text-[12px] text-[arial] font-normal'}`}>{label}</td>
-      <td className="px-[5px] py-[4px] text-[14px] border-[2px] border-[#f1f1f1] bg-[#f1f1f1] w-[300px]">
+    <tr className="">
+      <td className={` ${''} ${classCustomLabel ? classCustomLabel : 'w-[95px] p-[1px] text-[12px] text-[arial] font-normal'}`}>{label}</td>
+      <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
         <input
           name={name}
           disabled={disabled}
           placeholder={placeHolder}
           type="number"
-          className={` ${classWhidtInput ? classWhidtInput : "border-[1px] px-[2px] py-[1px]  border-[#ddd] font-[open sans] text-end"
+          className={` ${classWhidtInput ? classWhidtInput : "border-[1px] px-[2px] py-[1px]  border-[#ddd]  text-end"
             }`}
           onBlur={on ? handleChange : undefined}
           onChange={!on ? handleChange : undefined}
-        /> {mm?'(mm)':""}
+        /> {mm ? '(mm)' : ""}
       </td>
-      <td className="">
+      <td className=" p-[6px]">
         {!info && (
           <span
             className={`text-xs text-gray-800 cursor-pointer relative `}
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <BsInfoCircleFill />
+            <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
           </span>
         )}
         {isHovered && (

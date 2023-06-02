@@ -3,11 +3,11 @@ import { InputCustom } from "./components/InputCustom";
 import { InputOptions } from "./components/InputOptions";
 import { useConfiguraProdotto } from "./hooks/useConfiguraProdotto";
 export const ConfiguraProdotto = () => {
-  const { handleOptionsFormat, base, height, quantity, depth } =
-    useConfiguraProdotto();
+  // const { handleOptionsFormat, base, height, quantity, depth } =
+  //   useConfiguraProdotto();
   return (
     <div className="min-w-[600px]">
-      <div>
+      {/* <div>
         <h2 className="bg-main text-white uppercase font-nomrla py-1 pl-6 text-base">
           CONFIGURA IL TUO PRODOTTO
         </h2>
@@ -29,7 +29,7 @@ export const ConfiguraProdotto = () => {
           <InputCustomSelect label="Stampa a Caldo" options={[]} />
           <InputCustomSelect label="Plastificazione" options={[]} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

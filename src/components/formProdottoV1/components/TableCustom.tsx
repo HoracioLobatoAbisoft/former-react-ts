@@ -3,12 +3,13 @@ import { SelectRow, TablePrezzi } from '../interface/table'
 import { TableDate } from '../interface/tableDate'
 interface Props {
     tablaDataPrezzi: TablePrezzi[]
-    tablaDate: TableDate
-    viewRows:Boolean,
-    selectRow:SelectRow,
-    handleChangeRowSelect:(conditional:boolean,value:number,quantity:number)=> void
+    tablaDate: TableDate | undefined
+    viewRows: Boolean,
+    selectRow: SelectRow,
+    handleChangeRowSelect: (conditional: boolean, value: number, quantity: number) => void
+    radioIva?: number
 }
-const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows,selectRow,handleChangeRowSelect }: Props) => {
+const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva }: Props) => {
     const formatDate = (value: Date) => {
         if (value != undefined) {
             const date = new Date(value);
@@ -19,41 +20,74 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows,selectRow,handleChang
         }
         return ["", 0, ""]
     }
-    const formatValue = (value:number) => {
-        if (value <= 1000) return `€ ${value}`
+    const numberFormat = (value: number) => {
+
+        if (Number.isInteger(value)) {
+            var numberResult = value.toFixed(2);
+            var formatNumber = new Intl.NumberFormat('es', { minimumFractionDigits: 2, maximumFractionDigits: 4, });
+            var numeroResultFormat = formatNumber.format(Number(numberResult));
+            return numeroResultFormat
+        }
+        const valueConditional = radioIva
+        let numberminimun = 2
+        if (valueConditional === 2) {
+            numberminimun = 4
+        }
+        var formatNumber = new Intl.NumberFormat('es', { minimumFractionDigits: numberminimun, maximumFractionDigits: 4, });
+        var numeroResultFormat = formatNumber.format(Number(value));
+        return numeroResultFormat
+    }
+    const formatQuantity = (value: number) => {
+
+        return value.toLocaleString('es', { useGrouping: true });
+    }
+    const formatValue = (value: number, quantity?: number) => {
+        if (radioIva === 2 && quantity != null) {
+            const valueC = value * quantity
+            if (valueC <= 1000) {
+                return `€ ${numberFormat(value)}`
+            } else {
+                return "-"
+            }
+        }
+        if (value <= 1000) return `€ ${numberFormat(value)}`
         return "-"
     }
-    const viewSelectQuantity = (value:number) =>{
-        if (value === selectRow.quantity) return "bg-amber-400" 
-        return ""
+    const viewSelectQuantity = (value: number) => {
+        if (value === selectRow.quantity) return "bg-[#d6e03d]"
+        return "bg-[#eef3f1]"
     }
-    const viewSelectPrice = (conditional:boolean,value:number) =>{
-        if (value === selectRow.value && conditional === selectRow.conditional) return "bg-amber-400" 
-        return ""
+    const viewSelectPrice = (conditional: boolean, value: number, element: number) => {
+        if (value === selectRow.value && conditional === selectRow.conditional) return "bg-[#d6e03d]"
+        if (conditional) return "bg-[#d4e8df]"
+        const valueValidation = formatValue(element)
+        if (valueValidation === "-") return ""
+        return "bg-[#eef3f1]"
+
     }
     return (
         <>
             {tablaDate &&
-                <div className=" w-full flex gap-10 gap-y-10 h-[80px] overflow-hidden mb-3" >
-                    <div className="w-2/4 text-xl text-center font-bold flex items-center justify-center">Quantità</div>
-                    <div className="w-2/4  border-gray-300 border  rounded-xl text-xl text-center cursor-pointer hover: capitalize flex justify-center items-center bg-slate-100">
-                        <div className=" bg-gray-600 rounded w-3/6 h-3/4">
-                            <div className="text-center w-full flex-col bg-white flex justify-[space-between] h-full rounded-t rounded-bl rounded-br-3xl font-[Arial] text-xs">
-                                <p className="bg-yellow-400 w-full rounded-t px-3">{formatDate(tablaDate.dataFast)[0]}</p>
-                                <div className="flex flex-col items-center font-bold leading-[10px]">
-                                    <p className="p-0 m-0  text-lg">{formatDate(tablaDate.dataFast)[1]}</p>
-                                    <p className="p-0 m-0">{formatDate(tablaDate.dataFast)[2]}</p>
+                <div className=" w-full flex gap-1 mb-1 overflow-hidden " >
+                    <div className="w-1/4 text-xs text-center  flex items-end justify-center">Quantità</div>
+                    <div className="w-2/4 h-[70px]  py-1 m-0 rounded text-xl text-center capitalize flex justify-center  bg-[#eef3f1]">
+                        <div className=" bg-gray-400 rounded  w-[70px] h-full">
+                            <div className="text-center w-full flex-col bg-white flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
+                                <p className="bg-[#d6e03d]  w-full rounded-t px-3 font-medium">{formatDate(tablaDate.dataFast)[0]}</p>
+                                <div className="flex flex-col items-center leading-[10px]">
+                                    <p className="p-0 m-0  text-lg font-bold ">{formatDate(tablaDate.dataFast)[1]}</p>
+                                    <p className="p-0 m-0 text-[10px]">{formatDate(tablaDate.dataFast)[2]}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="w-2/4  border-gray-300 border  rounded-xl text-xl text-center cursor-pointer hover: capitalize flex justify-center items-center bg-slate-100">
-                        <div className=" bg-gray-600 rounded w-3/6 h-3/4">
-                            <div className="text-center w-full flex-col bg-white flex justify-[space-between] h-full rounded-t rounded-bl rounded-br-3xl font-[Arial] text-xs">
-                                <p className="bg-yellow-400 w-full rounded-t px-3">{formatDate(tablaDate.dataNormale)[0]}</p>
-                                <div className="flex flex-col items-center font-bold leading-[10px]">
-                                    <p className="p-0 m-0  text-lg">{formatDate(tablaDate.dataNormale)[1]}</p>
-                                    <p className="p-0 m-0">{formatDate(tablaDate.dataNormale)[2]}</p>
+                    <div className="w-2/4 h-[70px]  py-1 m-0 rounded text-xl text-center cursor-pointer hover: capitalize flex justify-center items-center bg-[#d4e8df]">
+                        <div className=" bg-gray-400 rounded w-[70px] h-full">
+                            <div className="text-center w-full flex-col bg-white flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
+                                <p className="bg-[#d6e03d] w-full rounded-t px-3 font-medium">{formatDate(tablaDate.dataNormale)[0]}</p>
+                                <div className="flex flex-col items-center  leading-[10px]">
+                                    <p className="p-0 m-0  text-lg font-bold">{formatDate(tablaDate.dataNormale)[1]}</p>
+                                    <p className="p-0 m-0 text-[10px]">{formatDate(tablaDate.dataNormale)[2]}</p>
                                 </div>
                             </div>
                         </div>
@@ -62,23 +96,34 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate,viewRows,selectRow,handleChang
             }
 
             {
-                tablaDataPrezzi.map((elem, i) => {
-                    return (
-                        <div className={`${(i>9 && viewRows) && "hidden"} w-full h-10 overflow-hidden flex gap-10 items-center`} key={i}>
-                            <div className={`${viewSelectQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)} w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center`}>
-                                <p className="text-[15px]">{elem.richiestaCalcoloPrezzo.qtaRichiesta}</p>
+                tablaDataPrezzi.length > 0 ?
+                    tablaDataPrezzi.map((elem, i) => {
+                        return (
+                            <div className={`  ${(i > 9 && viewRows) && "hidden"} w-full h-10 overflow-hidden flex gap-1 items-center `} key={i}>
+                                <div className={`${viewSelectQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)} w-1/4 h-3/4  rounded px-3 py-[19px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end`}>
+                                    <p className=" text-end text-[14px]">{formatQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
+                                </div>
+                                <div onClick={() => handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(false, i, elem.prezzoRiv)} w-2/4 h-3/4 rounded  px-3 py-[19px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center`}>
+                                    <p className="text-[14px]">{formatValue(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p></div>
+                                <div onClick={() => handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true, i, elem.prezzoRiv)} w-2/4 h-3/4  rounded px-3 py-[19px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
+                                    <p className="text-[14px]">€ {numberFormat(elem.prezzoPubbl)}</p></div>
                             </div>
-                            <div onClick={()=>handleChangeRowSelect(false,i,elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(false,i)} w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center`}>
-                                <p className="text-[15px]">{formatValue(elem.prezzoRiv)}</p></div>
-                            <div onClick={()=>handleChangeRowSelect(true,i,elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true,i)} w-2/4 h-3/4 border-gray-300 border  rounded-xl p-3 text-xl text-center cursor-pointer hover:bg-amber-400 flex items-center justify-center `}>
-                                <p className="text-[15px]">€ {elem.prezzoPubbl}</p></div>
+                        )
+                    }) : <div className={`  w-full h-10 overflow-hidden flex gap-1 items-center`} >
+                        <div className={` w-1/4 h-3/4  rounded px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end bg-[#eef3f1]`}>
+                            <p className=" text-end">-</p>
                         </div>
-                    )
-                })
+                        <div  className={` w-2/4 h-3/4 rounded  px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center bg-[#eef3f1]`}>
+                            <p className="">-</p></div>
+                        <div  className={` w-2/4 h-3/4  rounded px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center bg-[#d4e8df]`}>
+                            <p className="">-</p></div>
+                    </div>
+
             }
         </>
 
     )
 }
+
 
 export default TableCustom

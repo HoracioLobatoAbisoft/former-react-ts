@@ -10,7 +10,7 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { ButtonCustom } from "./components/ButtonCustom";
 import { ImageCustom } from "./components/ImageCustom";
 export const ConfiguraProdotto = () => {
-  const { imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows,handleChangeRowSelect,selectRow, } = useConfiguraProdotto();
+  const { base,depth,height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows,handleChangeRowSelect,selectRow, } = useConfiguraProdotto();
   // return (
   //   <div className="row w-[100%] felx p-5">
   //     <div className="col col-12 bg-main text-white py-[2px] font-semibold">
@@ -158,26 +158,26 @@ export const ConfiguraProdotto = () => {
   //   </div>
 
   // );
-
+console.log("rrrrrrrrr",tablaDataPrezzi)
   return (
     <div className="w-full">
-      <h5 className="ps-[20px] pt-[2px] bg-[#f58220] text-[#fff] text-[12px] font-[Arial]">CONFIGURA IL TUO PRODOTTO</h5>
+      <h5 className="ps-[20px] py-[3px] bg-[#f58220] text-[#fff] text-[12px] tracking-tighter font-medium">CONFIGURA IL TUO PRODOTTO</h5>
       <div className="flex mt-4">
-        <table className="w-[70%] ">
+        <table className="w-[75%] ">
           <tbody className="">
-            <tr className="boder border-b-4 border-[#ffff]">
-              <td className="w-[95px] p-[1px] text-[12px] text-[arial] font-normal">Formato</td>
-              <td className="px-[5px] py-[4px] text-[14px] border-[2px] border-[#f1f1f1] bg-[#f1f1f1]">
-                <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans]">
+            <tr className="">
+              <td className="w-[95px] p-[1px] text-[12px]  font-normal">Formato</td>
+              <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
+                <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
                   <option value="">{handleOptionsFormat()}
                   </option>
                 </select>
               </td>
-              <td className="">
+              <td className=" p-[6px]">
                 <span
                   className={` text-gray-800 cursor-pointer text-xs`}
                 >
-                  <BsInfoCircleFill />
+                  <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{transform:'scale(1.3)',}}/>
                 </span>
               </td>
             </tr>
@@ -216,13 +216,15 @@ export const ConfiguraProdotto = () => {
             <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} />
           </tbody>
         </table>
-        <div className=" w-[30%]">
+        <div className=" w-[25%]">
           <ImageCustom svgImage={imageSvg} />
         </div>
       </div>
       <div className="w-full text-xs ">
-        <li className="bg-gray-100 rounded p-2 my-1"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
-        <li className="bg-gray-100 rounded p-2 my-1">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
+        {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null) ) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p> }
+        
+        <li className="bg-gray-100 rounded py-1 px-1  my-1"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
+        <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
       </div>
       <div className=" w-full flex gap-5 my-3 justify-end text-xs">
         <i>Visualizza prezzo </i>
@@ -230,8 +232,8 @@ export const ConfiguraProdotto = () => {
         <RadioCustom name={"radio0"} value={0} checked={radioIva === 0} label="Senza IVA" handleCheckboxChange={handleCheckboxChange} />
         <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
       </div>
-      <h5 className="mb-5 ps-[20px] pt-[2px] bg-[#f58220] text-[#fff] text-[12px] font-[Arial]">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
-      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect}  />
+      <h5 className="mb-5 ps-[20px] py-[5px] bg-[#f58220] text-[#fff] text-[12px] tracking-tighter font-medium">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
+      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect} radioIva={radioIva} />
       {
         tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
       }

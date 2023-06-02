@@ -56,7 +56,7 @@ export const httpGetOpzioni = async (idPrev: number, idFormProd: number,idTipoCa
 
 export const httpGetTableDate = async (idUt:number,idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) => {
   try {
-    const result = await applicationConnect.get<ResponseApi<TableDate[]>>(BASE_URL + "GetTableDate", {
+    const result = await applicationConnect.get<ResponseApi<TableDate>>(BASE_URL + "GetTableDate", {
       params: {
         idUt: idUt,
         IdPrev: idPrev,

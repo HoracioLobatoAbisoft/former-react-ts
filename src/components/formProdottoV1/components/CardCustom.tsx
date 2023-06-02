@@ -29,7 +29,7 @@ export const CardCustom = ({ options, title, valueSelect, width = 60, height = 6
                             <img
                                 width={width}
                                 height={height}
-                                src={`https://localhost:44311/listino/` + elem?.image}
+                                src={`http://95.110.133.251:5051/listino/` + elem?.image}
                                 alt=""
                             />
                             <p className="text-center text-xs mt-[3px] font-[Arial] leading-[13px] text-[13px] text-gray-500">{elem.label}</p>

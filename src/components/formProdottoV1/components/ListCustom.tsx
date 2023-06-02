@@ -51,7 +51,7 @@ const ListCustom = ({ label, options }: Props) => {
   //         <div className="flex">
   //           <div className="w-48 max-w-full">
   //             <img
-  //               src={`https://localhost:44311/listino/` + item?.image}
+  //               src={`http://95.110.133.251:5051/listino/` + item?.image}
   //               alt=""
   //             />
   //           </div>
@@ -104,23 +104,24 @@ const ListCustom = ({ label, options }: Props) => {
     <>
       {/* // <tr className="">
     //   <td className="w-[95px] p-[1px] text-[12px] text-[arial] font-normal">{label}</td>
-    //   <td className=" text-[14px] border-[2px] border-[#f1f1f1] bg-[#f1f1f1]" colSpan={2}> */}
+    //   <td className=" text-[14px] border-b-[2px] border-[#f1f1f1] bg-[#f1f1f1]" colSpan={2}> */}
       {
         options.map((item, i) => {
           return (
             <>
-              <tr className="boder border-b-4 border-[#ffff]" key={i}>
-                <td className="w-[95px] p-[1px] text-[12px] text-[arial] font-normal">{i===0?label:''}</td>
-                <td className="px-[5px] py-[4px] text-[14px] border-[2px] border-[#f1f1f1] bg-[#f1f1f1]">
+              <tr className="" key={i}>
+                <td className="w-[95px] p-[1px] text-[12px]  font-normal">{i===0?label:''}</td>
+                <td className="border-b-[2px]  border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
                   {item.label}
                 </td>
                 <td
-                  className={`bg-[#ffffff] w-[6%] border-none text-xs text-gray-800 cursor-pointer relative ${!isHovered && i != iView?'':''}`}
+                  className={` w-[6%]  p-[6px] border-none text-xs text-gray-800 cursor-pointer relative ${!isHovered && i != iView?'':''}`}
                   onMouseOver={() => { setIView(i) }}
                   onMouseOut={() => { setIView(null) }}
-                  onMouseEnter={() => setHoveredState(true)}
-                  onMouseLeave={() => setHoveredState(false)} >
-                  <BsInfoCircleFill width={'100%'} height={'100%'} />
+                  // onMouseEnter={() => setHoveredState(true)}
+                  // onMouseLeave={() => setHoveredState(false)} 
+                  >
+                  <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{transform:'scale(1.3)',}}/>
                 </td>
 
               </tr>
@@ -129,7 +130,7 @@ const ListCustom = ({ label, options }: Props) => {
                   <div className="flex">
                     <div className="w-48 max-w-full">
                       <img
-                        src={`https://localhost:44311/listino/` + item?.image}
+                        src={`http://95.110.133.251:5051/listino/` + item?.image}
                         alt=""
                       />
                     </div>
@@ -168,7 +169,7 @@ const ListCustom = ({ label, options }: Props) => {
             //       <div className="flex">
             //         <div className="w-48 max-w-full">
             //           <img
-            //             src={`https://localhost:44311/listino/` + item?.image}
+            //             src={`http://95.110.133.251:5051/listino/` + item?.image}
             //             alt=""
             //           />
             //         </div>

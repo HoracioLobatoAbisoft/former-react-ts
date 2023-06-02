@@ -138,7 +138,7 @@ export const useConfiguraProdotto = () => {
   const [tipoCartaList, setTipoCartaList] = useState<TipoDiCarta[]>([])
   const [opzioniList, setOpzioniList] = useState<Opzioni[]>([])
   const [tablaDataPrezzi, settablaDataPrezzi] = useState<TablePrezzi[]>([])
-  const [tablaDate, settablaDate] = useState<TableDate[]>([])
+  const [tablaDate, settablaDate] = useState<TableDate>()
   const [stampaCaldoList, setStampaCaldoList] = useState<OptionsSelectS[]>([])
   const [platifiacazioneList, setPlatifiacazioneList] = useState<OptionsSelectS[]>([])
   const [viewRows,setViewRows] =useState<Boolean>(true)
@@ -359,7 +359,13 @@ export const useConfiguraProdotto = () => {
           quantity: 250
         })
       }
-      
+
+      // const DataPrezziNull:TablePrezzi[] =[
+      //   {
+      //     idMacchinarioStampa:0,
+      //   }
+      // ]
+
       settablaDataPrezzi(data)
     }
 

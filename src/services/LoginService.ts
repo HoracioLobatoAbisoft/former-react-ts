@@ -1,6 +1,7 @@
 import MasterService from "./MasterService";
 import { conf } from "../../config";
- const CLIENTE_API_URL = "https://localhost:7143" + "/api";
+ //const CLIENTE_API_URL = "https://localhost:7143" + "/api";
+ const CLIENTE_API_URL = "http://95.110.133.251:5050" + "/api";
 //const CLIENTE_API_URL = "http://localhost:5183" + "/api";
 
 class LoginService {

@@ -67,8 +67,8 @@ export const InputCustomSelect = ({
   //         <img
   //           src={
   //             options && (position === 0 || position === undefined)
-  //               ? `https://localhost:44311/listino/` + options[0]?.image
-  //               : `https://localhost:44311/listino/` +
+  //               ? `http://95.110.133.251:5051/listino/` + options[0]?.image
+  //               : `http://95.110.133.251:5051/listino/` +
   //               options.find((x) => Number(x.value) === Number(position))?.image
   //           }
   //           alt=""
@@ -97,8 +97,8 @@ export const InputCustomSelect = ({
   //               <img
   //                 src={
   //                   options && (position === 0 || position === undefined)
-  //                     ? `https://localhost:44311/listino/` + options[0]?.image
-  //                     : `https://localhost:44311/listino/` +
+  //                     ? `http://95.110.133.251:5051/listino/` + options[0]?.image
+  //                     : `http://95.110.133.251:5051/listino/` +
   //                       options.find(
   //                         (x) => Number(x.value) === Number(position)
   //                       )?.image
@@ -127,12 +127,12 @@ export const InputCustomSelect = ({
   //   </div>
   // );
   return (
-    <tr className="boder border-b-4 border-[#ffff]">
-      <td className="w-[95px] p-[1px] text-[12px] text-[arial] font-normal">
+    <tr className="">
+      <td className="w-[100px] p-[1px] text-[12px]  font-normal">
         {label}
       </td>
-      <td className="px-[5px] py-[4px] text-[14px] border-[2px] border-[#f1f1f1] bg-[#f1f1f1]">
-        <select name={name} onChange={handleChange} className="border-[1px] w-full border-[#ddd] font-[open sans]">
+      <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
+        <select name={name} onChange={handleChange} className="border-[1px] w-full border-[#ddd] py-[3px]">
           {
             options.map((elem, i) => (
               <option key={elem.value} value={elem.value} >{elem.label}</option>
@@ -140,7 +140,7 @@ export const InputCustomSelect = ({
           }
         </select>
       </td>
-      <td className="">
+      <td className=" p-[6px]">
         {(showIcon === true && position === 0) ||
           position === undefined ? null : (
           <span
@@ -148,7 +148,7 @@ export const InputCustomSelect = ({
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <BsInfoCircleFill />
+            <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{transform:'scale(1.3)',}}/>
           </span>
         )}
         {isHovered && (
@@ -158,8 +158,8 @@ export const InputCustomSelect = ({
                 <img
                   src={
                     options && (position === 0 || position === undefined)
-                      ? `https://localhost:44311/listino/` + options[0]?.image
-                      : `https://localhost:44311/listino/` +
+                      ? `http://95.110.133.251:5051/listino/` + options[0]?.image
+                      : `http://95.110.133.251:5051/listino/` +
                       options.find((x) => Number(x.value) === Number(position))?.image
                   }
                   alt=""

@@ -1,7 +1,8 @@
 import MasterService from "../../../services/MasterService";
 import { conf } from "../../../../config";
-const CLIENTE_API_URL = "https://localhost:7143" + "/api";
+//const CLIENTE_API_URL = "https://localhost:7143" + "/api";
 //const CLIENTE_API_URL = "http://localhost:5183" + "/api";
+const CLIENTE_API_URL = "http://95.110.133.251:5050" + "/api";
 
 class OrdiniService {
   getOrdini(idUdt:string) {
