@@ -2,7 +2,7 @@ import { Collapse } from "react-collapse";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { OptionsSelect } from "../../formProdotto/interfaces/prodotto";
-
+import './Cube.css'
 interface Props {
   label: string;
   options: OptionsSelect[];
@@ -24,6 +24,7 @@ export const InputCustomSelect = ({
   );
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [isHovered2, setIsHovered2] = useState(false);
   const setHoveredState = (stateBool: boolean) => {
     setIsHovered(stateBool);
   };
@@ -125,13 +126,13 @@ export const InputCustomSelect = ({
   //       </div>
   //     </Collapse> */}
   //   </div>
-  // );
+  // );${isHovered ==true? 'border-b-[2px] border-[#fff]':'border-[2px] border-[#d6e03d]'}
   return (
     <tr className="">
       <td className="w-[100px] p-[1px] text-[12px]  font-normal">
-        {label}
+        {label} 
       </td>
-      <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
+      <td className={"  px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] border-b-[2px]  border-[#fff] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]"}>
         <select name={name} onChange={handleChange} className="border-[1px] w-full border-[#ddd] py-[3px]">
           {
             options.map((elem, i) => (

@@ -49,7 +49,7 @@ function App() {
           <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
           <Route path="/form-prodotto" element={<FormProdotto />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd" element={<FormProdottoModificated />} />
-          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa" element={<FormProdottoModificated />} />
+          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idUt" element={<FormProdottoModificated />} />
           <Route
             path="/OrdineDetails/:userId"
             element={<OrdineDetailsPage />}

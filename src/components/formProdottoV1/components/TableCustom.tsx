@@ -68,12 +68,12 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
     return (
         <>
             {tablaDate &&
-                <div className=" w-full flex gap-1 mb-1 overflow-hidden " >
-                    <div className="w-1/4 text-xs text-center  flex items-end justify-center">Quantità</div>
-                    <div className="w-2/4 h-[70px]  py-1 m-0 rounded text-xl text-center capitalize flex justify-center  bg-[#eef3f1]">
-                        <div className=" bg-gray-400 rounded  w-[70px] h-full">
-                            <div className="text-center w-full flex-col bg-white flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
-                                <p className="bg-[#d6e03d]  w-full rounded-t px-3 font-medium">{formatDate(tablaDate.dataFast)[0]}</p>
+                <div className="  flex gap-2 mb-[3px] overflow-hidden " >
+                    <div className="w-[104px] text-xs text-center  flex items-end justify-center">Quantità</div>
+                    <div className="w-[223px] h-[70px]  py-1   rounded text-xl text-center capitalize flex justify-center  bg-[#eef3f1]">
+                        <div className=" bg-gray-400 rounded  w-[63px] h-[95%]">
+                            <div className="text-center w-full flex-col bg-[#f1f1f1] flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
+                                <p className="bg-[#d6e03d]  w-full rounded-t font-medium">{formatDate(tablaDate.dataFast)[0]}</p>
                                 <div className="flex flex-col items-center leading-[10px]">
                                     <p className="p-0 m-0  text-lg font-bold ">{formatDate(tablaDate.dataFast)[1]}</p>
                                     <p className="p-0 m-0 text-[10px]">{formatDate(tablaDate.dataFast)[2]}</p>
@@ -81,10 +81,10 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
                             </div>
                         </div>
                     </div>
-                    <div className="w-2/4 h-[70px]  py-1 m-0 rounded text-xl text-center cursor-pointer hover: capitalize flex justify-center items-center bg-[#d4e8df]">
-                        <div className=" bg-gray-400 rounded w-[70px] h-full">
-                            <div className="text-center w-full flex-col bg-white flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
-                                <p className="bg-[#d6e03d] w-full rounded-t px-3 font-medium">{formatDate(tablaDate.dataNormale)[0]}</p>
+                    <div className="w-[225px] h-[70px]  py-1 m-0 rounded text-xl text-center cursor-pointer hover: capitalize flex justify-center items-center bg-[#d4e8df]">
+                        <div className=" bg-gray-400 rounded w-[63px] h-[95%]">
+                            <div className="text-center w-full flex-col bg-[#f1f1f1] flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
+                                <p className="bg-[#d6e03d] w-full rounded-t  font-medium">{formatDate(tablaDate.dataNormale)[0]}</p>
                                 <div className="flex flex-col items-center  leading-[10px]">
                                     <p className="p-0 m-0  text-lg font-bold">{formatDate(tablaDate.dataNormale)[1]}</p>
                                     <p className="p-0 m-0 text-[10px]">{formatDate(tablaDate.dataNormale)[2]}</p>
@@ -99,23 +99,23 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
                 tablaDataPrezzi.length > 0 ?
                     tablaDataPrezzi.map((elem, i) => {
                         return (
-                            <div className={`  ${(i > 9 && viewRows) && "hidden"} w-full h-10 overflow-hidden flex gap-1 items-center `} key={i}>
-                                <div className={`${viewSelectQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)} w-1/4 h-3/4  rounded px-3 py-[19px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end`}>
+                            <div className={`  ${(i > 9 && viewRows) && "hidden"} w-full overflow-hidden flex gap-1 items-center `} key={i}>
+                                <div className={`${viewSelectQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)} w-[104px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end mb-[1.5px]`}>
                                     <p className=" text-end text-[14px]">{formatQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                 </div>
-                                <div onClick={() => handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(false, i, elem.prezzoRiv)} w-2/4 h-3/4 rounded  px-3 py-[19px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center`}>
+                                <div onClick={() => handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(false, i, elem.prezzoRiv)} w-[228px] h-[32.8px] rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center`}>
                                     <p className="text-[14px]">{formatValue(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p></div>
-                                <div onClick={() => handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true, i, elem.prezzoRiv)} w-2/4 h-3/4  rounded px-3 py-[19px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
+                                <div onClick={() => handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true, i, elem.prezzoRiv)} w-[232px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
                                     <p className="text-[14px]">€ {numberFormat(elem.prezzoPubbl)}</p></div>
                             </div>
                         )
                     }) : <div className={`  w-full h-10 overflow-hidden flex gap-1 items-center`} >
-                        <div className={` w-1/4 h-3/4  rounded px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end bg-[#eef3f1]`}>
+                        <div className={`w-[104px] h-[32.8px]  rounded px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end bg-[#eef3f1]`}>
                             <p className=" text-end">-</p>
                         </div>
-                        <div  className={` w-2/4 h-3/4 rounded  px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center bg-[#eef3f1]`}>
+                        <div  className={` w-[228px] h-[32.8px] rounded  px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center bg-[#eef3f1]`}>
                             <p className="">-</p></div>
-                        <div  className={` w-2/4 h-3/4  rounded px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center bg-[#d4e8df]`}>
+                        <div  className={`w-[232px] h-[32.8px]  rounded px-3 py-[19px] font-medium text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center bg-[#d4e8df]`}>
                             <p className="">-</p></div>
                     </div>
 

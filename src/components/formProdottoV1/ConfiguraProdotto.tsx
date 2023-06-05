@@ -9,6 +9,8 @@ import Cube from "./components/Cube";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { ButtonCustom } from "./components/ButtonCustom";
 import { ImageCustom } from "./components/ImageCustom";
+
+
 export const ConfiguraProdotto = () => {
   const { base,depth,height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows,handleChangeRowSelect,selectRow, } = useConfiguraProdotto();
   // return (
@@ -160,14 +162,15 @@ export const ConfiguraProdotto = () => {
   // );
 console.log("rrrrrrrrr",tablaDataPrezzi)
   return (
-    <div className="w-full">
-      <h5 className="ps-[20px] py-[3px] bg-[#f58220] text-[#fff] text-[12px] tracking-tighter font-medium">CONFIGURA IL TUO PRODOTTO</h5>
-      <div className="flex mt-4">
-        <table className="w-[75%] ">
+    <div className="w-full ">
+      <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO</h5>
+      <div className="flex mt-3 ps-[4.5px]">
+        <table className="w-[75%]">
           <tbody className="">
             <tr className="">
               <td className="w-[95px] p-[1px] text-[12px]  font-normal">Formato</td>
-              <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
+              <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] 
+              hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]">
                 <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
                   <option value="">{handleOptionsFormat()}
                   </option>
@@ -223,16 +226,16 @@ console.log("rrrrrrrrr",tablaDataPrezzi)
       <div className="w-full text-xs ">
         {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null) ) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p> }
         
-        <li className="bg-gray-100 rounded py-1 px-1  my-1"><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
+        <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
         <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
       </div>
-      <div className=" w-full flex gap-5 my-3 justify-end text-xs">
-        <i>Visualizza prezzo </i>
+      <div className=" w-full flex gap-5 mb-3 mt-[18px] justify-end text-xs">
+        <i className="text-[11.5px] me-1">Visualizza prezzo </i>
         <RadioCustom name={"radio2"} value={2} checked={radioIva === 2} label="CAD." handleCheckboxChange={handleCheckboxChange} />
         <RadioCustom name={"radio0"} value={0} checked={radioIva === 0} label="Senza IVA" handleCheckboxChange={handleCheckboxChange} />
         <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
       </div>
-      <h5 className="mb-5 ps-[20px] py-[5px] bg-[#f58220] text-[#fff] text-[12px] tracking-tighter font-medium">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
+      <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
       <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect} radioIva={radioIva} />
       {
         tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />

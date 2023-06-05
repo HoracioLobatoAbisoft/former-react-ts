@@ -133,7 +133,7 @@ const initialValues: InitialValuesProdotto = {
 };
 export const useConfiguraProdotto = () => {
   const userData = useContext(UserContext);
-  const { idPrev, idFormProd, IdTipoCarta, IdColoreStampa } = useParams();
+  const { idPrev, idFormProd, IdTipoCarta, IdColoreStampa,idUt } = useParams();
   const [initialState, setInitialState] = useState(initialValues);
   const [tipoCartaList, setTipoCartaList] = useState<TipoDiCarta[]>([])
   const [opzioniList, setOpzioniList] = useState<Opzioni[]>([])
@@ -165,7 +165,7 @@ export const useConfiguraProdotto = () => {
       if (depth < 14) initialState.depth = 14;
       if (height < 40) initialState.height = 40;
     }
-    const option: string = `${base || 0} x ${depth || 0} x ${height || 0
+    const option: string = `${base || 0} x ${height || 0} x ${ depth || 0
       } (Chiuso)`;
 
     return option;
@@ -185,13 +185,8 @@ export const useConfiguraProdotto = () => {
         Number(idPrev),
         Number(idFormProd)
       );
-
-      const opzioniList = await httpGetOpzioni(
-        Number(idPrev),
-        Number(idFormProd),
-        Number(IdTipoCarta),
-        Number(IdColoreStampa),
-      );
+      handleOpzioni()
+     
 
       const stampaCaldoList = await httpGetStampaCaldo(
         Number(idPrev),
@@ -202,13 +197,25 @@ export const useConfiguraProdotto = () => {
 
       setTipoCartaList(tipoCartaList.data)
       setColoreStampaList(coloreStampaList.data)
-      setOpzioniList(opzioniList.data)
+      
       //const valueStampaCaldo =stampaCaldoList.data.filter(x => x.idCatLav == 37)
       setStampaCaldoList(stampaCaldoList.data[0].optionsSelect)
       setPlatifiacazioneList(stampaCaldoList.data[1].optionsSelect)
       //console.log(valueStampaCaldo) 
     } catch (error) { }
   };
+  const handleOpzioni = async () =>{
+    const opzioniList = await httpGetOpzioni(
+      Number(idPrev),
+      Number(idFormProd),
+      Number(IdTipoCarta),
+      Number(IdColoreStampa),
+      Number(initialState.base),
+      Number(initialState.depth),
+      Number(initialState.height),
+    );
+    setOpzioniList(opzioniList.data)
+  }
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = evt.target;
     if (name) {
@@ -327,7 +334,7 @@ export const useConfiguraProdotto = () => {
     if (base != null && depth != null && height != null) {
 
         getSvgImage(base,depth,height)
-      
+        handleOpzioni()
         const tableList = await httpGetTablePrezzi(
         Number(idPrev),
         Number(tipoCarta ? tipoCarta : IdTipoCarta),
@@ -339,7 +346,8 @@ export const useConfiguraProdotto = () => {
         Number(quantity),
         Number(stampaCaldo),
         Number(plastificazione),
-        Number(radioIva)
+        Number(radioIva),
+        Number(Number(idUt) === 0? 1:idUt)
       );
       let data = tableList.data
       if (quantity != null) {

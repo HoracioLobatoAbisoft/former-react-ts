@@ -85,7 +85,7 @@ export const InputCustom = ({
   return (
     <tr className="">
       <td className={` ${''} ${classCustomLabel ? classCustomLabel : 'w-[95px] p-[1px] text-[12px] text-[arial] font-normal'}`}>{label}</td>
-      <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
+      <td className="border-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset] ">
         <input
           name={name}
           disabled={disabled}

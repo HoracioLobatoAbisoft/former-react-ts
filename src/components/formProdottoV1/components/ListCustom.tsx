@@ -15,9 +15,9 @@ const ListCustom = ({ label, options }: Props) => {
 
 
   const [isHovered, setIsHovered] = useState(false);
-  const setHoveredState = (stateBool: boolean) => {
-    setIsHovered(stateBool);
-  };
+  // const setHoveredState = (stateBool: boolean) => {
+  //   setIsHovered(stateBool);
+  // };
   console.log("asdfadsf", options)
   // return (
   //   <div className=" pb-2 w-full flex flex-col ">
@@ -104,18 +104,19 @@ const ListCustom = ({ label, options }: Props) => {
     <>
       {/* // <tr className="">
     //   <td className="w-[95px] p-[1px] text-[12px] text-[arial] font-normal">{label}</td>
-    //   <td className=" text-[14px] border-b-[2px] border-[#f1f1f1] bg-[#f1f1f1]" colSpan={2}> */}
+    // //   <td className=" text-[14px] border-b-[2px] border-[#f1f1f1] bg-[#f1f1f1]" colSpan={2}> */}
+    {/* border-[#fff] hover: hover:border-[#d6e03d] */}
       {
         options.map((item, i) => {
           return (
             <>
               <tr className="" key={i}>
                 <td className="w-[95px] p-[1px] text-[12px]  font-normal">{i===0?label:''}</td>
-                <td className="border-b-[2px]  border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1]">
+                <td className={`  px-[10px] py-[8px] border-b-[2px] border-[#fff] text-[14px] bg-[#f1f1f1] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]`}  >
                   {item.label}
                 </td>
                 <td
-                  className={` w-[6%]  p-[6px] border-none text-xs text-gray-800 cursor-pointer relative ${!isHovered && i != iView?'':''}`}
+                  className={` w-[6%]  p-[6px] border-none text-xs text-gray-800 cursor-pointer relative `}
                   onMouseOver={() => { setIView(i) }}
                   onMouseOut={() => { setIView(null) }}
                   // onMouseEnter={() => setHoveredState(true)}

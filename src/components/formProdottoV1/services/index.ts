@@ -37,14 +37,17 @@ export const httpGetColoreStampa = async (idPrev: number, idFormProd: number) =>
     throw new Error("");
   }
 };
-export const httpGetOpzioni = async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) => {
+export const httpGetOpzioni = async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number,base:number,prfundita:number, altezza:number) => {
   try {
     const result = await applicationConnect.get<ResponseApi<Opzioni[]>>(BASE_URL + "GetOpzioni", {
       params: {
         IdPrev: idPrev,
         IdFormProd: idFormProd,
         IdTipoCarta:idTipoCarta,
-        IdColoreStampa:idColoreStampa
+        IdColoreStampa:idColoreStampa,
+        bases:base,
+        profundita:prfundita,
+        altezza:altezza,
       },
     });
     //debugger
@@ -98,7 +101,8 @@ export const httpGetTablePrezzi = async (
   Quantita:number,
   StampaCaldo:number,
   Plastificazione:number,
-  IVA:number
+  IVA:number,
+  idUt:number
   ) => {
   try {
     const result = await applicationConnect.get<ResponseApi<TablePrezzi[]>>("Prodotto", {
@@ -113,7 +117,8 @@ export const httpGetTablePrezzi = async (
         Quantita:Quantita,
         StampaCaldo:StampaCaldo,
         Plastificazione:Plastificazione,
-        IVA:IVA
+        IVA:IVA,
+        idUser:idUt
       },
     });
 
