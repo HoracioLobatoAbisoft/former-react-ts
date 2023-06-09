@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { InitialValuesProdotto, OptionsSelect } from "../../formProdotto/interfaces/prodotto";
-import { getSvgImageService, httpGetColoreStampa, httpGetOpzioni, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from "../services";
+import { getSvgImageService, httpGetColoreStampa, httpGetOpzioni, httpGetShowBloccoMisure, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowtxtQtaCustom, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from "../services";
 import { useParams } from "react-router";
 import { TipoDiCarta } from "../interface/tipoCarta";
 import { ColoreStampa } from "../interface/coloreStampa";
@@ -11,6 +11,7 @@ import UserContext from "../../../context/UserContext";
 import { TableDate } from "../interface/tableDate";
 import { Html, Sort } from "@mui/icons-material";
 import { SvgImage } from "../interface/svgImage";
+import useLoadingBackdrop from "../../loadingBackdrop/useLoadingBackdrop";
 const ValueProfundita = [{
   label: "2 cm",
   value: 20
@@ -133,7 +134,7 @@ const initialValues: InitialValuesProdotto = {
 };
 export const useConfiguraProdotto = () => {
   const userData = useContext(UserContext);
-  const { idPrev, idFormProd, IdTipoCarta, IdColoreStampa,idUt } = useParams();
+  const { idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idUt } = useParams();
   const [initialState, setInitialState] = useState(initialValues);
   const [tipoCartaList, setTipoCartaList] = useState<TipoDiCarta[]>([])
   const [opzioniList, setOpzioniList] = useState<Opzioni[]>([])
@@ -141,15 +142,21 @@ export const useConfiguraProdotto = () => {
   const [tablaDate, settablaDate] = useState<TableDate>()
   const [stampaCaldoList, setStampaCaldoList] = useState<OptionsSelectS[]>([])
   const [platifiacazioneList, setPlatifiacazioneList] = useState<OptionsSelectS[]>([])
-  const [viewRows,setViewRows] =useState<Boolean>(true)
+  const [viewRows, setViewRows] = useState<Boolean>(true)
   const [coloreStampaList, setColoreStampaList] = useState<ColoreStampa[]>([])
-  const [selectRow,setSelectRow] = useState<SelectRow>({
+  const [orientamiento, setOrientamiento] = useState<boolean>()
+  const [showBloccoMisure, setShowBloccoMisure] = useState<boolean>()
+  const [showQtaCustom, setShowQtaCustom] = useState<boolean>()
+  const [showtxtQtaCustom, setShowtxtQtaCustom] = useState<boolean>()
+
+  const [selectRow, setSelectRow] = useState<SelectRow>({
     conditional: false,
     value: 0,
     quantity: 250
-})
+  })
+  const [openLoadingBackdrop, setOpenLoadingBackdrop] = useState(false);
   const [radioIva, setRadioIva] = useState(0)
-  const [imageSvg,setImageSvg] =useState<SvgImage>()
+  const [imageSvg, setImageSvg] = useState<SvgImage>()
   //dataFake
   const [formatImage, setFormatImage] = useState<string>("")
   const [ProfunditaList, setProfunditaList] = useState<OptionsSelect[]>([])
@@ -165,17 +172,18 @@ export const useConfiguraProdotto = () => {
       if (depth < 14) initialState.depth = 14;
       if (height < 40) initialState.height = 40;
     }
-    const option: string = `${base || 0} x ${height || 0} x ${ depth || 0
+    const option: string = `${base || 0} x ${height || 0} x ${depth || 0
       } (Chiuso)`;
 
     return option;
   };
-  const handleChangeRowSelect = (conditional:boolean,value:number,quantity:number) =>{
-        setSelectRow({conditional,value,quantity})
+  const handleChangeRowSelect = (conditional: boolean, value: number, quantity: number) => {
+    setSelectRow({ conditional, value, quantity })
   }
   const handleData = async () => {
 
     try {
+      setOpenLoadingBackdrop(true)
       if (!idPrev || !idFormProd) return;
       const tipoCartaList = await httpGetTipoCarta(
         Number(idPrev),
@@ -183,10 +191,11 @@ export const useConfiguraProdotto = () => {
       );
       const coloreStampaList = await httpGetColoreStampa(
         Number(idPrev),
-        Number(idFormProd)
+        Number(idFormProd),
+        Number(IdTipoCarta)
       );
       handleOpzioni()
-     
+
 
       const stampaCaldoList = await httpGetStampaCaldo(
         Number(idPrev),
@@ -195,16 +204,43 @@ export const useConfiguraProdotto = () => {
         Number(IdColoreStampa),
       );
 
+      const showOrientamiento = await httpGetShowOrientmiento(
+        Number(idPrev),
+        Number(idFormProd),
+        Number(IdTipoCarta),
+        Number(IdColoreStampa))
+
+      const showBloccoMisure = await httpGetShowBloccoMisure(
+        Number(idPrev),
+        Number(idFormProd),
+        Number(IdTipoCarta),
+        Number(IdColoreStampa))
+
+      const showQtaCustom = await httpGetShowQtaCustom(
+        Number(idPrev),
+        Number(idFormProd),
+        Number(IdTipoCarta),
+        Number(IdColoreStampa))
+      const showtxtQtaCustom = await httpGetShowtxtQtaCustom(
+        Number(idPrev),
+        Number(idFormProd),
+        Number(IdTipoCarta),
+        Number(IdColoreStampa))
+      
+      setShowQtaCustom(showQtaCustom?.data)
+      setShowtxtQtaCustom(showtxtQtaCustom?.data)
+      setShowBloccoMisure(showBloccoMisure?.data)
       setTipoCartaList(tipoCartaList.data)
       setColoreStampaList(coloreStampaList.data)
-      
+      setOrientamiento(showOrientamiento?.data)
       //const valueStampaCaldo =stampaCaldoList.data.filter(x => x.idCatLav == 37)
       setStampaCaldoList(stampaCaldoList.data[0].optionsSelect)
       setPlatifiacazioneList(stampaCaldoList.data[1].optionsSelect)
       //console.log(valueStampaCaldo) 
+      setOpenLoadingBackdrop(false)
     } catch (error) { }
   };
-  const handleOpzioni = async () =>{
+  const handleOpzioni = async () => {
     const opzioniList = await httpGetOpzioni(
       Number(idPrev),
       Number(idFormProd),
@@ -272,8 +308,22 @@ export const useConfiguraProdotto = () => {
     });
   };
 
+  const handleOrientamiento = () => {
+    const options: OptionsSelect[] = [
+      {
+        label: 'Orizzontale',
+        value: 0
+      },
+      {
+        label: 'Verticale',
+        value: 1
+      },
+    ]
+    return options
+  }
 
   const handleOptionsTipoCarta = () => {
+
     if (tipoCartaList.length === 0) return []
     const options: OptionsSelect[] = tipoCartaList.map(elem => {
       return {
@@ -316,15 +366,15 @@ export const useConfiguraProdotto = () => {
     return options
   }
   const handleChangeViewTableRows = () => {
-    
+
     setViewRows(!viewRows)
 
   }
-  const getSvgImage = async (Base:number,Profondita:number,Altezza:number) => {
+  const getSvgImage = async (Base: number, Profondita: number, Altezza: number) => {
 
-    const result = await getSvgImageService(Base,Profondita,Altezza,Number(idPrev))
-    if(result){
-        setImageSvg(result.data)
+    const result = await getSvgImageService(Base, Profondita, Altezza, Number(idPrev))
+    if (result) {
+      setImageSvg(result.data)
 
     }
   }
@@ -332,10 +382,10 @@ export const useConfiguraProdotto = () => {
 
     const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa } = initialState;
     if (base != null && depth != null && height != null) {
-
-        getSvgImage(base,depth,height)
-        handleOpzioni()
-        const tableList = await httpGetTablePrezzi(
+      setOpenLoadingBackdrop(true)
+      getSvgImage(base, depth, height)
+      handleOpzioni()
+      const tableList = await httpGetTablePrezzi(
         Number(idPrev),
         Number(tipoCarta ? tipoCarta : IdTipoCarta),
         Number(coloreStampa ? coloreStampa : IdColoreStampa),
@@ -347,20 +397,20 @@ export const useConfiguraProdotto = () => {
         Number(stampaCaldo),
         Number(plastificazione),
         Number(radioIva),
-        Number(Number(idUt) === 0? 1:idUt)
+        Number(Number(idUt) === 0 ? 1 : idUt)
       );
       let data = tableList.data
       if (quantity != null) {
         if (quantity < 50) {
           data = tableList.data.filter(x => x.richiestaCalcoloPrezzo.qtaRichiesta >= 50 || x.richiestaCalcoloPrezzo.qtaRichiesta == quantity)
         }
-        const indice = findIndexByValue(data,Number(quantity))
+        const indice = findIndexByValue(data, Number(quantity))
         setSelectRow({
           conditional: true,
           value: indice,
           quantity: Number(quantity)
         })
-      }else{
+      } else {
         setSelectRow({
           conditional: true,
           value: 1,
@@ -375,6 +425,7 @@ export const useConfiguraProdotto = () => {
       // ]
 
       settablaDataPrezzi(data)
+      setOpenLoadingBackdrop(false)
     }
 
   }
@@ -396,13 +447,13 @@ export const useConfiguraProdotto = () => {
   }
   const handleOptionsOpzioni = (): OptionsSelect[] => {
     if (opzioniList.length === 0) return []
-    console.log("adsfasfsdf",opzioniList)
+    console.log("adsfasfsdf", opzioniList)
     const options: OptionsSelect[] = opzioniList.map(elem => {
       return {
         label: elem.descrizione,
         value: elem.idLavoro,
         description: elem.descrizioneEstesa,
-        image:elem.imgRif
+        image: elem.imgRif
       }
     })
 
@@ -540,6 +591,13 @@ export const useConfiguraProdotto = () => {
     viewRows,
     imageSvg,
     handleChangeRowSelect,
-    selectRow
+    selectRow,
+    openLoadingBackdrop,
+    setOpenLoadingBackdrop,
+    orientamiento,
+    handleOrientamiento,
+    showBloccoMisure,
+    showtxtQtaCustom,
+    showQtaCustom,
   };
 };

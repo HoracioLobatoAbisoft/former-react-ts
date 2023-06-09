@@ -9,10 +9,11 @@ import Cube from "./components/Cube";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { ButtonCustom } from "./components/ButtonCustom";
 import { ImageCustom } from "./components/ImageCustom";
+import LoadingBackdrop from "../loadingBackdrop";
 
 
 export const ConfiguraProdotto = () => {
-  const { base,depth,height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows,handleChangeRowSelect,selectRow, } = useConfiguraProdotto();
+  const { openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, } = useConfiguraProdotto();
   // return (
   //   <div className="row w-[100%] felx p-5">
   //     <div className="col col-12 bg-main text-white py-[2px] font-semibold">
@@ -153,16 +154,17 @@ export const ConfiguraProdotto = () => {
 
   //     <h2 className="col col-12 bg-main text-white py-[2px] mb-2 rounded font-semibold">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h2>
   //     <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} />
-      // {
-      //   tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
-      // }
+  // {
+  //   tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
+  // }
 
   //   </div>
 
   // );
-console.log("rrrrrrrrr",tablaDataPrezzi)
+  console.log("rrrrrrrrr", tablaDataPrezzi)
   return (
     <div className="w-full ">
+      <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} />
       <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO</h5>
       <div className="flex mt-3 ps-[4.5px]">
         <table className="w-[75%]">
@@ -180,40 +182,50 @@ console.log("rrrrrrrrr",tablaDataPrezzi)
                 <span
                   className={` text-gray-800 cursor-pointer text-xs`}
                 >
-                  <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{transform:'scale(1.3)',}}/>
+                  <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
                 </span>
               </td>
             </tr>
+            {orientamiento ? <InputCustomSelect valueSelect={orientamiento} showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
             <InputCustomSelect valueSelect={tipoCarta} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} />
             <InputCustomSelect valueSelect={coloreStampa} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
-            <InputCustom
-              handleChange={handleChange}
-              name="base"
-              label="Base"
-              placeHolder="20 mm"
-            />
-            <InputCustom
-              handleChange={handleChange}
-              name="depth"
-              label="Profondità"
-              placeHolder="20 mm"
-            />
-            <InputCustom
-              handleChange={handleChange}
-              name="height"
-              label="Altezza"
-              placeHolder="20 mm"
-            />
-            <InputCustom
-              handleChange={handleChange}
-              name="quantity"
-              label="Quantità *"
-              classWhidtInput="w-3/4"
-              classCustomLabel=" w-[95px] p-[1px] text-[12px] text-[arial] font-bold"
-              info
-              on={false}
-              mm={false}
-            />
+            {showBloccoMisure &&
+              <>
+                <InputCustom
+                  handleChange={handleChange}
+                  name="base"
+                  label="Base"
+                  placeHolder="20 mm"
+                />
+                <InputCustom
+                  handleChange={handleChange}
+                  name="depth"
+                  label="Profondità"
+                  placeHolder="20 mm"
+                />
+                <InputCustom
+                  handleChange={handleChange}
+                  name="height"
+                  label="Altezza"
+                  placeHolder="20 mm"
+                />
+              </>
+            }
+            {showQtaCustom &&
+              showQtaCustom == true  ?
+              <InputCustom
+                handleChange={handleChange}
+                name="quantity"
+                label="Quantità *"
+                classWhidtInput="w-3/4"
+                classCustomLabel=" w-[95px] p-[1px] text-[12px] text-[arial] font-bold"
+                info
+                on={true}
+                mm={false}
+              />
+              :false
+            }
+
             <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
             <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} />
             <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} />
@@ -224,8 +236,8 @@ console.log("rrrrrrrrr",tablaDataPrezzi)
         </div>
       </div>
       <div className="w-full text-xs ">
-        {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null) ) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p> }
-        
+        {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null)) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p>}
+
         <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
         <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
       </div>

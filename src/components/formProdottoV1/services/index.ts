@@ -1,4 +1,5 @@
 import applicationConnect from "../../../api";
+import { IshowOrientamiento } from "../interface/IshowOrientamiento";
 import { ColoreStampa } from "../interface/coloreStampa";
 import { Opzioni } from "../interface/opzioni";
 import { OptionsSelectS, StaCalOpz } from "../interface/stampaCaldo";
@@ -23,14 +24,16 @@ export const httpGetTipoCarta = async (idPrev: number, idFormProd: number) => {
     throw new Error("");
   }
 };
-export const httpGetColoreStampa = async (idPrev: number, idFormProd: number) => {
+export const httpGetColoreStampa = async (idPrev: number, idFormProd: number, idTipoCarta: number) => {
   try {
     const result = await applicationConnect.get<ResponseApi<ColoreStampa[]>>(BASE_URL + "GetColoreStampa", {
       params: {
         IdPrev: idPrev,
         IdFormProd: idFormProd,
+        IdTipoCarta: idTipoCarta,
       },
     });
+    //console.info("httpGetColoreStampa", idPrev, idFormProd);
     //debugger
     return result.data;
   } catch (error) {
@@ -149,3 +152,70 @@ export const getSvgImageService = async (
   }
 };
 
+export const httpGetShowOrientmiento =async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) =>{
+  try {
+    const result = await applicationConnect.get<IshowOrientamiento>("Packagin/GetShowOrientamento",{
+      params: {
+        IdPrev: idPrev,
+        IdFormProd: idFormProd,
+        IdTipoCarta:idTipoCarta,
+        IdColoreStampa:idColoreStampa
+      },
+    });
+    console.warn('httpGetShowOrientmiento',result.data)
+    return result.data
+  } catch (error) {
+    console.error('httpGetShowOrientmiento',error)
+  }
+}
+
+export const httpGetShowBloccoMisure =async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) => {
+  try {
+    const result = await applicationConnect.get<IshowOrientamiento>("Packagin/GetShowBloccoMisure",{
+      params: {
+        IdPrev: idPrev,
+        IdFormProd: idFormProd,
+        IdTipoCarta:idTipoCarta,
+        IdColoreStampa:idColoreStampa
+      },
+    });
+    console.warn('httpGetShowOrientmiento',result.data)
+    return result.data
+  } catch (error) {
+    console.error('httpGetShowOrientmiento',error)
+  }
+}
+
+export const httpGetShowQtaCustom =async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) => {
+  try {
+    const result = await applicationConnect.get<IshowOrientamiento>("Packagin/GetShowQtaCustom",{
+      params: {
+        IdPrev: idPrev,
+        IdFormProd: idFormProd,
+        IdTipoCarta:idTipoCarta,
+        IdColoreStampa:idColoreStampa
+      },
+    });
+    console.warn('httpGetShowOrientmiento',result.data)
+    return result.data
+  } catch (error) {
+    console.error('httpGetShowOrientmiento',error)
+  }
+}
+
+export const httpGetShowtxtQtaCustom =async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) => {
+  try {
+    const result = await applicationConnect.get<IshowOrientamiento>("Packagin/GetShowtxtQtaCustom",{
+      params: {
+        IdPrev: idPrev,
+        IdFormProd: idFormProd,
+        IdTipoCarta:idTipoCarta,
+        IdColoreStampa:idColoreStampa
+      },
+    });
+    console.warn('httpGetShowOrientmiento',result.data)
+    return result.data
+  } catch (error) {
+    console.error('httpGetShowOrientmiento',error)
+  }
+}
