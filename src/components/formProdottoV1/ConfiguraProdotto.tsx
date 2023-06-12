@@ -11,9 +11,9 @@ import { ButtonCustom } from "./components/ButtonCustom";
 import { ImageCustom } from "./components/ImageCustom";
 import LoadingBackdrop from "../loadingBackdrop";
 
-
+//stampaCaldo, plastificazione
 export const ConfiguraProdotto = () => {
-  const { openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, stampaCaldo, plastificazione, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, } = useConfiguraProdotto();
+  const { openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, stampaCalOpz, handloSpampaCaldoOpz, showColumTable, handleFormato, idPrev, showOpzzioni } = useConfiguraProdotto();
   // return (
   //   <div className="row w-[100%] felx p-5">
   //     <div className="col col-12 bg-main text-white py-[2px] font-semibold">
@@ -161,7 +161,7 @@ export const ConfiguraProdotto = () => {
   //   </div>
 
   // );
-  console.log("rrrrrrrrr", tablaDataPrezzi)
+  //console.log("rrrrrrrrr", tablaDataPrezzi)
   return (
     <div className="w-full ">
       <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} />
@@ -169,23 +169,27 @@ export const ConfiguraProdotto = () => {
       <div className="flex mt-3 ps-[4.5px]">
         <table className="w-[75%]">
           <tbody className="">
-            <tr className="">
-              <td className="w-[95px] p-[1px] text-[12px]  font-normal">Formato</td>
-              <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] 
+            {Number(idPrev) != 2 ?
+              <tr>
+                <td className="w-[95px] p-[1px] text-[12px]  font-normal">Formato</td>
+                <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] 
               hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]">
-                <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
-                  <option value="">{handleOptionsFormat()}
-                  </option>
-                </select>
-              </td>
-              <td className=" p-[6px]">
-                <span
-                  className={` text-gray-800 cursor-pointer text-xs`}
-                >
-                  <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
-                </span>
-              </td>
-            </tr>
+                  <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
+                    <option value="">{handleOptionsFormat()}
+                    </option>
+                  </select>
+                </td>
+                <td className=" p-[6px]">
+                  <span
+                    className={` text-gray-800 cursor-pointer text-xs`}
+                  >
+                    <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
+                  </span>
+                </td>
+              </tr>
+              :
+              <InputCustomSelect showIcon={false} name="formatoS" handleChange={handleChange} label="Formato" options={handleFormato()} />
+            }
             {orientamiento ? <InputCustomSelect valueSelect={orientamiento} showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
             <InputCustomSelect valueSelect={tipoCarta} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} />
             <InputCustomSelect valueSelect={coloreStampa} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
@@ -212,7 +216,7 @@ export const ConfiguraProdotto = () => {
               </>
             }
             {showQtaCustom &&
-              showQtaCustom == true  ?
+              showQtaCustom == true ?
               <InputCustom
                 handleChange={handleChange}
                 name="quantity"
@@ -223,12 +227,17 @@ export const ConfiguraProdotto = () => {
                 on={true}
                 mm={false}
               />
-              :false
+              : false
             }
+            {showOpzzioni ? <ListCustom label="Opzioni" options={handleOptionsOpzioni()} /> : null}
 
-            <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
-            <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} />
-            <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} />
+            {/* <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} />
+            <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} /> */}
+            {stampaCalOpz?.map(elem => {
+              return (
+                <InputCustomSelect showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handloSpampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />
+              )
+            })}
           </tbody>
         </table>
         <div className=" w-[25%]">
@@ -237,9 +246,13 @@ export const ConfiguraProdotto = () => {
       </div>
       <div className="w-full text-xs ">
         {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null)) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p>}
+        {showOpzzioni ?
+          <>
+            <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
+            <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
+          </>:null
+        }
 
-        <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
-        <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
       </div>
       <div className=" w-full flex gap-5 mb-3 mt-[18px] justify-end text-xs">
         <i className="text-[11.5px] me-1">Visualizza prezzo </i>
@@ -248,7 +261,7 @@ export const ConfiguraProdotto = () => {
         <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
       </div>
       <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
-      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect} radioIva={radioIva} />
+      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect} radioIva={radioIva} showColumTable={showColumTable} />
       {
         tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
       }

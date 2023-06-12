@@ -1,7 +1,10 @@
 import applicationConnect from "../../../api";
+import { ResponseFormato } from "../interface/Formato";
 import { IshowOrientamiento } from "../interface/IshowOrientamiento";
 import { ColoreStampa } from "../interface/coloreStampa";
 import { Opzioni } from "../interface/opzioni";
+import { PrezzoValue, ResponsePrezzoTabella } from "../interface/showColumPrezzo";
+import { IShowOpzioni } from "../interface/showOpzioni";
 import { OptionsSelectS, StaCalOpz } from "../interface/stampaCaldo";
 import { SvgImage } from "../interface/svgImage";
 import { TablePrezzi } from "../interface/table";
@@ -102,14 +105,15 @@ export const httpGetTablePrezzi = async (
   Produndita:number,
   Altezza: number,
   Quantita:number,
-  StampaCaldo:number,
-  Plastificazione:number,
+  // StampaCaldo:number,
+  // Plastificazione:number,
   IVA:number,
-  idUt:number
+  idUt:number,
+  valuesStampaCaldoOpz:{}
   ) => {
+    console.log("Api: ",valuesStampaCaldoOpz)
   try {
-    const result = await applicationConnect.get<ResponseApi<TablePrezzi[]>>("Prodotto", {
-      params: {
+    const result = await applicationConnect.post<ResponseApi<TablePrezzi[]>>("Prodotto", {
         idPrev: idPrev,
         idTipoCarta: idTipoCarta,
         idColoreStampa:idColoreStampa,
@@ -118,11 +122,11 @@ export const httpGetTablePrezzi = async (
         Produndita:Produndita,
         Altezza: Altezza,
         Quantita:Quantita,
-        StampaCaldo:StampaCaldo,
-        Plastificazione:Plastificazione,
+        // StampaCaldo:StampaCaldo,
+        // Plastificazione:Plastificazione,
         IVA:IVA,
-        idUser:idUt
-      },
+        idUser:idUt,
+        stampaOpz:valuesStampaCaldoOpz
     });
 
     return result.data;
@@ -213,9 +217,51 @@ export const httpGetShowtxtQtaCustom =async (idPrev: number, idFormProd: number,
         IdColoreStampa:idColoreStampa
       },
     });
-    console.warn('httpGetShowOrientmiento',result.data)
+    //console.warn('httpGetShowOrientmiento',result.data)
     return result.data
   } catch (error) {
     console.error('httpGetShowOrientmiento',error)
+  }
+}
+
+export const httpGetShowColumTable =async (idPrev: number) => {
+  try {
+    const result = await applicationConnect.get<ResponsePrezzoTabella>("Packagin/GetShowColumTabellaPrezzi",{
+      params: {
+        IdPrev: idPrev,
+      },
+    });
+    //console.warn('httpGetShowOrientmiento',result.data)
+    return result.data
+  } catch (error) {
+    console.error('httpGetShowOrientmiento',error)
+  }
+}
+
+export const httpGetFormatoArray = async (idPrev: number) => {
+  try {
+    const result = await applicationConnect.get<ResponseFormato>("Packagin/GetFormato",{
+      params: {
+        IdPrev: idPrev,
+      },
+    });
+    //console.warn('httpGetFormatoArray',result.data)
+    return result.data
+  } catch (error) {
+    throw new Error("");
+  }
+}
+
+export const httpGetShowOpzioni = async (idPrev: number) => {
+  try {
+    const result = await applicationConnect.get<IShowOpzioni>("Packagin/GetShowOpzioni",{
+      params: {
+        IdPrev: idPrev,
+      },
+    });
+    //console.warn('httpGetFormatoArray',result.data)
+    return result.data
+  } catch (error) {
+    throw new Error("");
   }
 }
