@@ -14,7 +14,7 @@ import RadioCars from "./components/RadioCars";
 
 //stampaCaldo, plastificazione
 export const ConfiguraProdotto = () => {
-  const { initialState, openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, stampaCalOpz, handloSpampaCaldoOpz, showColumTable, handleFormato, idPrev, showOpzzioni, showSvg, handleChangeSVG, showTablePreez, formatoList, mmValue,setimgAcoppiati,disableProfundita} = useConfiguraProdotto();
+  const { initialState, openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, stampaCalOpz, handloSpampaCaldoOpz, showColumTable, handleFormato, idPrev, showOpzzioni, showSvg, handleChangeSVG, showTablePreez, formatoList, mmValue, setimgAcoppiati, disableProfundita } = useConfiguraProdotto();
   // return (
   //   <div className="row w-[100%] felx p-5">
   //     <div className="col col-12 bg-main text-white py-[2px] font-semibold">
@@ -259,21 +259,22 @@ export const ConfiguraProdotto = () => {
         </div>
       </div>
       {stampaCalOpz?.map((elem, i) => {
-          if (elem.idCatLav === 41) {
-            return (
-              <RadioCars key={i} setImage={setimgAcoppiati} options={handloSpampaCaldoOpz(elem.optionsSelect)}  name={elem.descrizione} label={elem.descrizione} handleChange={handleChange}/>
-            )
-          }
-        })
+        if (elem.idCatLav === 41) {
+          return (
+            <RadioCars key={i} setImage={setimgAcoppiati} options={handloSpampaCaldoOpz(elem.optionsSelect)} name={elem.descrizione} label={elem.descrizione} handleChange={handleChange} />
+          )
         }
+      })
+      }
       <div className="w-full text-xs ">
         {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null)) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p>}
         {showOpzzioni ?
-          <>
-            <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
-            <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
-          </> : null
+          <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>:null
         }
+        {showQtaCustom ?
+          <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>:null
+        }
+
       </div>
       <div className=" w-full flex gap-5 mb-3 mt-[18px] justify-end text-xs">
         <i className="text-[11.5px] me-1">Visualizza prezzo </i>

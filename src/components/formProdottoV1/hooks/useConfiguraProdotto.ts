@@ -186,40 +186,40 @@ export const useConfiguraProdotto = () => {
   };
   const handleOptionsFormat = () => {
     const { base, depth, height } = initialState;
-    if (base ) {
+    if (base) {
       if (disableProfundita?.disabled === true) {
-        if (base < 70){
+        if (base < 70) {
           initialState.base = 70;
-        } 
-      }else{
-        if (base < 20){
+        }
+      } else {
+        if (base < 20) {
           initialState.base = 20;
-        } 
+        }
       }
     }
-    if ( depth ) {
+    if (depth) {
       if (disableProfundita?.disabled === true) {
-        if (depth < 20){
+        if (depth < 20) {
           initialState.depth = 20;
-        } 
-      }else{
-        if (depth < 14){
+        }
+      } else {
+        if (depth < 14) {
           initialState.depth = 14;
-        } 
+        }
       }
-      
+
     }
     if (height) {
       if (disableProfundita?.disabled === true) {
         if (height < 100) {
           initialState.height = 100;
         }
-      }else{
+      } else {
         if (height < 40) {
           initialState.height = 40;
         }
       }
-     
+
     }
     const option: string = `${base || 0} x ${height || 0} x ${depth || 0
       } (Chiuso)`;
@@ -319,7 +319,12 @@ export const useConfiguraProdotto = () => {
       }
       handleOpzioni()
       setDisableProfundita(disabledProfundita.data)
-      setShowTablePreez(showTabellaPrezzi.data)
+
+      console.log('tablePezz', showTabellaPrezzi.data)
+      if (initialState.base === null || initialState.depth === null || initialState.height === null) {
+        setShowTablePreez(showTabellaPrezzi.data)
+      }
+
       setShowSvg(showSVG.data)
       setShowOpzzioni(showOpzioni.data);
       setFormatoList(formatoArray.data)
@@ -406,9 +411,9 @@ export const useConfiguraProdotto = () => {
       Number(idFormProdOption != null ? idFormProdOption : idFormProd),
       Number(IdTipoCartaOption != null ? IdTipoCartaOption : valueIdCarta),
     );
-    if (coloreStampaList.data != undefined) {
-      initialState.coloreStampa = coloreStampaList.data[0].idColoreStampa
-    }
+    // if (coloreStampaList.data != undefined) {
+    //   initialState.coloreStampa = coloreStampaList.data[0].idColoreStampa
+    // }
     setColoreStampaList(coloreStampaList.data)
   }
 
@@ -436,11 +441,15 @@ export const useConfiguraProdotto = () => {
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = evt.target;
     //if (name === "formatoS"){setImgFormato(Number(value))} 
-    console.log("adfadsfasf", name, value)
+    
     if (name !== "Format" && name !== "base" && name !== "coloreStampa" && name !== "depth" && name !== "height" && name !== "quantity" && name !== "tipoCarta" && name !== "formatoS") {
       //console.log('Este nombre no está en initial state:', name);
       valuesStampaCaldoOpz[name] = Number(value);
       handleTable()
+    }
+    if (name === "coloreStampa") {
+      handleTable()
+      console.log("adfadsfasf", name, value)
     }
     if (name === "base" || name === "depth" || name === "height") {
       if (parseInt(value) > 0) {
@@ -450,7 +459,7 @@ export const useConfiguraProdotto = () => {
         })
       }
     }
-    if (name === "tipoCarta") setImgHelper(Number(value))
+    if (name === "tipoCarta") { setImgHelper(Number(value)); setShowTablePreez(false) }
     //console.log("valuesStampaCaldoOpz",valuesStampaCaldoOpz)
     if (name) {
       switch (name) {
@@ -478,7 +487,7 @@ export const useConfiguraProdotto = () => {
           let newheight: number;
           if (disableProfundita?.disabled === true) {
             newheight = parseInt(value) < 100 ? 100 : parseInt(value);
-          }else{
+          } else {
             newheight = parseInt(value) < 40 ? 40 : parseInt(value);
           }
           setInitialState({
@@ -588,14 +597,13 @@ export const useConfiguraProdotto = () => {
   const handleTable = async () => {
     console.log("showOpzioni", initialState)
     const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa, formatoS } = initialState;
-    
+
     const valueIdCarta = await handleChangeTipoDeCarta()
     if (tipoCarta != null || formatoS != null) {
       handleChangeStampaACaldo(tipoCarta, formatoS)
       handleChangeColoreDiStampa(tipoCarta, formatoS)
-
     }
-    console.log("aadsfadsfadsfadsf", initialState)
+
     if (base != null && depth != null && height != null) {
       setShowTablePreez(false)
       setOpenLoadingBackdrop(true)
@@ -605,9 +613,17 @@ export const useConfiguraProdotto = () => {
 
     if (base != null && height != null && disableProfundita?.txt_Profundita === 20) setShowTablePreez(false)
 
-
-
     handleChangeSVG()
+    
+    await TableList()
+    setOpenLoadingBackdrop(false)
+    //if (formatoS != null ) {
+
+    //}
+  }
+  const TableList = async () =>{
+    const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa, formatoS } = initialState;
+    const valueIdCarta = await handleChangeTipoDeCarta()
     const tableList = await httpGetTablePrezzi(
       Number(idPrev),
       Number(valueIdCarta === null ? IdTipoCarta : valueIdCarta),
@@ -625,6 +641,7 @@ export const useConfiguraProdotto = () => {
       valuesStampaCaldoOpz
     );
     let data = tableList.data
+    console.log("adsfadsfadsf",data)
     if (quantity != null) {
       if (quantity < 50) {
         data = tableList.data.filter(x => x.richiestaCalcoloPrezzo.qtaRichiesta >= 50 || x.richiestaCalcoloPrezzo.qtaRichiesta == quantity)
@@ -643,12 +660,7 @@ export const useConfiguraProdotto = () => {
       })
     }
     settablaDataPrezzi(data)
-    setOpenLoadingBackdrop(false)
-    //if (formatoS != null ) {
-
-    //}
   }
-
   function findIndexByValue(arr: TablePrezzi[], valorBuscado: number): number {
     return arr.findIndex(objeto => objeto.richiestaCalcoloPrezzo.qtaRichiesta === valorBuscado);
   }
@@ -815,8 +827,8 @@ export const useConfiguraProdotto = () => {
     initialState.coloreStampa = null
 
   }, [initialState.formatoS]);
-  console.log("adsfadsfadsfads", IdColoreStampa)
-  console.log('mnew bSe',initialState.base)
+
+  console.log("insta", initialState.coloreStampa)
   return {
     handleOptionsFormat,
     ...initialState,
