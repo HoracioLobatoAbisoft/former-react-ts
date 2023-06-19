@@ -9,9 +9,10 @@ interface Props {
     selectRow: SelectRow,
     handleChangeRowSelect: (conditional: boolean, value: number, quantity: number) => void
     radioIva?: number;
-    showColumTable: PrezzoValue | undefined
+    showColumTable: PrezzoValue | undefined;
+    showTablePreez: boolean | undefined
 }
-const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable }: Props) => {
+const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable,showTablePreez }: Props) => {
     const formatDate = (value: Date) => {
         if (value != undefined) {
             const date = new Date(value);
@@ -116,7 +117,7 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
             }
 
             {
-                tablaDataPrezzi.length > 0 ?
+                showTablePreez == false?
                     tablaDataPrezzi.map((elem, i) => {
                         return (
                             <div className={`  ${(i > 9 && viewRows) && "hidden"} w-full overflow-hidden flex gap-1 items-center `} key={i}>
@@ -134,7 +135,7 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
                                     </div> : null
                                 }
                                 {showColumTable?.prezzoSlow ?
-                                    <div onClick={() => handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true, i, elem.prezzoRiv)} w-[232px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
+                                    <div onClick={() => handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true, i, elem.prezzoRiv)} w-[232px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
                                         <p className="text-[14px]">€ {numberFormat(elem.prezzoConsigliatoPubbl)}</p>
                                     </div> : null
                                 }

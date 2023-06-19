@@ -10,6 +10,7 @@ interface Props {
   handleChange: any;
   valueSelect?: any;
   showIcon: boolean;
+  initialState?: any;
 }
 export const InputCustomSelect = ({
   label,
@@ -18,6 +19,7 @@ export const InputCustomSelect = ({
   name,
   valueSelect,
   showIcon,
+  initialState
 }: Props) => {
   const [position, setPosition] = useState(
     valueSelect === null ? 0 : valueSelect
@@ -28,6 +30,7 @@ export const InputCustomSelect = ({
   const setHoveredState = (stateBool: boolean) => {
     setIsHovered(stateBool);
   };
+  console.log("vvvvvvvvvv", initialState,)
   //console.log("werewrewr",position,valueSelect)
   // useEffect(() => {
   //   if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
@@ -127,10 +130,26 @@ export const InputCustomSelect = ({
   //     </Collapse> */}
   //   </div>
   // );${isHovered ==true? 'border-b-[2px] border-[#fff]':'border-[2px] border-[#d6e03d]'}
+  const selected = () => {
+    //debugger
+    if (initialState != undefined) {
+      if (name in initialState) {
+        console.log("asdfasdfsadfadsfasdf", options.find((x: any) => x.value == initialState[name]))
+        return options.find((x: any) => x.value == initialState[name])
+
+      }
+    }else{
+
+    }
+  }
+  useEffect(() => {
+    selected()
+  }, [])
+
   return (
     <tr className="">
       <td className="w-[100px] p-[1px] text-[12px]  font-normal">
-        {label} 
+        {label}
       </td>
       <td className={"  px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] border-b-[2px]  border-[#fff] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]"}>
         <select name={name} onChange={handleChange} className="border-[1px] w-full border-[#ddd] py-[3px]">
@@ -142,16 +161,19 @@ export const InputCustomSelect = ({
         </select>
       </td>
       <td className=" p-[6px]">
-        {(showIcon === true && position === 0) ||
-          position === undefined ? null : (
+        {/* {(showIcon === true && position === 0) ||
+          position === undefined ? null : ( */}
+        { (selected()?.value != 0 && name != "orientamiento") &&
           <span
             className={`text-xs  text-gray-800 cursor-pointer relative`}
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{transform:'scale(1.3)',}}/>
+            <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
           </span>
-        )}
+        }
+
+        {/* )} */}
         {isHovered && (
           <div className="absolute right-0 mt-5 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
             <div className="flex">
@@ -159,9 +181,9 @@ export const InputCustomSelect = ({
                 <img
                   src={
                     options && (position === 0 || position === undefined)
-                      ? `http://95.110.133.251:5051/listino/` + options[0]?.image
+                      ? `http://95.110.133.251:5051/listino/` + selected()?.image
                       : `http://95.110.133.251:5051/listino/` +
-                      options.find((x) => Number(x.value) === Number(position))?.image
+                      selected()?.image
                   }
                   alt=""
                 />
@@ -169,12 +191,12 @@ export const InputCustomSelect = ({
               <div className="ml-4">
                 <div className="mb-3">
                   <h2 className="text-yellow-400 capitalize">
-                    {options[position]?.label}
+                    {selected()?.label}
                   </h2>
                   <hr className="border border-white" />
                 </div>
                 <p className="max-w-[500px] text-justify text-white">
-                  {options[position]?.description}
+                  {selected()?.description}
                 </p>
               </div>
             </div>

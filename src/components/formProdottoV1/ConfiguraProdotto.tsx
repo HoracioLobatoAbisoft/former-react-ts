@@ -10,10 +10,11 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { ButtonCustom } from "./components/ButtonCustom";
 import { ImageCustom } from "./components/ImageCustom";
 import LoadingBackdrop from "../loadingBackdrop";
+import RadioCars from "./components/RadioCars";
 
 //stampaCaldo, plastificazione
 export const ConfiguraProdotto = () => {
-  const { openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, stampaCalOpz, handloSpampaCaldoOpz, showColumTable, handleFormato, idPrev, showOpzzioni } = useConfiguraProdotto();
+  const { initialState, openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, stampaCalOpz, handloSpampaCaldoOpz, showColumTable, handleFormato, idPrev, showOpzzioni, showSvg, handleChangeSVG, showTablePreez, formatoList, mmValue,setimgAcoppiati,disableProfundita} = useConfiguraProdotto();
   // return (
   //   <div className="row w-[100%] felx p-5">
   //     <div className="col col-12 bg-main text-white py-[2px] font-semibold">
@@ -161,15 +162,15 @@ export const ConfiguraProdotto = () => {
   //   </div>
 
   // );
-  //console.log("rrrrrrrrr", tablaDataPrezzi)
+  //console.log("rrrrrrrrr", initialState)
   return (
     <div className="w-full ">
       <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} />
       <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO</h5>
-      <div className="flex mt-3 ps-[4.5px]">
+      <div className="flex mt-3 ps-[4.5px] ">
         <table className="w-[75%]">
           <tbody className="">
-            {Number(idPrev) != 2 ?
+            {showOpzzioni ?
               <tr>
                 <td className="w-[95px] p-[1px] text-[12px]  font-normal">Formato</td>
                 <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] 
@@ -188,30 +189,34 @@ export const ConfiguraProdotto = () => {
                 </td>
               </tr>
               :
-              <InputCustomSelect showIcon={false} name="formatoS" handleChange={handleChange} label="Formato" options={handleFormato()} />
+              <InputCustomSelect showIcon={false} initialState={initialState} name="formatoS" handleChange={handleChange} label="Formato" options={handleFormato()} />
             }
-            {orientamiento ? <InputCustomSelect valueSelect={orientamiento} showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
-            <InputCustomSelect valueSelect={tipoCarta} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} />
-            <InputCustomSelect valueSelect={coloreStampa} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
+            {orientamiento ? <InputCustomSelect showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
+            <InputCustomSelect initialState={initialState} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} />
+            <InputCustomSelect initialState={initialState} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
             {showBloccoMisure &&
               <>
                 <InputCustom
                   handleChange={handleChange}
                   name="base"
                   label="Base"
-                  placeHolder="20 mm"
+                  classWhidtInput="w-[45%] text-end"
+                  xx={mmValue.base}
                 />
                 <InputCustom
                   handleChange={handleChange}
                   name="depth"
                   label="Profondità"
-                  placeHolder="20 mm"
+                  classWhidtInput="w-[45%] text-end"
+                  xx={mmValue.depth}
+                  disabled={disableProfundita}
                 />
                 <InputCustom
                   handleChange={handleChange}
                   name="height"
                   label="Altezza"
-                  placeHolder="20 mm"
+                  classWhidtInput="w-[45%] text-end"
+                  xx={mmValue.height}
                 />
               </>
             }
@@ -221,7 +226,7 @@ export const ConfiguraProdotto = () => {
                 handleChange={handleChange}
                 name="quantity"
                 label="Quantità *"
-                classWhidtInput="w-3/4"
+                classWhidtInput="w-[64%] text-start"
                 classCustomLabel=" w-[95px] p-[1px] text-[12px] text-[arial] font-bold"
                 info
                 on={true}
@@ -229,30 +234,46 @@ export const ConfiguraProdotto = () => {
               />
               : false
             }
-            {showOpzzioni ? <ListCustom label="Opzioni" options={handleOptionsOpzioni()} /> : null}
-
+            <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
             {/* <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} />
             <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} /> */}
-            {stampaCalOpz?.map(elem => {
-              return (
-                <InputCustomSelect showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handloSpampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />
-              )
+            {stampaCalOpz?.map((elem, i) => {
+              if (elem.idCatLav != 41) {
+                return (
+                  <>
+                    {console.log("asdfadsfdsaf", elem, i)}
+                    <InputCustomSelect initialState={initialState} key={i} valueSelect={42} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handloSpampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />
+                  </>
+                )
+              }
+
             })}
+
           </tbody>
         </table>
         <div className=" w-[25%]">
-          <ImageCustom svgImage={imageSvg} />
+          {showSvg ?
+            <ImageCustom svgImage={imageSvg} /> :
+            <img src={`http://95.110.133.251:5051/listino/img/${handleChangeSVG()}`} alt="" width={128} />
+          }
         </div>
       </div>
+      {stampaCalOpz?.map((elem, i) => {
+          if (elem.idCatLav === 41) {
+            return (
+              <RadioCars key={i} setImage={setimgAcoppiati} options={handloSpampaCaldoOpz(elem.optionsSelect)}  name={elem.descrizione} label={elem.descrizione} handleChange={handleChange}/>
+            )
+          }
+        })
+        }
       <div className="w-full text-xs ">
         {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null)) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p>}
         {showOpzzioni ?
           <>
             <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>
             <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>
-          </>:null
+          </> : null
         }
-
       </div>
       <div className=" w-full flex gap-5 mb-3 mt-[18px] justify-end text-xs">
         <i className="text-[11.5px] me-1">Visualizza prezzo </i>
@@ -261,9 +282,9 @@ export const ConfiguraProdotto = () => {
         <RadioCustom name={"radio1"} value={1} checked={radioIva === 1} label="Con IVA" handleCheckboxChange={handleCheckboxChange} />
       </div>
       <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
-      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect} radioIva={radioIva} showColumTable={showColumTable} />
+      <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect} radioIva={radioIva} showColumTable={showColumTable} showTablePreez={showTablePreez} />
       {
-        tablaDataPrezzi.length > 0 && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
+        showTablePreez == false && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
       }
     </div>
   );

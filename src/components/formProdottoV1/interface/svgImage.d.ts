@@ -1,12 +1,11 @@
 export interface RootObject {
-    data:    SvgImage;
+    data: SvgImage;
     message: string;
-    status:  number;
-   }
-   
-   export interface SvgImage {
+    status: number;
+}
+
+export interface SvgImage {
     bufferSVG: string;
-    heigth:    number;
-    width:     number;
-   }
-   
+    heigth: number;
+    width: number;
+}

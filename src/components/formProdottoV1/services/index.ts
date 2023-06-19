@@ -2,9 +2,11 @@ import applicationConnect from "../../../api";
 import { ResponseFormato } from "../interface/Formato";
 import { IshowOrientamiento } from "../interface/IshowOrientamiento";
 import { ColoreStampa } from "../interface/coloreStampa";
+import { ResponseDisabledProfundita } from "../interface/disabledProfundita";
 import { Opzioni } from "../interface/opzioni";
 import { PrezzoValue, ResponsePrezzoTabella } from "../interface/showColumPrezzo";
 import { IShowOpzioni } from "../interface/showOpzioni";
+import { showSvgReponse } from "../interface/showSvg";
 import { OptionsSelectS, StaCalOpz } from "../interface/stampaCaldo";
 import { SvgImage } from "../interface/svgImage";
 import { TablePrezzi } from "../interface/table";
@@ -44,6 +46,9 @@ export const httpGetColoreStampa = async (idPrev: number, idFormProd: number, id
   }
 };
 export const httpGetOpzioni = async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number,base:number,prfundita:number, altezza:number) => {
+
+  console.log("dataHTtp",base , prfundita,altezza)
+
   try {
     const result = await applicationConnect.get<ResponseApi<Opzioni[]>>(BASE_URL + "GetOpzioni", {
       params: {
@@ -63,7 +68,7 @@ export const httpGetOpzioni = async (idPrev: number, idFormProd: number,idTipoCa
   }
 };
 
-export const httpGetTableDate = async (idUt:number,idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) => {
+export const httpGetTableDate = async (idUt:number,idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number,Base:number,Produndita:number, Altezza:number) => {
   try {
     const result = await applicationConnect.get<ResponseApi<TableDate>>(BASE_URL + "GetTableDate", {
       params: {
@@ -71,7 +76,10 @@ export const httpGetTableDate = async (idUt:number,idPrev: number, idFormProd: n
         IdPrev: idPrev,
         IdFormProd: idFormProd,
         IdTipoCarta:idTipoCarta,
-        IdColoreStampa:idColoreStampa
+        IdColoreStampa:idColoreStampa,
+        Base,
+        Produndita,
+        Altezza
       },
     });
     //debugger
@@ -81,6 +89,7 @@ export const httpGetTableDate = async (idUt:number,idPrev: number, idFormProd: n
   }
 };
 export const httpGetStampaCaldo = async (idPrev: number, idFormProd: number,idTipoCarta:number,idColoreStampa:number) => {
+  //debugger
   try {
     const result = await applicationConnect.get<ResponseApi<StaCalOpz[]>>(BASE_URL + "GetStamCalPlaz", {
       params: {
@@ -113,6 +122,8 @@ export const httpGetTablePrezzi = async (
   ) => {
     console.log("Api: ",valuesStampaCaldoOpz)
   try {
+    
+  
     const result = await applicationConnect.post<ResponseApi<TablePrezzi[]>>("Prodotto", {
         idPrev: idPrev,
         idTipoCarta: idTipoCarta,
@@ -170,6 +181,7 @@ export const httpGetShowOrientmiento =async (idPrev: number, idFormProd: number,
     return result.data
   } catch (error) {
     console.error('httpGetShowOrientmiento',error)
+    throw("Error")
   }
 }
 
@@ -264,4 +276,51 @@ export const httpGetShowOpzioni = async (idPrev: number) => {
   } catch (error) {
     throw new Error("");
   }
+}
+export const httpGetShowSVG = async (idPrev: number) => {
+  try {
+    const result = await applicationConnect.get<showSvgReponse>("Packagin/GetShowSVG",{
+      params: {
+        IdPrev: idPrev,
+      },
+    });
+    //console.warn('httpGetFormatoArray',result.data)
+    return result.data
+  } catch (error) {
+    throw new Error("");
+  }
+}
+
+export const httpGetShowTabellaPrezzi = async (idPrev: number , idFormProd:number, IdTipoCarta:number,IdColoreStampa:number, base:number,profundita:number,altezza:number) => {
+  try {
+    const result = await applicationConnect.get<showSvgReponse>("Packagin/GetShowSVG",{
+      params: {
+        IdPrev: idPrev,
+        IdFormProd:idFormProd,
+        IdTipoCarta: IdTipoCarta,
+        IdColoreStampa: IdColoreStampa,
+        bases:base,
+        profundita:profundita,
+        altezza: altezza,
+      },
+    });
+    //console.warn('httpGetFormatoArray',result.data)
+    return result.data
+  } catch (error) {
+    throw new Error("");
+  }
+}
+export const httpGetDisabledProfundita =async (IdPrev:number) => {
+    try {
+      const response = await applicationConnect.get<ResponseDisabledProfundita>("Packagin/GetDisabledProfundita",{
+        params:{
+          IdPrev
+        }
+      })
+
+      return response.data
+    } catch (error) {
+      //console.log("httpGetDisabledProfundita \n", error);
+      throw new Error("")
+    }
 }

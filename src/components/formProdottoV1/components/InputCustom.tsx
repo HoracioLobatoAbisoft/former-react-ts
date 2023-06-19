@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BsInfoCircleFill } from "react-icons/bs";
+import { DataDisablesProfundita } from "../interface/disabledProfundita";
 
 interface Props {
   label: string;
@@ -7,11 +8,12 @@ interface Props {
   classWhidtInput?: string;
   classCustomLabel?: string;
   info?: boolean;
-  disabled?: boolean;
+  disabled?:  DataDisablesProfundita | undefined;
   placeHolder?: string;
   handleChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   on?: boolean;
   mm?: boolean;
+  xx?:boolean;
 }
 export const InputCustom = ({
   label,
@@ -20,10 +22,11 @@ export const InputCustom = ({
   placeHolder = "",
   name,
   handleChange,
-  disabled = false,
+  disabled ,
   classCustomLabel,
   on = true,
   mm = true,
+  xx
 }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const setHoveredState = (stateBool: boolean) => {
@@ -88,14 +91,18 @@ export const InputCustom = ({
       <td className="border-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset] ">
         <input
           name={name}
-          disabled={disabled}
+          disabled={disabled?.disabled}
+          defaultValue={disabled?.txt_Profundita}
           placeholder={placeHolder}
           type="number"
-          className={` ${classWhidtInput ? classWhidtInput : "border-[1px] px-[2px] py-[1px]  border-[#ddd]  text-end"
+          className={`disabled:border-gray-300 focus:outline-none border-[0.1px] px-[3px] py-[]  border-gray-500 rounded-[2px]   ${classWhidtInput ? classWhidtInput : "text-end"
             }`}
           onBlur={on ? handleChange : undefined}
           onChange={!on ? handleChange : undefined}
-        /> {mm ? '(mm)' : ""}
+        /> {mm ? 
+          " (mm) " : ""}{
+            xx ? <span className="text-[red]">*</span>:''
+          }
       </td>
       <td className=" p-[6px]">
         {!info && (
@@ -119,9 +126,9 @@ export const InputCustom = ({
                 </div>
 
                 <p className="max-w-[500px] text-justify text-white">
-                  {(name === "base") && <span>Inserisci la <strong className="text-white">BASE (mm)</strong> del formato che desideri realizzare</span>}
-                  {(name === "depth") && <span>Inserisci la <strong className="text-white">PROFONDITÀ (mm)</strong> del formato che desideri realizzare</span>}
-                  {(name === "height") && <span>Inserisci la <strong className="text-white">ALTEZZA (mm)</strong> del formato che desideri realizzare</span>}
+                  {(name === "base") && <span>Inserisci la <strong className="text-white">BASE (mm) </strong> del formato che desideri realizzare</span>}
+                  {(name === "depth") && <span>Inserisci la <strong className="text-white">PROFONDITÀ (mm) </strong> del formato che desideri realizzare</span>}
+                  {(name === "height") && <span>Inserisci la <strong className="text-white">ALTEZZA (mm) </strong> del formato che desideri realizzare</span>}
                 </p>
               </div>
             </div>
