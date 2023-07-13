@@ -9,12 +9,12 @@ import useCarrello from "./hooks/useCarrello"
 
 const CarrelloProdotto = () => {
 
-    const {ArrayLocalCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello} = useCarrello()
+    const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello} = useCarrello()
 
     return (
         <div>
             <Stepper />
-            <Riepilogo ArrayLocalCarrello={ArrayLocalCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello}/>
+            <Riepilogo ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello}/>
             {/* <AllegaIFile/> */}
             {/* <ScegliLaConsegna/> */}
             {/* <ScegliIlPagamento/> */}

@@ -6,29 +6,34 @@ import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 const useCarrello = () => {
 
     const [TotaleProvisorio, setTotaleProvisorio] = useState<DataGetTotaleProvisorio>()
+    const [arrayCarrello, setArrayCarrello] = useState<ObjCarrello[]>([]);
 
-    const LocalCarrello = localStorage.getItem('c');
-    let ArrayLocalCarrello: ObjCarrello[] = [];
-    let TotalPrezo = 0;
-    let countLavori = 0;
-    let TotalPeso = 0;
-    let idUt = 0;
-    if (LocalCarrello) {
-        ArrayLocalCarrello = JSON.parse(LocalCarrello);
-        console.log('Carello', ArrayLocalCarrello)
+        const LocalCarrello = localStorage.getItem('c');
+        let ArrayLocalCarrello: ObjCarrello[] = [];
+        let TotalPrezo = 0;
+        let countLavori = 0;
+        let TotalPeso = 0;
+        let idUt = 0;
+
+    const getLocalCarrello = () => {
+        if (LocalCarrello) {
+            ArrayLocalCarrello = JSON.parse(LocalCarrello);
+            console.log('Carello', ArrayLocalCarrello)
+            setArrayCarrello(ArrayLocalCarrello);
+        }
+        countLavori = ArrayLocalCarrello.length;
+        ArrayLocalCarrello.map((lem, i) => {
+            if (lem.prezzo != undefined) {
+                TotalPrezo += lem.prezzo
+            }
+            if (lem.peso != undefined) {
+                TotalPeso += lem.peso
+            }
+            if (lem.idUt != undefined) {
+                idUt = Number(lem.idUt);
+            }
+        })
     }
-    countLavori = ArrayLocalCarrello.length;
-    ArrayLocalCarrello.map((lem, i) => {
-        if (lem.prezzo != undefined) {
-            TotalPrezo += lem.prezzo
-        }
-        if (lem.peso != undefined) {
-            TotalPeso += lem.peso
-        }
-        if (lem.idUt != undefined) {
-            idUt = Number(lem.idUt);
-        }
-    })
 
     const getTotaleProvisorio = async () => {
         try {
@@ -47,17 +52,17 @@ const useCarrello = () => {
 
     const handleDeleteAllCarrello = () => {
         localStorage.removeItem('c');
-        ArrayLocalCarrello = [];
+        setArrayCarrello([]);
     }
 
     useEffect(() => {
-        //getLocalCarrello();
+        getLocalCarrello();
         getTotaleProvisorio();
     }, [])
 
 
     return {
-        ArrayLocalCarrello,
+        arrayCarrello,
         TotalPrezo,
         countLavori,
         TotaleProvisorio,

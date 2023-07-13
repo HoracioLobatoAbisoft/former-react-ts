@@ -16,12 +16,12 @@ type PropsAcordionCarrello = {
     handleDeleteAllCarrello: () => void
 }
 
-const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo,handleDeleteAllCarrello }: PropsAcordionCarrello) => {
+const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello }: PropsAcordionCarrello) => {
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
                 <h5 className="flex gap-1"><img src="https://localhost:44311/img/icoCarrello16.png" width={16} height={16} /> <b>CARRELLO ACQUISTI: {countLavori}</b> Lavoro/i contenuti in questo Ordine.</h5>
-                <a className="cursor-pointer flex hover:underline" onClick={()=>{handleDeleteAllCarrello()}}><img src="https://localhost:44311/img/icoDel20.png"/> Svuota il Carrello</a>
+                <a className="cursor-pointer flex hover:underline" onClick={() => { handleDeleteAllCarrello() }}><img src="https://localhost:44311/img/icoDel20.png" /> Svuota il Carrello</a>
             </div>
             <hr className=" border-[#aaa]" />
             <b className="text-[12px] ms-[10px]"> LAVORI NELL' ORDINE</b>
@@ -114,6 +114,10 @@ const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo,handleDe
                 })}
 
             </div>
+            {ArrayLocalCarrello.length === 0 &&
+                <div className="h-[260px] w-full flex items-center justify-center text-[24px] text-[#f58220] font-bold">Il tuo carrello è vuoto</div>
+            }
+
         </div>
     )
 }
