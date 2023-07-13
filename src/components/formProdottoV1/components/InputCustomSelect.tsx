@@ -11,6 +11,7 @@ interface Props {
   valueSelect?: any;
   showIcon: boolean;
   initialState?: any;
+  stylePerzonalize?:string;
 }
 export const InputCustomSelect = ({
   label,
@@ -19,7 +20,8 @@ export const InputCustomSelect = ({
   name,
   valueSelect,
   showIcon,
-  initialState
+  initialState,
+  stylePerzonalize
 }: Props) => {
   const [position, setPosition] = useState(
     valueSelect === null ? 0 : valueSelect
@@ -30,7 +32,7 @@ export const InputCustomSelect = ({
   const setHoveredState = (stateBool: boolean) => {
     setIsHovered(stateBool);
   };
-  console.log("vvvvvvvvvv", initialState,)
+  //console.log("vvvvvvvvvv", initialState,)
   //console.log("werewrewr",position,valueSelect)
   // useEffect(() => {
   //   if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
@@ -146,13 +148,15 @@ export const InputCustomSelect = ({
     selected()
   }, [])
 
+  //console.log('options',options)
+
   return (
     <tr className="">
       <td className="w-[100px] p-[1px] text-[12px]  font-normal">
         {label}
       </td>
       <td className={"  px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] border-b-[2px]  border-[#fff] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]"}>
-        <select name={name} onChange={handleChange} className="border-[1px] w-full border-[#ddd] py-[3px]">
+        <select name={name} onChange={handleChange} className={`border-[1px] ${stylePerzonalize?stylePerzonalize:"w-full"} border-[#ddd] py-[3px]`}>
           {
             options.map((elem, i) => (
               <option key={elem.value} value={elem.value} >{elem.label}</option>
@@ -163,7 +167,7 @@ export const InputCustomSelect = ({
       <td className=" p-[6px]">
         {/* {(showIcon === true && position === 0) ||
           position === undefined ? null : ( */}
-        { (selected()?.value != 0 && name != "orientamiento") &&
+        { (selected()?.value != 0 && name != "orientamiento" && name != "facciatePagine") &&
           <span
             className={`text-xs  text-gray-800 cursor-pointer relative`}
             onMouseEnter={() => setHoveredState(true)}

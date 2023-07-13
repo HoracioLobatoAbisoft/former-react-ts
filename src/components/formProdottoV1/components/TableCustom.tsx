@@ -10,9 +10,12 @@ interface Props {
     handleChangeRowSelect: (conditional: boolean, value: number, quantity: number) => void
     radioIva?: number;
     showColumTable: PrezzoValue | undefined;
-    showTablePreez: boolean | undefined
+    showTablePreez: boolean | undefined;
+    senderComandargument:string;
+    setSenderComandargument: React.Dispatch<React.SetStateAction<string>>
+    handleCalcolaTuto:(code:string,QtaSelezionata:number)=>void
 }
-const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable,showTablePreez }: Props) => {
+const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable,showTablePreez,senderComandargument ,setSenderComandargument,handleCalcolaTuto}: Props) => {
     const formatDate = (value: Date) => {
         if (value != undefined) {
             const date = new Date(value);
@@ -27,7 +30,7 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
 
         if (Number.isInteger(value)) {
             var numberResult = value.toFixed(2);
-            var formatNumber = new Intl.NumberFormat('es', { minimumFractionDigits: 2, maximumFractionDigits: 4, });
+            var formatNumber = new Intl.NumberFormat('it', { minimumFractionDigits: 2, maximumFractionDigits: 4, });
             var numeroResultFormat = formatNumber.format(Number(numberResult));
             return numeroResultFormat
         }
@@ -36,7 +39,7 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
         if (valueConditional === 2) {
             numberminimun = 4
         }
-        var formatNumber = new Intl.NumberFormat('es', { minimumFractionDigits: numberminimun, maximumFractionDigits: 4, });
+        var formatNumber = new Intl.NumberFormat('it', { minimumFractionDigits: numberminimun, maximumFractionDigits: 4, });
         var numeroResultFormat = formatNumber.format(Number(value));
         return numeroResultFormat
     }
@@ -47,14 +50,14 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
     const formatValue = (value: number, quantity?: number) => {
         if (radioIva === 2 && quantity != null) {
             const valueC = value * quantity
-            if (valueC <= 1000) {
-                return `€ ${numberFormat(value)}`
-            } else {
+            if (valueC === 0) {
                 return "-"
+            } else {
+                return `€ ${numberFormat(value)}`
             }
         }
-        if (value <= 1000) return `€ ${numberFormat(value)}`
-        return "-"
+        if (value === 0) return "-"
+        return `€ ${numberFormat(value)}`
     }
     const viewSelectQuantity = (value: number) => {
         if (value === selectRow.quantity) return "bg-[#d6e03d]"
@@ -62,12 +65,16 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
     }
     const viewSelectPrice = (conditional: boolean, value: number, element: number) => {
         if (value === selectRow.value && conditional === selectRow.conditional) return "bg-[#d6e03d]"
-        if (conditional) return "bg-[#d4e8df]"
+        
+        if(conditional && element === 0) return "bg-[#fff]"
         const valueValidation = formatValue(element)
-        if (valueValidation === "-") return ""
+        if (valueValidation == "-" || element == 0) return "bg-[#ffff]"
+        if (conditional) return "bg-[#d4e8df]"
         return "bg-[#eef3f1]"
 
     }
+    //console.log("adsfdsfadsfdsfadsfdsfadsfs",tab NlaDataPrezzi)
+    selectRow
     return (
         <>
             {tablaDate &&
@@ -117,25 +124,25 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
             }
 
             {
-                showTablePreez == false?
+                showTablePreez == true?
                     tablaDataPrezzi.map((elem, i) => {
                         return (
                             <div className={`  ${(i > 9 && viewRows) && "hidden"} w-full overflow-hidden flex gap-1 items-center `} key={i}>
-                                <div className={`${viewSelectQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)} w-[104px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end mb-[1.5px]`}>
+                                <div className={`${viewSelectQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)} w-[104px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-end mb-[1.5px]`} >
                                     <p className=" text-end text-[14px]">{formatQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                 </div>
                                 {showColumTable?.prezzoFazt ?
-                                    <div onClick={() => handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(false, i, elem.prezzoRiv)} w-[228px] h-[32.8px] rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center`}>
+                                    <div onClick={() => {handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta);handleCalcolaTuto("F",elem.richiestaCalcoloPrezzo.qtaRichiesta)}} className={`${viewSelectPrice(false, i, elem.prezzoRiv)} w-[228px] h-[32.8px] rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center`}>
                                         <p className="text-[14px]">{formatValue(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }
                                 {showColumTable?.prezzoNorm ?
-                                    <div onClick={() => handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true, i, elem.prezzoRiv)} w-[232px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
-                                        <p className="text-[14px]">€ {numberFormat(elem.prezzoPubbl)}</p>
+                                    <div onClick={() => {handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta);handleCalcolaTuto("N",elem.richiestaCalcoloPrezzo.qtaRichiesta)}} className={`${viewSelectPrice(true, i, elem.prezzoPubbl)} w-[232px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
+                                        <p className="text-[14px]">{formatValue(elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }
                                 {showColumTable?.prezzoSlow ?
-                                    <div onClick={() => handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta)} className={`${viewSelectPrice(true, i, elem.prezzoRiv)} w-[232px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
+                                    <div onClick={() => {handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta);handleCalcolaTuto("S",elem.richiestaCalcoloPrezzo.qtaRichiesta)}} className={`bg-[#a4d9d1] w-[232px] h-[32.8px]  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
                                         <p className="text-[14px]">€ {numberFormat(elem.prezzoConsigliatoPubbl)}</p>
                                     </div> : null
                                 }

@@ -14,6 +14,7 @@ interface Props {
   on?: boolean;
   mm?: boolean;
   xx?:boolean;
+  metrics:string;
 }
 export const InputCustom = ({
   label,
@@ -26,7 +27,8 @@ export const InputCustom = ({
   classCustomLabel,
   on = true,
   mm = true,
-  xx
+  xx,
+  metrics,
 }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const setHoveredState = (stateBool: boolean) => {
@@ -100,7 +102,7 @@ export const InputCustom = ({
           onBlur={on ? handleChange : undefined}
           onChange={!on ? handleChange : undefined}
         /> {mm ? 
-          " (mm) " : ""}{
+           `( ${metrics} )` : ""}{
             xx ? <span className="text-[red]">*</span>:''
           }
       </td>

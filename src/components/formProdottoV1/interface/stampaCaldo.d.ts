@@ -10,6 +10,7 @@ export interface StaCalOpz {
     optionsSelect: OptionsSelectS[];
     tipoCaratteristicaB: number;
     tipoControlloB: number;
+    tipoControllo:number;
 }
 
 export interface OptionsSelectS {

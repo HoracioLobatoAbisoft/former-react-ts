@@ -9,15 +9,24 @@ export interface InitialValuesProdotto extends AdditionalFields {
   coloreStampa: null | number;
   // stampaCaldo: null | number;
   // plastificazione: null | number;
-  Format:string ;
-  formatoS:null | number;
+  facciatePagine: null | number;
+  Format: string;
+  formatoS: null | number;
+  iva: null | number;
+  orientamiento: null | number;
+  nome: null | string;
+  note: null | string;
+  qtaSelezinata: null | number;
 }
 
-export interface OptionsSelect{
-  label:string
-  value:string | number
-  description?:string
-  image?:string
+export interface OptionsSelect {
+  label: string
+  value: string | number
+  description?: string
+  image?: string
+  formatoCartaStr?: string
+  larghezza?: number,
+  lunghezza?: number,
 }
 
 

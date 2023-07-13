@@ -8,4 +8,5 @@ export interface PrezzoValue {
     prezzoFazt: number;
     prezzoNorm: number;
     prezzoSlow: number;
+    descrizione:string;
 }

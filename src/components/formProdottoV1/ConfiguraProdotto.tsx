@@ -11,10 +11,12 @@ import { ButtonCustom } from "./components/ButtonCustom";
 import { ImageCustom } from "./components/ImageCustom";
 import LoadingBackdrop from "../loadingBackdrop";
 import RadioCars from "./components/RadioCars";
+import CheckBoxCards from "./components/CheckBoxCards";
 
 //stampaCaldo, plastificazione
 export const ConfiguraProdotto = () => {
-  const { initialState, openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, stampaCalOpz, handloSpampaCaldoOpz, showColumTable, handleFormato, idPrev, showOpzzioni, showSvg, handleChangeSVG, showTablePreez, formatoList, mmValue, setimgAcoppiati, disableProfundita } = useConfiguraProdotto();
+  const { initialState, openLoadingBackdrop, setOpenLoadingBackdrop, base, depth, height, imageSvg, viewRows, handleOptionsFormat, handleChange, handleOptionsTipoCarta, handleOptionsColoreStampa, handleOptionsOpzioni, handleOptionsStampaCaldo, handleOptionsPlastificazione, tablaDataPrezzi, tablaDate, handleCheckboxChange, radioIva, tipoCarta, coloreStampa, formatImage, ProfunditaList, handleOptionsFormato, handleDepth, handleChangeViewTableRows, handleChangeRowSelect, selectRow, orientamiento, handleOrientamiento, showBloccoMisure, showtxtQtaCustom, showQtaCustom, stampaCalOpz, handloSpampaCaldoOpz, showColumTable, handleFormato, idPrev, showOpzzioni, showSvg, handleChangeSVG, showTablePreez, formatoList, mmValue, setimgAcoppiati, disableProfundita, handleFogliPagine, showFaciatePagine, handleCoperatinaOpz, showCoperatina, labelFogli, showProfundita, textMetrics, textTipoCarta, showSotoblocco, sotoblocco,
+    copertina, handleSotobloccoOpz, valuesStampaCaldoOpz, formatoDinamico,idBaseEtiquete,idAltezaEtiquete,alertMassimo } = useConfiguraProdotto();
   // return (
   //   <div className="row w-[100%] felx p-5">
   //     <div className="col col-12 bg-main text-white py-[2px] font-semibold">
@@ -163,6 +165,24 @@ export const ConfiguraProdotto = () => {
 
   // );
   //console.log("rrrrrrrrr", initialState)
+  const SelectFormato = () => {
+    switch (idBaseEtiquete) {
+      case "0":
+        return (
+          <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
+            <option value="">{handleOptionsFormat()}
+            </option>
+          </select>)
+      default:
+        return (
+          <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
+            <option value="">{`${idBaseEtiquete} x ${idAltezaEtiquete} (${formatoDinamico})`}
+            </option>
+          </select>)
+        break;
+    }
+  }
+
   return (
     <div className="w-full ">
       <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} />
@@ -175,10 +195,7 @@ export const ConfiguraProdotto = () => {
                 <td className="w-[95px] p-[1px] text-[12px]  font-normal">Formato</td>
                 <td className="border-b-[2px] border-[#fff] px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] 
               hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]">
-                  <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
-                    <option value="">{handleOptionsFormat()}
-                    </option>
-                  </select>
+                  {SelectFormato()}
                 </td>
                 <td className=" p-[6px]">
                   <span
@@ -192,8 +209,13 @@ export const ConfiguraProdotto = () => {
               <InputCustomSelect showIcon={false} initialState={initialState} name="formatoS" handleChange={handleChange} label="Formato" options={handleFormato()} />
             }
             {orientamiento ? <InputCustomSelect showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
-            <InputCustomSelect initialState={initialState} showIcon={false} name="tipoCarta" handleChange={handleChange} label="Tipo di Carta" options={handleOptionsTipoCarta()} />
+            <InputCustomSelect initialState={initialState} showIcon={false} name="tipoCarta" handleChange={handleChange} label={textTipoCarta} options={handleOptionsTipoCarta()} />
+            {showCoperatina ? <ListCustom label={copertina[0].text} options={handleCoperatinaOpz()} /> : null}
+            {showSotoblocco ? <ListCustom label={sotoblocco[0].text} options={handleSotobloccoOpz()} /> : null}
+
             <InputCustomSelect initialState={initialState} showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
+            {showFaciatePagine ? <InputCustomSelect stylePerzonalize={'w-3/4'} initialState={initialState} showIcon={true} name="facciatePagine" handleChange={handleChange} label={labelFogli} options={handleFogliPagine()} /> : null}
+
             {showBloccoMisure &&
               <>
                 <InputCustom
@@ -202,21 +224,26 @@ export const ConfiguraProdotto = () => {
                   label="Base"
                   classWhidtInput="w-[45%] text-end"
                   xx={mmValue.base}
+                  metrics={textMetrics}
                 />
-                <InputCustom
-                  handleChange={handleChange}
-                  name="depth"
-                  label="Profondità"
-                  classWhidtInput="w-[45%] text-end"
-                  xx={mmValue.depth}
-                  disabled={disableProfundita}
-                />
+                {showProfundita ?
+                  <InputCustom
+                    handleChange={handleChange}
+                    name="depth"
+                    label="Profondità"
+                    classWhidtInput="w-[45%] text-end"
+                    xx={mmValue.depth}
+                    disabled={disableProfundita}
+                    metrics={textMetrics}
+                  /> : null
+                }
                 <InputCustom
                   handleChange={handleChange}
                   name="height"
                   label="Altezza"
                   classWhidtInput="w-[45%] text-end"
                   xx={mmValue.height}
+                  metrics={textMetrics}
                 />
               </>
             }
@@ -231,6 +258,7 @@ export const ConfiguraProdotto = () => {
                 info
                 on={true}
                 mm={false}
+                metrics=""
               />
               : false
             }
@@ -238,15 +266,11 @@ export const ConfiguraProdotto = () => {
             {/* <InputCustomSelect showIcon={true} valueSelect={stampaCaldo} name="stampaCaldo" label="Stampa a Caldo" options={handleOptionsStampaCaldo()} handleChange={handleChange} />
             <InputCustomSelect showIcon={true} valueSelect={plastificazione} name="plastificazione" label="Plastificazione" options={handleOptionsPlastificazione()} handleChange={handleChange} /> */}
             {stampaCalOpz?.map((elem, i) => {
-              if (elem.idCatLav != 41) {
+              if (elem.tipoControllo === 1) {
                 return (
-                  <>
-                    {console.log("asdfadsfdsaf", elem, i)}
-                    <InputCustomSelect initialState={initialState} key={i} valueSelect={42} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handloSpampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />
-                  </>
+                  <InputCustomSelect initialState={initialState} key={i} valueSelect={42} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handloSpampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />
                 )
               }
-
             })}
 
           </tbody>
@@ -259,7 +283,15 @@ export const ConfiguraProdotto = () => {
         </div>
       </div>
       {stampaCalOpz?.map((elem, i) => {
-        if (elem.idCatLav === 41) {
+        if (elem.tipoControllo === 2) {
+          return (
+            <CheckBoxCards key={i} setImage={setimgAcoppiati} options={handloSpampaCaldoOpz(elem.optionsSelect)} name={elem.descrizione} label={elem.descrizione} handleChange={handleChange} valuesStampaCaldoOpz={valuesStampaCaldoOpz} />
+          )
+        }
+      })
+      }
+      {stampaCalOpz?.map((elem, i) => {
+        if (elem.tipoControllo === 0) {
           return (
             <RadioCars key={i} setImage={setimgAcoppiati} options={handloSpampaCaldoOpz(elem.optionsSelect)} name={elem.descrizione} label={elem.descrizione} handleChange={handleChange} />
           )
@@ -267,12 +299,13 @@ export const ConfiguraProdotto = () => {
       })
       }
       <div className="w-full text-xs ">
-        {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null)) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p>}
+        {(tablaDataPrezzi.length === 0 && (base !== null && height !== null && depth !== null )) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p>}
+        {(alertMassimo) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] text-[12.5px] font-semibold text-">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE <br/><span className="uppercase italic">{alertMassimo}</span></p>}
         {showOpzzioni ?
-          <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li>:null
+          <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li> :  null
         }
         {showQtaCustom ?
-          <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li>:null
+          <li className="bg-gray-100 rounded py-1 px-1 my-1 italic">* La quantità potrebbe essere arrotondata automaticamente per motivi tecnici;</li> : null
         }
 
       </div>
@@ -285,7 +318,7 @@ export const ConfiguraProdotto = () => {
       <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
       <TableCustom tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} viewRows={viewRows} selectRow={selectRow} handleChangeRowSelect={handleChangeRowSelect} radioIva={radioIva} showColumTable={showColumTable} showTablePreez={showTablePreez} />
       {
-        showTablePreez == false && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
+        showTablePreez == true && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
       }
     </div>
   );

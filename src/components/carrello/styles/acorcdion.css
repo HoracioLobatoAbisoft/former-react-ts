@@ -1,0 +1,25 @@
+.MuiPaper-root::before,.css-183mf81-MuiPaper-root-MuiAccordion-root::before,.css-183mf81-MuiPaper-root-MuiAccordion-root{
+    box-shadow: none !important;
+    background: transparent !important;
+}
+.summary.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters{
+    min-height: 26px !important;
+    padding: 0;
+    margin-bottom: 2px;
+    box-shadow: none;
+}
+.summary.MuiAccordionSummary-root .MuiAccordionSummary-contentGutters{
+    margin: 0;
+}
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root:before,.css-1elwnq4-MuiPaper-root-MuiAccordion-root{
+    box-shadow: none !important;
+    background: transparent !important;
+    /* border: 1px solid #aaa;
+    border-top: 0;
+    border-radius: 1px; */
+}
+.carrello.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters{
+    min-height: 40px;
+    height: 40px;
+    box-shadow: none;
+}

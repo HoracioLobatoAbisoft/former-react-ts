@@ -21,6 +21,8 @@ import { FormProdotto } from "./components/formProdotto";
 import { FormProdottoModificated } from "./components/formProdottoV1";
 export const userContext = React.createContext({});
 import "./App.css";
+import ConfiguraProdottoRefactor from "./components/formProdottoV1/ConfiguraProdottoRefactor";
+import CarrelloProdotto from "./components/carrello/CarrelloProdotto";
 
 function App() {
   const location = useLocation();
@@ -33,7 +35,7 @@ function App() {
   localStorage.setItem("idUtd", idUtd);
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen overflow-x-hidden">
       <UserContextProvider>
         <Routes>
           <Route path="/" element={<OrdiniPage />}></Route>
@@ -49,7 +51,10 @@ function App() {
           <Route path="/PassDimenticata" element={<PasswordDimenticata />} />
           <Route path="/form-prodotto" element={<FormProdotto />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd" element={<FormProdottoModificated />} />
-          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idUt" element={<FormProdottoModificated />} />
+          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt" element={<FormProdottoModificated />} />
+          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<FormProdottoModificated />} />
+          <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoRefactor />} />
+          <Route path="/carrello" element={<CarrelloProdotto/>}/>
           <Route
             path="/OrdineDetails/:userId"
             element={<OrdineDetailsPage />}
