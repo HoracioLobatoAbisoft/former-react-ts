@@ -1,5 +1,9 @@
+import { Link } from "react-router-dom";
 
-const MenuCarrelo = () => {
+type PropsMenuCarrrelo = {
+    handleHidden: () => Promise<void>
+}
+const MenuCarrelo = ({ handleHidden }: PropsMenuCarrrelo) => {
     return (
         <>
             <div className="bg-[#f1f1f1] w-full h-[200px] text-[12px] ">
@@ -45,7 +49,10 @@ const MenuCarrelo = () => {
                         </tr>
                     </tbody></table>
                 <center>
-                    <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]"><img src="https://localhost:44311/img/icoCarrello.png" width={22} /> Vai al Carrello</button>
+                    <Link to={'/carrello'} onClick={()=>handleHidden()}>
+                        <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]"><img src="https://localhost:44311/img/icoCarrello.png" width={22} /> Vai al Carrello</button>
+                    </Link>
+
                 </center>
 
             </div>
@@ -87,13 +94,13 @@ const MenuCarrelo = () => {
                 </center>
             </div>
             <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">
-                    <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
-                    <center>
-                        <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" ><img width={22} src="https://localhost:44311/img/icoFileTypePdf.png"/>Scarica Template</button>
-                        <button  className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold"><img width={22} src="https://localhost:44311/img/icoCampGratuito.png"/> Campione Gratuito</button>
-                    </center>
-                    <br/>
-                </div>
+                <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
+                <center>
+                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" ><img width={22} src="https://localhost:44311/img/icoFileTypePdf.png" />Scarica Template</button>
+                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold"><img width={22} src="https://localhost:44311/img/icoCampGratuito.png" /> Campione Gratuito</button>
+                </center>
+                <br />
+            </div>
         </>
     )
 }

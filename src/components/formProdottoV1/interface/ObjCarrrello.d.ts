@@ -15,4 +15,5 @@ export interface ObjCarrello {
     stampaOPZ: string[];
     descrizione:string | undefined;
     dimencioni:string;    
+    nomeUrl: string | undefined;
 }

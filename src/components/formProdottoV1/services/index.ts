@@ -7,6 +7,7 @@ import { ColoreStampa } from "../interface/coloreStampa";
 import { ResponseDisabledProfundita } from "../interface/disabledProfundita";
 import { FofliPagine } from "../interface/fogliPagine";
 import { ResponseFormatDinamico } from "../interface/formatoDinamico";
+import { ResposeGetHelperDataProdotto } from "../interface/helpersDataProdotto";
 import { Opzioni } from "../interface/opzioni";
 import { PrezzoValue, ResponsePrezzoTabella } from "../interface/showColumPrezzo";
 import { IShowOpzioni } from "../interface/showOpzioni";
@@ -504,5 +505,21 @@ export const httpGetCalcolaTuto = async (code: string,
   } catch (error) {
     //console.log('ERROR CALCOLA TUTO',error)
     throw new Error("");
+  }
+}
+
+export const httpGetHelperData =async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number, IdFogli: number) => {
+  try {
+    const result = await applicationConnect.get<ResposeGetHelperDataProdotto>('Packagin/GetHelperDataProdotto',{params:{
+      IdPrev,
+      IdFormProd,
+      IdTipoCarta,
+      IdColoreStampa,
+      IdFogli,
+    }});
+
+    return result.data;
+  } catch (error) {
+    throw new Error("")
   }
 }

@@ -64,7 +64,8 @@ const ConfiguraProdottoRefactor = () => {
         handleChangeViewTableRows,
         handleCalcolaTuto,
         calcolaTuto,
-        handleCarrello
+        handleCarrello,
+        handleHidden
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -261,7 +262,7 @@ const ConfiguraProdottoRefactor = () => {
                 
             </div>
             <div className="w-[25%]  ">
-                <MenuCarrelo />
+                <MenuCarrelo handleHidden={handleHidden}/>
             </div>
         </div>
 

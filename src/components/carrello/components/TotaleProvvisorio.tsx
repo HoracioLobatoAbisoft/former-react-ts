@@ -4,13 +4,13 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AddIcon from '@mui/icons-material/Add';
 import './../styles/acorcdion.css'
 import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
+import { formatNumber } from '../../../services/NumberFormat';
 
 type PropsTotale ={
-    TotalPrezo:number
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
 }
 
-const TotaleProvvisorio = ({TotalPrezo,TotaleProvisorio}:PropsTotale) => {
+const TotaleProvvisorio = ({TotaleProvisorio}:PropsTotale) => {
     return (
         <div className="">
             <div className="bg-[#f1f1f1] w-full text-[14px] mt-[30px] rounded-[3px] p-[10px]">
@@ -27,20 +27,20 @@ const TotaleProvvisorio = ({TotalPrezo,TotaleProvisorio}:PropsTotale) => {
                             <td className="px-[10px]">
                                 Totale Lavori:
                             </td>
-                            <td className="px-[10px]">€ {TotaleProvisorio? TotaleProvisorio.prezzoTotaleOrdini:"00"  },00</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio? formatNumber(TotaleProvisorio.prezzoTotaleOrdini):"00"  }</td>
                         </tr>
 
                         <tr>
-                            <td className="px-[10px]">
+                            <td className="px-[10px] ">
                                 Spedizioni:
                             </td>
-                            <td className="px-[10px]">€ {TotaleProvisorio?TotaleProvisorio.spedizioni:"00"},00</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio?formatNumber(TotaleProvisorio.spedizioni):"00"}</td>
                         </tr>
                         <tr>
-                            <td className="px-[10px]">
+                            <td className="px-[10px] ">
                                 IVA (22%):
                             </td>
-                            <td className="px-[10px]">€ {TotaleProvisorio?TotaleProvisorio.iva:"00,00"}</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio?formatNumber(TotaleProvisorio.iva):"00,00"}</td>
                         </tr>
                         <tr>
                             <td colSpan={2} className="px-[10px]">
@@ -52,7 +52,7 @@ const TotaleProvvisorio = ({TotalPrezo,TotaleProvisorio}:PropsTotale) => {
                                 <b>Totale ordine</b>
                             </td>
                             <td className="px-[10px]">
-                                <b>€ {TotaleProvisorio?TotaleProvisorio.totaleOridini:"00,00"}</b>
+                                <b>€ {TotaleProvisorio?formatNumber(TotaleProvisorio.totaleOridini):"00,00"}</b>
                             </td>
                         </tr>
                     </tbody></table>

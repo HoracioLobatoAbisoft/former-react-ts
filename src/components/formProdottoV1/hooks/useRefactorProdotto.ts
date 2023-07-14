@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { InitialValuesProdotto, OptionsSelect } from '../../formProdotto/interfaces/prodotto';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getSvgImageService, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetOpzioni, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
+import { getSvgImageService, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetHelperData, httpGetOpzioni, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
 import { TipoDiCarta } from '../interface/tipoCarta';
 import { ColoreStampa } from '../interface/coloreStampa';
 import { Opzioni } from '../interface/opzioni';
@@ -19,6 +19,8 @@ import { httpGetUtente } from '../../../services/UtenteService';
 import { DataResponseGetUtente } from '../../../interface/Utente';
 import { DataGetCalcolaTuto } from '../interface/calcolaTuto';
 import { ObjCarrello } from '../interface/ObjCarrrello';
+import { DataGetHelperDataProdotto } from '../interface/helpersDataProdotto';
+import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 
 const initialValues: InitialValuesProdotto = {
     base: null,
@@ -63,6 +65,7 @@ const useRefactorProdotto = () => {
     const [calcolaTuto, setCalcolaTuto] = useState<DataGetCalcolaTuto>()
     const [senderComandargument, setSenderComandargument] = useState("")
     const [valueMapStampaOpz, setValueMapStampaOpz] = useState<OptionsSelect[]>([]);
+    const [helperDataProdotto, setHelperDataProdotto] = useState<DataGetHelperDataProdotto>()
 
     const [showTablePreez, setShowTablePreez] = useState<boolean>();
     const [orientamiento, setOrientamiento] = useState<boolean>();
@@ -110,6 +113,10 @@ const useRefactorProdotto = () => {
 
             const responseUtente = await getUtente(Number(idUt))
             setUtenteData(responseUtente);
+
+            const reponseHelperData = await getHelpersData(Number(idPrev), Number(idFormProd), Number(IdTipoCarta), Number(IdColoreStampa), Number(idFogli))
+            setHelperDataProdotto(reponseHelperData.data);
+
 
             const responseTipoCartaList = await getTipoCartaList(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,);
             setTipoCartaList(responseTipoCartaList.data);
@@ -481,6 +488,12 @@ const useRefactorProdotto = () => {
         return responseCalcolaTuto;
     }
 
+    const getHelpersData = async (IdPrevHD: number, IdFormProdHD: number, IdTipoCartaHD: number, IdColoreStampaHD: number, IdFogliHD: number) => {
+        const respondeHelperData = httpGetHelperData(IdPrevHD, IdFormProdHD, IdTipoCartaHD, IdColoreStampaHD, IdFogliHD);
+
+        return respondeHelperData;
+    }
+
     /* 
     * <===================handleChange | eventos de cambios=======================>
     */
@@ -761,26 +774,14 @@ const useRefactorProdotto = () => {
     }
 
     const handleCarrello = async () => {
-        window.parent.postMessage({ color: 'bg_hidden', frame: 'frameMod' }, 'https://localhost:44311/');
         //const arrayCarrello = [];
+        await handleHidden()
         const responseHandFormato = hanldeFormatoList();
         const responseHandTipoCarta = handleOptionsTipoCarta();
         const responseHandColoreStampa = handleOptionsColoreStampa();
         const responseHandOrientamiento = handleOrientamiento();
         const responseHandFacPagine = handleFogliPagine();
-        //const navigate = useNavigate();
-        // arrayCarrello.push(idPrevObj);
-        // arrayCarrello.push({ value: initialState.nome, label: 'nome' });
-        // arrayCarrello.push({ value: initialState.note, label: 'note' });
-        // arrayCarrello.push({ value: initialState.qtaSelezinata, label: 'qta' });
-        // arrayCarrello.push({ value: calcolaTuto?.prezzoCalcolatoNetto, label: 'prezzo' });
-        // arrayCarrello.push({ value: calcolaTuto?.colli, label: 'colli' });
-        // arrayCarrello.push({ value: calcolaTuto?.pesoStr, label: 'peso' });
-        // arrayCarrello.push(handleCarrelloData(initialState.formatoS, responseHandFormato))
-        // arrayCarrello.push(handleCarrelloData(initialState.tipoCarta, responseHandTipoCarta))
-        // arrayCarrello.push(handleCarrelloData(initialState.coloreStampa, responseHandColoreStampa))
-        // arrayCarrello.push(handleCarrelloData(initialState.orientamiento, responseHandOrientamiento))
-        // arrayCarrello.push(handleCarrelloData(initialState.facciatePagine, responseHandFacPagine))
+
         const arrayStampa: OptionsSelect[] = [];
         Object.keys(valuesStampaCaldoOpz).forEach((key) => {
             const value = valuesStampaCaldoOpz[key];
@@ -822,7 +823,7 @@ const useRefactorProdotto = () => {
             nome: initialState.nome,
             note: initialState.note,
             qta: initialState.qtaSelezinata,
-            img:handleCarrelloData(initialState.formatoS, responseHandFormato).img,
+            img: handleCarrelloData(initialState.formatoS, responseHandFormato).img,
             prodotto: handleCarrelloData(initialState.formatoS, responseHandFormato).label,
             orientamiento: handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
             suporto: handleCarrelloData(initialState.tipoCarta, responseHandTipoCarta).label,
@@ -833,6 +834,7 @@ const useRefactorProdotto = () => {
             prezzo: calcolaTuto?.prezzoCalcolatoNetto,
             descrizione: showColumTable?.descrizione,
             stampaOPZ: _stampaOpz,
+            nomeUrl: helperDataProdotto?.url,
 
         }
         const existCarreloLocal = localStorage.getItem('c');
@@ -845,6 +847,10 @@ const useRefactorProdotto = () => {
         localStorage.setItem('c', JSON.stringify(updateCarrello));
 
         //navigate('/carrello');
+    }
+
+    const handleHidden = async() => {
+        window.parent.postMessage({ color: 'bg_hidden', operation: enOperationFrame.hidden }, 'https://localhost:44311/');
     }
 
     const handleCarrelloData = (Id: number | null, options: OptionsSelect[]) => {
@@ -1052,7 +1058,8 @@ const useRefactorProdotto = () => {
         senderComandargument,
         handleCalcolaTuto,
         calcolaTuto,
-        handleCarrello
+        handleCarrello,
+        handleHidden
     }
 }
 
