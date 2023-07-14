@@ -6,6 +6,7 @@ import { SvgImage } from '../../formProdottoV1/interface/svgImage';
 import { ImageCustom } from '../../formProdottoV1/components/ImageCustom';
 import '../styles/acorcdion.css'
 import { ObjCarrello } from '../../formProdottoV1/interface/ObjCarrrello';
+import { useState } from 'react';
 
 
 
@@ -13,10 +14,26 @@ type PropsAcordionCarrello = {
     ArrayLocalCarrello: ObjCarrello[];
     countLavori: number
     TotalPrezo: number
-    handleDeleteAllCarrello: () => void
+    handleDeleteAllCarrello: () => void,
+    setArrayLocalCarrello : any
 }
 
-const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello }: PropsAcordionCarrello) => {
+const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello, setArrayLocalCarrello }: PropsAcordionCarrello) => {
+    
+    const deleteItem = (id:number) => {
+        ArrayLocalCarrello.splice(id,1);
+        // if(id + 1 < ArrayLocalCarrello.length){
+        //     openedItems[id + 1] = false;
+        //     setOpenedItems([...openedItems]);
+        // }
+        setArrayLocalCarrello([...ArrayLocalCarrello]);
+    }
+    
+    // const [openedItems, setOpenedItems] : [  boolean[], any] = useState([]);
+    // const defaultItemsOpen : boolean[] = [];
+    // ArrayLocalCarrello.forEach(x=> defaultItemsOpen.push(false));
+    // setOpenedItems(defaultItemsOpen);
+
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
@@ -26,9 +43,13 @@ const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleD
             <hr className=" border-[#aaa]" />
             <b className="text-[12px] ms-[10px]"> LAVORI NELL' ORDINE</b>
             <div className="px-[10px] pb-[10px] flex flex-col gap-1">
-                {ArrayLocalCarrello.map((elem, i) => {
+                {
+                    
+                ArrayLocalCarrello.map((elem, i) => {
+                    // const MyComponent: React.FC = () => {
+                    //     const [disexpand, setDisexpand] = useState(false);}
                     return (
-                        <Accordion key={i}>
+                        <Accordion key={i} >
                             <AccordionSummary className='carrello' aria-controls="panel1d-content" id="panel1d-header" sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
                                 <div className=" w-[10%] flex">
                                     <AddIcon sx={{ fontSize: 18 }} />
@@ -106,7 +127,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleD
                                 <div className="flex justify-end mt-[6px] gap-3">
                                     <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoInfo16.png" /> Scarica il Template</a>
                                     <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoCestinoGo16.png" />Elimina dal carrello e vai al Prodotto</a>
-                                    <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoCestino16.png" />Elimina dal carrello</a>
+                                    <a onClick={()=>deleteItem(i)} className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoCestino16.png" />Elimina dal carrello</a>
                                 </div>
                             </AccordionDetails>
                         </Accordion>

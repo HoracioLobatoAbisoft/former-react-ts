@@ -67,6 +67,7 @@ const useCarrello = () => {
         countLavori,
         TotaleProvisorio,
         handleDeleteAllCarrello,
+        setArrayCarrello
     }
 }
 
