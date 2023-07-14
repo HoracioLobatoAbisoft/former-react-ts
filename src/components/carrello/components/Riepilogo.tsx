@@ -48,10 +48,10 @@ const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrel
                 </div>
             </div>
             <div className="w-[22%]">
-                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} />
-                <div className="w-[20%]">
-                    <TotaleProvvisorio  TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
-                </div>
+                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
+                {/* <div className="w-[20%]">
+                    <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
+                </div> */}
             </div>
         </div>
     )

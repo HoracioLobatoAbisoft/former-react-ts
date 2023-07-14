@@ -3,14 +3,13 @@ import '../styles/ScegliLaConsegna.css'
 import { useState } from "react"
 import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
 type PropsScegliLaConsegna = {
-    TotalPrezo: number
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
     step: number
 }
-const ScegliLaConsegna = ({TotalPrezo, TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsScegliLaConsegna) => {
+const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsScegliLaConsegna) => {
 
     const [radio, setRadio] = useState<number>(0)
 
@@ -105,7 +104,7 @@ const ScegliLaConsegna = ({TotalPrezo, TotaleProvisorio, setStepperStep, changeb
 
             </div>
             <div className="w-[20%]">
-                {<TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>}
+                {<TotaleProvvisorio  TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>}
             </div>
         </div>
     )

@@ -4,7 +4,6 @@ import Container from '@mui/material/Container';
 import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 
 type PropsTotale ={
-    TotalPrezo:number
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
     changebuttonstep: (number: number) => string;
@@ -12,7 +11,7 @@ type PropsTotale ={
     step:number
 }
 
-const AllegaIFile = ({TotalPrezo,TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsTotale) => {
+const AllegaIFile = ({TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsTotale) => {
 
     
     return (
@@ -43,7 +42,7 @@ const AllegaIFile = ({TotalPrezo,TotaleProvisorio, setStepperStep, changebuttons
                 </h2>
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
+                <TotaleProvvisorio  TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
             </div>
         </div>
     )

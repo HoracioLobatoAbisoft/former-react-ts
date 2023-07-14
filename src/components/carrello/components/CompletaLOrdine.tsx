@@ -7,27 +7,25 @@ import { ObjCarrello } from "../../formProdottoV1/interface/ObjCarrrello";
 import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
 type PropsCompletaLOrdine = {
     ArrayLocalCarrello: ObjCarrello[];
-    countLavori: number
-
-    TotalPrezo: number
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
 
     handleDeleteAllCarrello: () => void
-    handleRetornaProdotto: (i:number) => void
+    handleRetornaProdotto: (i:number,uri:string) => void
     setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>
     
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
     step: number
+    deleteItem:(i:number) => void
 }
-const CompletaLOrdine = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step}:PropsCompletaLOrdine) => {
+const CompletaLOrdine = ({ArrayLocalCarrello,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step,deleteItem}:PropsCompletaLOrdine) => {
     return (
         <div className="flex gap-5">
             <div className="w-[73%]">
                 <h3 className="flex gap-3 font-semibold"><img src="https://localhost:44311/img/icoCarrello16.png" className="w-[20px] h-[20px]" /> Riepilogo Ordine</h3>
                 <hr className="border my-2" />
-                <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello}/>
+                <AcordionCarrello deleteItem={deleteItem} handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello}  handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello}/>
                 <div className="mt-[25px]">
                     <h2 className="text-[14px] font-bold border-b-[1px]  border-[#aaa] mb-[10px] flex gap-1"><img src="https://localhost:44311/img/icoAttach16.png" className='w-[16px] h-[16px]' />Allega i file</h2>
                     <div className="border border-[#aaa] ps-[15px] py-[5px] text-[12px] rounded-[5px] bg-[#f1f1f1]">
@@ -93,7 +91,7 @@ const CompletaLOrdine = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvis
                 </div>
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
+                <TotaleProvvisorio  TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
             </div>
         </div>
     )

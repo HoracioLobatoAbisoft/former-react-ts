@@ -34,14 +34,14 @@ const TotaleProvvisorio = ({TotaleProvisorio, setStepperStep, changebuttonstep, 
                             <td className="px-[10px]">
                                 Totale Lavori:
                             </td>
-                            <td className="px-[10px] text-end">€ {TotaleProvisorio? formatNumber(TotaleProvisorio.prezzoTotaleOrdini):"00"  }</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio? formatNumber(TotaleProvisorio.prezzoTotaleOrdini):"00,00"  }</td>
                         </tr>
 
                         <tr>
                             <td className="px-[10px] ">
                                 Spedizioni:
                             </td>
-                            <td className="px-[10px] text-end">€ {TotaleProvisorio?formatNumber(TotaleProvisorio.spedizioni):"00"}</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio?formatNumber(TotaleProvisorio.spedizioni):"00,00"}</td>
                         </tr>
                         <tr>
                             <td className="px-[10px] ">

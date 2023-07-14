@@ -5,14 +5,13 @@ import Container from '@mui/material/Container';
 import { Grid, TextField, Button } from '@mui/material';
 import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
 type PropsScegliIlPagamento = {
-    TotalPrezo: number
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
     step: number
 }
-const ScegliIlPagamento = ({TotalPrezo, TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsScegliIlPagamento) => {
+const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsScegliIlPagamento) => {
     return (
         <div className='flex gap-5'>
             <div className="w-[73%]">
@@ -72,47 +71,10 @@ const ScegliIlPagamento = ({TotalPrezo, TotaleProvisorio, setStepperStep, change
                 <p className=" text-[12px] mt-[10px]">Se vuoi ordinare altri prodotti clicca qui e <span className='text-[16px] text-[#f58220] font-bold cursor-pointer'>Continua gli acquisti.</span> </p>
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
+                <TotaleProvvisorio  TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
             </div>
         </div>
     )
 }
-
-{/* <Container sx={{border: '1px solid #000', width:'95%'}}>
-                <FormControl>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="PayPal"
-                    name="radio-buttons-group"
-                >
-                    <FormControlLabel value="PayPal" control={<Radio />} label="PayPal" />
-                    <small > Utilizza il tuo conto PayPal o una Carta di Credito per pagare il tuo ordine.</small>
-                    <FormControlLabel value="Bonifico Bancario Anticipato" control={<Radio />} label="Bonifico Bancario Anticipato" />
-                    <small > Per i pagamenti tramite Bonifico Bancario la stampa inizierà solo dopo l' avvenuto accredito. Di conseguenza la consegna slitterà di 2-3 giorni.</small>
-                    <FormControlLabel value="Al Ritiro" control={<Radio />} label="Al Ritiro" />
-                    <small > Paga direttamente al momento del ritiro del pacco.</small>
-                    <FormControlLabel value="60 giorni data fattura," control={<Radio />} label="60 giorni data fattura," />
-                    <small > Effettua un Bonifico Bancario a 60 giorni dalla data della fattura</small>
-                </RadioGroup>
-                </FormControl>
-                </Container>
-                <br></br>
-                <Container sx={{border: '1px solid #000', width:'95%'}}>
-                    <br></br>
-                    <h2 className='text-[12px] bg-[#00f698b9] w-[138px] p-[4px] font-bold'>COUPON DI SCONTO</h2>
-                    <Grid container spacing={0}>
-                        <Grid item sm={8}>
-                            <small >Hai un Coupon di Sconto? Inserisci qui il codice e ti verrà applicato</small >
-                        </Grid>
-                        <Grid item sm={2}>
-                            <input type="text" style={{width:'150px'}}  placeholder=''/>
-                        </Grid>
-                        <Grid item sm={2}>
-                        <button className="text-[14px] w-[55px] my-[2px] h-[25px]  bg-[#f58220] text-center p-[5px] ">Applica</button>
-                        </Grid>
-                    </Grid>
-                    <h2></h2> 
-                    <br></br>
-                </Container> */}
 
 export default ScegliIlPagamento

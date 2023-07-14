@@ -19,16 +19,10 @@ type PropsAcordionCarrello = {
     deleteItem:(i:number)=>void
 }
 
-const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello,deleteItem }: PropsAcordionCarrello) => {
+// const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello,deleteItem }: PropsAcordionCarrello) => {
 
     
-const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello }: PropsAcordionCarrello) => {
-    
-    const deleteItem = (id: number) => {
-        ArrayLocalCarrello.splice(id, 1);
-        setArrayLocalCarrello([...ArrayLocalCarrello]);
-        localStorage.setItem('c', JSON.stringify([...ArrayLocalCarrello]))
-    }
+const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello,deleteItem }: PropsAcordionCarrello) => {
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
