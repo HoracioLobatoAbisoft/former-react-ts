@@ -3,7 +3,16 @@ import TotaleProvvisorio from './TotaleProvvisorio'
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import Container from '@mui/material/Container';
 import { Grid, TextField, Button } from '@mui/material';
-const ScegliIlPagamento = () => {
+import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
+type PropsScegliIlPagamento = {
+    TotalPrezo: number
+    TotaleProvisorio: DataGetTotaleProvisorio | undefined
+    setStepperStep: React.Dispatch<React.SetStateAction<number>>
+    changebuttonstep: (number: number) => string;
+    setSteptext: React.Dispatch<React.SetStateAction<string>>
+    step: number
+}
+const ScegliIlPagamento = ({TotalPrezo, TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsScegliIlPagamento) => {
     return (
         <div className='flex gap-5'>
             <div className="w-[73%]">
@@ -63,7 +72,7 @@ const ScegliIlPagamento = () => {
                 <p className=" text-[12px] mt-[10px]">Se vuoi ordinare altri prodotti clicca qui e <span className='text-[16px] text-[#f58220] font-bold cursor-pointer'>Continua gli acquisti.</span> </p>
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio />
+                <TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
             </div>
         </div>
     )

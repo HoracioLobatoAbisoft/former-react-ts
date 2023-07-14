@@ -23,6 +23,8 @@ export const userContext = React.createContext({});
 import "./App.css";
 import ConfiguraProdottoRefactor from "./components/formProdottoV1/ConfiguraProdottoRefactor";
 import CarrelloProdotto from "./components/carrello/CarrelloProdotto";
+import AllegaIFile from "./components/carrello/components/AllegaIFile"; "./components/carrello/components/AllegaIFile";
+
 
 function App() {
   const location = useLocation();
@@ -55,6 +57,7 @@ function App() {
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<FormProdottoModificated />} />
           <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoRefactor />} />
           <Route path="/carrello" element={<CarrelloProdotto/>}/>
+          
           <Route
             path="/OrdineDetails/:userId"
             element={<OrdineDetailsPage />}
