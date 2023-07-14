@@ -20,7 +20,7 @@ type PropsAcordionCarrello = {
 }
 
 const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello }: PropsAcordionCarrello) => {
-
+    
     const deleteItem = (id: number) => {
         ArrayLocalCarrello.splice(id, 1);
         setArrayLocalCarrello([...ArrayLocalCarrello]);

@@ -1,9 +1,20 @@
 import React, { useState } from 'react'
 import TotaleProvvisorio from './TotaleProvvisorio'
 import Container from '@mui/material/Container';
+import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 
-const AllegaIFile = () => {
+type PropsTotale ={
+    TotalPrezo:number
+    TotaleProvisorio: DataGetTotaleProvisorio | undefined
+    setStepperStep: React.Dispatch<React.SetStateAction<number>>
+    changebuttonstep: (number: number) => string;
+    setSteptext: React.Dispatch<React.SetStateAction<string>>
+    step:number
+}
 
+const AllegaIFile = ({TotalPrezo,TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsTotale) => {
+
+    
     return (
         <div className='flex gap-5  '>
             <div className="w-[73%]">
@@ -32,7 +43,7 @@ const AllegaIFile = () => {
                 </h2>
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio />
+                <TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
             </div>
         </div>
     )

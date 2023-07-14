@@ -4,13 +4,19 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AddIcon from '@mui/icons-material/Add';
 import './../styles/acorcdion.css'
 import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
+import { useNavigate } from 'react-router-dom';
 
 type PropsTotale ={
     TotalPrezo:number
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
+    setStepperStep: React.Dispatch<React.SetStateAction<number>>
+    changebuttonstep: (number: number) => string;
+    setSteptext: React.Dispatch<React.SetStateAction<string>>
+    step:number
 }
 
-const TotaleProvvisorio = ({TotalPrezo,TotaleProvisorio}:PropsTotale) => {
+const TotaleProvvisorio = ({TotalPrezo,TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsTotale) => {
+    const navigate = useNavigate();
     return (
         <div className="">
             <div className="bg-[#f1f1f1] w-full text-[14px] mt-[30px] rounded-[3px] p-[10px]">
@@ -57,7 +63,7 @@ const TotaleProvvisorio = ({TotalPrezo,TotaleProvisorio}:PropsTotale) => {
                         </tr>
                     </tbody></table>
                 <center>
-                    <button className="text-[14px] w-[170px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] ">ALLEGA I FILE</button>
+                    <button onClick={()=>{setStepperStep(step+1); setSteptext(changebuttonstep(step+1))}} className="text-[14px] w-[170px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] ">{changebuttonstep(step+1)}</button>
                 </center>
             </div>
             <div className="mt-[30px] w-full">

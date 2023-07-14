@@ -10,11 +10,18 @@ import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
 type PropsRepilogo = {
     ArrayLocalCarrello: ObjCarrello[];
     countLavori: number
+
     TotalPrezo: number
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
+
     handleDeleteAllCarrello: () => void
     handleRetornaProdotto: (i:number) => void
     setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>
+    
+    setStepperStep: React.Dispatch<React.SetStateAction<number>>
+    changebuttonstep: (number: number) => string;
+    setSteptext: React.Dispatch<React.SetStateAction<string>>
+    step: number
 }
 
 // const Riepilogo = ({ ArrayLocalCarrello, countLavori, TotalPrezo, TotaleProvisorio, handleDeleteAllCarrello,handleRetornaProdotto, }: PropsRepilogo) => {
@@ -22,7 +29,7 @@ type PropsRepilogo = {
 //     setArrayLocalCarrello : any
 // }
 
-const Riepilogo = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto, setArrayLocalCarrello}:PropsRepilogo) => {
+const Riepilogo = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step}:PropsRepilogo) => {
     const [open, setOpen] = useState(false)
     return (
         <div className="flex gap-[50px]">
@@ -42,7 +49,7 @@ const Riepilogo = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,h
                 </div>
             </div>
             <div className="w-[20%]">
-                <TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} />
+                <TotaleProvvisorio TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
             </div>
 
         </div>
