@@ -14,9 +14,10 @@ type PropsAcordionCarrello = {
     countLavori: number
     TotalPrezo: number
     handleDeleteAllCarrello: () => void
+    handleRetornaProdotto:(i:number) => void
 }
 
-const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello }: PropsAcordionCarrello) => {
+const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello,handleRetornaProdotto }: PropsAcordionCarrello) => {
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
@@ -105,7 +106,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleD
                                 <hr className='border border-[#d6e03d] mt-[23px]' />
                                 <div className="flex justify-end mt-[6px] gap-3">
                                     <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoInfo16.png" /> Scarica il Template</a>
-                                    <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoCestinoGo16.png" />Elimina dal carrello e vai al Prodotto</a>
+                                    <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer" onClick={()=>handleRetornaProdotto(i)}><img src="https://localhost:44311/img/icoCestinoGo16.png" />Elimina dal carrello e vai al Prodotto</a>
                                     <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoCestino16.png" />Elimina dal carrello</a>
                                 </div>
                             </AccordionDetails>
@@ -114,10 +115,6 @@ const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleD
                 })}
 
             </div>
-            {ArrayLocalCarrello.length === 0 &&
-                <div className="h-[260px] w-full flex items-center justify-center text-[24px] text-[#f58220] font-bold">Il tuo carrello è vuoto</div>
-            }
-
         </div>
     )
 }

@@ -44,15 +44,23 @@ const useCarrello = () => {
             console.log('error use Carrello ', error)
         }
     }
-
-
     /*
         *Funciones handle
     */
-
+    
     const handleDeleteAllCarrello = () => {
         localStorage.removeItem('c');
         setArrayCarrello([]);
+        setTotaleProvisorio(undefined)
+    }
+
+    const handleRetornaProdotto = (i:number) =>{
+        const updateCarrello = [...arrayCarrello]
+        updateCarrello.splice(i,1);
+        setArrayCarrello(updateCarrello);
+        localStorage.setItem('c',JSON.stringify(updateCarrello))
+        getLocalCarrello;
+        getTotaleProvisorio();
     }
 
     useEffect(() => {
@@ -67,6 +75,7 @@ const useCarrello = () => {
         countLavori,
         TotaleProvisorio,
         handleDeleteAllCarrello,
+        handleRetornaProdotto
     }
 }
 
