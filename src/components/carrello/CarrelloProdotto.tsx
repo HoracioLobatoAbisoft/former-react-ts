@@ -9,14 +9,13 @@ import useCarrello from "./hooks/useCarrello"
 
 const CarrelloProdotto = () => {
 
-    const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto} = useCarrello()
-    const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,setArrayCarrello} = useCarrello()
+    const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto,setArrayCarrello} = useCarrello()
+    //const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,} = useCarrello()
 
     return (
         <div>
             <Stepper />
-            <Riepilogo ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto = {handleRetornaProdotto}/>
-            <Riepilogo ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayCarrello}/>
+            <Riepilogo ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto = {handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello}/>
             {/* <AllegaIFile/> */}
             {/* <ScegliLaConsegna/> */}
             {/* <ScegliIlPagamento/> */}

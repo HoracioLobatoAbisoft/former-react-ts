@@ -14,14 +14,15 @@ type PropsRepilogo = {
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     handleDeleteAllCarrello: () => void
     handleRetornaProdotto: (i:number) => void
+    setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>
 }
 
-const Riepilogo = ({ ArrayLocalCarrello, countLavori, TotalPrezo, TotaleProvisorio, handleDeleteAllCarrello,handleRetornaProdotto }: PropsRepilogo) => {
-    handleDeleteAllCarrello: () => void,
-    setArrayLocalCarrello : any
-}
+// const Riepilogo = ({ ArrayLocalCarrello, countLavori, TotalPrezo, TotaleProvisorio, handleDeleteAllCarrello,handleRetornaProdotto, }: PropsRepilogo) => {
+//     handleDeleteAllCarrello: () => void,
+//     setArrayLocalCarrello : any
+// }
 
-const Riepilogo = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,handleDeleteAllCarrello, setArrayLocalCarrello}:PropsRepilogo) => {
+const Riepilogo = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto, setArrayLocalCarrello}:PropsRepilogo) => {
     const [open, setOpen] = useState(false)
     return (
         <div className="flex gap-[50px]">
@@ -31,10 +32,8 @@ const Riepilogo = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,h
                 <hr className="border my-1" />
                 {ArrayLocalCarrello.length === 0 ?
                     <div className="h-[260px] border rounded-[5px] border-[#aaa] w-full flex items-center justify-center text-[24px] text-[#f58220] font-bold">Il tuo carrello è vuoto</div> :
-                    <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} handleDeleteAllCarrello={handleDeleteAllCarrello} />
+                    <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello}/>
                 }
-
-                <AcordionCarrello ArrayLocalCarrello ={ArrayLocalCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello}/>
                 <div>
                     <br />
                     <span style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> SCEGLI IL PAGAMENTO</strong></span>

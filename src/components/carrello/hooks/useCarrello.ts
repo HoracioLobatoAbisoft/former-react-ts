@@ -75,7 +75,7 @@ const useCarrello = () => {
         countLavori,
         TotaleProvisorio,
         handleDeleteAllCarrello,
-        handleRetornaProdotto
+        handleRetornaProdotto,
         setArrayCarrello
     }
 }
