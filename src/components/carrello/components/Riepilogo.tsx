@@ -17,6 +17,11 @@ type PropsRepilogo = {
 }
 
 const Riepilogo = ({ ArrayLocalCarrello, countLavori, TotalPrezo, TotaleProvisorio, handleDeleteAllCarrello,handleRetornaProdotto }: PropsRepilogo) => {
+    handleDeleteAllCarrello: () => void,
+    setArrayLocalCarrello : any
+}
+
+const Riepilogo = ({ArrayLocalCarrello,countLavori,TotalPrezo,TotaleProvisorio,handleDeleteAllCarrello, setArrayLocalCarrello}:PropsRepilogo) => {
     const [open, setOpen] = useState(false)
     return (
         <div className="flex gap-[50px]">
@@ -29,6 +34,7 @@ const Riepilogo = ({ ArrayLocalCarrello, countLavori, TotalPrezo, TotaleProvisor
                     <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} handleDeleteAllCarrello={handleDeleteAllCarrello} />
                 }
 
+                <AcordionCarrello ArrayLocalCarrello ={ArrayLocalCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello}/>
                 <div>
                     <br />
                     <span style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> SCEGLI IL PAGAMENTO</strong></span>

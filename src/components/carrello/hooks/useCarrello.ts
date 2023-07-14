@@ -76,6 +76,7 @@ const useCarrello = () => {
         TotaleProvisorio,
         handleDeleteAllCarrello,
         handleRetornaProdotto
+        setArrayCarrello
     }
 }
 

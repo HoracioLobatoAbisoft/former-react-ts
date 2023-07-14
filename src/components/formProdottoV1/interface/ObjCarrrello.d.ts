@@ -14,5 +14,5 @@ export interface ObjCarrello {
     prezzo: number | undefined;
     stampaOPZ: string[];
     descrizione:string | undefined;
-    dimencioni:string;
+    dimencioni:string;    
 }
