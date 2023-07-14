@@ -64,7 +64,7 @@ const TotaleProvvisorio = ({TotaleProvisorio, setStepperStep, changebuttonstep, 
                         </tr>
                     </tbody></table>
                 <center>
-                    <button onClick={()=>{setStepperStep(step+1); setSteptext(changebuttonstep(step+1))}} className="text-[14px] w-[170px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] ">{changebuttonstep(step+1)}</button>
+                    <button onClick={()=>{setStepperStep(step+1); setSteptext(changebuttonstep(step+1))}} className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "><b>{changebuttonstep(step+1)}</b></button>
                 </center>
             </div>
             <div className="mt-[30px] w-full">

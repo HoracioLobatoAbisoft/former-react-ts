@@ -103,7 +103,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                 </div>
 
             </div>
-            <div className="w-[20%]">
+            <div className="w-[23%]">
                 {<TotaleProvvisorio  TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>}
             </div>
         </div>
