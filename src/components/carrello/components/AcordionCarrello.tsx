@@ -17,9 +17,11 @@ type PropsAcordionCarrello = {
     handleDeleteAllCarrello: () => void
     handleRetornaProdotto: (i: number) => void
     setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>;
+    setStepperStep?: React.Dispatch<React.SetStateAction<number>> | null
+    step?: number
 }
 
-const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello }: PropsAcordionCarrello) => {
+const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, step=0, setStepperStep=null }: PropsAcordionCarrello) => {
     
     const deleteItem = (id: number) => {
         ArrayLocalCarrello.splice(id, 1);
@@ -126,6 +128,14 @@ const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleD
                     })}
 
             </div>
+            {
+                (step !=0 && setStepperStep!=null) && 
+                <div>
+                    <a className="w-95 flex justify-end hover:underline cursor-pointer" style={{'fontSize':12, 'margin':10}} onClick={()=>setStepperStep(1)}>
+                        Modifica
+                    </a>
+                </div>                                
+            }            
         </div>
     )
 }

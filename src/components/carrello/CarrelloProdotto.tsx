@@ -27,19 +27,29 @@ const CarrelloProdotto = () => {
     
     const [step, setStep] = useState<number>(1);
     const [steptext, setSteptext] = useState<string>("ALLEGRA I FILE");
-    const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto,setArrayCarrello} = useCarrello()
-    //const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,} = useCarrello()    
-   
-    if(step === 1){
+    const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto,setArrayCarrello} = useCarrello();
+    const itemPage : {[key:number] : any} = {
+        1 : <Riepilogo ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto = {handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>,
+        2 : <AllegaIFile TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>,
+        3 : <ScegliLaConsegna TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep}  changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>,
+        4 : <ScegliIlPagamento TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep}  changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>,
+        5 : <CompletaLOrdine ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto = {handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>                                                    
+    }
+    // const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,} = useCarrello()    
+    return(
+        <div>
+            <Stepper stepNumber={step}/>
+            {itemPage[step]}
+        </div>
+   )
+   //Ya no es necesario el cod de abajo, pero lo dejo por si acaso.
+    /*if(step === 1){
         return (
         
             <div>
                 <Stepper stepNumber={step}/>
                 <Riepilogo ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto = {handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
-                {/* <AllegaIFile/> */}
-                {/* <ScegliLaConsegna/> */}
-                {/* <ScegliIlPagamento/> */}
-                {/* <CompletaLOrdine/> */}
+                
             </div>
         )
     }
@@ -49,9 +59,7 @@ const CarrelloProdotto = () => {
             <div>
                 <Stepper stepNumber={step}/>
                 <AllegaIFile TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>                
-                {/* <ScegliLaConsegna/> */}
-                {/* <ScegliIlPagamento/> */}
-                {/* <CompletaLOrdine/> */}
+                
             </div>
         )
     }
@@ -60,8 +68,7 @@ const CarrelloProdotto = () => {
             <div>
                 <Stepper stepNumber={step}/>
                 <ScegliLaConsegna TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep}  changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>            
-                {/* <ScegliIlPagamento/> */}
-                {/* <CompletaLOrdine/> */}
+                
             </div>
         )
     }
@@ -70,7 +77,7 @@ const CarrelloProdotto = () => {
             <div>
                 <Stepper stepNumber={step}/>
                 <ScegliIlPagamento TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep}  changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>               
-                {/* <CompletaLOrdine/> */}
+                
             </div>
         )
     }
@@ -78,10 +85,20 @@ const CarrelloProdotto = () => {
         return(
             <div>
                 <Stepper stepNumber={step}/>
-                <CompletaLOrdine ArrayLocalCarrello={arrayCarrello} countLavori={countLavori} TotalPrezo={TotalPrezo} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto = {handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>               
+                <CompletaLOrdine ArrayLocalCarrello={arrayCarrello} 
+                countLavori={countLavori} 
+                TotalPrezo={TotalPrezo} 
+                TotaleProvisorio={TotaleProvisorio}
+                handleDeleteAllCarrello={handleDeleteAllCarrello} 
+                handleRetornaProdotto = {handleRetornaProdotto} 
+                setArrayLocalCarrello={setArrayCarrello} 
+                setStepperStep={setStep} 
+                changebuttonstep={changebuttonstep}
+                setSteptext={setSteptext} 
+                step={step}/>               
             </div>
         )
-    }
+    }*/
 }
 
 export default CarrelloProdotto
