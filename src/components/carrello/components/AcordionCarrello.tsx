@@ -17,12 +17,12 @@ type PropsAcordionCarrello = {
     handleRetornaProdotto: (i: number,uri:string) => void
     setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>;
     deleteItem:(i:number)=>void
+    setStepperStep?: React.Dispatch<React.SetStateAction<number>> | null
+    step?: number
 }
-
-// const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello,deleteItem }: PropsAcordionCarrello) => {
-
+// const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, step=0, setStepperStep=null }: PropsAcordionCarrello) => {
     
-const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello,deleteItem }: PropsAcordionCarrello) => {
+const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello,deleteItem, step=0, setStepperStep=null }: PropsAcordionCarrello) => {
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
@@ -123,6 +123,14 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                     })}
 
             </div>
+            {
+                (step !=0 && setStepperStep!=null) && 
+                <div>
+                    <a className="w-95 flex justify-end hover:underline cursor-pointer" style={{'fontSize':12, 'margin':10}} onClick={()=>setStepperStep(1)}>
+                        Modifica
+                    </a>
+                </div>                                
+            }            
         </div>
     )
 }

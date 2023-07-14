@@ -30,58 +30,23 @@ const CarrelloProdotto = () => {
     const { arrayCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayCarrello, deleteItem } = useCarrello()
     //const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,} = useCarrello()    
 
-    if (step === 1) {
-        return (
+    // if (step === 1) {
+    // const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto,setArrayCarrello} = useCarrello();
+    const itemPage: { [key: number]: any } = {
+        1: <Riepilogo deleteItem={deleteItem} ArrayLocalCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto={handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />,
+        2: <AllegaIFile TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />,
+        3: <ScegliLaConsegna TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />,
+        4: <ScegliIlPagamento TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />,
+        5: <CompletaLOrdine deleteItem={deleteItem} ArrayLocalCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto={handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
+    }
+    // const {arrayCarrello,TotalPrezo,countLavori,TotaleProvisorio,handleDeleteAllCarrello,} = useCarrello()    
+    return (
+        <div>
+            <Stepper stepNumber={step} />
+            {itemPage[step]}
+        </div>
+    )
 
-            <div>
-                <Stepper stepNumber={step} />
-                <Riepilogo ArrayLocalCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto={handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} deleteItem={deleteItem} />
-                {/* <AllegaIFile/> */}
-                {/* <ScegliLaConsegna/> */}
-                {/* <ScegliIlPagamento/> */}
-                {/* <CompletaLOrdine/> */}
-            </div>
-        )
-    }
-    else if (step === 2) {
-        return (
-
-            <div>
-                <Stepper stepNumber={step} />
-                <AllegaIFile TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
-                {/* <ScegliLaConsegna/> */}
-                {/* <ScegliIlPagamento/> */}
-                {/* <CompletaLOrdine/> */}
-            </div>
-        )
-    }
-    else if (step === 3) {
-        return (
-            <div>
-                <Stepper stepNumber={step} />
-                <ScegliLaConsegna TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
-                {/* <ScegliIlPagamento/> */}
-                {/* <CompletaLOrdine/> */}
-            </div>
-        )
-    }
-    else if (step === 4) {
-        return (
-            <div>
-                <Stepper stepNumber={step} />
-                <ScegliIlPagamento TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
-                {/* <CompletaLOrdine/> */}
-            </div>
-        )
-    }
-    else if (step === 5) {
-        return (
-            <div>
-                <Stepper stepNumber={step} />
-                <CompletaLOrdine ArrayLocalCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto={handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} deleteItem={deleteItem}/>
-            </div>
-        )
-    }
 }
 
 export default CarrelloProdotto

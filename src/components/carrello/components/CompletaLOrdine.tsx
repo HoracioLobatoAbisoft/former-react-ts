@@ -26,6 +26,13 @@ const CompletaLOrdine = ({ArrayLocalCarrello,TotaleProvisorio,handleDeleteAllCar
                 <h3 className="flex gap-3 font-semibold"><img src="https://localhost:44311/img/icoCarrello16.png" className="w-[20px] h-[20px]" /> Riepilogo Ordine</h3>
                 <hr className="border my-2" />
                 <AcordionCarrello deleteItem={deleteItem} handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello}  handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello}/>
+                <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto}
+                 ArrayLocalCarrello={ArrayLocalCarrello} 
+                 deleteItem={deleteItem}
+                 handleDeleteAllCarrello={handleDeleteAllCarrello} 
+                 setArrayLocalCarrello={setArrayLocalCarrello}
+                 step={step}
+                 setStepperStep={setStepperStep}/>
                 <div className="mt-[25px]">
                     <h2 className="text-[14px] font-bold border-b-[1px]  border-[#aaa] mb-[10px] flex gap-1"><img src="https://localhost:44311/img/icoAttach16.png" className='w-[16px] h-[16px]' />Allega i file</h2>
                     <div className="border border-[#aaa] ps-[15px] py-[5px] text-[12px] rounded-[5px] bg-[#f1f1f1]">
@@ -51,7 +58,7 @@ const CompletaLOrdine = ({ArrayLocalCarrello,TotaleProvisorio,handleDeleteAllCar
                             </div>
                         </div>
                         <div className="w-full flex justify-end pe-[10px]">
-                            <a className="cursor-pointer">
+                            <a className="cursor-pointer hover:underline" style={{'fontSize':11}} onClick={()=>setStepperStep(3)}>
                                 Modifica
                             </a>
                         </div>
@@ -72,7 +79,7 @@ const CompletaLOrdine = ({ArrayLocalCarrello,TotaleProvisorio,handleDeleteAllCar
 
                         </div>
                         <div className="w-full flex justify-end pe-[10px]">
-                            <a className="cursor-pointer">
+                            <a className="cursor-pointer hover:underline" style={{'fontSize':11}} onClick={()=>setStepperStep(4)}>
                                 Modifica
                             </a>
                         </div>
