@@ -108,7 +108,7 @@ const ConfiguraProdottoRefactor = () => {
                                         </span>
                                     </td>
                                 </tr> :
-                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} />
+                                <InputCustomSelect showIcon={true} name="formato" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} />
                             }
 
                             {orientamiento ? <InputCustomSelect showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
@@ -169,8 +169,7 @@ const ConfiguraProdottoRefactor = () => {
                             }
 
                             <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
-                            {stampaCalOpz?.map((elem, i) => {
-                                //console.log("elemselect",stampaCalOpz)
+                            {stampaCalOpz?.map((elem, i) => {                                
                                 if (elem.tipoControllo === 1) {
                                     return (
                                         <InputCustomSelect key={i} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handleStampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />

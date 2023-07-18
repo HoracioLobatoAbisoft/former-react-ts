@@ -780,6 +780,9 @@ const useRefactorProdotto = () => {
         const responseHandTipoCarta = handleOptionsTipoCarta();
         const responseHandColoreStampa = handleOptionsColoreStampa();
         const responseHandOrientamiento = handleOrientamiento();
+        const responseOpcioni = handleOptionsOpzioni();
+        console.log('oPciones', responseOpcioni);
+        
         const responseHandFacPagine = handleFogliPagine();
 
         const arrayStampa: OptionsSelect[] = [];
@@ -816,7 +819,8 @@ const useRefactorProdotto = () => {
                 _stampaOpz.push(String(responseHanData.label));
             }
         })
-
+        // ====================================================================
+        responseOpcioni.map(x=> _stampaOpz.push(x.label));
         const objDataProdotto: ObjCarrello = {
             idUt: idUt,
             idPrev: idPrev,

@@ -6,7 +6,7 @@ import { SvgImage } from '../../formProdottoV1/interface/svgImage';
 import { ImageCustom } from '../../formProdottoV1/components/ImageCustom';
 import '../styles/acorcdion.css'
 import { ObjCarrello } from '../../formProdottoV1/interface/ObjCarrrello';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { formatNumber } from '../../../services/NumberFormat';
 
 
@@ -23,6 +23,18 @@ type PropsAcordionCarrello = {
 // const AcordionCarrello = ({ ArrayLocalCarrello, countLavori, TotalPrezo, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, step=0, setStepperStep=null }: PropsAcordionCarrello) => {
     
 const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello,deleteItem, step=0, setStepperStep=null }: PropsAcordionCarrello) => {
+    
+    
+    //Pienso que es innecesario eliminar está parte acá, revisar
+    //si se puede hacer en otra parte
+    ArrayLocalCarrello.forEach(x => {        
+        if(Array.isArray(x.stampaOPZ)){
+            x.stampaOPZ = x.stampaOPZ.filter(y=> y!='-')
+        }
+    })
+    
+    
+    
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
@@ -44,7 +56,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                     <div className=" w-full flex justify-between text-[11px] font-semibold">
                                         <div className="flex gap-3">
                                             <div className="bg-[#FF0000] w-[20px] h-[20px] border border-[#aaa] rounded-[3px]"></div>
-                                            <p className="">{elem.qta} {elem.descrizione}</p>
+                                            <p className="">{elem.qta?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {elem.descrizione} </p>
                                         </div>
                                         <p className="">€ {formatNumber(Number(elem.prezzo))} + iva</p>
                                     </div>
@@ -63,12 +75,15 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                 <p className="">Supporto:</p>
                                                 <p className="">Stampa:</p>
                                                 {Array.isArray(elem.stampaOPZ) &&
-                                                    elem.stampaOPZ.map((e, i) => {
-                                                        if (e !== "-") {
+                                                    elem.stampaOPZ.map((e, i) => {                                                                                                                                                                        
+                                                        /*if (e !== "-") {
                                                             return (
-                                                                <p className={`${i == 0 ? " " : "text-white"}`} key={e}>{i == 0 ? "Opzioni:" : "--"}</p>
+                                                                <p className={`${i == 0 ? " " : "text-white"}`} key={e}>{i == 0 ? "Opzioni:" : "--"}</p> 
+                                                                );                                                        
+                                                        }*/
+                                                        return (
+                                                            <p className={`${i == 0 ? " " : "text-white"}`} key={e}>{i == 0 ? "Opzioni:" : "--"}</p> 
                                                             );
-                                                        }
                                                         return null;
                                                     })}
 
@@ -78,8 +93,8 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                             </div>
                                             <div className="font-bold w-[50%]">
                                                 <p className={`${elem.nome ? "" : "text-white"}`}>{elem.nome ? elem.nome : "--"} </p>
-                                                <p className="">{elem.qta}</p>
-                                                <p className="">{elem.prodotto}</p>
+                                                <p className="">{elem.qta?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+                                                <p className="">{elem.qta?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {elem.descrizione} {elem.dimencioni} - {elem.suporto.split(' ').at(-2)}{elem.suporto.split(' ').at(-1)}</p>
                                                 <p className="">{elem.dimencioni}</p>
                                                 <p className="">{elem.orientamiento}</p>
                                                 <p className="">{elem.suporto}</p>
@@ -99,7 +114,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                             return null;
                                                         })}
                                                 </p>
-                                                <p className="">Colli {elem.colli}, Peso {elem.peso} kg ±</p>
+                                                <p className="font-normal">Colli <b>{elem.colli}</b>, Peso <b>{elem.peso}</b> kg ±</p>
                                                 <div className="flex mt-[15px] bg-[#d6e03d] w-[160px] h-[30px] p-[5px] text-[18px] rounded-[5px] items-center justify-center">
                                                     <img src="https://localhost:44311/img/icoPrezzo.png" className='w-[20px] h-[25px]' /> <b>€ {formatNumber(Number(elem.prezzo))} + iva</b>
                                                 </div>
