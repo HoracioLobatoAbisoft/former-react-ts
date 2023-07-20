@@ -6,7 +6,7 @@ export interface ObjCarrello {
     qta: number | null;
     img: string | undefined;
     prodotto: string | undefined;
-    orientamiento: string | undefined;
+    orientamiento: string | undefined | null;
     suporto: string| undefined;
     stampa: string;
     colli: number | undefined;
