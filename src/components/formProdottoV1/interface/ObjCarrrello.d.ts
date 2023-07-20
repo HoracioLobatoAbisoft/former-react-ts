@@ -6,8 +6,8 @@ export interface ObjCarrello {
     qta: number | null;
     img: string | undefined;
     prodotto: string;
-    orientamiento: string;
-    suporto: string;
+    orientamiento: string | null;
+    suporto: string ;
     stampa: string;
     colli: number | undefined;
     peso: number | undefined;
@@ -16,4 +16,6 @@ export interface ObjCarrello {
     descrizione:string | undefined;
     dimencioni:string;    
     nomeUrl: string | undefined;
+    fogli?:string | null;
+    facciatePagine? :string | null;   
 }
