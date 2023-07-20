@@ -1,4 +1,5 @@
-type AdditionalFields = Record<string, any>;
+type AdditionalFields = Record<string, any> ;
+
 
 export interface InitialValuesProdotto extends AdditionalFields {
   base: null | number;
@@ -28,5 +29,3 @@ export interface OptionsSelect {
   dimensioni? : string,
   pdf?:string,
 }
-
-

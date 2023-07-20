@@ -12,6 +12,7 @@ import TableCustom from "./components/TableCustom"
 import useRefactorProdotto from "./hooks/useRefactorProdotto"
 import MenuCarrelo from "./components/MenuCarrelo"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 const ConfiguraProdottoRefactor = () => {
     const {
@@ -66,8 +67,8 @@ const ConfiguraProdottoRefactor = () => {
         calcolaTuto,
         handleCarrello,
         handleHidden
-    } = useRefactorProdotto()
-
+    } = useRefactorProdotto()    
+    
     const SelectFormato = () => {
         switch (idBaseEtiquete) {
             case "0":
@@ -119,7 +120,7 @@ const ConfiguraProdottoRefactor = () => {
 
                             <InputCustomSelect showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
 
-                            {showFaciatePagine ? <InputCustomSelect stylePerzonalize={'w-3/4'} showIcon={true} name="facciatePagine" handleChange={handleChange} label={labelFogli} options={handleFogliPagine()} /> : null}
+                            {showFaciatePagine ? <InputCustomSelect stylePerzonalize={'w-3/4'} showIcon={true} name="facciatePagine" handleChange={(evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>)=> handleChange(evt,{name:labelFogli})} label={labelFogli} options={handleFogliPagine()} /> : null}
 
                             {showBloccoMisure &&
                                 <>
@@ -169,7 +170,8 @@ const ConfiguraProdottoRefactor = () => {
                             }
 
                             <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
-                            {stampaCalOpz?.map((elem, i) => {                                
+                            {stampaCalOpz?.map((elem, i) => {
+                                //console.log("elemselect",stampaCalOpz)
                                 if (elem.tipoControllo === 1) {
                                     return (
                                         <InputCustomSelect key={i} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handleStampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />

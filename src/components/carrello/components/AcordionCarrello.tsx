@@ -75,6 +75,8 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                 <p className="">{elem.orientamiento !== undefined ? 'Orientamiento: ' : null}</p>
                                                 <p className="">{elem.suporto !== undefined ? 'Supporto: ' : null}</p>
                                                 <p className="">Stampa:</p>
+                                                { elem.fogli && <p className="">Fogli:</p> }
+                                                { elem.facciatePagine && <p className="">Facciate-Pagine:</p> }
                                                 {Array.isArray(elem.stampaOPZ) &&
                                                     elem.stampaOPZ.map((e, i) => {                                                                                                                                                                        
                                                         /*if (e !== "-") {
@@ -106,9 +108,11 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
   )}
 </p>
                                                 <p className="">{elem.dimencioni}</p>
-                                                <p className="">{elem.orientamiento}</p>
+                                                { elem.orientamiento && <p className="">{elem.orientamiento}</p> }
                                                 <p className="">{elem.suporto}</p>
                                                 <p className="">{elem.stampa}</p>
+                                                { elem.fogli && <p className="">{elem.fogli}</p> }
+                                                { elem.facciatePagine && <p className="">{elem.facciatePagine}</p> }
                                                 <p className="">
                                                     {Array.isArray(elem.stampaOPZ) &&
                                                         elem.stampaOPZ.map(e => {

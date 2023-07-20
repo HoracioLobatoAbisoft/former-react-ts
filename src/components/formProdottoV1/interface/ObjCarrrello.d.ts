@@ -16,5 +16,7 @@ export interface ObjCarrello {
     descrizione:string | undefined;
     dimencioni:string | undefined;    
     nomeUrl: string | undefined;
+    fogli?:string | null;
+    facciatePagine? :string | null;   
     pdf: string | undefined;
 }

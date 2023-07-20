@@ -136,12 +136,11 @@ export const InputCustomSelect = ({
     //debugger
     if (initialState != undefined) {
       if (name in initialState) {
-        console.log("asdfasdfsadfadsfasdf", options.find((x: any) => x.value == initialState[name]))
+        console.log("initialStateSelecte", options.find((x: any) => x.value == initialState[name]))
         return options.find((x: any) => x.value == initialState[name])
 
       }
-    }else{
-
+    }else{      
     }
   }
   useEffect(() => {
@@ -158,8 +157,8 @@ export const InputCustomSelect = ({
       <td className={"  px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] border-b-[2px]  border-[#fff] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]"}>
         <select name={name} onChange={handleChange} className={`border-[1px] ${stylePerzonalize?stylePerzonalize:"w-full"} border-[#ddd] py-[3px]`}>
           {
-            options.map((elem, i) => (
-              <option key={elem.value} value={elem.value} >{elem.label}</option>
+            options.map((elem, i) => (              
+              <option key={elem.value} value={elem.value} selected={i===0}>{elem.label}</option>
             ))
           }
         </select>
