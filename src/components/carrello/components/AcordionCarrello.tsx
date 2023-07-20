@@ -47,6 +47,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                 {
 
                     ArrayLocalCarrello.map((elem, i) => {
+                        //console.log(i)
                         return (
                             <Accordion key={i} >
                                 <AccordionSummary className='carrello' aria-controls="panel1d-content" id="panel1d-header" sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
@@ -70,9 +71,9 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                 <p className="">Nome lavoro:</p>
                                                 <p className="">Quantità:</p>
                                                 <p className="">Prodotto:</p>
-                                                <p className="">Dimensioni:</p>
-                                                <p className="">Orientamento:</p>
-                                                <p className="">Supporto:</p>
+                                                <p className="">{elem.dimencioni !== undefined ? 'Dimensioni: ' : null}</p>
+                                                <p className="">{elem.orientamiento !== undefined ? 'Orientamiento: ' : null}</p>
+                                                <p className="">{elem.suporto !== undefined ? 'Supporto: ' : null}</p>
                                                 <p className="">Stampa:</p>
                                                 {Array.isArray(elem.stampaOPZ) &&
                                                     elem.stampaOPZ.map((e, i) => {                                                                                                                                                                        
@@ -94,7 +95,16 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                             <div className="font-bold w-[50%]">
                                                 <p className={`${elem.nome ? "" : "text-white"}`}>{elem.nome ? elem.nome : "--"} </p>
                                                 <p className="">{elem.qta?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
-                                                <p className="">{elem.qta?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} {elem.descrizione} {elem.dimencioni} - {elem.suporto.split(' ').at(-2)}{elem.suporto.split(' ').at(-1)}</p>
+                                                <p className="">
+  {elem.qta !== undefined && elem.qta
+    ?.toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{' '}
+  {elem.suporto !== undefined ? (
+    <>{elem.descrizione} {elem.dimencioni} - {elem.suporto.split(' ').slice(0, -2).join(' ')}</>
+  ) : (
+    elem.prodotto
+  )}
+</p>
                                                 <p className="">{elem.dimencioni}</p>
                                                 <p className="">{elem.orientamiento}</p>
                                                 <p className="">{elem.suporto}</p>
@@ -127,7 +137,8 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                     </div>
                                     <hr className='border border-[#d6e03d] mt-[23px]' />
                                     <div className="flex justify-end mt-[6px] gap-3">
-                                        <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoInfo16.png" /> Scarica il Template</a>
+                                        {elem.pdf != "" ? <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer" href={"https://tipografiaformer.it/listino/template/"+elem.pdf} target="_blank"><img src="https://localhost:44311/img/icoInfo16.png" /> Scarica il Template</a> : null}
+                                        
                                         <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer" onClick={() => handleRetornaProdotto(i,String(elem.nomeUrl))}><img src="https://localhost:44311/img/icoCestinoGo16.png" />Elimina dal carrello e vai al Prodotto</a>
 
                                         <a onClick={() => deleteItem(i)} className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src="https://localhost:44311/img/icoCestino16.png" />Elimina dal carrello</a>

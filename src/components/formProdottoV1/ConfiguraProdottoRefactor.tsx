@@ -108,7 +108,7 @@ const ConfiguraProdottoRefactor = () => {
                                         </span>
                                     </td>
                                 </tr> :
-                                <InputCustomSelect showIcon={true} name="formato" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} />
+                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} />
                             }
 
                             {orientamiento ? <InputCustomSelect showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}

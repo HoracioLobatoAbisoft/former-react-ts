@@ -29,6 +29,7 @@ type PropsRepilogo = {
 
 // const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, deleteItem }: PropsRepilogo) => {
 const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem }: PropsRepilogo) => {
+    console.log(ArrayLocalCarrello);
     const [open, setOpen] = useState(false)
     return (
         <div className="flex gap-[50px]">

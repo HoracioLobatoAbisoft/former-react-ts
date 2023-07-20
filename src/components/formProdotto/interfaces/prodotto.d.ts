@@ -25,8 +25,8 @@ export interface OptionsSelect {
   description?: string
   image?: string
   formatoCartaStr?: string
-  larghezza?: number,
-  lunghezza?: number,
+  dimensioni? : string,
+  pdf?:string,
 }
 
 

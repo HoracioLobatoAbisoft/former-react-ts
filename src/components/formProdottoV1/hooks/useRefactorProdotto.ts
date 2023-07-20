@@ -266,7 +266,6 @@ const useRefactorProdotto = () => {
                 valuesStampaCaldoOpz)
 
             setCalcolaTuto(responseCalcolaTuto.data)
-
         } catch (error) {
             console.log('ErrorHandleData', error)
         }
@@ -654,8 +653,8 @@ const useRefactorProdotto = () => {
                 description: elem.descrizioneHTML,
                 image: elem.imgRif,
                 formatoCartaStr: elem.formatoCartaStr,
-                larghezza: elem.larghezza,
-                lunghezza: elem.lunghezza
+                dimensioni: elem.fc.formatoCarta ,
+                pdf:elem.pdfTemplate,
             }
         })
         return options;
@@ -827,20 +826,36 @@ const useRefactorProdotto = () => {
             nome: initialState.nome,
             note: initialState.note,
             qta: initialState.qtaSelezinata,
-            img: handleCarrelloData(initialState.formatoS, responseHandFormato).img,
-            prodotto: handleCarrelloData(initialState.formatoS, responseHandFormato).label,
+            img: handleCarrelloData(initialState.formatoS === null? Number(idFormProd) : initialState.formatoS, responseHandFormato).img,
+            prodotto: handleCarrelloData(initialState.formatoS === null? Number(idFormProd) : initialState.formatoS, responseHandFormato).label,
             orientamiento: handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
             suporto: handleCarrelloData(initialState.tipoCarta, responseHandTipoCarta).label,
             stampa: handleCarrelloData(initialState.coloreStampa, responseHandColoreStampa).label,
-            dimencioni: `${handleCarrelloData(initialState.formatoS, responseHandFormato).base}x${handleCarrelloData(initialState.formatoS, responseHandFormato).prof}`,
+            dimencioni: handleCarrelloData(initialState.formatoS === null? Number(idFormProd) : initialState.formatoS, responseHandFormato).dimensioni,
+            pdf: handleCarrelloData(initialState.formatoS === null? Number(idFormProd) : initialState.formatoS, responseHandFormato).pdf,
             colli: calcolaTuto?.colli,
             peso: calcolaTuto?.pesoStr,
             prezzo: calcolaTuto?.prezzoCalcolatoNetto,
             descrizione: showColumTable?.descrizione,
             stampaOPZ: _stampaOpz,
             nomeUrl: helperDataProdotto?.url,
-
         }
+        // const objDataProdotto2 = JSON.parse(JSON.stringify(objDataProdotto));
+        
+        
+
+        if(objDataProdotto.idPrev === "33" || objDataProdotto.idPrev === "32"){
+            
+            objDataProdotto.prodotto = objDataProdotto.suporto;
+            objDataProdotto.dimencioni = undefined;
+            objDataProdotto.orientamiento = undefined;
+            objDataProdotto.suporto = undefined;
+            
+        }
+        
+        console.log('nuevo',objDataProdotto);
+
+
         const existCarreloLocal = localStorage.getItem('c');
         let dataCarrelli: any[] = [];
         if (existCarreloLocal) {
@@ -863,9 +878,9 @@ const useRefactorProdotto = () => {
         const data = {
             value: selectedOption ? selectedOption.value : defaultOption.value,
             label: selectedOption ? selectedOption.label : defaultOption.label,
-            base: selectedOption ? selectedOption.lunghezza : defaultOption.lunghezza,
-            prof: selectedOption ? selectedOption.larghezza : defaultOption.larghezza,
+            pdf: selectedOption ? selectedOption.pdf : defaultOption.pdf,
             img: selectedOption ? selectedOption.image : defaultOption.image,
+            dimensioni: selectedOption ? selectedOption.dimensioni : defaultOption.dimensioni,
         }
         return data;
     }

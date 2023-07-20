@@ -5,15 +5,16 @@ export interface ObjCarrello {
     note: string | null;
     qta: number | null;
     img: string | undefined;
-    prodotto: string;
-    orientamiento: string;
-    suporto: string;
+    prodotto: string | undefined;
+    orientamiento: string | undefined;
+    suporto: string| undefined;
     stampa: string;
     colli: number | undefined;
     peso: number | undefined;
     prezzo: number | undefined;
     stampaOPZ: string[];
     descrizione:string | undefined;
-    dimencioni:string;    
+    dimencioni:string | undefined;    
     nomeUrl: string | undefined;
+    pdf: string | undefined;
 }
