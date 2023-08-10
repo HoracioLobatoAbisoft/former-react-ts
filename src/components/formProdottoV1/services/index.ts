@@ -1,5 +1,6 @@
 import applicationConnect from "../../../api";
 import { DataAlertMassimo } from "../interface/AlertMassimo";
+import { ResponseDimensioniStr } from "../interface/DimensioneStr";
 import { ResponseFormato } from "../interface/Formato";
 import { IshowOrientamiento } from "../interface/IshowOrientamiento";
 import { ResponseGetCalcolaTuto } from "../interface/calcolaTuto";
@@ -9,6 +10,7 @@ import { FofliPagine } from "../interface/fogliPagine";
 import { ResponseFormatDinamico } from "../interface/formatoDinamico";
 import { ResposeGetHelperDataProdotto } from "../interface/helpersDataProdotto";
 import { Opzioni } from "../interface/opzioni";
+import { ResponseGetOpzioniStatic } from "../interface/opzioniStatic";
 import { PrezzoValue, ResponsePrezzoTabella } from "../interface/showColumPrezzo";
 import { IShowOpzioni } from "../interface/showOpzioni";
 import { showSvgReponse } from "../interface/showSvg";
@@ -468,6 +470,7 @@ export const httpGetShowAlertMassimo = async (idPrev: number,
 }
 export const httpGetCalcolaTuto = async (code: string,
   qtaSlezionata: number,
+  prezzoOrdini: number,
   idPrevTP: number,
   idTipoCartaTP: number,
   idColoreStampaTP: number,
@@ -478,12 +481,13 @@ export const httpGetCalcolaTuto = async (code: string,
   quantityTP: number,
   idFogliTP: number,
   ivaTP: number,
-  valuesStapaCaldoOpzTP: Record<string, number>,idUt:number) => {
+  valuesStapaCaldoOpzTP: Record<string, number>, idUt: number) => {
   try {
 
     const postCalcolaTuto = {
       code: code,
       qtaSelezionata: qtaSlezionata,
+      prezzoOrdini,
       prodotto: {
         idPrev: idPrevTP,
         idTipoCarta: idTipoCartaTP,
@@ -500,7 +504,7 @@ export const httpGetCalcolaTuto = async (code: string,
       }
     }
 
-    const result = await applicationConnect.post<ResponseGetCalcolaTuto>('Packagin/GetCalcolaTuto',postCalcolaTuto);
+    const result = await applicationConnect.post<ResponseGetCalcolaTuto>('Packagin/GetCalcolaTuto', postCalcolaTuto);
     return result.data;
   } catch (error) {
     //console.log('ERROR CALCOLA TUTO',error)
@@ -508,18 +512,61 @@ export const httpGetCalcolaTuto = async (code: string,
   }
 }
 
-export const httpGetHelperData =async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number, IdFogli: number) => {
+export const httpGetHelperData = async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number, IdFogli: number) => {
   try {
-    const result = await applicationConnect.get<ResposeGetHelperDataProdotto>('Packagin/GetHelperDataProdotto',{params:{
-      IdPrev,
-      IdFormProd,
-      IdTipoCarta,
-      IdColoreStampa,
-      IdFogli,
-    }});
+    const result = await applicationConnect.get<ResposeGetHelperDataProdotto>('Packagin/GetHelperDataProdotto', {
+      params: {
+        IdPrev,
+        IdFormProd,
+        IdTipoCarta,
+        IdColoreStampa,
+        IdFogli,
+      }
+    });
 
     return result.data;
   } catch (error) {
     throw new Error("")
+  }
+}
+
+export const httpGetFormatoStr = async (
+  IdPrev: number,
+  IdFormProd: number,
+  IdTipoCarta: number,
+  IdColoreStampa: number,
+  Larghezza: number | null | undefined ,
+  Profondita: number | null | undefined ,
+  Altezza: number | null | undefined 
+) => {
+  try {
+    const result = await applicationConnect.get<ResponseDimensioniStr>('Packagin/GetDimensioniStr',{params:{
+      IdPrev,
+      IdFormProd,
+      IdTipoCarta,
+      IdColoreStampa,
+      Larghezza,
+      Profondita,
+      Altezza,
+    }})
+    return result.data;
+  } catch (error) {
+    throw new Error('')
+  }
+}
+
+export const httpGetOpzioniCarrello =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number) => {
+  try {
+    
+    const result = await applicationConnect.get<ResponseGetOpzioniStatic>('Packagin/GetOpzioniCarrello',{params:{
+      IdPrev,
+      IdFormProd,
+      IdTipoCarta,
+      IdColoreStampa,
+    }})
+    return result.data;
+  } catch (error) {
+    throw new Error('')
+    
   }
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { DataDisablesProfundita } from "../interface/disabledProfundita";
+import { GLOBAL_CONFIG } from "../../../_config/global";
 
 interface Props {
   label: string;
@@ -113,7 +114,7 @@ export const InputCustom = ({
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
+            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.3)', }} />
           </span>
         )}
         {isHovered && (

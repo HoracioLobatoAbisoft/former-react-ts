@@ -11,5 +11,7 @@ export interface DataGetTotaleProvisorio {
     prezzoTotaleOrdini: number;
     spedizioni: number;
     totaleOridini:number;
+    sconto:number;
+    totalNeto:number;
 }
 

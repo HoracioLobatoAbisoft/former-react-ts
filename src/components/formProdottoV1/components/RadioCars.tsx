@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { OptionsSelect } from '../../formProdotto/interfaces/prodotto';
+import { InitialValuesProdotto, OptionsSelect } from '../../formProdotto/interfaces/prodotto';
 interface Props {
     label: string;
     options: OptionsSelect[];
     name: string;
-    handleChange: any;
-    initialState?: any;
+    handleChange: (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+    initialState?: InitialValuesProdotto;
     setImage?: (i: string | undefined) => void;
+    valuesStampaCaldoOpz: Record<string, number>
 }
-const RadioCars = ({ options, label, name, handleChange, initialState, setImage }: Props) => {
+const RadioCars = ({ options, label, name, handleChange, initialState, setImage, valuesStampaCaldoOpz }: Props) => {
 
     // const [select, setSelect] = useState<string | number>(0)
     // const handleChange = (value: string | number) => {
@@ -22,7 +23,7 @@ const RadioCars = ({ options, label, name, handleChange, initialState, setImage 
     // }
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [hoveredState, setHoveredState] = useState({ a: false, b: 0 });
-    const [options2,setOptions2] = useState<OptionsSelect[]>()
+    const [options2, setOptions2] = useState<OptionsSelect[]>()
     const handleOptionChange = (i: number) => {
         setSelectedOption(i);
         if (setImage) {
@@ -31,8 +32,20 @@ const RadioCars = ({ options, label, name, handleChange, initialState, setImage 
 
         //console.log("valueselected", i)
     };
+
+
+    useEffect(() => {
+        // const name = options[0].label.toString();
+        // valuesStampaCaldoOpz[name] = Number(options[0].value);
+        const name = label;
+        const val = valuesStampaCaldoOpz[name]
+        valuesStampaCaldoOpz[name] = Number(options[0].value);
+
+    }, [])
+
     // useEffect(() => {
-    //     setOptions2(options.filter(obj => obj.value !== 0));
+    //     const name = label;
+    //     valuesStampaCaldoOpz[name] = Number(options[0].value);
     // }, [options])
     //console.log("ASDFADSFf",options)
     return (
@@ -41,53 +54,53 @@ const RadioCars = ({ options, label, name, handleChange, initialState, setImage 
             <div className="flex gap-3 items-center  justify-center row">
                 {
                     options.map((elem, i) => {
-                            return (
-                                
-                                <div className="flex flex-col gap-y-1 col-[1.8] justify-center" key={i}>
-                                    <input
-                                        type="radio"
-                                        name="name"
-                                        value={elem.value}
-                                        checked={selectedOption == i ? true : undefined}
-                                        onChange={handleChange}
-                                        onClick={() => { handleOptionChange(i) }}
-                                        id={elem.value.toString()}
-                                    />
-                                    <label htmlFor={elem.value.toString()}>
-                                        <img onMouseEnter={() => setHoveredState({ a: true, b: i })}
-                                            onMouseLeave={() => setHoveredState({ a: false, b: i })}
-                                            src={`http://95.110.133.251:5051/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] ${selectedOption == i ? 'border-[#d6e03d]' : 'border-[#fff]'}`} />
-                                    </label>
-                                </div>
-                            )
-                        
+                        return (
+
+                            <div className="flex flex-col gap-y-1 col-[1.8] justify-center" key={i}>
+                                <input
+                                    type="radio"
+                                    name={label}
+                                    value={elem.value}
+                                    checked={selectedOption === i}
+                                    onChange={handleChange}
+                                    onClick={() => { handleOptionChange(i) }}
+                                    id={elem.value.toString()}
+                                />
+                                <label htmlFor={elem.value.toString()}>
+                                    <img onMouseEnter={() => setHoveredState({ a: true, b: i })}
+                                        onMouseLeave={() => setHoveredState({ a: false, b: i })}
+                                        src={`https://tipografiaformer.it/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] ${selectedOption == i ? 'border-[#d6e03d]' : 'border-[#fff]'}`} />
+                                </label>
+                            </div>
+                        )
+
                     })
                 }
                 {hoveredState.a && (
-                <div className="absolute bottom-8 right-10 mt-10 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
-                    <div className="flex">
-                        <div className="w-48 max-w-full">
-                            <img
-                                src={`http://95.110.133.251:5051/listino/img/${options[hoveredState.b].image}`}
-                                alt=""
-                            />
-                        </div>
-                        <div className="ml-4">
-                            <div className="mb-3">
-                                <h2 className="text-yellow-400 capitalize">
-                                    {options[hoveredState.b].label}
-                                </h2>
-                                <hr className="border border-white" />
+                    <div className="absolute bottom-8 right-10 mt-10 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
+                        <div className="flex">
+                            <div className="w-48 max-w-full">
+                                <img
+                                    src={`https://tipografiaformer.it/listino/img/${options[hoveredState.b].image}`}
+                                    alt=""
+                                />
                             </div>
-                            <p className="max-w-[500px] text-justify text-white">
-                                {options[hoveredState.b].description}
-                            </p>
+                            <div className="ml-4">
+                                <div className="mb-3">
+                                    <h2 className="text-yellow-400 capitalize">
+                                        {options[hoveredState.b].label}
+                                    </h2>
+                                    <hr className="border border-white" />
+                                </div>
+                                <p className="max-w-[500px] text-justify text-white">
+                                    {options[hoveredState.b].description}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
             </div>
-            
+
 
         </div>
     )

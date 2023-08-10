@@ -6,4 +6,8 @@ export interface ResposeGetHelperDataProdotto {
 
 export interface DataGetHelperDataProdotto {
     url: string;
+    idListinoBase: number;
+    nome:string;
+    imgRif:string;
+    idFormato:number;
 }

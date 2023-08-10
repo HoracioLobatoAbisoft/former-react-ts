@@ -139,6 +139,10 @@ const initialValues: InitialValuesProdotto = {
   facciatePagine: null,
   formatoS: null,
   iva: 0,
+  nome:'',
+  note:'',
+  orientamiento:0,
+  qtaSelezinata:0,
 };
 
 const valuesStampaCaldoOpz: Record<string, number> = {

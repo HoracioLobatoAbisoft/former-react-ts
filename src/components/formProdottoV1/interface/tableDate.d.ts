@@ -12,3 +12,8 @@ export interface TableDate {
     dataSlow: Date;
     dataSlowProduzione: Date;
 }
+
+export interface DateConsegna {
+    date1:Date ,
+    date2:Date ,
+}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { OptionsSelect } from "../../formProdotto/interfaces/prodotto";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { Collapse } from "react-collapse";
+import { GLOBAL_CONFIG } from "../../../_config/global";
 
 interface Props {
   label: string;
@@ -51,7 +52,7 @@ const ListCustom = ({ label, options }: Props) => {
   //         <div className="flex">
   //           <div className="w-48 max-w-full">
   //             <img
-  //               src={`http://95.110.133.251:5051/listino/` + item?.image}
+  //               src={`https://localhost:44311//listino/` + item?.image}
   //               alt=""
   //             />
   //           </div>
@@ -122,7 +123,7 @@ const ListCustom = ({ label, options }: Props) => {
                   // onMouseEnter={() => setHoveredState(true)}
                   // onMouseLeave={() => setHoveredState(false)} 
                   >
-                  <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{transform:'scale(1.3)',}}/>
+                  <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{transform:'scale(1.3)',}}/>
                 </td>
 
               </tr>
@@ -131,7 +132,7 @@ const ListCustom = ({ label, options }: Props) => {
                   <div className="flex">
                     <div className="w-48 max-w-full">
                       <img
-                        src={`http://95.110.133.251:5051/listino/` + item?.image}
+                        src={`https://localhost:44311//listino/` + item?.image}
                         alt=""
                       />
                     </div>
@@ -170,7 +171,7 @@ const ListCustom = ({ label, options }: Props) => {
             //       <div className="flex">
             //         <div className="w-48 max-w-full">
             //           <img
-            //             src={`http://95.110.133.251:5051/listino/` + item?.image}
+            //             src={`https://localhost:44311//listino/` + item?.image}
             //             alt=""
             //           />
             //         </div>

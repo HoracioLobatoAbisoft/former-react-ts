@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { GLOBAL_CONFIG } from "../../../_config/global";
 
 type PropsMenuCarrrelo = {
     handleHidden: () => Promise<void>
@@ -50,7 +51,7 @@ const MenuCarrelo = ({ handleHidden }: PropsMenuCarrrelo) => {
                     </tbody></table>
                 <center>
                     <Link to={'/carrello'} onClick={()=>handleHidden()}>
-                        <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]"><img src="https://localhost:44311/img/icoCarrello.png" width={22} /> Vai al Carrello</button>
+                        <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
                     </Link>
 
                 </center>
@@ -90,14 +91,14 @@ const MenuCarrelo = ({ handleHidden }: PropsMenuCarrrelo) => {
                         </tr>
                     </tbody></table>
                 <center>
-                    <button className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src="https://localhost:44311/img/ico1Click.png" width={22} />Compralo subito</button>
+                    <button className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                 </center>
             </div>
             <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">
                 <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
                 <center>
-                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" ><img width={22} src="https://localhost:44311/img/icoFileTypePdf.png" />Scarica Template</button>
-                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold"><img width={22} src="https://localhost:44311/img/icoCampGratuito.png" /> Campione Gratuito</button>
+                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" ><img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />Scarica Template</button>
+                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold"><img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} /> Campione Gratuito</button>
                 </center>
                 <br />
             </div>

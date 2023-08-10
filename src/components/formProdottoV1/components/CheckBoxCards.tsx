@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { OptionsSelect } from '../../formProdotto/interfaces/prodotto';
+import { GLOBAL_CONFIG } from '../../../_config/global';
 
 interface Props {
     label: string;
     options: OptionsSelect[];
     name: string;
-    handleChange: any;
+    handleChange: (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
     initialState?: any;
     setImage?: (i: string | undefined) => void;
     valuesStampaCaldoOpz:Record<string, number>;
@@ -24,11 +25,16 @@ const CheckBoxCards = ({ options, label, name, handleChange, initialState, setIm
 
         //console.log("valueselected", i)
     };
+
+    // useEffect(() => {
+    //     const name = options[0].label.toString();
+    //     valuesStampaCaldoOpz[name] = Number(options[0].value);
+    // }, [])
+
     useEffect(() => {
         const name = options[0].label.toString();
         valuesStampaCaldoOpz[name] = Number(options[0].value);
-    }, [])
-
+    }, [options])
 
     return (
         <div className=" p-0 m-0 mt-[2px] mb-[40px]">
@@ -42,17 +48,17 @@ const CheckBoxCards = ({ options, label, name, handleChange, initialState, setIm
                                     type="checkbox"
                                     name={elem.label}
                                     value={elem.value}
-                                    //checked={selectedOption2 == 0?true:false}
+                                    //checked={selectedOption2 == i?true:false}
                                     onChange={handleChange}
                                     onClick={() => { handleOptionChange2(i) }}
                                     defaultChecked={i===0}
-                                    defaultValue={elem.value}
-                                    id={i.toString()}
+                                    //defaultValue={elem.value}
+                                    id={elem.value.toString()}
                                 />
-                                <label htmlFor={i.toString()}>
+                                <label htmlFor={elem.value.toString()}>
                                     <img onMouseEnter={() => setHoveredState({ a: true, b: i })}
                                         onMouseLeave={() => setHoveredState({ a: false, b: i })}
-                                        src={`http://95.110.133.251:5051/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] border-[#fff]`} />
+                                        src={`https://tipografiaformer.it/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] border-[#fff]`} />
                                 </label>
                             </div>
                         )
@@ -66,7 +72,7 @@ const CheckBoxCards = ({ options, label, name, handleChange, initialState, setIm
                     <div className="flex">
                         <div className="w-48 max-w-full">
                             <img
-                                src={`http://95.110.133.251:5051/listino/img/${options[hoveredState.b].image}`}
+                                src={`${GLOBAL_CONFIG.IMG_IP}/listino/img/${options[hoveredState.b].image}`}
                                 alt=""
                             />
                         </div>

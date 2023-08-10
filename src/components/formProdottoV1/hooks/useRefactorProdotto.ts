@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { InitialValuesProdotto, OptionsSelect } from '../../formProdotto/interfaces/prodotto';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getSvgImageService, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetHelperData, httpGetOpzioni, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
+import { getSvgImageService, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetFormatoStr, httpGetHelperData, httpGetOpzioni, httpGetOpzioniCarrello, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
 import { TipoDiCarta } from '../interface/tipoCarta';
 import { ColoreStampa } from '../interface/coloreStampa';
 import { Opzioni } from '../interface/opzioni';
 import { OptionsSelectS, StaCalOpz } from '../interface/stampaCaldo';
-import { TableDate } from '../interface/tableDate';
+import { DateConsegna, TableDate } from '../interface/tableDate';
 import { PrezzoValue } from '../interface/showColumPrezzo';
 import { SelectRow, TablePrezzi } from '../interface/table';
 import { IFormato } from '../interface/Formato';
@@ -21,6 +21,8 @@ import { DataGetCalcolaTuto } from '../interface/calcolaTuto';
 import { ObjCarrello } from '../interface/ObjCarrrello';
 import { DataGetHelperDataProdotto } from '../interface/helpersDataProdotto';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
+import { DataDimensioniStr, ResponseDimensioniStr } from '../interface/DimensioneStr';
+import { DataGetOpzioniStatic } from '../interface/opzioniStatic';
 
 const initialValues: InitialValuesProdotto = {
     base: null,
@@ -66,6 +68,8 @@ const useRefactorProdotto = () => {
     const [senderComandargument, setSenderComandargument] = useState("")
     const [valueMapStampaOpz, setValueMapStampaOpz] = useState<OptionsSelect[]>([]);
     const [helperDataProdotto, setHelperDataProdotto] = useState<DataGetHelperDataProdotto>()
+    const [dimensionniStr, setDimensionniStr] = useState<DataDimensioniStr>()
+    const [opzioniListStatic, setOpzioniListStatic] = useState<DataGetOpzioniStatic[]>([])
 
     const [showTablePreez, setShowTablePreez] = useState<boolean>();
     const [orientamiento, setOrientamiento] = useState<boolean>();
@@ -75,21 +79,28 @@ const useRefactorProdotto = () => {
     const [showFaciatePagine, setShowFaciatePagine] = useState<boolean>()
     const [showQtaCustom, setShowQtaCustom] = useState<boolean>()
     const [viewRows, setViewRows] = useState<Boolean>(true)
+    const [openLoadingBackdrop, setOpenLoadingBackdrop] = useState<boolean>(false)
 
     const [textMetrics, setTextMetrics] = useState<string>('')
     const [formatoDinamico, setFormatoDinamico] = useState<string>('')
     const [imgAcoppiati, setimgAcoppiati] = useState<string | undefined>()
     const [labelFogli, setLabelFogli] = useState<string>('');
     const [alertMassimo, setAlertMassimo] = useState<string>("")
+    const [codeStart, setCodeStart] = useState<string>("N")
+    const [textTipoCarta, setTextTipoCarta] = useState<string>('')
+
+    const [dateConsegna, setDateConsegna] = useState<DateConsegna>()
+
+    const [qtaSelezinata, setQtaSelezinata] = useState<number>(0)
     const [heplerFormProd, setHeplerFormProd] = useState<number>(0)
 
     const [showCoperatina, setShowCoperatina] = useState<number>()
     const [showSotoblocco, setShowSotoblocco] = useState<number>();
 
-    const [selectRow, setSelectRow] = useState<SelectRow>({
-        conditional: false,
-        value: 0,
-        quantity: 250
+    const [scadenza, setScadenza] = useState<Date>()
+
+    const [selectRow, setSelectRow] = useState({
+
     })
     const [mmValue, setMMValue] = useState({ "base": true, "depth": true, "height": true })
     const [copertina, setCopertina] = useState([{
@@ -110,11 +121,15 @@ const useRefactorProdotto = () => {
 
     const handleData = async () => {
         try {
-
+            setOpenLoadingBackdrop(true)
             const responseUtente = await getUtente(Number(idUt))
             setUtenteData(responseUtente);
 
-            const reponseHelperData = await getHelpersData(Number(idPrev), Number(idFormProd), Number(IdTipoCarta), Number(IdColoreStampa), Number(idFogli))
+            const reponseHelperData = await getHelpersData(Number(idPrev),
+                initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,
+                initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
+                initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
+                initialState.facciatePagine === null ? Number(idFogli) : initialState.facciatePagine,)
             setHelperDataProdotto(reponseHelperData.data);
 
 
@@ -153,6 +168,7 @@ const useRefactorProdotto = () => {
                 initialState.height === null ? 0 : initialState.height,)
 
             setTablaDate(responseDateTable.data);
+            setDateConsegna({ ...dateConsegna, date1: responseDateTable.data.dataNormale, date2: responseDateTable.data.dataNormaleProduzione })
 
             const responseShowColumnTable = await getShowColumnTable(Number(idPrev))
             setShowColumTable(responseShowColumnTable?.data)
@@ -234,7 +250,7 @@ const useRefactorProdotto = () => {
             setShowFaciatePagine(responseShowFoliPagine.data.showFogliPagine)
             setShowFlogiPagine(responseShowFoliPagine.data.data)
             setLabelFogli(responseShowFoliPagine.data.fogliLabel)
-
+            setTextTipoCarta(responseShowFoliPagine.data.tipoCartaText);
 
             const responseShowOpzioni = await getShowOpzioni(Number(idPrev))
             setShowOpzzioni(responseShowOpzioni.data);
@@ -252,7 +268,7 @@ const useRefactorProdotto = () => {
 
             const responseCalcolaTuto = await getCalcolaTuto(
                 "N",
-                0,
+                0, 0,
                 Number(idPrev),
                 initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
                 initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
@@ -266,7 +282,14 @@ const useRefactorProdotto = () => {
                 valuesStampaCaldoOpz)
 
             setCalcolaTuto(responseCalcolaTuto.data)
+            setQtaSelezinata(responseCalcolaTuto.data.qta);
+            await handleOpzionisStatic();
+            if (initialState.base != null && initialState.depth != null) {
 
+                await handleShowAlertMassimo();
+            }
+
+            setOpenLoadingBackdrop(false)
         } catch (error) {
             console.log('ErrorHandleData', error)
         }
@@ -460,6 +483,7 @@ const useRefactorProdotto = () => {
     const getCalcolaTuto = async (
         code: string,
         qtaSlezionata: number,
+        prezzoOrdini: number,
         idPrevTP: number,
         idTipoCartaTP: number,
         idColoreStampaTP: number,
@@ -473,6 +497,7 @@ const useRefactorProdotto = () => {
         valuesStapaCaldoOpzTP: Record<string, number>) => {
         const responseCalcolaTuto = await httpGetCalcolaTuto(code,
             qtaSlezionata,
+            prezzoOrdini,
             idPrevTP,
             idTipoCartaTP,
             idColoreStampaTP,
@@ -489,22 +514,43 @@ const useRefactorProdotto = () => {
     }
 
     const getHelpersData = async (IdPrevHD: number, IdFormProdHD: number, IdTipoCartaHD: number, IdColoreStampaHD: number, IdFogliHD: number) => {
-        const respondeHelperData = httpGetHelperData(IdPrevHD, IdFormProdHD, IdTipoCartaHD, IdColoreStampaHD, IdFogliHD);
+        const respondeHelperData = await httpGetHelperData(IdPrevHD, IdFormProdHD, IdTipoCartaHD, IdColoreStampaHD, IdFogliHD);
 
         return respondeHelperData;
+    }
+
+    const getFormatoStr = async (IdPrevFS: number, IdFormProdFS: number, IdTipoCartaFS: number, IdColoreStampaFS: number, BaseFS: number | null | undefined, ProfonditaFS: number | null | undefined, Altezza: number | null | undefined) => {
+        const responseFormatoStr = await httpGetFormatoStr(IdPrevFS, IdFormProdFS, IdTipoCartaFS, IdColoreStampaFS, BaseFS, ProfonditaFS, Altezza)
+
+        return responseFormatoStr;
+    }
+
+    const getOpzioniStatic = async (IdPrevOST: number, IdFormProdOST: number, IdTipoCartaOST: number, IdColoreStampaOST: number) => {
+        const responseOpzioniStatic = await httpGetOpzioniCarrello(IdPrevOST, IdFormProdOST, IdTipoCartaOST, IdColoreStampaOST)
+        return responseOpzioniStatic;
     }
 
     /* 
     * <===================handleChange | eventos de cambios=======================>
     */
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        //console.log(evt.target.name,evt.target.value);
+        console.log('stampaOzp\n', evt.target.name, evt.target.value);
         const { name, value } = evt.target;
 
         if (name !== "Format" && name !== "base" && name !== "coloreStampa" && name !== "depth" && name !== "height" && name !== "quantity" && name !== "tipoCarta" && name !== "formatoS" && name !== "facciatePagine" && name !== 'nome' && name !== 'note') {
             //console.log('NO esta ',name,value);
-            //valuesStampaCaldoOpz[name] = Number(value);
-            setValuesStampaCaldoOpz({ ...valuesStampaCaldoOpz, [name]: Number(value) })
+            // valuesStampaCaldoOpz[name] = Number(value);
+
+            // effectTablePrezzi()
+            // if (valuesStampaCaldoOpz) {
+            //     effectTablePrezzi()
+            // }
+            //valuesStampaCaldoOpz.name = Number(value);
+
+            setValuesStampaCaldoOpz({
+                ...valuesStampaCaldoOpz,
+                [name]: Number(value)
+            });
         }
         if (name === "base" || name === "depth" || name === "height") {
             if (parseInt(value) > 0) {
@@ -514,8 +560,8 @@ const useRefactorProdotto = () => {
                 })
             }
         }
-        if (name == "tipoCarta") setValuesStampaCaldoOpz({})
-        if (name == "formatoS") { setValuesStampaCaldoOpz({}) };
+        // if (name == "tipoCarta") setValuesStampaCaldoOpz({})
+        // if (name == "formatoS") { setValuesStampaCaldoOpz({}) };
 
         switch (name) {
             case 'base':
@@ -572,6 +618,9 @@ const useRefactorProdotto = () => {
         }
 
     }
+
+
+
     /**
      * * !!!!!!!!!!!!Funciones Handle De Listado de Opciones!!!!!!!!!!!!!
      */
@@ -654,8 +703,7 @@ const useRefactorProdotto = () => {
                 description: elem.descrizioneHTML,
                 image: elem.imgRif,
                 formatoCartaStr: elem.formatoCartaStr,
-                larghezza: elem.larghezza,
-                lunghezza: elem.lunghezza
+                pdfTemplate: elem.pdfTemplate,
             }
         })
         return options;
@@ -749,13 +797,15 @@ const useRefactorProdotto = () => {
         setViewRows(!viewRows)
     }
 
-    const handleCalcolaTuto = async (code: string, QtaSelezionata: number) => {
+    const handleCalcolaTuto = async (code: string, QtaSelezionata: number, prezzoOrdini: number) => {
 
         initialState.qtaSelezinata = QtaSelezionata;
-
+        setCodeStart(code)
+        setQtaSelezinata(QtaSelezionata)
         const responseCalcolaTuto = await getCalcolaTuto(
             code,
             QtaSelezionata,
+            prezzoOrdini,
             Number(idPrev),
             initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
             initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
@@ -773,9 +823,49 @@ const useRefactorProdotto = () => {
         setCalcolaTuto(responseCalcolaTuto.data)
     }
 
+    const handleSelectDate = (code: string, date1: Date | undefined, date2: Date | undefined) => {
+        console.log('Code: ', code, "Date1", date1, "Date2", date2)
+
+        if (date1 != undefined && date2 != undefined) {
+            setDateConsegna({ date1: date1, date2: date2 })
+        }
+    }
+
+    const handleDimensioniStr = async () => {
+        const dimensioneStr = await getFormatoStr(Number(idPrev),
+            initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS, initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
+            initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
+            initialState.base, initialState.depth, initialState.height
+        );
+
+        setDimensionniStr(dimensioneStr.data)
+    }
+
+    const handleShowAlertMassimo = async () => {
+        const responseGetShowAlertMassimo = await getShowAlertMassimo(Number(idPrev),
+            initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
+            initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
+            initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,
+            initialState.base === null ? 0 : initialState.base,
+            initialState.depth === null ? 0 : initialState.depth,
+            initialState.height === null ? 0 : initialState.height,
+            initialState.quantity === null ? 0 : initialState.quantity,
+            initialState.facciatePagine === null ? Number(idFogli) : initialState.facciatePagine,
+            initialState.iva === null ? 0 : initialState.iva,
+            valuesStampaCaldoOpz)
+
+        setAlertMassimo(responseGetShowAlertMassimo.data)
+        if (responseGetShowAlertMassimo.data != '') {
+            setShowTablePreez(false)
+            setTablaDataPrezzi([])
+        }
+    }
+
     const handleCarrello = async () => {
+
         //const arrayCarrello = [];
-        await handleHidden()
+        handleHidden();
+
         const responseHandFormato = hanldeFormatoList();
         const responseHandTipoCarta = handleOptionsTipoCarta();
         const responseHandColoreStampa = handleOptionsColoreStampa();
@@ -787,56 +877,79 @@ const useRefactorProdotto = () => {
             const value = valuesStampaCaldoOpz[key];
             const objVaStampa: OptionsSelect = {
                 label: key,
-                value: value
+                value: value,
             }
             arrayStampa.push(objVaStampa);
             //console.log("ValuyeOpz\n", key, value);
         })
         const _stampaOpz: string[] = []
-        const responseHandStampaValues = stampaCalOpz?.map((elem, i) => {
-            const responseHandStampaOpz = handleStampaCaldoOpz(elem.optionsSelect);
-            //debugger
-            if (arrayStampa.length > 0) {
-                const data2 = responseHandStampaOpz[0].value;
-                arrayStampa.map((elem, i) => {
-                    if (data2 == 0) {
+        const _stampaOpzAllString: string[] = []
 
-                        const responseHanData = handleCarrelloData(Number(elem.value), responseHandStampaOpz);
-                        _stampaOpz.push(String(responseHanData.label))
+        if (arrayStampa.length > 0) {
+
+            stampaCalOpz?.map((elem, i) => {
+                const responseHandStampaOpz = handleStampaCaldoOpz(elem.optionsSelect);
+                arrayStampa.map((item, j) => {
+                    if (item.value != 0) {
+                        const dataPush = responseHandStampaOpz.find(x => x.value == item.value);
+                        //console.log("dataPush", dataPush);
+                        if (dataPush != undefined) {
+                            _stampaOpz.push(String(dataPush?.label))
+                        }
                     }
                 })
-                if (data2 != 0) {
 
-                    const responseHanData = handleCarrelloData(Number(data2), responseHandStampaOpz)
-                    _stampaOpz.push(String(responseHanData.label))
-                }
-            } else {
+            })
 
-                const responseHanData = handleCarrelloData(null, responseHandStampaOpz)
-                _stampaOpz.push(String(responseHanData.label));
-            }
+        }
+        if (parseInt(String(idFustella)) === 0) {
+            opzioniList.map((item, i) => {
+                _stampaOpz.push(item.descrizione);
+            })
+        }
+
+        const noExistentes = opzioniListStatic.filter((x) =>
+            stampaCalOpz?.every((y) =>
+                !y.optionsSelect.some((z) => z.idLavoro === x.idLavoro)
+            )
+        );
+        noExistentes.map((ele, i) => {
+            _stampaOpz.push(ele.descrizione);
         })
 
+        //console.log('StampaLstss', _stampaOpz)
         const objDataProdotto: ObjCarrello = {
             idUt: idUt,
             idPrev: idPrev,
+            IdFormProd:initialState.formatoS == null ? idFormProd : initialState.formatoS,
+            IdTipoCarta :initialState.tipoCarta == null ? IdTipoCarta : initialState.tipoCarta,
+            IdColoreStampa :initialState.coloreStampa == null ? IdColoreStampa : initialState.coloreStampa,
             nome: initialState.nome,
             note: initialState.note,
-            qta: initialState.qtaSelezinata,
-            img: handleCarrelloData(initialState.formatoS, responseHandFormato).img,
-            prodotto: handleCarrelloData(initialState.formatoS, responseHandFormato).label,
-            orientamiento: handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
+            qta: qtaSelezinata,
+            img: showSvg ? imageSvg : helperDataProdotto?.imgRif,
+            svgImg: showSvg,
+            prodotto: dimensionniStr?.prodotto,
+            orientamiento: orientamiento && handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
             suporto: handleCarrelloData(initialState.tipoCarta, responseHandTipoCarta).label,
             stampa: handleCarrelloData(initialState.coloreStampa, responseHandColoreStampa).label,
-            dimencioni: `${handleCarrelloData(initialState.formatoS, responseHandFormato).base}x${handleCarrelloData(initialState.formatoS, responseHandFormato).prof}`,
+            dimencioni: parseInt(String(idBaseEtiquete)) != 0 ? `(${idBaseEtiquete}B x ${idAltezaEtiquete}A mm)` : dimensionniStr?.dimensioniStr,
             colli: calcolaTuto?.colli,
             peso: calcolaTuto?.pesoStr,
             prezzo: calcolaTuto?.prezzoCalcolatoNetto,
             descrizione: showColumTable?.descrizione,
             stampaOPZ: _stampaOpz,
             nomeUrl: helperDataProdotto?.url,
-
-        }
+            scadenza: dateConsegna,
+            code: codeStart,
+            idListinoBase: helperDataProdotto?.idListinoBase,
+            showFogli: showFaciatePagine,
+            fogli: handleCarrelloData(initialState.facciatePagine, responseHandFacPagine).label,
+            labelFogli: labelFogli,
+            pdfTemplate: handleCarrelloData(initialState.formatoS, responseHandFormato).pdfTemplate,
+            idReparto: dimensionniStr?.idReparto,
+            
+        }//Buste Intestate 11x23 con Finestra e strip a colori solo fronte
         const existCarreloLocal = localStorage.getItem('c');
         let dataCarrelli: any[] = [];
         if (existCarreloLocal) {
@@ -849,21 +962,30 @@ const useRefactorProdotto = () => {
         //navigate('/carrello');
     }
 
-    const handleHidden = async() => {
+    const handleHidden = async () => {
+        console.log('mando 1')
         window.parent.postMessage({ color: 'bg_hidden', operation: enOperationFrame.hidden }, 'https://localhost:44311/');
     }
 
-    const handleCarrelloData = (Id: number | null, options: OptionsSelect[]) => {
+    const handleCarrelloData = (Id: number | null | undefined, options: OptionsSelect[]) => {
         const defaultOption = options[0];
         const selectedOption = options.find(x => x.value === Number(Id));
         const data = {
             value: selectedOption ? selectedOption.value : defaultOption.value,
             label: selectedOption ? selectedOption.label : defaultOption.label,
-            base: selectedOption ? selectedOption.lunghezza : defaultOption.lunghezza,
-            prof: selectedOption ? selectedOption.larghezza : defaultOption.larghezza,
+            dimencioni: selectedOption ? selectedOption.formatoCartaStr : defaultOption.formatoCartaStr,
             img: selectedOption ? selectedOption.image : defaultOption.image,
+            pdfTemplate: selectedOption ? selectedOption.pdfTemplate : defaultOption.pdfTemplate,
         }
         return data;
+    }
+
+    const handleOpzionisStatic = async () => {
+        const responseOpzioniStatic = await getOpzioniStatic(Number(idPrev),
+            initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,
+            initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
+            initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa)
+        setOpzioniListStatic(responseOpzioniStatic.data);
     }
 
     //console.log("params2",idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idFogli, idUt, idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete)
@@ -885,6 +1007,10 @@ const useRefactorProdotto = () => {
             initialState.iva === null ? 0 : initialState.iva,
             valuesStampaCaldoOpz
         )
+
+
+
+
         setTablaDataPrezzi(responseTablePrezzi.data);
 
     }
@@ -892,10 +1018,11 @@ const useRefactorProdotto = () => {
     const efectFormato = async () => {
         //debugger
         if (initialState.formatoS != null && initialState.formatoS != Number(idFormProd)) {
+            setValuesStampaCaldoOpz({})
             console.log('cambio formato')
             //console.log("cambio formatoS",)
             // initialState.tipoCarta = null;
-            // initialState.coloreStampa = null;
+            // initialState.coloreStampa = null; 
             initialState.base = null;
             initialState.depth = null;
             initialState.height = null;
@@ -915,6 +1042,30 @@ const useRefactorProdotto = () => {
 
             const responseShowOrientamiento = await getShowOrientamiento(Number(idPrev), initialState.formatoS, responseTipoCarta.data[0].idTipoCarta, responseColoreStampa.data[0].idColoreStampa)
             setOrientamiento(responseShowOrientamiento.data)
+
+            const responseShowFoliPagine = await getShowFogliPagine(Number(idPrev), responseTipoCarta.data[0].idTipoCarta, responseColoreStampa.data[0].idColoreStampa, initialState.formatoS, initialState.base === null ? 0 : initialState.base,
+                initialState.depth === null ? 0 : initialState.depth,
+                initialState.height === null ? 0 : initialState.height,
+                initialState.quantity === null ? 0 : initialState.quantity,
+                initialState.facciatePagine === null ? Number(idFogli) : initialState.facciatePagine,
+                initialState.iva === null ? 0 : initialState.iva, valuesStampaCaldoOpz);
+            initialState.facciatePagine = responseShowFoliPagine.data.data[0].valoreRif;
+            idFogli = String(responseShowFoliPagine.data.data[0].valoreRif);
+
+            // const responseCalcolaTuto = await getCalcolaTuto(codeStart, qtaSelezinata, Number(idPrev), responseTipoCarta.data[0].idTipoCarta, responseColoreStampa.data[0].idColoreStampa, initialState.formatoS, initialState.base === null ? 0 : initialState.base,
+            //     initialState.depth === null ? 0 : initialState.depth,
+            //     initialState.height === null ? 0 : initialState.height,
+            //     initialState.quantity === null ? 0 : initialState.quantity, responseShowFoliPagine.data.data[0].valoreRif,initialState.iva === null ? 0 : initialState.iva,valuesStampaCaldoOpz)
+
+            // setCalcolaTuto(responseCalcolaTuto.data);
+
+            // const reponseHelperData = await getHelpersData(Number(idPrev), initialState.formatoS,
+            //     initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
+            //     initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
+            //     initialState.facciatePagine === null ? Number(idFogli) : initialState.facciatePagine,)
+            // setHelperDataProdotto(reponseHelperData.data);
+
+            //const responseHelperData = await 
             //initialState.formatoS = null;
             await effectTablePrezzi()
         } else {
@@ -934,7 +1085,7 @@ const useRefactorProdotto = () => {
     const efectTipoCarta = async () => {
         if (initialState.tipoCarta != null && initialState.tipoCarta != Number(IdTipoCarta)) {
             console.log("cambio TipoCarta")
-
+            setValuesStampaCaldoOpz({})
             initialState.coloreStampa = null;
             initialState.base = null;
             initialState.depth = null;
@@ -954,7 +1105,7 @@ const useRefactorProdotto = () => {
             await effectTablePrezzi()
 
         } else {
-            console.log('cambio tipo carta else')
+            //console.log('cambio tipo carta else')
             //initialState.tipoCarta = null;
             initialState.coloreStampa = null;
             initialState.base = null;
@@ -984,6 +1135,15 @@ const useRefactorProdotto = () => {
         }
     }
 
+    const effectSvg = async () => {
+        if (initialState.base && initialState.depth && initialState.height) {
+            const responseSvg = await getSVG((initialState.base), (initialState.depth), (initialState.height), Number(idPrev),)
+            setImageSvg(responseSvg.data);
+        }
+    }
+
+
+
     useEffect(() => {
         efectFormato();
     }, [initialState.formatoS])
@@ -993,8 +1153,8 @@ const useRefactorProdotto = () => {
     }, [initialState.tipoCarta])
 
     // useEffect(() => {
-    //     effectTablePrezziNull();
-    // }, [initialState.base, initialState.depth, initialState.height, initialState.quantity, initialState.iva, initialState.coloreStampa, initialState.facciatePagine, valuesStampaCaldoOpz])
+    //     effectTablePrezzi();
+    // }, [valuesStampaCaldoOpz])
 
     useEffect(() => {
         const c = localStorage.getItem('c')
@@ -1003,10 +1163,13 @@ const useRefactorProdotto = () => {
             localStorage.setItem('c', JSON.stringify(arrayObj))
         }
         handleData();
+        effectSvg();
+        handleDimensioniStr();
+
     }, [initialState.base, initialState.depth, initialState.height, initialState.quantity, initialState.iva, initialState.coloreStampa, initialState.facciatePagine, valuesStampaCaldoOpz])
 
     //console.log("setSenderComandargument" ,tablaDataPrezzi)
-    //console.log("opcioniList", opzioniList)
+    console.log("opcioniList", valuesStampaCaldoOpz)
     return {
         ...initialState,
         initialState,
@@ -1059,7 +1222,17 @@ const useRefactorProdotto = () => {
         handleCalcolaTuto,
         calcolaTuto,
         handleCarrello,
-        handleHidden
+        handleHidden,
+        setScadenza,
+        handleSelectDate,
+        textTipoCarta,
+        idFormProd, IdTipoCarta, IdColoreStampa,
+        setTablaDataPrezzi,
+        qtaSelezinata,
+        setQtaSelezinata,
+        idFustella,
+        openLoadingBackdrop,
+        setOpenLoadingBackdrop
     }
 }
 

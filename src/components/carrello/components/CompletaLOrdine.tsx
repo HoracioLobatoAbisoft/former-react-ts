@@ -1,47 +1,83 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ImageCustom } from '../../formProdottoV1/components/ImageCustom';
 import { SvgImage } from '../../formProdottoV1/interface/svgImage';
 import TotaleProvvisorio from './TotaleProvvisorio';
 import AcordionCarrello from "./AcordionCarrello";
 import { ObjCarrello } from "../../formProdottoV1/interface/ObjCarrrello";
 import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
+import { GLOBAL_CONFIG } from "../../../_config/global";
 type PropsCompletaLOrdine = {
     ArrayLocalCarrello: ObjCarrello[];
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
 
     handleDeleteAllCarrello: () => void
-    handleRetornaProdotto: (i:number,uri:string) => void
+    handleRetornaProdotto: (i: number, uri: string) => void
     setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>
-    
+
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
     step: number
-    deleteItem:(i:number) => void
+    deleteItem: (i: number) => void
 }
-const CompletaLOrdine = ({ArrayLocalCarrello,TotaleProvisorio,handleDeleteAllCarrello,handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step,deleteItem}:PropsCompletaLOrdine) => {
+
+type dataOrdineStep5 = {
+    email: string | null;
+    indirizzo: string | null;
+    fecha: string | null;
+    consega: string | null;
+    pesokg: string | null;
+    corrie: string | null;
+    corrieI: string | null;
+    corrieD: string | null
+}
+
+
+const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem }: PropsCompletaLOrdine) => {
+
+
+    const [dataOrdine, setDataOrdine] = useState<dataOrdineStep5>()
+
+
+    const getDataLocalOrdine = () => {
+        const mail = localStorage.getItem('mil')
+        const indi = localStorage.getItem('ind')
+        const scande = localStorage.getItem('scande')
+        const cons = localStorage.getItem('cons')
+        const pesokg = localStorage.getItem('pzo')
+        const corrie = localStorage.getItem('tp')
+        const corrieI = localStorage.getItem('tpI')
+        const corrieD = localStorage.getItem("tpD")
+
+        if (cons == '0') {
+            setDataOrdine({ ...dataOrdine, consega: cons, email: null, fecha: scande, indirizzo: 'Tipografia Former, Via Cassia, 2010 - 00123 Roma', pesokg: pesokg,corrie,corrieI,corrieD })
+            localStorage.removeItem('mil')
+        } else {
+            setDataOrdine({ ...dataOrdine, consega: cons, email: mail, fecha: scande, indirizzo: indi, pesokg: pesokg,corrie,corrieI,corrieD })
+        }
+    }
+
+    const sconto = localStorage.getItem('sc')
+
+    useEffect(() => {
+        getDataLocalOrdine();
+    }, [])
+
     return (
         <div className="flex gap-5">
             <div className="w-[73%]">
-                <h3 className="flex gap-3 font-semibold"><img src="https://localhost:44311/img/icoCarrello16.png" className="w-[20px] h-[20px]" /> Riepilogo Ordine</h3>
+                <h3 className="flex gap-3 font-semibold"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} className="w-[20px] h-[20px]" /> Riepilogo Ordine</h3>
                 <hr className="border my-2" />
-                <AcordionCarrello deleteItem={deleteItem} handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello}  handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello} step={step}
-                 setStepperStep={setStepperStep}/>
-                {/* <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto}
-                 ArrayLocalCarrello={ArrayLocalCarrello} 
-                 deleteItem={deleteItem}
-                 handleDeleteAllCarrello={handleDeleteAllCarrello} 
-                 setArrayLocalCarrello={setArrayLocalCarrello}
-                 step={step}
-                 setStepperStep={setStepperStep}/> */}
+                <AcordionCarrello deleteItem={deleteItem} handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello} step={step}
+                    setStepperStep={setStepperStep} />
                 <div className="mt-[25px]">
-                    <h2 className="text-[14px] font-bold border-b-[1px]  border-[#aaa] mb-[10px] flex gap-1"><img src="https://localhost:44311/img/icoAttach16.png" className='w-[16px] h-[16px]' />Allega i file</h2>
+                    <h2 className="text-[13px] font-bold border-b-[1px]  border-[#aaa] mb-[10px] flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoAttach16.png`} className='w-[16px] h-[16px]' />Allega i file</h2>
                     <div className="border border-[#aaa] ps-[15px] py-[5px] text-[12px] rounded-[5px] bg-[#f1f1f1]">
                         Una volta completato l'ordine, ed eventualmente effettuato il pagamento (se sceglierai una modalità di pagamento anticipata), potrai allegare i file PDF entrando nel dettaglio di ogni lavoro dalla sezione <b>'I tuoi lavori'</b>.
                     </div>
                 </div>
                 <div className="mt-[25px]">
-                    <h1 className="flex gap-2 "><img src="https://localhost:44311/img/icoCorriere20.png" alt="" height={25} width={21} /><strong>Scegli la Consegna</strong></h1>
+                    <h1 className="flex gap-2 text-[13px]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCorriere20.png`} alt="" height={25} width={21} /><strong>Consegna</strong></h1>
                     <hr className="border-[1px] my-[5px]" />
                     <div className="text-[12px] border border-[#aaa] ps-[15px] py-[5px] rounded-[5px] bg-[#f1f1f1]">
                         <div className="flex gap-[30px]">
@@ -50,44 +86,47 @@ const CompletaLOrdine = ({ArrayLocalCarrello,TotaleProvisorio,handleDeleteAllCar
                                 <p className="">Metodo di Consegna scelto:</p>
                                 <p className="">Indirizzo di Consegna: </p>
                                 <p className="">Peso Complessivo:</p>
+                                <p className="">{dataOrdine?.email && 'Email notifiche:'}</p>
                             </div>
                             <div className=" leading-6">
-                                <p className="bg-[#d6e03d] w-[164px] text-[16px] ps-[1px] font-bold">Lunedì 17 Luglio 2023</p>
-                                <p className="">Con Corriere</p>
-                                <p className="">Dimmagine s.r.l., VIA TRIESTE, 8 - 00040 Pomezia (RM)</p>
-                                <p className="">1 kg ±</p>
+                                <p className="bg-[#d6e03d] text-center  w-[200px] text-[16px] ps-[1px] font-bold capitalize">{dataOrdine?.fecha}</p>
+                                <p className="text-[16px] font-bold">{dataOrdine && dataOrdine?.consega == '1' ? 'Con Corriere' : 'Compra e Ritira '}</p>
+                                <p className="">{dataOrdine?.indirizzo ? dataOrdine?.indirizzo  : 'Tipografia Former, Via Cassia, 2010 - 00123 Roma'}</p>
+                                <p className="">{dataOrdine?.pesokg} kg ±</p>
+                                <p className="">{dataOrdine?.email}</p>
                             </div>
                         </div>
                         <div className="w-full flex justify-end pe-[10px]">
-                            <a className="cursor-pointer hover:underline" style={{'fontSize':11}} onClick={()=>setStepperStep(3)}>
+                            <a className="cursor-pointer hover:underline" style={{ 'fontSize': 11 }} onClick={() => setStepperStep(3)}>
                                 Modifica
                             </a>
                         </div>
                     </div>
                 </div>
                 <div className="mt-[25px]">
-                    <h2 className='text-[14px] font-bold flex gap-2'><img src="https://localhost:44311/img/icoPrezzo16.png" className='w-[13px] h-[16px]' /> Scegli il Pagamento</h2>
+                    <h2 className='text-[14px] font-bold flex gap-2'><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo16.png`} className='w-[13px] h-[16px]' />Pagamento</h2>
                     <hr className='my-[5px] border-[1px]' />
-                    <div className="flex flex-col gap-2 text-[12px] border border-[#aaa] ps-[15px] py-[10px] rounded-[5px] bg-[#f1f1f1]">
-                        <div className="flex gap-2">
-                            <span className='text-[#68af68]'>✔</span>
-                            <img src="https://localhost:44311/img/payment/icoBB60.png" className='w-[32pxpx] h-[32px]' />
+                    <div className="flex flex-col justify-between gap-2  h-[118px] text-[12px] border border-[#aaa] ps-[15px] py-[10px] rounded-[5px] bg-[#f1f1f1]">
+                        <div className="flex gap-2 ">
+                            {/* <span className='text-[#68af68]'>✔</span> */}
+                            <img src={`${GLOBAL_CONFIG.IMG_IP}/${dataOrdine?.corrieI}`} className='w-[32pxpx] h-[32px] ' />
                             <div className="">
-                                <p className='text-[14px] font-bold ml-[]'>60 giorni data fattura,</p>
-                                <p className="text-[12px]">Effettua un Bonifico Bancario a 60 giorni dalla data della fattura</p>
-                                <p className="mt-[15px]">Se vuoi utilizzare un <span className="text-[green] font-bold">Coupon di Sconto</span> clicca qui</p>
+                                <p className='text-[14px] font-bold ml-[] mb-1'>{dataOrdine?.corrie}</p>
+                                <p className="text-[12px]">{dataOrdine?.corrieD}</p>
+                                {!sconto && <a className="block mt-[15px] hover:underline cursor-pointer" onClick={() => setStepperStep(4)}>Se vuoi utilizzare un <span className="text-[green] font-bold ">Coupon di Sconto</span> clicca qui</a>}
+                                
                             </div>
 
                         </div>
                         <div className="w-full flex justify-end pe-[10px]">
-                            <a className="cursor-pointer hover:underline" style={{'fontSize':11}} onClick={()=>setStepperStep(4)}>
+                            <a className="cursor-pointer hover:underline" style={{ 'fontSize': 11 }} onClick={() => setStepperStep(4)}>
                                 Modifica
                             </a>
                         </div>
                     </div>
                 </div>
                 <div className="mt-[25px] text-[12px]">
-                    <h2 className='text-[14px] font-bold flex gap-2'><img src="https://localhost:44311/img/IcoInfo20.png" className='w-[20px] h-[20px]' /> Condizioni di Vendita</h2>
+                    <h2 className='text-[14px] font-bold flex gap-2'><img src={`${GLOBAL_CONFIG.IMG_IP}/img/IcoInfo20.png`} className='w-[20px] h-[20px]' /> Condizioni di Vendita</h2>
                     <hr className='my-[5px] border-[1px]' />
                     <p className="">Proseguendo con l'ordine si considerano accettate le seguenti clausole contrattuali</p>
                     <div className="h-[180px] text-[10px] mt-[10px] font-[arial] box-border overflow-scroll overflow-x-hidden border border-[#aaa] p-[10px]">
@@ -99,7 +138,7 @@ const CompletaLOrdine = ({ArrayLocalCarrello,TotaleProvisorio,handleDeleteAllCar
                 </div>
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio  TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}/>
+                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
             </div>
         </div>
     )

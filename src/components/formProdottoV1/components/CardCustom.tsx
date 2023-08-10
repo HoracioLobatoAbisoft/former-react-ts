@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { OptionsSelect } from "../../formProdotto/interfaces/prodotto"
+import { GLOBAL_CONFIG } from "../../../_config/global";
 
 interface Props {
     options: OptionsSelect[]
@@ -29,7 +30,7 @@ export const CardCustom = ({ options, title, valueSelect, width = 60, height = 6
                             <img
                                 width={width}
                                 height={height}
-                                src={`http://95.110.133.251:5051/listino/` + elem?.image}
+                                src={`${GLOBAL_CONFIG.IMG_IP}/listino/` + elem?.image}
                                 alt=""
                             />
                             <p className="text-center text-xs mt-[3px] font-[Arial] leading-[13px] text-[13px] text-gray-500">{elem.label}</p>

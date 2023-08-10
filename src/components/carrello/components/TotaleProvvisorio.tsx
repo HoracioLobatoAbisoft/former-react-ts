@@ -7,17 +7,20 @@ import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 import { formatNumber } from '../../../services/NumberFormat';
 import { useNavigate } from 'react-router-dom';
 
-type PropsTotale ={
+type PropsTotale = {
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
-    step:number
+    step: number
 }
 
 // const TotaleProvvisorio = ({TotaleProvisorio}:PropsTotale) => {
-const TotaleProvvisorio = ({TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step}:PropsTotale) => {
+const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step }: PropsTotale) => {
     const navigate = useNavigate();
+
+    const scontoLocal = localStorage.getItem('sc')
+
     return (
         <div className="">
             <div className="bg-[#f1f1f1] w-full text-[14px] mt-[30px] rounded-[3px] p-[10px]">
@@ -30,24 +33,41 @@ const TotaleProvvisorio = ({TotaleProvisorio, setStepperStep, changebuttonstep, 
                                 <hr className="border border-[#d6e03d]  mb-[7px]" />
                             </td>
                         </tr>
+
                         <tr>
                             <td className="px-[10px]">
                                 Totale Lavori:
                             </td>
-                            <td className="px-[10px] text-end">€ {TotaleProvisorio? formatNumber(TotaleProvisorio.prezzoTotaleOrdini):"00,00"  }</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.prezzoTotaleOrdini) : "00,00"}</td>
                         </tr>
-
+                        {scontoLocal ?
+                            <>
+                                <tr>
+                                    <td className="px-[10px]">
+                                        Totale Sconto:
+                                    </td>
+                                    <td className="px-[10px] text-end text-[red] font-semibold"> - € {TotaleProvisorio ? formatNumber(Number(scontoLocal)) : "00,00"}</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-[10px]">
+                                        Totale Netto:
+                                    </td>
+                                    <td className="px-[10px] text-end">€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.totalNeto) : "00,00"}</td>
+                                </tr>
+                            </>:null
+                            }
                         <tr>
                             <td className="px-[10px] ">
                                 Spedizioni:
                             </td>
-                            <td className="px-[10px] text-end">€ {TotaleProvisorio?formatNumber(TotaleProvisorio.spedizioni):"00,00"}</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.spedizioni) : "00,00"}</td>
                         </tr>
+
                         <tr>
                             <td className="px-[10px] ">
                                 IVA (22%):
                             </td>
-                            <td className="px-[10px] text-end">€ {TotaleProvisorio?formatNumber(TotaleProvisorio.iva):"00,00"}</td>
+                            <td className="px-[10px] text-end">€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.iva) : "00,00"}</td>
                         </tr>
                         <tr>
                             <td colSpan={2} className="px-[10px]">
@@ -58,13 +78,13 @@ const TotaleProvvisorio = ({TotaleProvisorio, setStepperStep, changebuttonstep, 
                             <td className="px-[10px]">
                                 <b>Totale ordine</b>
                             </td>
-                            <td className="px-[10px]">
-                                <b>€ {TotaleProvisorio?formatNumber(TotaleProvisorio.totaleOridini):"00,00"}</b>
+                            <td className="px-[10px] text-end">
+                                <b>€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.totaleOridini) : "00,00"}</b>
                             </td>
                         </tr>
                     </tbody></table>
                 <center>
-                    <button onClick={()=>{setStepperStep(step+1); setSteptext(changebuttonstep(step+1))}} className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "><b>{changebuttonstep(step+1)}</b></button>
+                    <button onClick={() => { setStepperStep(step + 1); setSteptext(changebuttonstep(step + 1)) }} className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "><b>{changebuttonstep(step + 1)}</b></button>
                 </center>
             </div>
             <div className="mt-[30px] w-full">

@@ -12,6 +12,9 @@ export interface DataGetCalcolaTuto {
     prezzoPubblico: number;
     graficaPerFacciata:number;
     pesoStr:number;
-    costo:string;
+    costo:number;
     boxLavoracioni:string[];
+    qta:number;
+    promoPercentuale:number;
+    dataFineValidita:Date;
 }

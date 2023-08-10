@@ -12,6 +12,9 @@ import TableCustom from "./components/TableCustom"
 import useRefactorProdotto from "./hooks/useRefactorProdotto"
 import MenuCarrelo from "./components/MenuCarrelo"
 import { Link } from "react-router-dom"
+import { numberFormat } from "../../Helpers/formatNumber"
+import { GLOBAL_CONFIG } from "../../_config/global"
+import { DateFormatDDMMYY } from "../../Helpers/formatDates"
 
 const ConfiguraProdottoRefactor = () => {
     const {
@@ -65,7 +68,16 @@ const ConfiguraProdottoRefactor = () => {
         handleCalcolaTuto,
         calcolaTuto,
         handleCarrello,
-        handleHidden
+        handleHidden,
+        handleSelectDate,
+        textTipoCarta,
+        idFormProd, IdTipoCarta, IdColoreStampa,
+        setTablaDataPrezzi,
+        qtaSelezinata,
+        setQtaSelezinata,
+        idFustella,
+        openLoadingBackdrop,
+        setOpenLoadingBackdrop
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -88,7 +100,7 @@ const ConfiguraProdottoRefactor = () => {
     return (
         <div className="w-full flex gap-3 relative">
             <div className="w-[75%]">
-                {/* <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} /> */}
+                <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} />
                 <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO</h5>
                 <div className="flex mt-3 ps-[4.5px]">
                     <table className="w-[75%]">
@@ -104,20 +116,20 @@ const ConfiguraProdottoRefactor = () => {
                                         <span
                                             className={` text-gray-800 cursor-pointer text-xs`}
                                         >
-                                            <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
+                                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.3)', }} />
                                         </span>
                                     </td>
                                 </tr> :
-                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} />
+                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} defaulSelect={idFormProd} />
                             }
 
                             {orientamiento ? <InputCustomSelect showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
-                            <InputCustomSelect showIcon={false} name="tipoCarta" handleChange={handleChange} label={'Tipo di Carta'} options={handleOptionsTipoCarta()} />
+                            <InputCustomSelect showIcon={false} name="tipoCarta" handleChange={handleChange} label={textTipoCarta} options={handleOptionsTipoCarta()} defaulSelect={IdTipoCarta} />
 
                             {showCoperatina ? <ListCustom label={copertina[0].text} options={handleCoperatinaOpz()} /> : null}
                             {showSotoblocco ? <ListCustom label={sotoblocco[0].text} options={handleSotobloccoOpz()} /> : null}
 
-                            <InputCustomSelect showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} />
+                            <InputCustomSelect showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} defaulSelect={IdColoreStampa} />
 
                             {showFaciatePagine ? <InputCustomSelect stylePerzonalize={'w-3/4'} showIcon={true} name="facciatePagine" handleChange={handleChange} label={labelFogli} options={handleFogliPagine()} /> : null}
 
@@ -167,13 +179,13 @@ const ConfiguraProdottoRefactor = () => {
                                 />
                                 : false
                             }
+                            {parseInt(String(idFustella)) === 0 && <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />}
 
-                            <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />
                             {stampaCalOpz?.map((elem, i) => {
                                 //console.log("elemselect",stampaCalOpz)
                                 if (elem.tipoControllo === 1) {
                                     return (
-                                        <InputCustomSelect key={i} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handleStampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} />
+                                        <InputCustomSelect key={i} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handleStampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} valuesStampaCaldoOpz={valuesStampaCaldoOpz} />
                                     )
                                 }
                             })}
@@ -182,7 +194,7 @@ const ConfiguraProdottoRefactor = () => {
                     <div className=" w-[25%]">
                         {showSvg ?
                             <ImageCustom svgImage={imageSvg} /> :
-                            <img src={`http://95.110.133.251:5051/listino/img/${() => { }/*handleChangeSVG()*/}`} alt="" width={128} />
+                            <img src={`https://localhost:44311//listino/img/${() => { }/*handleChangeSVG()*/}`} alt="" width={128} />
                         }
                     </div>
                 </div>
@@ -197,7 +209,7 @@ const ConfiguraProdottoRefactor = () => {
                 {stampaCalOpz?.map((elem, i) => {
                     if (elem.tipoControllo === 0) {
                         return (
-                            <RadioCars key={i} setImage={setimgAcoppiati} options={handleStampaCaldoOpz(elem.optionsSelect)} name={elem.descrizione} label={elem.descrizione} handleChange={handleChange} />
+                            <RadioCars key={i} setImage={setimgAcoppiati} options={handleStampaCaldoOpz(elem.optionsSelect)} name={elem.descrizione} label={elem.descrizione} handleChange={handleChange} valuesStampaCaldoOpz={valuesStampaCaldoOpz} initialState={initialState} />
                         )
                     }
                 })
@@ -220,29 +232,36 @@ const ConfiguraProdottoRefactor = () => {
                     <RadioCustom name="iva" value={1} checked={initialState.iva === 1} label="Con IVA" handleCheckboxChange={handleChange} />
                 </div>
                 <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
-                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} />
+                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} />
                 {
                     showTablePreez == true && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
                 }
                 <div className="bg-[#d6e03d] w-full p-[10px] h-[92px] flex flex-col justify-between mt-1">
                     <div className="flex justify-between">
                         <p className="text-[10px] flex items-center gap-1">
-                            <img src="https://localhost:44311/img/icoPrezzo.png" width="20" height="25" />
+                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} width="20" height="25" />
                             PREZZO {utenteData?.tipo !== 1 ? (
                                 <>
                                     RISERVATO A:<b className="text-[13px] uppercase">{utenteData?.nominativo}</b>
                                 </>
                             ) : ''}
                         </p>
-                        <p className="text-[22px] font-bold">€ {calcolaTuto?.prezzoCalcolatoNetto}.00 + iva</p>
+                        <p className="text-[22px] font-bold">€ {numberFormat(calcolaTuto?.prezzoCalcolatoNetto)} + iva</p>
                     </div>
                     <div className=" flex justify-between">
-                        <a href="#" className="flex gap-1 text-[12px]"><img src="https://localhost:44311/img/icoFileTypePDF.png" width={20} height={20} /> Preventivo PDF  ↓</a>
-                        <p className="text-[11px]">Prezzo consigliato al pubblico min. <b>€ {calcolaTuto?.prezzoPubblico}.00 + iva</b>  (+ grafica € <b>{calcolaTuto?.graficaPerFacciata}.00</b> a facciata)</p>
+                        <a href="#" className="flex gap-1 text-[12px]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePDF.png`} width={20} height={20} /> Preventivo PDF  ↓</a>
+                        <p className="text-[11px]">Prezzo consigliato al pubblico min. <b>€ {numberFormat(calcolaTuto?.prezzoPubblico)} + iva</b>  (+ grafica € <b>{numberFormat(calcolaTuto?.graficaPerFacciata)}</b> a facciata)</p>
                     </div>
                 </div>
                 <div className="bg-[#f1f1f1] w-full p-[10px] flex flex-col justify-between mt-4">
-                    <p className="text-[12px] flex items-center gap-1"><img src="https://localhost:44311/img/icoCorriere20.png" /> <b>SPEDIZIONE:</b> Numero di colli indicativo <b>{calcolaTuto?.colli}</b> , Peso indicativo <b>{calcolaTuto?.pesoStr}</b> kg ± , Costo <b>€ {calcolaTuto?.costo}</b></p>
+                    {tablaDataPrezzi.some(x => x.prezzoPromo > 0) &&
+                        <p className="flex text-[12px] mb-[30px]">
+                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo20.png`} className="w-[25px] h-[19px]" />
+                            <span className="bg-[#009ec9] px-[3px] text-white font-normal rounded-[3px] mx-[2px] " >Promo </span>
+                            Prodotto in promozione con sconto del <span className="bg-[#009ec9] px-[3px] text-white font-normal rounded-[3px] mx-[2px]"> {calcolaTuto?.promoPercentuale} %</span>  fino al {DateFormatDDMMYY(calcolaTuto?.dataFineValidita)}
+                        </p>
+                    }
+                    <p className="text-[12px] flex items-center gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCorriere20.png`} /> <b>SPEDIZIONE:</b> Numero di colli indicativo <b>{calcolaTuto?.colli}</b> , Peso indicativo <b>{calcolaTuto?.pesoStr}</b> kg ± , Costo <b>€ {numberFormat(calcolaTuto?.costo)}</b></p>
                 </div>
                 <h4 className="bg-[#e8e8e8] w-full mt-3 text-[12px] ps-[20px] pt-[4px]">DAI UN NOME AL LAVORO</h4>
                 <div className="w-full flex items-center justify-center px-5 mt-2 text-[#000] font-[400]"><input type="text" maxLength={100} name="nome" onChange={handleChange} className="w-full text-[14px] border border-[#000] px-[2px] py-[1px] rounded-[2px]" placeholder="Qui se vuoi puoi dare un nome a questo lavoro per riconoscerlo più agevolmente in seguito" ></input></div>
@@ -251,18 +270,18 @@ const ConfiguraProdottoRefactor = () => {
                 <div className="w-full mt-5  flex justify-end">
                     <div className="w-[200px] h-[134px] border border-[#aaa] rounded-[5px] p-[15px] flex flex-col justify-between">
                         <Link to={"/carrello"}>
-                            <button onClick={() => handleCarrello()} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src="https://localhost:44311/img/icoCarrello.png" width={22} /> Aggiungi al Carrello</button>
+                            <button onClick={() => handleCarrello()} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
                         </Link>
                         <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
                             oppure
                         </Divider>
-                        <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src="https://localhost:44311/img/ico1Click.png" width={22} />Compralo subito</button>
+                        <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                     </div>
                 </div>
-                
+
             </div>
             <div className="w-[25%]  ">
-                <MenuCarrelo handleHidden={handleHidden}/>
+                <MenuCarrelo handleHidden={handleHidden} />
             </div>
         </div>
 
@@ -270,3 +289,9 @@ const ConfiguraProdottoRefactor = () => {
 }
 
 export default ConfiguraProdottoRefactor
+
+
+/**
+ * !FIXME : AL CAMBIAR EL TIPO DE CARTA BORRA LOS INPUTS O LOS VALORES DE LOS INPUTS
+ * !FIXME: EN LOS CHECKBOX SELECCIONAR FUNCIONA AL QUINTAR LA SELECCION NO DESCUENTA DE LOS PRECIOS
+ */

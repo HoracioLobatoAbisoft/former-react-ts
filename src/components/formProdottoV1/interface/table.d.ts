@@ -9,6 +9,7 @@ export interface TablePrezzi {
     prezzoConsigliatoPubbl: number;
     prezzoPubbl: number;
     prezzoRiv: number;
+    prezzoPromo:number;
     richiestaCalcoloPrezzo: RichiestaCalcoloPrezzo;
 }
 export interface SelectRow {

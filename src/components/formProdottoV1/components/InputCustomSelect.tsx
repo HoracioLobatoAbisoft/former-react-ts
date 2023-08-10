@@ -3,15 +3,18 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { OptionsSelect } from "../../formProdotto/interfaces/prodotto";
 import './Cube.css'
+import { GLOBAL_CONFIG } from "../../../_config/global";
 interface Props {
   label: string;
   options: OptionsSelect[];
   name: string;
-  handleChange: any;
+  handleChange: (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>void;
   valueSelect?: any;
   showIcon: boolean;
   initialState?: any;
-  stylePerzonalize?:string;
+  stylePerzonalize?: string;
+  valuesStampaCaldoOpz?: Record<string, number>
+  defaulSelect?:number | string | null;
 }
 export const InputCustomSelect = ({
   label,
@@ -21,7 +24,9 @@ export const InputCustomSelect = ({
   valueSelect,
   showIcon,
   initialState,
-  stylePerzonalize
+  stylePerzonalize,
+  valuesStampaCaldoOpz,
+  defaulSelect
 }: Props) => {
   const [position, setPosition] = useState(
     valueSelect === null ? 0 : valueSelect
@@ -73,8 +78,8 @@ export const InputCustomSelect = ({
   //         <img
   //           src={
   //             options && (position === 0 || position === undefined)
-  //               ? `http://95.110.133.251:5051/listino/` + options[0]?.image
-  //               : `http://95.110.133.251:5051/listino/` +
+  //               ? `https://localhost:44311//listino/` + options[0]?.image
+  //               : `https://localhost:44311//listino/` +
   //               options.find((x) => Number(x.value) === Number(position))?.image
   //           }
   //           alt=""
@@ -103,8 +108,8 @@ export const InputCustomSelect = ({
   //               <img
   //                 src={
   //                   options && (position === 0 || position === undefined)
-  //                     ? `http://95.110.133.251:5051/listino/` + options[0]?.image
-  //                     : `http://95.110.133.251:5051/listino/` +
+  //                     ? `https://localhost:44311//listino/` + options[0]?.image
+  //                     : `https://localhost:44311//listino/` +
   //                       options.find(
   //                         (x) => Number(x.value) === Number(position)
   //                       )?.image
@@ -140,12 +145,18 @@ export const InputCustomSelect = ({
         return options.find((x: any) => x.value == initialState[name])
 
       }
-    }else{
+    } else {
 
     }
   }
   useEffect(() => {
+    if (valuesStampaCaldoOpz != undefined && name !== "Format" && name !== "base" && name !== "coloreStampa" && name !== "depth" && name !== "height" && name !== "quantity" && name !== "tipoCarta" && name !== "formatoS" && name !== "facciatePagine" && name !== 'nome' && name !== 'note') {
+      console.log('opcioniList - entro')
+      const name = label;
+      valuesStampaCaldoOpz[name] = Number(options[0].value);
+    }
     selected()
+
   }, [])
 
   //console.log('options',options)
@@ -156,10 +167,10 @@ export const InputCustomSelect = ({
         {label}
       </td>
       <td className={"  px-[10px] py-[6px] text-[14px] bg-[#f1f1f1] border-b-[2px]  border-[#fff] hover:shadow-[0_0px_0px_1.5px_#d6e03d_inset]"}>
-        <select name={name} onChange={handleChange} className={`border-[1px] ${stylePerzonalize?stylePerzonalize:"w-full"} border-[#ddd] py-[3px]`}>
+        <select name={name} onChange={handleChange} className={`border-[1px] ${stylePerzonalize ? stylePerzonalize : "w-full"} border-[#ddd] py-[3px]`}>
           {
             options.map((elem, i) => (
-              <option key={elem.value} value={elem.value} >{elem.label}</option>
+              <option key={elem.value}  selected={defaulSelect == elem.value ? true : false} value={elem.value}>{elem.label}</option>
             ))
           }
         </select>
@@ -167,13 +178,13 @@ export const InputCustomSelect = ({
       <td className=" p-[6px]">
         {/* {(showIcon === true && position === 0) ||
           position === undefined ? null : ( */}
-        { (selected()?.value != 0 && name != "orientamiento" && name != "facciatePagine") &&
+        {(selected()?.value != 0 && name != "orientamiento" && name != "facciatePagine") &&
           <span
             className={`text-xs  text-gray-800 cursor-pointer relative`}
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <img src="http://95.110.133.251:5051/img/icoInfo20.png" style={{ transform: 'scale(1.3)', }} />
+            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.3)', }} />
           </span>
         }
 
@@ -185,8 +196,8 @@ export const InputCustomSelect = ({
                 <img
                   src={
                     options && (position === 0 || position === undefined)
-                      ? `http://95.110.133.251:5051/listino/` + selected()?.image
-                      : `http://95.110.133.251:5051/listino/` +
+                      ? `https://localhost:44311//listino/` + selected()?.image
+                      : `https://localhost:44311//listino/` +
                       selected()?.image
                   }
                   alt=""
