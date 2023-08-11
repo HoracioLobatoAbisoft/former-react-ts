@@ -220,6 +220,8 @@ const useCarrello = () => {
 
     }
 
+    
+
     const handleScandeza = async (Cap:string ) => {
         // const date1 = arrayCarrello[indexScandeza].scadenza?.date1;
         // const date2 = arrayCarrello[indexScandeza].scadenza?.date2;

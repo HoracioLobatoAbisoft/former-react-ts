@@ -1,3 +1,4 @@
+import { GLOBAL_CONFIG } from "../../../_config/global";
 import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 
 type ProspGliAquisti = {
@@ -8,7 +9,7 @@ type ProspGliAquisti = {
 const ContinuaGliAcquisti = ({step,changebuttonstep}: ProspGliAquisti) => {
 
     const handleIndexReload  = () => {
-        window.parent.postMessage({ operation: enOperationFrame.returnIndex}, 'https://localhost:44311//');
+        window.parent.postMessage({ operation: enOperationFrame.returnIndex}, GLOBAL_CONFIG.IMG_IP);
     }
 
     return (

@@ -23,6 +23,7 @@ import { DataGetHelperDataProdotto } from '../interface/helpersDataProdotto';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { DataDimensioniStr, ResponseDimensioniStr } from '../interface/DimensioneStr';
 import { DataGetOpzioniStatic } from '../interface/opzioniStatic';
+import { GLOBAL_CONFIG } from '../../../_config/global';
 
 const initialValues: InitialValuesProdotto = {
     base: null,
@@ -921,9 +922,9 @@ const useRefactorProdotto = () => {
         const objDataProdotto: ObjCarrello = {
             idUt: idUt,
             idPrev: idPrev,
-            IdFormProd:initialState.formatoS == null ? idFormProd : initialState.formatoS,
-            IdTipoCarta :initialState.tipoCarta == null ? IdTipoCarta : initialState.tipoCarta,
-            IdColoreStampa :initialState.coloreStampa == null ? IdColoreStampa : initialState.coloreStampa,
+            IdFormProd: initialState.formatoS == null ? idFormProd : initialState.formatoS,
+            IdTipoCarta: initialState.tipoCarta == null ? IdTipoCarta : initialState.tipoCarta,
+            IdColoreStampa: initialState.coloreStampa == null ? IdColoreStampa : initialState.coloreStampa,
             nome: initialState.nome,
             note: initialState.note,
             qta: qtaSelezinata,
@@ -948,7 +949,9 @@ const useRefactorProdotto = () => {
             labelFogli: labelFogli,
             pdfTemplate: handleCarrelloData(initialState.formatoS, responseHandFormato).pdfTemplate,
             idReparto: dimensionniStr?.idReparto,
-            
+            base: initialState.base ?? 0, 
+            produndita: initialState.base ?? 0 ,
+            altezza: initialState.base ?? 0 ,
         }//Buste Intestate 11x23 con Finestra e strip a colori solo fronte
         const existCarreloLocal = localStorage.getItem('c');
         let dataCarrelli: any[] = [];
@@ -964,7 +967,7 @@ const useRefactorProdotto = () => {
 
     const handleHidden = async () => {
         console.log('mando 1')
-        window.parent.postMessage({ color: 'bg_hidden', operation: enOperationFrame.hidden }, 'https://localhost:44311/');
+        window.parent.postMessage({ color: 'bg_hidden', operation: enOperationFrame.hidden }, GLOBAL_CONFIG.IMG_IP);
     }
 
     const handleCarrelloData = (Id: number | null | undefined, options: OptionsSelect[]) => {

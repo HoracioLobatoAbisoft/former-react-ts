@@ -67,7 +67,7 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
     }
 
     const handleITuoiCouponSconto = () => {
-        window.parent.postMessage({ operation: enOperationFrame.redirectITuopiCouponSconto }, 'https://localhost:44311/');
+        window.parent.postMessage({ operation: enOperationFrame.redirectITuopiCouponSconto }, GLOBAL_CONFIG.IMG_IP);
     }
 
     useEffect(() => {

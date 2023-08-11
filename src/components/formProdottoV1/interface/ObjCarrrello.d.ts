@@ -10,7 +10,7 @@ export interface ObjCarrello {
     svgImg: boolean | undefined;
     prodotto: string | undefined;
     orientamiento: string | false | undefined;
-    idOrientamiento: number;
+    idOrientamiento?: number;
     suporto: string;
     stampa: string;
     colli: number | undefined;
@@ -31,9 +31,9 @@ export interface ObjCarrello {
     fogli: string;
     labelFogli: string
     pdfTemplate: string | undefined;
-    altezza: number | null  | undefined;
-    base: number | null  | undefined;
-    produndita: number | null  | undefined;
+    altezza?: number | null  | undefined;
+    base?: number | null  | undefined;
+    produndita?: number | null  | undefined;
     idReparto: number | undefined;
     IdFormProd: string | number | undefined;
     IdTipoCarta: string | number | undefined;
