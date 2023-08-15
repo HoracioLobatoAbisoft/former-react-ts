@@ -153,6 +153,8 @@ const useCarrello = () => {
         return responseCorriereSelezionata;
     }
 
+
+
     /*
         *Funciones handle
     */
@@ -218,6 +220,11 @@ const useCarrello = () => {
 
         setCorriereSelezionata(responseGetCorreore.data)
 
+    }
+
+    const handleShow = async () => {
+        console.log(' step mando 6')
+        window.parent.postMessage({ operation: enOperationFrame.show }, GLOBAL_CONFIG.IMG_IP);
     }
 
     
@@ -303,7 +310,8 @@ const useCarrello = () => {
         caricaCorriere,
         corriereSelezionata,
         handleGetCorriereSelezionata,
-        handleScandeza
+        handleScandeza,
+        handleShow
     }
 }
 
