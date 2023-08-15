@@ -1,0 +1,60 @@
+.custom-tabs {
+    height: 40px;
+    min-height: 40px !important;
+}
+.custom-tab{
+    font-weight:400;
+    color:#454545;
+    border:1px solid #c5c5c5 !important;
+    background:#f1f1f1 !important;
+    /* top-left | top-right | bottom-right | bottom-left */
+    border-radius: 5px 5px 0rem 0rem !important;
+    /* background: #000; */
+    font-size: 10px !important;
+    padding: 1px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-height: 40px !important;
+}
+
+.tab-p {
+    padding: 3px;
+   
+}
+
+.tab-p-2 {
+    background-color: #009ec9;
+    padding: 3px;
+    color: #fff;   
+}
+
+.tab-img-left {
+    float:left;
+}
+
+.Mui-selected{
+    border-color:#ddd;
+    background-color: #fff !important;
+}
+
+.custom-tab-container{
+    font-weight:400;
+    color:#454545;
+    border:1px solid #ddd;
+    background:#fff;
+}
+
+.card-click-aqui{
+    margin:auto;
+    width:400px;
+    padding:20px;
+    border-radius:10px;
+    background-color:#D0D0D0;
+    text-align:center;
+}
+
+.description-promo-card{
+    font-size: 11px;
+    font-style: italic;
+    padding: 5px 0;
+}

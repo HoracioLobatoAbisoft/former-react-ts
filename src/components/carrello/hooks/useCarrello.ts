@@ -169,6 +169,8 @@ const useCarrello = () => {
         return responseAquistaOra;
     }
 
+
+
     /*
         *Funciones handle
     */
@@ -236,6 +238,12 @@ const useCarrello = () => {
 
     }
 
+    const handleShow = async () => {
+        console.log(' step mando 6')
+        window.parent.postMessage({ operation: enOperationFrame.show }, GLOBAL_CONFIG.IMG_IP);
+    }
+
+    
 
 
     const handleScandeza = async (Cap: string) => {
@@ -350,7 +358,8 @@ const useCarrello = () => {
         step,
         setStep,
         steptext,
-        setSteptext
+        setSteptext,
+        handleShow
     }
 }
 

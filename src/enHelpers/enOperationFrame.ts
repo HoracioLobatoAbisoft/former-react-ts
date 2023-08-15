@@ -4,4 +4,5 @@ export enum enOperationFrame {
     returnIndex = 3,
     redirectAggiungiIndirizzo = 4,
     redirectITuopiCouponSconto = 5,
+    show = 6
 }
