@@ -28,6 +28,7 @@ type PropsScegliIlPagamento = {
         TotalPrezo: number;
         TotalPeso: number;
         idUt: number;
+        Colli:number;
     }
     arrayCarrello: ObjCarrello[];
     messageCoupon: string
@@ -37,9 +38,10 @@ type PropsScegliIlPagamento = {
     getTotaleProvisorio: (idUt: number, TotalePeso: number, cero: number, TotalePrezzo: number, Sconto: number | null, tp: number, IdCorriere: number) => Promise<DataGetTotaleProvisorio | undefined>;
     setTotaleProvisorio: React.Dispatch<React.SetStateAction<DataGetTotaleProvisorio | undefined>>;
     handleRadioPagamento: (idIp: number) => Promise<void>;
-    radio: number
+    radio: number;
+    handleAquistaOra: () => Promise<void>
 }
-const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, setArrayCarrello, dataUtente, dataTotale, arrayCarrello, messageCoupon, setMessageCoupon, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, radio }: PropsScegliIlPagamento) => {
+const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, setArrayCarrello, dataUtente, dataTotale, arrayCarrello, messageCoupon, setMessageCoupon, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, radio,handleAquistaOra }: PropsScegliIlPagamento) => {
 
     const [codice, setCodice] = useState<string>('')
     const [openModal, setOpenModal] = useState<boolean>(false)
@@ -71,13 +73,15 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
     }
 
     useEffect(() => {
-        const corr = tipoPagamento.find(x=>x.idTipoPagamento == 5)?.titulo;
-        const corrI = tipoPagamento.find(x=>x.idTipoPagamento == 5)?.imgRif;
-        const corrD = tipoPagamento.find(x=>x.idTipoPagamento == 5)?.descrizione;
-
-        localStorage.setItem('tp',String(corr));
-        localStorage.setItem('tpI',String(corrI));
-        localStorage.setItem('tpD',String(corrD));
+        const corr = tipoPagamento.find(x=>x.idTipoPagamento == 5);
+        //const colli = dataTotale.Colli;
+        localStorage.setItem('tp',String(corr?.titulo));
+        localStorage.setItem('tpI',String(corr?.imgRif));
+        localStorage.setItem('tpD',String(corr?.descrizione));
+        localStorage.setItem('tppr',String(corr?.periodoPagamento));
+        localStorage.setItem('tpDI',String(corr?.idTipoPagamento));
+        localStorage.setItem('tpDI',String(corr?.idTipoPagamento));
+        //localStorage.setItem('cll',String(colli));
     }, [])
 
 
@@ -119,7 +123,7 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                 <ContinuaGliAcquisti changebuttonstep={changebuttonstep} step={step} />
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
+                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}  handleAquistaOra={handleAquistaOra}/>
             </div>
         </div>
     )

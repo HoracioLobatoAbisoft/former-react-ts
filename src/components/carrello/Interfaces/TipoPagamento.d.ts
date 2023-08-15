@@ -10,4 +10,5 @@ export interface DataGetTipoPagamenti {
     note: null;
     titulo: string;
     idTipoPagamento:number;
+    periodoPagamento:number;
 }

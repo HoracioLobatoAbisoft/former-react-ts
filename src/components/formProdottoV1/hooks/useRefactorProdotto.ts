@@ -874,6 +874,7 @@ const useRefactorProdotto = () => {
         const responseHandFacPagine = handleFogliPagine();
 
         const arrayStampa: OptionsSelect[] = [];
+        const _stampaOpzId:number[] = []
         Object.keys(valuesStampaCaldoOpz).forEach((key) => {
             const value = valuesStampaCaldoOpz[key];
             const objVaStampa: OptionsSelect = {
@@ -886,6 +887,7 @@ const useRefactorProdotto = () => {
         const _stampaOpz: string[] = []
         const _stampaOpzAllString: string[] = []
 
+
         if (arrayStampa.length > 0) {
 
             stampaCalOpz?.map((elem, i) => {
@@ -896,6 +898,7 @@ const useRefactorProdotto = () => {
                         //console.log("dataPush", dataPush);
                         if (dataPush != undefined) {
                             _stampaOpz.push(String(dataPush?.label))
+                            _stampaOpzId.push(Number(dataPush?.value))
                         }
                     }
                 })
@@ -906,6 +909,7 @@ const useRefactorProdotto = () => {
         if (parseInt(String(idFustella)) === 0) {
             opzioniList.map((item, i) => {
                 _stampaOpz.push(item.descrizione);
+                _stampaOpzId.push(item?.idLavoro)
             })
         }
 
@@ -914,8 +918,11 @@ const useRefactorProdotto = () => {
                 !y.optionsSelect.some((z) => z.idLavoro === x.idLavoro)
             )
         );
+
         noExistentes.map((ele, i) => {
             _stampaOpz.push(ele.descrizione);
+            _stampaOpzId.push(ele?.idLavoro)
+            
         })
 
         //console.log('StampaLstss', _stampaOpz)
@@ -932,6 +939,7 @@ const useRefactorProdotto = () => {
             svgImg: showSvg,
             prodotto: dimensionniStr?.prodotto,
             orientamiento: orientamiento && handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
+            idOrientamiento: orientamiento ? Number(handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).value) : null,
             suporto: handleCarrelloData(initialState.tipoCarta, responseHandTipoCarta).label,
             stampa: handleCarrelloData(initialState.coloreStampa, responseHandColoreStampa).label,
             dimencioni: parseInt(String(idBaseEtiquete)) != 0 ? `(${idBaseEtiquete}B x ${idAltezaEtiquete}A mm)` : dimensionniStr?.dimensioniStr,
@@ -940,6 +948,7 @@ const useRefactorProdotto = () => {
             prezzo: calcolaTuto?.prezzoCalcolatoNetto,
             descrizione: showColumTable?.descrizione,
             stampaOPZ: _stampaOpz,
+            _stampaOpzId:_stampaOpzId,
             nomeUrl: helperDataProdotto?.url,
             scadenza: dateConsegna,
             code: codeStart,
@@ -958,7 +967,7 @@ const useRefactorProdotto = () => {
         if (existCarreloLocal) {
             dataCarrelli = JSON.parse(existCarreloLocal);
         }
-        console.log("IdsCarrellos", objDataProdotto)
+        //console.log("IdsCarrellos", objDataProdotto)
         const updateCarrello = [...dataCarrelli, objDataProdotto];
         localStorage.setItem('c', JSON.stringify(updateCarrello));
 
@@ -966,7 +975,7 @@ const useRefactorProdotto = () => {
     }
 
     const handleHidden = async () => {
-        console.log('mando 1')
+        //console.log('mando 1')
         window.parent.postMessage({ color: 'bg_hidden', operation: enOperationFrame.hidden }, GLOBAL_CONFIG.IMG_IP);
     }
 

@@ -6,6 +6,7 @@ import AcordionCarrello from "./AcordionCarrello";
 import { ObjCarrello } from "../../formProdottoV1/interface/ObjCarrrello";
 import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
 import { GLOBAL_CONFIG } from "../../../_config/global";
+import { DataPostAquistaOra, ResponsePostAquistaOra } from "../Interfaces/AquistaOra";
 type PropsCompletaLOrdine = {
     ArrayLocalCarrello: ObjCarrello[];
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
@@ -19,6 +20,15 @@ type PropsCompletaLOrdine = {
     setSteptext: React.Dispatch<React.SetStateAction<string>>
     step: number
     deleteItem: (i: number) => void
+    dataTotale: {
+        TotalPrezo: number;
+        TotalPeso: number;
+        idUt: number;
+        desconto: number;
+        Colli: number;
+    };
+    postAquistaOra: (data: DataPostAquistaOra) => Promise<ResponsePostAquistaOra>;
+    handleAquistaOra: () => Promise<void>
 }
 
 type dataOrdineStep5 = {
@@ -33,7 +43,7 @@ type dataOrdineStep5 = {
 }
 
 
-const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem }: PropsCompletaLOrdine) => {
+const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem ,dataTotale,postAquistaOra,handleAquistaOra}: PropsCompletaLOrdine) => {
 
 
     const [dataOrdine, setDataOrdine] = useState<dataOrdineStep5>()
@@ -56,6 +66,9 @@ const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAll
             setDataOrdine({ ...dataOrdine, consega: cons, email: mail, fecha: scande, indirizzo: indi, pesokg: pesokg,corrie,corrieI,corrieD })
         }
     }
+
+   
+
 
     const sconto = localStorage.getItem('sc')
 
@@ -138,7 +151,7 @@ const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAll
                 </div>
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
+                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}  handleAquistaOra={handleAquistaOra}/>
             </div>
         </div>
     )

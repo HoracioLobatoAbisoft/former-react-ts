@@ -12,11 +12,12 @@ type PropsTotale = {
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
-    step: number
+    step: number;
+    handleAquistaOra: () => Promise<void>
 }
 
 // const TotaleProvvisorio = ({TotaleProvisorio}:PropsTotale) => {
-const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step }: PropsTotale) => {
+const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step,handleAquistaOra }: PropsTotale) => {
     const navigate = useNavigate();
 
     const scontoLocal = localStorage.getItem('sc')
@@ -84,7 +85,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                         </tr>
                     </tbody></table>
                 <center>
-                    <button onClick={() => { setStepperStep(step + 1); setSteptext(changebuttonstep(step + 1)) }} className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "><b>{changebuttonstep(step + 1)}</b></button>
+                    <button onClick={() => { handleAquistaOra() ;setStepperStep(step + 1) ; setSteptext(changebuttonstep(step + 1)) }} className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "><b>{changebuttonstep(step + 1)}</b></button>
                 </center>
             </div>
             <div className="mt-[30px] w-full">

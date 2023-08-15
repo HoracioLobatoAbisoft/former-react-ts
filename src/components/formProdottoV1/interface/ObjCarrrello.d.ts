@@ -1,3 +1,4 @@
+import { OptionsSelect } from "../../formProdotto/interfaces/prodotto";
 import { DateConsegna } from "./tableDate";
 
 export interface ObjCarrello {
@@ -10,13 +11,14 @@ export interface ObjCarrello {
     svgImg: boolean | undefined;
     prodotto: string | undefined;
     orientamiento: string | false | undefined;
-    idOrientamiento?: number;
+    idOrientamiento?: number | undefined | null; 
     suporto: string;
     stampa: string;
     colli: number | undefined;
     peso: number | undefined;
     prezzo: number | undefined;
     stampaOPZ: string[];
+    _stampaOpzId: number[]
     descrizione: string | undefined;
     dimencioni: string | undefined;
     nomeUrl: string | undefined;

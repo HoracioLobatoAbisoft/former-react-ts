@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { ObjCarrello } from '../../formProdottoV1/interface/ObjCarrrello';
-import { httpGetAplicaCouponSconto, httpGetCaricaCorriere, httpGetCorriereSelezionata, httpGetDatesAlleghiPDF, httpGetIndirizzo, httpGetMetodiPagamento, httpGetTotaleProvisorio } from '../services/Services';
+import { httpGetAplicaCouponSconto, httpGetCaricaCorriere, httpGetCorriereSelezionata, httpGetDatesAlleghiPDF, httpGetIndirizzo, httpGetMetodiPagamento, httpGetTotaleProvisorio, httpPostAquistaOra } from '../services/Services';
 import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { DataGetIndirizzo } from '../Interfaces/Indirizzo';
@@ -11,6 +11,7 @@ import { DataGetTipoPagamenti } from '../Interfaces/TipoPagamento';
 import { DataGetCaricaCorriere } from '../Interfaces/CaricaCorriere';
 import { DataGgetCorriereSelezionata } from '../Interfaces/Corriere';
 import { GLOBAL_CONFIG } from '../../../_config/global';
+import { DataPostAquistaOra } from '../Interfaces/AquistaOra';
 
 const useCarrello = () => {
 
@@ -29,12 +30,14 @@ const useCarrello = () => {
     const [dataUtente, setdataUtente] = useState<DataResponseGetUtente>()
     const [caricaCorriere, setCaricaCorriere] = useState<DataGetCaricaCorriere[]>([])
     const [corriereSelezionata, setCorriereSelezionata] = useState<DataGgetCorriereSelezionata>()
-
+    const [step, setStep] = useState<number>(1);
+    const [steptext, setSteptext] = useState<string>("ALLEGRA I FILE");
     const [dataTotale, setDataTotale] = useState({
         TotalPrezo: 0,
         TotalPeso: 0,
         idUt: 0,
         desconto: 0,
+        Colli: 0,
     })
 
 
@@ -51,6 +54,7 @@ const useCarrello = () => {
         let countLavori = 0;
         let TotalPeso = 0;
         let idUt = 0;
+        let Colli = 0;
         if (LocalCarrello) {
             ArrayLocalCarrello = JSON.parse(LocalCarrello);
             //console.log('Carello', ArrayLocalCarrello)
@@ -83,11 +87,15 @@ const useCarrello = () => {
             if (lem.idUt != undefined) {
                 idUt = Number(lem.idUt);
             }
+            if (lem.colli != undefined) {
+                Colli += lem.colli;
+            }
         })
         getDataUtn(idUt);
         dataTotale.idUt = idUt;
         dataTotale.TotalPeso = TotalPeso;
         dataTotale.TotalPrezo = TotalPrezo;
+        dataTotale.Colli = Colli;
 
         const responseMetodiPagamento = await getMetodiPagamento(idUt, dataTotale.TotalPrezo, radio)
         setTipoPagamento(responseMetodiPagamento);
@@ -148,16 +156,24 @@ const useCarrello = () => {
         return responseCaricaCorriere;
     }
 
-    const getCorriereSelezionata = async (IdCorriereCS: number, CapCS: string,IdPrevCS?:number,IdFormProdCS?:number,IdTipoCartaCS?:number,IdColoreStampaCS?:number) => {
-        const responseCorriereSelezionata = await httpGetCorriereSelezionata(IdCorriereCS, CapCS,IdPrevCS,IdFormProdCS,IdTipoCartaCS,IdColoreStampaCS)
+    const getCorriereSelezionata = async (IdCorriereCS: number, CapCS: string, IdPrevCS?: number, IdFormProdCS?: number, IdTipoCartaCS?: number, IdColoreStampaCS?: number) => {
+        const responseCorriereSelezionata = await httpGetCorriereSelezionata(IdCorriereCS, CapCS, IdPrevCS, IdFormProdCS, IdTipoCartaCS, IdColoreStampaCS)
         return responseCorriereSelezionata;
+    }
+    /**
+     *  * Funciones Post 
+     */
+
+    const postAquistaOra = async (data: DataPostAquistaOra) => {
+        const responseAquistaOra = await httpPostAquistaOra(data);
+        return responseAquistaOra;
     }
 
     /*
         *Funciones handle
     */
 
-    const deleteItem =async (id: number) => {
+    const deleteItem = async (id: number) => {
         arrayCarrello.splice(id, 1);
         setArrayCarrello([...arrayCarrello]);
         localStorage.setItem('c', JSON.stringify([...arrayCarrello]))
@@ -198,31 +214,31 @@ const useCarrello = () => {
 
     const handleRadioPagamento = async (idIp: number) => {
         setRadioPagamento(idIp);
-        const corr = tipoPagamento.find(x=>x.idTipoPagamento == idIp)?.titulo;
-        const corrI = tipoPagamento.find(x=>x.idTipoPagamento == idIp)?.imgRif;
-        const corrD = tipoPagamento.find(x=>x.idTipoPagamento == idIp)?.descrizione;
-        localStorage.setItem('tp',String(corr))
-        localStorage.setItem('tpI',String(corrI));
-        localStorage.setItem('tpD',String(corrD));
+        const corr = tipoPagamento.find(x => x.idTipoPagamento == idIp);
+        localStorage.setItem('tp', String(corr?.titulo))
+        localStorage.setItem('tpI', String(corr?.imgRif));
+        localStorage.setItem('tpD', String(corr?.descrizione));
+        localStorage.setItem('tpDI', String(corr?.idTipoPagamento));
+        localStorage.setItem('tppr', String(corr?.periodoPagamento))
         const scontoLocal = localStorage.getItem('sc')
         const responseTotale = await getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, scontoLocal == undefined ? null : Number(scontoLocal), idIp, radio);
         setTotaleProvisorio(responseTotale)
     }
 
-    const handleGetCorriereSelezionata = async (IdCorriere?: number, Cap?: string , IdPrev?:number,IdFormProd?:number,IdTipoCarta?:number,IdColoreStampa?:number) => {
+    const handleGetCorriereSelezionata = async (IdCorriere?: number, Cap?: string, IdPrev?: number, IdFormProd?: number, IdTipoCarta?: number, IdColoreStampa?: number) => {
         //debugger
         //console.log('cap',Cap)
         const carrello = arrayCarrello[indexScandeza];
         const responseIndirizzo = await httpGetIndirizzo(dataTotale.idUt);
-        const responseGetCorreore = await getCorriereSelezionata(IdCorriere === undefined ? radio : IdCorriere, Cap === undefined ? String(responseIndirizzo.data.find(x => x.predefinito == true)?.cap) : Cap,IdPrev === undefined ? Number(carrello.idPrev) : IdPrev,IdFormProd === undefined?  Number(carrello.IdFormProd): IdFormProd,IdTipoCarta === undefined ? Number(carrello.IdTipoCarta) : IdTipoCarta, IdColoreStampa  === undefined ? Number(carrello.IdColoreStampa): IdColoreStampa)
+        const responseGetCorreore = await getCorriereSelezionata(IdCorriere === undefined ? radio : IdCorriere, Cap === undefined ? String(responseIndirizzo.data.find(x => x.predefinito == true)?.cap) : Cap, IdPrev === undefined ? Number(carrello.idPrev) : IdPrev, IdFormProd === undefined ? Number(carrello.IdFormProd) : IdFormProd, IdTipoCarta === undefined ? Number(carrello.IdTipoCarta) : IdTipoCarta, IdColoreStampa === undefined ? Number(carrello.IdColoreStampa) : IdColoreStampa)
 
         setCorriereSelezionata(responseGetCorreore.data)
 
     }
 
-    
 
-    const handleScandeza = async (Cap:string ) => {
+
+    const handleScandeza = async (Cap: string) => {
         // const date1 = arrayCarrello[indexScandeza].scadenza?.date1;
         // const date2 = arrayCarrello[indexScandeza].scadenza?.date2;
         // if (radio === 1 && date1 !== undefined) {
@@ -250,7 +266,7 @@ const useCarrello = () => {
         const IdTipoCarta = arrayCarrello[indexScandeza].IdTipoCarta;
         const IdColoreStampa = arrayCarrello[indexScandeza].IdColoreStampa;
 
-        const responseDateConsegna = await getCorriereSelezionata(radio,Cap,Number(IdPrev),Number(IdFormProd),Number(IdTipoCarta),Number(IdColoreStampa))
+        const responseDateConsegna = await getCorriereSelezionata(radio, Cap, Number(IdPrev), Number(IdFormProd), Number(IdTipoCarta), Number(IdColoreStampa))
 
         setCorriereSelezionata(responseDateConsegna.data);
 
@@ -258,18 +274,43 @@ const useCarrello = () => {
 
     };
 
+    const handleAquistaOra = async () => {
+        if (step == 5) {
+            const data: DataPostAquistaOra = {
+                aquistaOraDTO: {
+                    dataPrevistaOriginale: String(localStorage.getItem('prv')),
+                    emailNotificheCorriere: String(localStorage.getItem('mil')),
+                    giorno: String(localStorage.getItem('gro')),
+                    idCorriere: Number(localStorage.getItem('cons')),
+                    idIndirizzo: Number(localStorage.getItem('indid')),
+                    idPagam: Number(localStorage.getItem('tpDI')),
+                    idUt: dataTotale.idUt,
+                    importoNetto: Number(TotaleProvisorio?.spedizioni),
+                    numColli: dataTotale.Colli,
+                    periodoPagam: Number(localStorage.getItem('tppr')),
+                    peso: dataTotale.TotalPeso,
+                },
+                ordineDataDTO: arrayCarrello,
+            }
+            const responsePostAquistaOra = await postAquistaOra(data);
+            
+            console.log('ordine',responsePostAquistaOra.data)
+        }
+
+    }
+
     /**
      * *Funciones efectHelpers
-     */ 
+     */
 
     useEffect(() => {
         getLocalCarrello();
         handleTotaleProvisorio();
         getDatesAlleghiPDF();
         getIndirizzoUt();
-        
-        
-        localStorage.setItem('cons','1');
+
+
+        localStorage.setItem('cons', '1');
     }, [])
 
 
@@ -303,7 +344,13 @@ const useCarrello = () => {
         caricaCorriere,
         corriereSelezionata,
         handleGetCorriereSelezionata,
-        handleScandeza
+        handleScandeza,
+        postAquistaOra,
+        handleAquistaOra,
+        step,
+        setStep,
+        steptext,
+        setSteptext
     }
 }
 

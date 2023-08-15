@@ -1,5 +1,6 @@
 import applicationConnect from "../../../api"
 import { ObjCarrello } from "../../formProdottoV1/interface/ObjCarrrello"
+import { DataPostAquistaOra,  ResponsePostAquistaOra } from "../Interfaces/AquistaOra"
 import { ResponseGetCaricaCorriere } from "../Interfaces/CaricaCorriere"
 import { ResponseGetCorriereSelezionata } from "../Interfaces/Corriere"
 import { ResponseGetAplicaCouponSconto } from "../Interfaces/CouponSconto"
@@ -105,6 +106,15 @@ export const httpGetCorriereSelezionata =async (IdCorriere:number,Cap:string,IdP
             IdColoreStampa
         }})
         return response.data
+    } catch (error) {
+        throw new Error("")
+    }
+}
+
+export const httpPostAquistaOra =async (data:DataPostAquistaOra) => {
+    try {
+        const response = await applicationConnect.post<ResponsePostAquistaOra>('AcquistaOra/PostCreateOrdine',data);
+        return response.data;
     } catch (error) {
         throw new Error("")
     }

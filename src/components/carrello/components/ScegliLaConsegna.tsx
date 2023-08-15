@@ -37,7 +37,8 @@ type PropsScegliLaConsegna = {
     setTotaleProvisorio: React.Dispatch<React.SetStateAction<DataGetTotaleProvisorio | undefined>>;
     corriereSelezionata: DataGgetCorriereSelezionata | undefined;
     handleGetCorriereSelezionata: (IdCorriere?: number | undefined, Cap?: string | undefined, IdPrev?: number | undefined, IdFormProd?: number | undefined, IdTipoCarta?: number | undefined, IdColoreStampa?: number | undefined) => Promise<void>
-    handleScandeza: (Cap: string) => Promise<void>
+    handleScandeza: (Cap: string) => Promise<void>;
+    handleAquistaOra: () => Promise<void>
 }
 
 type indirizoJson = {
@@ -45,7 +46,7 @@ type indirizoJson = {
     nome: string,
     id: number
 }
-const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, indirizzoList, alleghiPDF, indexScandeza, arrayCarrello, dataUtente, radio, setRadio, caricaCorriere, getTotaleProvisorio, dataTotale, radioPagamento, setTotaleProvisorio, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza }: PropsScegliLaConsegna) => {
+const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, indirizzoList, alleghiPDF, indexScandeza, arrayCarrello, dataUtente, radio, setRadio, caricaCorriere, getTotaleProvisorio, dataTotale, radioPagamento, setTotaleProvisorio, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza,handleAquistaOra }: PropsScegliLaConsegna) => {
 
 
     const [email, setEmail] = useState<string>('')
@@ -122,28 +123,38 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
         localStorage.setItem('indid', String(selectedValue.id))
     }
 
-    
+
     const handleDateConsegne = (dateConsegna: DateConsegna | undefined) => {
-
         const code = arrayCarrello[indexScandeza].code;
-
         switch (code) {
             case "F":
                 if (radio == 0) {
+                    localStorage.setItem('gro', String(dateConsegna?.dataFastProduzione));
+                    localStorage.setItem('prv', String(dateConsegna?.dataFast));
                     return DateFormatItWDMY(dateConsegna?.dataFastProduzione);
                 } else {
+                    localStorage.setItem('gro', String(dateConsegna?.dataFastProduzione));
+                    localStorage.setItem('prv', String(dateConsegna?.dataFast));
                     return DateFormatItWDMY(dateConsegna?.dataFast);
                 }
             case "N":
                 if (radio == 0 && code == "N") {
+                    localStorage.setItem('prv', String(dateConsegna?.dataNormale));
+                    localStorage.setItem('gro', String(dateConsegna?.dataNormaleProduzione))
                     return DateFormatItWDMY(dateConsegna?.dataNormaleProduzione);
                 } else {
+                    localStorage.setItem('gro', String(dateConsegna?.dataNormaleProduzione))
+                    localStorage.setItem('prv', String(dateConsegna?.dataNormale));
                     return DateFormatItWDMY(dateConsegna?.dataNormale);
                 }
             case "S":
                 if (radio == 0) {
+                    localStorage.setItem('prv', String(dateConsegna?.dataSlow));
+                    localStorage.setItem('gro', String(dateConsegna?.dataSlowProduzione))
                     return DateFormatItWDMY(dateConsegna?.dataSlowProduzione);
                 } else {
+                    localStorage.setItem('prv', String(dateConsegna?.dataSlow));
+                    localStorage.setItem('prv', String(dateConsegna?.dataSlow));
                     return DateFormatItWDMY(dateConsegna?.dataSlow);
                 }
             default:
@@ -160,7 +171,15 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
         handleGetCorriereSelezionata();
         handleDateConsegne(corriereSelezionata?.dateConsegna)
         localStorage.setItem('pzo', String(TotaleProvisorio?.pesoKG))
-
+        if (radio == 1) {
+            var indid = indirizzoList.find(x => x.predefinito == true);
+            localStorage.setItem('indid', String(indid?.idIndirizzo));
+            localStorage.setItem('ind', String(`${indid?.nome} ${indid?.riassunto}`))
+        }else{
+            localStorage.removeItem('indid')
+            localStorage.removeItem('ind')
+        }
+        //var giorno = 
     }, [radio])
 
     return (
@@ -230,7 +249,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                         In caso contrario la data di consegna verrà ricalcolata automaticamente nel momento in cui allegherai tutti i file ai lavori dell'ordine.
                     </span>
                 </div>
-                {(corriereSelezionata && corriereSelezionata.pnlTrace == true && radio ===1)&&
+                {(corriereSelezionata && corriereSelezionata.pnlTrace == true && radio === 1) &&
                     <div className="border leading-6 border-[#aaa] rounded-[5px] text-[12px] h-[92px] w-[700px] mt-[10px] p-[20px]">
                         <p>Vuoi ricevere tramite email gli aggiornamenti sullo stato della spedizione dal Corriere?</p>
                         <p>Indica qui una email dove ricevere le notifiche <input className="text-[13px] mx-[2px] w-[207px] h-[21px] 3outline-none border border-[#aaa]" type="text" placeholder="Indica un email per ricevere aggiornamenti sulla spedizione dal corriere" value={email} onChange={handleEmail} /> <a className="text-[12px] cursor-pointer font-normal bg-[#f58220] px-[4px] py-[2px]" onClick={() => { handleUseMiaMail() }}>Usa la mia mail</a></p>
@@ -241,7 +260,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
 
             </div>
             <div className="w-[23%]">
-                {<TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />}
+                {<TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra}/>}
             </div>
         </div>
     )
