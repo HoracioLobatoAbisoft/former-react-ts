@@ -94,7 +94,8 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     </button>
                 </center>
             </div>
-            <div className="mt-[30px] w-full">
+            <div></div>
+            <div className="mt-[38px] w-full">
                 <h2 className="text-[14px] font-bold text-center border-b-[2px]  border-[#d6e03d] mb-[5px]">Informazioni sul Carrello</h2>
                 <Accordion sx={{ width: "100%", }}>
                     <AccordionSummary
@@ -105,7 +106,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     >
                         <p className='m-0 py-[5px] ps-[7px] w-full flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Come funziona il Carrello?</p>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ border:'1px solid #ddd'}}>
                         <div className="text-[11px]" >
                             <b className='text-[#f58220]'>1) Controlla il carrello</b><br />
                             Controlla i prodotti che hai inserito nel carrello e clicca su 'ALLEGA I FILE' per continuare<br />
@@ -129,7 +130,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     >
                         <p className=' py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Quando posso allegare i file PDF ai lavori contenuti nell'ordine?</p>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ border:'1px solid #ddd'}}>
                         <div className='text-[11px] text-justify'>
                             Una volta completato l'ordine, ed eventualmente effettuato il pagamento (se sceglierai una modalità di pagamento anticipata), potrai allegare i file PDF entrando nel dettaglio di ogni lavoro dalla sezione <b>'I tuoi lavori'</b>.
                         </div>
@@ -144,7 +145,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     >
                         <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Come posso utilizzare un Coupon di Sconto?</p>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ border:'1px solid #ddd'}}>
                         <div className='text-[11px] text-justify'>
                             Puoi trovare tutte le informazioni necessarie sui Coupon di sconto nella pagina dedicata <a className="text-[#f58220] cursor-pointer">cliccando qui</a><br /><br />
                             Se hai un Coupon di sconto puoi inserirlo nella sezione del Carrello relativa al Pagamento
@@ -160,7 +161,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     >
                         <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Perchè il mio Carrello è vuoto?</p>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ border:'1px solid #ddd'}}>
                         <div className='text-[11px] text-justify'>
                             Per inserire dei prodotti nel carrello, vai nella scheda del prodotto che ti interessa e clicca sul pulsante<b>'Aggiungi al Carrello'</b>
                         </div>
@@ -175,7 +176,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     >
                         <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Dove posso scegliere il tipo di Consegna che preferisco?</p>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ border:'1px solid #ddd'}}>
                         <div className='text-[11px] text-justify'>
                             Nella sezione del carrello <b>"Scegli la Consegna"</b> potrai selezionare il tipo di consegna che preferisci.<br /><br /> Potrai anche specificare un indirizzo di consegna differente da quello fornito al momento della registrazione.
                         </div>
@@ -190,7 +191,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     >
                         <p className='py-[5px] ps-[7px] text-justify pe-[5px] flex gap-1 items-center '><AddIcon sx={{ fontSize: 15 }} /> In che modo posso pagare il mio ordine? </p>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ border:'1px solid #ddd'}}>
                         <div className='text-[11px] text-justify'>
                             Nella sezione del carrello <b>"Scegli il Pagamento"</b> potrai scegliere la modalità di pagamento che preferisci.<br /><br /> Se hai a disposizione un Coupon di sconto potrai inserirlo in modo che il tuo sconto venga applicato all'ordine.
                         </div>

@@ -14,10 +14,12 @@ const ContinuaGliAcquisti = ({step,changebuttonstep}: ProspGliAquisti) => {
 
     return (
         <div>
-            <br />
-            <span style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> {changebuttonstep(step+1)}</strong></span>
-            <br />
-            <span style={{ 'fontSize': 12 }}>Se vuoi ordinare altri prodotti clicca qui e</span> <a href="" style={{ 'fontSize': '16px', 'color': '#f58220', 'fontWeight': 'bold' }} onClick={handleIndexReload}>Continua gli acquisti.</a>
+            <p style={{'marginTop': '15px' }}>
+                <span style={{ 'fontSize': 12}}>Se vuoi completare l'acquisto clicca su <strong> {changebuttonstep(step+1)}</strong></span>
+            </p>
+            <p style={{'marginTop': '10px' }}>
+                <span style={{ 'fontSize': 12, marginTop: 40 }}>Se vuoi ordinare altri prodotti clicca qui e</span> <a href="" style={{ 'fontSize': '16px', 'color': '#f58220', 'fontWeight': 'bold' }} onClick={handleIndexReload}>Continua gli acquisti.</a>
+            </p>
         </div>
     )
 }

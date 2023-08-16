@@ -56,7 +56,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                         <p className="">€ {formatNumber(Number(elem.prezzo))} + iva</p>
                                     </div>
                                 </AccordionSummary>
-                                <AccordionDetails sx={{ bgcolor: "", display: '', fontSize: 11, width: '100%' }}>
+                                <AccordionDetails sx={{ bgcolor: "", display: '', fontSize: 11, width: '100%', border:'1px solid #ddd'}}>
                                     <div className="w-full flex gap-2">
 
                                         {typeof elem.img === 'object' ? <ImageCustom svgImage={elem.img} /> : <img src={`https://tipografiaformer.it/listino/img/${elem.img}`} className='w-[100px] h-[100px] ' alt="" />}
@@ -103,10 +103,13 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                         })}
                                                 </p>
                                                 <p className="font-normal">Colli <b>{elem.colli}</b>, Peso <b>{elem.peso}</b> kg ±</p>
-                                                <div className="flex mt-[15px] bg-[#d6e03d] w-[160px] h-[30px] p-[5px] text-[18px] rounded-[5px] items-center justify-center">
-                                                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} className='w-[20px] h-[25px]' /> <b>€ {formatNumber(Number(elem.prezzo))} + iva</b>
+                                                <div className='flex'>
+                                                    <div className="flex flex-row min-w-[140px] bg-[#d6e03d] mt-[15px] bg-[#d6e03d] h-[30px] py-[2px] px-[5px] text-[18px] rounded-[5px] items-center justify-center">
+                                                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} className='w-[20px] h-[25px]' /> <b className='ml-1'>€ {formatNumber(Number(elem.prezzo))} + iva</b>
+                                                    </div>
                                                 </div>
-                                                <p className="bg-[#f1f1f1] font-normal mt-[15px]">
+                                                
+                                                <p className="bg-[#f1f1f1] font-normal mt-[15px] w-[75%]">
                                                     {elem.note}
                                                 </p>
 
@@ -115,10 +118,24 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                     </div>
                                     <hr className='border border-[#d6e03d] mt-[23px]' />
                                     <div className="flex justify-end mt-[6px] gap-3">
-                                        {elem.pdfTemplate != "" && <a href={`https://tipografiaformer.it/listino/template/${elem.pdfTemplate}`} className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer" target='_blank'><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo16.png`} /> Scarica il Template</a>}
-                                        <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer" onClick={() => handleRetornaProdotto(i, String(elem.nomeUrl))}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCestinoGo16.png`} />Elimina dal carrello e vai al Prodotto</a>
-
-                                        <a onClick={() => deleteItem(i)} className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCestino16.png`} />Elimina dal carrello</a>
+                                        {elem.pdfTemplate != "" && <a href={`https://tipografiaformer.it/listino/template/${elem.pdfTemplate}`} className="flex min-w-[100px] gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer " target='_blank'>
+                                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo16.png`} />
+                                            <span className='min-w-[95px]'>
+                                                Scarica il Template
+                                            </span> 
+                                            </a>}
+                                        <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer" onClick={() => handleRetornaProdotto(i, String(elem.nomeUrl))}>
+                                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCestinoGo16.png`} />
+                                            <span className=' min-w-[175px]'>
+                                                Elimina dal carrello e vai al Prodotto
+                                            </span>
+                                        </a>
+                                        <a onClick={() => deleteItem(i)} className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer">
+                                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCestino16.png`} />
+                                            <span className='min-w-[100px]'>
+                                                Elimina dal carrello
+                                            </span>
+                                        </a>
                                     </div>
                                 </AccordionDetails>
                             </Accordion>

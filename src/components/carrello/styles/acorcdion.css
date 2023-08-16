@@ -8,6 +8,13 @@
     margin-bottom: 2px;
     box-shadow: none;
 }
+
+.summary.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters:hover{
+    background: #d6e03d;
+}
+.summary.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters.Mui-expanded{
+    background: #d6e03d;
+}
 .summary.MuiAccordionSummary-root .MuiAccordionSummary-contentGutters{
     margin: 0;
 }
@@ -22,4 +29,13 @@
     min-height: 40px;
     height: 40px;
     box-shadow: none;
+    background: #f1f1f1;
 }
+.carrello.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters:hover{
+    background: #d6e03d;
+}
+
+.carrello.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters.Mui-expanded{
+    background: #d6e03d;
+}
+
