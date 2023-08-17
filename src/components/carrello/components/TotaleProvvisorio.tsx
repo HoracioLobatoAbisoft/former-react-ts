@@ -6,7 +6,8 @@ import './../styles/acorcdion.css'
 import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 import { formatNumber } from '../../../services/NumberFormat';
 import { useNavigate } from 'react-router-dom';
-
+import { GLOBAL_CONFIG } from '../../../_config/global';
+import useCarrello from '../hooks/useCarrello';
 type PropsTotale = {
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
@@ -21,7 +22,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
     const navigate = useNavigate();
 
     const scontoLocal = localStorage.getItem('sc')
-
+    const {handleReturnIndex} = useCarrello();
     return (
         <div className="">
             <div className="bg-[#f1f1f1] w-full text-[14px] mt-[30px] rounded-[3px] p-[10px]">
@@ -94,6 +95,24 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     </button>
                 </center>
             </div>
+            {
+                step == 5&&<>
+                    <div className='mt-[38px] w-full'>
+                    <center>
+                        {/* <button onClick={() => { handleAquistaOra() ;setStepperStep(step + 1) ; setSteptext(changebuttonstep(step + 1)) }} className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "><b>{changebuttonstep(step + 1)}</b></button> */}
+                        <button 
+                            onClick={() => { handleReturnIndex() }} 
+                            className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#f58220] text-center p-[5px] "
+                        >
+                            <div className='flex flex-row px-[3px] items-center justify-center'>
+                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrelloW.png`} className='h-[16px] w-[16px]' />
+                                <span className=' ml-1 text-[white] font-bold'>{`CONTINUA ACQUISTI`}</span>
+                            </div>
+                        </button>
+                    </center>
+                    </div>
+                </>
+            }
             <div></div>
             <div className="mt-[38px] w-full">
                 <h2 className="text-[14px] font-bold text-center border-b-[2px]  border-[#d6e03d] mb-[5px]">Informazioni sul Carrello</h2>

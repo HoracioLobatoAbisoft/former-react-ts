@@ -232,7 +232,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
 
                 </div>
                 <div className="consegna mt-[10px]">
-                    <div className="center-title" style={{ 'margin': 15, 'fontSize': 14 }}>
+                    <div className="center-title " style={{ 'margin': 0, marginBottom: 15, 'fontSize': 14 }}>
                         <div style={{ 'backgroundColor': '#d6e03d', 'padding': '0px 5px', 'fontSize': '12px' }}>
                             <strong>DATA DI CONSEGNA PREVISTA  <span className="text-[16px] capitalize">{handleDateConsegne(corriereSelezionata?.dateConsegna)}</span></strong>
                         </div>

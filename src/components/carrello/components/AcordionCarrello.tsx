@@ -32,7 +32,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
-                <h5 className="flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} /> <b>CARRELLO ACQUISTI: {ArrayLocalCarrello.length}</b> Lavoro/i contenuti in questo Ordine.</h5>
+                <h5 className="flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} className='h-[16px] w-[16px]' /> <b>CARRELLO ACQUISTI: {ArrayLocalCarrello.length}</b> Lavoro/i contenuti in questo Ordine.</h5>
                 {step !== 5  && <a className="cursor-pointer flex hover:underline" onClick={() => { handleDeleteAllCarrello() }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoDel20.png`} /> Svuota il Carrello</a>}
                 
             </div>
