@@ -69,7 +69,9 @@ export default function Effettuato() {
             className="custom-tab" 
             label={ 
                 <p className='tab-p'> 
-                    Ordine Confermato
+                    <span className='ml-1'>
+                      Ordine Confermato
+                    </span>
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoProdotti.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
                 </p>}
             {...a11yProps(0)} 
@@ -77,9 +79,11 @@ export default function Effettuato() {
           <Tab iconPosition='start'
             className="custom-tab" 
             label={ 
-                <p className='tab-p-2'> 
+                <p className='tab-p-2 flex flex-row items-center justify-center'> 
+                  <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
+                  <span className='ml-1'>
                     Promo
-                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
+                  </span>
                 </p>} 
             {...a11yProps(1)} 
             />

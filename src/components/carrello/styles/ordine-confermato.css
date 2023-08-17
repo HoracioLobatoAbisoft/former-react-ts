@@ -17,6 +17,10 @@
     min-height: 40px !important;
 }
 
+.MuiTabs-indicator.css-lafep3-MuiTabs-indicator{
+    background: #fff;
+}
+
 .tab-p {
     padding: 3px;
    
@@ -57,4 +61,26 @@
     font-size: 11px;
     font-style: italic;
     padding: 5px 0;
+}
+
+.risultatoRicerca {
+    margin: 0 5px 10px;
+    padding: 5px;
+    border: 3px solid #d3d3d3;
+    border-radius: 5px;
+}
+
+.boxPromo {
+    border: 2px solid #009ec9;
+    border-radius: 3px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.labPromo {
+    padding: 0 3px;
+    font-weight: 400;
+    color: #fff;
+    border-radius: 3px;
+    background-color: #009ec9;
 }
