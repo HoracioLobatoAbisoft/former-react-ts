@@ -208,6 +208,10 @@ const useCarrello = () => {
         window.parent.postMessage({ operation: enOperationFrame.returnIndex }, GLOBAL_CONFIG.IMG_IP);
     }
 
+    const handleRedirectITuoiOrdini = () => {
+        window.parent.postMessage({ operation: enOperationFrame.redirectITuoiOrdini }, GLOBAL_CONFIG.IMG_IP);
+    }
+
     const handleTotaleProvisorio = async () => {
         const scontoLocal = localStorage.getItem('sc')
         const responseTotale = await getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, scontoLocal == undefined ? null : Number(scontoLocal), radioPagamento, radio);
@@ -359,7 +363,8 @@ const useCarrello = () => {
         setStep,
         steptext,
         setSteptext,
-        handleShow
+        handleShow,
+        handleRedirectITuoiOrdini,
     }
 }
 
