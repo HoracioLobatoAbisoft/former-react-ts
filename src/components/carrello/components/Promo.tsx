@@ -1,6 +1,12 @@
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import PromoCard from "./PromoCard";
+import useCarrello from "../hooks/useCarrello";
+import { useEffect } from "react";
 const Promo = () =>{
+    const {promoList, getPromo} = useCarrello();
+    useEffect(()=>{
+        getPromo();
+    },[])
     return <>
         <div>
             <div className="row">
@@ -14,7 +20,21 @@ const Promo = () =>{
                 </div>
                 <div className="col col-12">
                     <div className="row">
-                        <PromoCard/>
+                        {
+                            promoList.map((e,i)=>{
+                                return (
+                                        <>
+                                         <PromoCard
+                                            key={i}
+                                            promo={e}
+                                         />
+                                        </>
+                                    )
+                            }
+                               
+                            )
+                        }
+                       
                     </div>
 
                 </div>

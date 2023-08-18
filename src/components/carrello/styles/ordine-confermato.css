@@ -84,3 +84,10 @@
     border-radius: 3px;
     background-color: #009ec9;
 }
+
+.prezzoPromo {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 0;
+    color: #009ec9;
+}
