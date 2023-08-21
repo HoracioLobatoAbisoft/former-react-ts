@@ -15,15 +15,16 @@ interface Props {
     showTablePreez: boolean | undefined;
     senderComandargument: string;
     setSenderComandargument: React.Dispatch<React.SetStateAction<string>>
-    handleCalcolaTuto: (code: string, QtaSelezionata: number, prezoSelezionata: number) => void
+    handleCalcolaTuto: (code: string, QtaSelezionata: number, prezoSelezionata: number,i:number) => void
     handleSelectDate: (code: string, date1: Date | undefined, date2: Date | undefined) => void
     alertMassimo: string;
     setTablaDataPrezzi: React.Dispatch<React.SetStateAction<TablePrezzi[]>>;
     initialState: InitialValuesProdotto;
     qtaSelezinata: number;
-    calcolaTuto: DataGetCalcolaTuto | undefined
+    calcolaTuto: DataGetCalcolaTuto | undefined;
+    prezzoActive: number
 }
-const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable, showTablePreez, senderComandargument, setSenderComandargument, handleCalcolaTuto, handleSelectDate, alertMassimo, initialState, setTablaDataPrezzi, qtaSelezinata, calcolaTuto }: Props) => {
+const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable, showTablePreez, senderComandargument, setSenderComandargument, handleCalcolaTuto, handleSelectDate, alertMassimo, initialState, setTablaDataPrezzi, qtaSelezinata, calcolaTuto,prezzoActive }: Props) => {
     const formatDate = (value: Date) => {
         if (value != undefined) {
             const date = new Date(value);
@@ -89,8 +90,11 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
     // }, [initialState.base,initialState.height])
 
 
-    //console.log("adsfdsfadsfdsfadsfdsfadsfs",tab NlaDataPrezzi)
-    selectRow
+    ////console.log("adsfdsfadsfdsfadsfdsfadsfs",tab NlaDataPrezzi)
+    //selectRow
+
+    //console.log('prezzoActive',prezzoActive)
+
     return (
         <>
             {tablaDate &&
@@ -144,7 +148,6 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
                     }
                 </div>
             }
-
             {
                 showTablePreez == true ?
                     tablaDataPrezzi.map((elem, i) => {
@@ -154,18 +157,18 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
                                     <p className=" text-end text-[14px]">{formatQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                 </div>
                                 {showColumTable?.prezzoFazt ?
-                                    <div onClick={() => { handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("F", elem.richiestaCalcoloPrezzo.qtaRichiesta, elem.prezzoRiv); handleSelectDate("F", tablaDate?.dataFast, tablaDate?.dataFastProduzione) }} className={` 
-                                    ${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && calcolaTuto && calcolaTuto.prezzoCalcolatoNetto == elem.prezzoRiv ? 'bg-[#d6e03d]' : 'bg-[#eef3f1]'} w-[228px] ${promo ? 'h-[45px]' : 'h-[32.8px]'} rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center`}>
+                                    <div onClick={() => { handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("F", elem.richiestaCalcoloPrezzo.qtaRichiesta, elem.prezzoRiv,i ); handleSelectDate("F", tablaDate?.dataFast, tablaDate?.dataFastProduzione) }} className={` 
+                                    ${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoRiv ? 'bg-[#d6e03d]' : 'bg-[#eef3f1]'} w-[228px] ${promo ? 'h-[45px]' : 'h-[32.8px]'} rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center mb-[2px]`}>
                                         <p className="text-[14px]">{formatValue(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }
                                 {showColumTable?.prezzoNorm ?
-                                    <div onClick={() => { handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("N", elem.richiestaCalcoloPrezzo.qtaRichiesta, elem.prezzoPubbl); handleSelectDate("N", tablaDate?.dataNormale, tablaDate?.dataNormaleProduzione) }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && calcolaTuto && calcolaTuto.prezzoCalcolatoNetto == elem.prezzoPubbl ? 'bg-[#d6e03d]' : 'bg-[#d4e8df]'}  w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center `}>
+                                    <div onClick={() => { handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("N", elem.richiestaCalcoloPrezzo.qtaRichiesta, elem.prezzoPubbl,i); handleSelectDate("N", tablaDate?.dataNormale, tablaDate?.dataNormaleProduzione) }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoPubbl ? 'bg-[#d6e03d]' : 'bg-[#d4e8df]'}  w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] mb-[2px] flex items-center justify-center `}>
                                         <p className="text-[14px]">{formatValue(elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }
                                 {showColumTable?.prezzoSlow ?
-                                    <div onClick={() => { handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("S", elem.richiestaCalcoloPrezzo.qtaRichiesta,promo?elem.prezzoPromo : elem.prezzoConsigliatoPubbl); handleSelectDate("S", tablaDate?.dataSlow, tablaDate?.dataSlowProduzione) }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && calcolaTuto && calcolaTuto.prezzoCalcolatoNetto == elem.prezzoConsigliatoPubbl ||qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && calcolaTuto?.prezzoCalcolatoNetto == elem.prezzoPromo ? 'bg-[#d6e03d]' : 'bg-[#a4d9d1]'} w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}   rounded px-3 mb-[2px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex flex-col items-center justify-center `}>
+                                    <div onClick={() => { handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("S", elem.richiestaCalcoloPrezzo.qtaRichiesta,promo?elem.prezzoPromo : elem.prezzoConsigliatoPubbl,i); handleSelectDate("S", tablaDate?.dataSlow, tablaDate?.dataSlowProduzione) }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoConsigliatoPubbl ||qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoPromo ? 'bg-[#d6e03d]' : 'bg-[#a4d9d1]'} w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}   rounded px-3 mb-[2px] font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex flex-col items-center justify-center `}>
                                         <p className={`text-[14px] ${promo ? 'line-through':''}`}>€ {numberFormat(elem.prezzoConsigliatoPubbl)}</p>
                                         {promo &&
                                             <p className="text-[14px] text-[#009ec9]">€ {numberFormat(elem.prezzoPromo)}</p>

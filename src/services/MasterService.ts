@@ -32,7 +32,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -47,7 +47,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -64,7 +64,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -80,7 +80,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -96,7 +96,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -111,7 +111,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -132,7 +132,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         SweeAlerts.confirmAlert(
           "Error",
           "Errore nell'invio della posta",
@@ -155,7 +155,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -176,7 +176,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         SweeAlerts.confirmAlert(
           "Error",
           "Errore nell'invio della posta",
@@ -187,7 +187,7 @@ class MasterService {
   }
 
   putIndirizoData(apiUrl: any, data: any) {
-    console.log(data);
+    //console.log(data);
     return axios
       .put(apiUrl, data, {
         // headers: {
@@ -200,7 +200,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         // SweeAlerts.confirmAlert('Error', "Error en el put", 'warning')
         return err;
       });
@@ -217,7 +217,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
       });
   }
 
@@ -233,7 +233,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }
 
@@ -256,7 +256,7 @@ class MasterService {
         return response;
       })
       .catch((err) => {
-        //console.log(err);
+        ////console.log(err);
         console.error("Error:", uri, ", log: ", err);
         if (args[2] !== undefined) {
           args[2](err);

@@ -13,7 +13,7 @@ const DiscountContent = () => {
   };
 
   const userData = useContext(UserContext);
-  console.log(userData)
+  //console.log(userData)
   return (
     <div className="flex ">
       <SideBarPersonalArea />

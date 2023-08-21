@@ -7,26 +7,26 @@ import { conf } from "../../config";
 class LoginService {
     getUtenti() {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Ricerca`;
-        console.log(CURRENT_API_URL);
+        //console.log(CURRENT_API_URL);
         return MasterService.getDataUtenti(CURRENT_API_URL);
     }
 
     getUser(idUdt:string) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Login/GetUserLoginById`;
-        console.log(CURRENT_API_URL);
+        //console.log(CURRENT_API_URL);
         return MasterService.getDataUser(CURRENT_API_URL, idUdt);
     }
 
     getLavori(idUdt:string) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Lavori`;
-        console.log(CURRENT_API_URL);
+        //console.log(CURRENT_API_URL);
         return MasterService.getDataLavori(CURRENT_API_URL, idUdt);
     }
 
 
     postUser(data:any) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Login`;
-        console.log(CURRENT_API_URL);
+        //console.log(CURRENT_API_URL);
         return MasterService.postUserLogin(CURRENT_API_URL, data);
 
 

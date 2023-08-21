@@ -164,7 +164,7 @@
 //   //   </div>
 
 //   // );
-//   //console.log("rrrrrrrrr", initialState)
+//   ////console.log("rrrrrrrrr", initialState)
 //   const SelectFormato = () => {
 //     switch (idBaseEtiquete) {
 //       case "0":

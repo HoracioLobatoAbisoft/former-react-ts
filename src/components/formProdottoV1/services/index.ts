@@ -54,7 +54,7 @@ export const httpGetColoreStampa = async (idPrev: number, idFormProd: number, id
 };
 export const httpGetOpzioni = async (idPrev: number, idFormProd: number, idTipoCarta: number, idColoreStampa: number, base: number, prfundita: number, altezza: number) => {
 
-  console.log("dataHTtp", base, prfundita, altezza)
+  //console.log("dataHTtp", base, prfundita, altezza)
 
   try {
     const result = await applicationConnect.get<ResponseApi<Opzioni[]>>(BASE_URL + "GetOpzioni", {
@@ -128,7 +128,7 @@ export const httpGetTablePrezzi = async (
   idUt: number,
   valuesStampaCaldoOpz: {}
 ) => {
-  console.log("Api: ", valuesStampaCaldoOpz)
+  //console.log("Api: ", valuesStampaCaldoOpz)
   try {
 
 
@@ -170,7 +170,7 @@ export const httpGetTableQuantitySelected = async (
   idUt: number,
   valuesStampaCaldoOpz: {}
 ) => {
-  console.log("Api: ", valuesStampaCaldoOpz)
+  //console.log("Api: ", valuesStampaCaldoOpz)
   try {
 
 
@@ -371,7 +371,7 @@ export const httpGetDisabledProfundita = async (IdPrev: number) => {
 
     return response.data
   } catch (error) {
-    //console.log("httpGetDisabledProfundita \n", error);
+    ////console.log("httpGetDisabledProfundita \n", error);
     throw new Error("")
   }
 }
@@ -391,7 +391,7 @@ export const httpGetShowFogliPagine = async (idPrev: number,
   idUt: number,
   valuesStampaCaldoOpz: {}
 ) => {
-  console.log("Api: ", valuesStampaCaldoOpz)
+  //console.log("Api: ", valuesStampaCaldoOpz)
   try {
 
 
@@ -507,7 +507,7 @@ export const httpGetCalcolaTuto = async (code: string,
     const result = await applicationConnect.post<ResponseGetCalcolaTuto>('Packagin/GetCalcolaTuto', postCalcolaTuto);
     return result.data;
   } catch (error) {
-    //console.log('ERROR CALCOLA TUTO',error)
+    ////console.log('ERROR CALCOLA TUTO',error)
     throw new Error("");
   }
 }

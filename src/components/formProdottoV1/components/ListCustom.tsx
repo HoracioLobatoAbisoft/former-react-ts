@@ -19,7 +19,7 @@ const ListCustom = ({ label, options }: Props) => {
   // const setHoveredState = (stateBool: boolean) => {
   //   setIsHovered(stateBool);
   // };
-  console.log("asdfadsf", options)
+  //console.log("asdfadsf", options)
   // return (
   //   <div className=" pb-2 w-full flex flex-col ">
   //     <div className="w-full flex gap-5">

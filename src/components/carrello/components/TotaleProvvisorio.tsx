@@ -87,7 +87,7 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                 <center>
                     {/* <button onClick={() => { handleAquistaOra() ;setStepperStep(step + 1) ; setSteptext(changebuttonstep(step + 1)) }} className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "><b>{changebuttonstep(step + 1)}</b></button> */}
                     <button 
-                        onClick={() => {handleAquistaOra() ; setStepperStep(step + 1); setSteptext(changebuttonstep(step + 1)); console.log("cayo aca"); }} 
+                        onClick={() => {handleAquistaOra() ; setStepperStep(step + 1); setSteptext(changebuttonstep(step + 1));  }} 
                         className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "
                     >
                         <b>{changebuttonstep(step + 1)}</b>

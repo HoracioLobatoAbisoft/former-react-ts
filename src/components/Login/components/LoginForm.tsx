@@ -15,10 +15,10 @@ const LoginForm = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    //console.log(data);
 
     LoginService.postUser(data).then((res) => {
-      console.log(res);
+      //console.log(res);
       // localStorage.setItem("token", res?.data.token);
       if (res?.data.token) {
       }

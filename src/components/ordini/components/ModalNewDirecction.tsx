@@ -56,9 +56,9 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
   const handleLocalita = (e: any) => {
     const selectedOptions = e.target.selectedOptions;
 
-    console.log(e.target.value);
+    //console.log(e.target.value);
 
-    console.log(selectedOptions);
+    //console.log(selectedOptions);
     for (let i = 0; i < selectedOptions.length; i++) {
       const option = selectedOptions[i];
       const idCap = option.value;
@@ -123,14 +123,14 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
 
    
     OrdiniServices.postNewIndirizzo(data).then((res) => {
-      console.log(res);
+      //console.log(res);
       setValidate(false)
       handleNewModal()
       updateList()
 
     });
 
-    console.log(data);
+    //console.log(data);
   };
 
   useEffect(() => {
@@ -143,7 +143,7 @@ const ModalNewDirecction = ({ handleNewModal, updateList }: any) => {
   useEffect(() => {
     OrdiniServices.getCaricaLocalita(capText).then((res) => {
       let data = res?.data.data;
-      console.log(data);
+      //console.log(data);
       setLocalitaText(data);
     });
   }, [capText]);

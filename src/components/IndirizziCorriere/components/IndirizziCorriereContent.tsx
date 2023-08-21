@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const IndirizziCorriereContent = () => {
 
     const userData = useContext(UserContext);
-    console.log(userData)
+    //console.log(userData)
 
     const { indirizoList } = IndirizziCorriereHooks(userData.id)
     const [activeAccordion, setActiveAccordion] = useState(-1);

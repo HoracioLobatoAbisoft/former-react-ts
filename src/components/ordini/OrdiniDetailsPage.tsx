@@ -12,7 +12,7 @@ const OrdineDetails = () => {
   const params = useParams();
   
   const userData = useContext(UserContext);
-  console.log(userData)
+  //console.log(userData)
   const [ordine, setOrdine] = useState();
 
   const [showDate, setShowDate] = useState(false);
@@ -21,7 +21,7 @@ const OrdineDetails = () => {
     OrdiniServices.getOrdiniById(params.userId, userData.id).then((res) => {
       let data = res?.data.data;
 
-      console.log(data);
+      //console.log(data);
       setOrdine(data);
       setShowDate(true);
     });

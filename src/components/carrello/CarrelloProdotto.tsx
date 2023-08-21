@@ -24,7 +24,7 @@ const changebuttonstep = (step: number) => {
     } else if (step === 6){
         textreturn = "ACQUISTA ORA"
     } else if(step === 7){
-        console.log("aca cayo en 7");
+        //console.log("aca cayo en 7");
     }
     return textreturn;
 }
@@ -45,10 +45,10 @@ const CarrelloProdotto = () => {
 
     useEffect(()=>{
         if(step === 6){
-            console.log(`este:${step} llama al evento`);
+            //console.log(`este:${step} llama al evento`);
             handleShow();
         } else {
-            console.log(`este:${step}`);
+            //console.log(`este:${step}`);
         }
     }, [step]);
     // if (step === 1) {

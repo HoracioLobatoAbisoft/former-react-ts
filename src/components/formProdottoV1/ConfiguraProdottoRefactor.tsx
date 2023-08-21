@@ -77,7 +77,8 @@ const ConfiguraProdottoRefactor = () => {
         setQtaSelezinata,
         idFustella,
         openLoadingBackdrop,
-        setOpenLoadingBackdrop
+        setOpenLoadingBackdrop,
+        prezzoActive
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -182,7 +183,7 @@ const ConfiguraProdottoRefactor = () => {
                             {parseInt(String(idFustella)) === 0 && <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />}
 
                             {stampaCalOpz?.map((elem, i) => {
-                                //console.log("elemselect",stampaCalOpz)
+                                ////console.log("elemselect",stampaCalOpz)
                                 if (elem.tipoControllo === 1) {
                                     return (
                                         <InputCustomSelect key={i} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handleStampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} valuesStampaCaldoOpz={valuesStampaCaldoOpz} />
@@ -217,7 +218,7 @@ const ConfiguraProdottoRefactor = () => {
                 <div className="w-full text-xs ">
                     {(tablaDataPrezzi.length === 0 && (initialState.base !== null && initialState.height !== null && initialState.depth !== null)) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] font-semibold">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE</p>}
                     {(alertMassimo) && <p className=" text-center my-3 tracking-tighter text-[#ff0000] text-[12.5px] font-semibold text-">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE <br /><span className="uppercase italic">{alertMassimo}</span></p>}
-                    {showOpzzioni ?
+                    {showOpzzioni === 1 ?
                         <li className="bg-gray-100 rounded py-1 px-1  "><a href="" className="hover:underline font-bold " >CLICCA QUI</a> per consultare le fustelle già disponibili;</li> : null
                     }
                     {showQtaCustom ?
@@ -227,12 +228,12 @@ const ConfiguraProdottoRefactor = () => {
                 </div>
                 <div className=" w-full flex gap-5 mb-3 mt-[18px] justify-end text-xs">
                     <i className="text-[11.5px] me-1">Visualizza prezzo </i>
-                    <RadioCustom name="iva" value={2} checked={initialState.iva === 2} label="CAD." handleCheckboxChange={handleChange} />
-                    <RadioCustom name="iva" value={0} checked={initialState.iva === 0} label="Senza IVA" handleCheckboxChange={handleChange} />
-                    <RadioCustom name="iva" value={1} checked={initialState.iva === 1} label="Con IVA" handleCheckboxChange={handleChange} />
+                    <RadioCustom name="iva" value={2} checked={initialState.iva == 2 ? true : false} label="CAD." handleCheckboxChange={handleChange} />
+                    <RadioCustom name="iva" value={0} checked={initialState.iva == 0 ? true : false} label="Senza IVA" handleCheckboxChange={handleChange} />
+                    <RadioCustom name="iva" value={1} checked={initialState.iva == 1 ? true : false} label="Con IVA" handleCheckboxChange={handleChange} />
                 </div>
                 <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
-                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} />
+                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} prezzoActive={prezzoActive}/>
                 {
                     showTablePreez == true && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
                 }

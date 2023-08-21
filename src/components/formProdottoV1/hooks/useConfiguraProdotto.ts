@@ -281,7 +281,7 @@ export const useConfiguraProdotto = () => {
       );
       if (tipoCartaList.data) {
         //IdTipoCarta = String(tipoCartaList.data[0].idTipoCarta);
-        console.log('IdTipoCarta', IdTipoCarta)
+        //console.log('IdTipoCarta', IdTipoCarta)
         //IdTipoCarta = String(tipoCartaList.data.find(x => x.idTipoCarta == Number(IdTipoCarta))?.idTipoCarta);
 
       }
@@ -342,7 +342,7 @@ export const useConfiguraProdotto = () => {
       const disabledProfundita = await httpGetDisabledProfundita(Number(idPrev))
 
       // if (disableProfundita && disableProfundita.disabled === true) {
-      //   //console.log(disableProfundita.txt_Profundita)
+      //   ////console.log(disableProfundita.txt_Profundita)
       //   initialState.depth = disableProfundita.txt_Profundita
       // }
       const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa, formatoS, facciatePagine } = initialState;
@@ -425,8 +425,8 @@ export const useConfiguraProdotto = () => {
       //const valueStampaCaldo =stampaCaldoList.data.filter(x => x.idCatLav == 37)
       //setStampaCaldoList(stampaCaldoList.data[0].optionsSelect)
       //setPlatifiacazioneList(stampaCaldoList.data[1].optionsSelect)
-      //console.log(initialValues)
-      //console.log(valueStampaCaldo) 
+      ////console.log(initialValues)
+      ////console.log(valueStampaCaldo) 
       setOpenLoadingBackdrop(false)
     } catch (error) { }
   };
@@ -445,13 +445,13 @@ export const useConfiguraProdotto = () => {
         initialValues[elem.descrizione] = 0;
       }
     })
-    // console.log("stampaCaldoList.data", stampaCaldoList.data)
+    // //console.log("stampaCaldoList.data", stampaCaldoList.data)
     setStampaCalOpz(stampaCaldoList.data);
   }
 
   const handleOpzioni = async () => {
 
-    console.log("inicialStateHO", initialState)
+    //console.log("inicialStateHO", initialState)
 
     const valueIdCarta = await handleChangeTipoDeCarta()
     const opzioniList = await httpGetOpzioni(
@@ -506,7 +506,7 @@ export const useConfiguraProdotto = () => {
       }
     }
     if (coloreStampaList.data != undefined && helperColoreStampa ===0) {
-      console.log("noentra")
+      //console.log("noentra")
       initialState.coloreStampa = coloreStampaList.data[0].idColoreStampa
     }
     setColoreStampaList(coloreStampaList.data)
@@ -537,18 +537,18 @@ export const useConfiguraProdotto = () => {
     const { name, value } = evt.target;
     //debugger
     //if (name === "formatoS"){setImgFormato(Number(value))} 
-    console.log("handleChange", name, value)
+    //console.log("handleChange", name, value)
     if (name !== "Format" && name !== "base" && name !== "coloreStampa" && name !== "depth" && name !== "height" && name !== "quantity" && name !== "tipoCarta" && name !== "formatoS" && name !== "facciatePagine") {
-      //console.log('Este nombre no está en initial state:', name);
+      ////console.log('Este nombre no está en initial state:', name);
       valuesStampaCaldoOpz[name] = Number(value);
       handleTable()
-      console.log("handleChange", name, value)
+      //console.log("handleChange", name, value)
     }
     if (name === "coloreStampa") {
       setHelperColoreStampa(parseInt(value))
       handleTable()
-      console.log("handleChange", name, value)
-      console.log("adfadsfasf", name, value)
+      //console.log("handleChange", name, value)
+      //console.log("adfadsfasf", name, value)
     }
     if (name === "base" || name === "depth" || name === "height") {
       if (parseInt(value) > 0) {
@@ -559,21 +559,21 @@ export const useConfiguraProdotto = () => {
       }
     }
     if (name === "tipoCarta") { setImgHelper(Number(value)); setShowTablePreez(true) }
-    //console.log("valuesStampaCaldoOpz",valuesStampaCaldoOpz)
+    ////console.log("valuesStampaCaldoOpz",valuesStampaCaldoOpz)
     if (name) {
       switch (name) {
         case 'base':
-          console.log("aquiiii")
+          //console.log("aquiiii")
           let newBase: number;
           if (disableProfundita?.disabled === true) {
-            console.log("aquiiii")
+            //console.log("aquiiii")
             newBase = parseInt(value) < 70 ? 70 : parseInt(value);
           } else if (showProfundita === false) {
             newBase = parseInt(value) < 1 ? 1 : parseInt(value);
           }
           else {
             newBase = parseInt(value) < 20 ? 20 : parseInt(value);
-            console.log("aquiiii")
+            //console.log("aquiiii")
           }
           setInitialState({
             ...initialState,
@@ -753,7 +753,7 @@ export const useConfiguraProdotto = () => {
     }
   }
   const handleTable = async () => {
-    //console.log("showOpzioni", initialState)
+    ////console.log("showOpzioni", initialState)
     const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa, formatoS } = initialState;
     await handleChangeStampaACaldo(tipoCarta, null)
     if (tipoCarta != null || formatoS != null) {
@@ -782,8 +782,8 @@ export const useConfiguraProdotto = () => {
   const TableList = async () => {
     const { base, depth, height, quantity, stampaCaldo, plastificazione, tipoCarta, coloreStampa, formatoS, facciatePagine } = initialState;
     const valueIdCarta = await handleChangeTipoDeCarta()
-    //console.log("coloreStammpa", coloreStampa)
-    //console.log("initialSTATEEEEE", initialState)
+    ////console.log("coloreStammpa", coloreStampa)
+    ////console.log("initialSTATEEEEE", initialState)
     const tableSelectedValue = await httpGetTableQuantitySelected(
       Number(idPrev),
       Number(valueIdCarta === null ? IdTipoCarta : valueIdCarta),
@@ -804,7 +804,7 @@ export const useConfiguraProdotto = () => {
     // setSelectRow(prevState => {
     //   return { ...prevState, quantity: tableSelectedValue.data };
     // });
-    //console.log("adsfadsfadsfdasfdsaf", tableSelectedValue)
+    ////console.log("adsfadsfadsfdasfdsaf", tableSelectedValue)
     const tableList = await httpGetTablePrezzi(
       Number(idPrev),
       Number(valueIdCarta === null ? IdTipoCarta : valueIdCarta),
@@ -823,7 +823,7 @@ export const useConfiguraProdotto = () => {
       valuesStampaCaldoOpz
     );
     let data = tableList.data
-    //console.log("adsfadsfadsf", data)
+    ////console.log("adsfadsfadsf", data)
     if (quantity != null) {
       //if (quantity < 50) {
       //  data = tableList.data.filter(x => x.richiestaCalcoloPrezzo.qtaRichiesta >= 50 || x.richiestaCalcoloPrezzo.qtaRichiesta == quantity)
@@ -867,7 +867,7 @@ export const useConfiguraProdotto = () => {
   }
   const handleOptionsOpzioni = (): OptionsSelect[] => {
     if (opzioniList.length === 0) return []
-    //console.log("adsfasfsdf", opzioniList)
+    ////console.log("adsfasfsdf", opzioniList)
     const options: OptionsSelect[] = opzioniList.map(elem => {
       return {
         label: elem.descrizione,
@@ -1036,7 +1036,7 @@ export const useConfiguraProdotto = () => {
   /*
   *comente esto por el problema del colore stampa */
   useEffect(() => {
-    //console.log("asdfadsfadsfdas", "render")
+    ////console.log("asdfadsfadsfdas", "render")
     initialState.tipoCarta = null
     initialState.coloreStampa = null
 
@@ -1050,7 +1050,7 @@ export const useConfiguraProdotto = () => {
    *  @param un comentario de un parametro gaaaaaaaaaaaa 
    * @returns un comentario de regorno gaaaaaa
    */
-  console.log('Params', idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete);
+  //console.log('Params', idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete);
   return {
     handleOptionsFormat,
     ...initialState,

@@ -30,7 +30,7 @@ const RadioCars = ({ options, label, name, handleChange, initialState, setImage,
             setImage(options[i].image)
         }
 
-        //console.log("valueselected", i)
+        ////console.log("valueselected", i)
     };
 
 
@@ -47,7 +47,7 @@ const RadioCars = ({ options, label, name, handleChange, initialState, setImage,
     //     const name = label;
     //     valuesStampaCaldoOpz[name] = Number(options[0].value);
     // }, [options])
-    //console.log("ASDFADSFf",options)
+    ////console.log("ASDFADSFf",options)
     return (
         <div className=" p-0 m-0 mt-[2px] mb-[40px]">
             <h4 className="bg-[#e8e8e8] mb-1 text-[12.5px] p-0 m-0 ps-[20px] pt-[4px] font-normal uppercase">{label}</h4>

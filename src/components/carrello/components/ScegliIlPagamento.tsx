@@ -103,21 +103,20 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                         </div>
                     ))}
                 </div>
-                <div className="border border-[#aaa] rounded-[5px] px-[10px] py-[10px] mt-[10px] flex flex-col gap-4">
-                    <h2 className="flex gap-3"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCoupon20.png`} className='w-[16px] h-[16px]' /><span className="px-[3px] bg-[#1aaf5d] text-[#fff] text-[14px] rounded-[3px] font-[400]">COUPON DI SCONTO</span></h2>
+                <div className="border border-[#aaa] rounded-[5px] px-[10px] py-[10px] mt-[10px] flex flex-col gap-[6px]">
+                    <h2 className="flex gap-2"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCoupon20.png`} className='w-[16px] h-[16px] ms-[2px]' /><span className="px-[4px]  bg-[#1aaf5d] py-0 text-[#fff] text-[14px] rounded-[3px] font-[400]">COUPON DI SCONTO</span></h2>
                     {showInputCoupon == false && localStorage.getItem('m') == undefined ?
                         <div className=" flex gap-3 w-full justify-center">
-                            <p className="text-[12px]">Hai un Coupon di Sconto? Inserisci qui il codice e ti verrà applicato</p>
-                            <input type="text" className="border rounded-[2px] border-[#000]  h-[21px]" onChange={handleCodice} />
-                            <a className="text-[12px] bg-[#f58220] h-[20px] py-[2px] px-[4px] cursor-pointer" onClick={handleAplicaCouponSconto}>Applica</a>
+                            <p className="text-[11.5px]">Hai un Coupon di Sconto? Inserisci qui il codice e ti verrà applicato</p>
+                            <input type="text" className="ms-4 border rounded-[2px] border-[#000]  h-[21px]" onChange={handleCodice} />
+                            <a className="text-[12px] ms-1 bg-[#f58220] h-[20px] py-[2px] px-[4px] cursor-pointer" onClick={handleAplicaCouponSconto}>Applica</a>
                         </div> : null
                     }
-
                     <p className="text-[12px] flex justify-center text-[red] font-bold">{localStorage.getItem('m') ? localStorage.getItem('m') : messageCoupon}</p>
                     <div className="flex justify-end gap-2 text-[12px]">
-                        <a className='flex  cursor-pointer' onClick={handleITuoiCouponSconto}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoMieiCoupon20.png`} className='w-[16px] h-[12px] ' /> Vai ai tuoi Coupon di Sconto</a>
+                        <a className='flex  cursor-pointer hover:underline' onClick={handleITuoiCouponSconto}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoMieiCoupon20.png`} className='w-[16px] h-[12px] ' /> Vai ai tuoi Coupon di Sconto</a>
                         <ModalSegliPagamento openModal={openModal} setOpenModal={setOpenModal} />
-                        <a className='flex cursor-pointer' onClick={() => setOpenModal(true)}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo16.png`} className='w-[16px] h-[16px] ' /> Cosa e' un Coupon di sconto?</a>
+                        <a className='flex cursor-pointer hover:underline' onClick={() => setOpenModal(true)}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo16.png`} className='w-[16px] h-[16px] ' /> Cosa e' un Coupon di sconto?</a>
                     </div>
                 </div>
                 <ContinuaGliAcquisti changebuttonstep={changebuttonstep} step={step} />

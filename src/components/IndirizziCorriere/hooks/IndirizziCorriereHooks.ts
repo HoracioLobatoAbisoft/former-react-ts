@@ -13,7 +13,7 @@ const IndirizziCorriereHooks = (idUdt:string) => {
 
     useEffect(() => {
         
-        OrdiniService.getOrdiniIndirizo(idUdt).then(R=>{console.log(R?.data.data); setIndirizzoList(R?.data.data)})
+        OrdiniService.getOrdiniIndirizo(idUdt).then(R=>{ setIndirizzoList(R?.data.data)})
     }, [])
     
 

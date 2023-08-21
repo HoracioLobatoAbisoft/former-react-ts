@@ -23,7 +23,7 @@ const CheckBoxCards = ({ options, label, name, handleChange, initialState, setIm
         //     setImage(options[i].image)
         // }
 
-        //console.log("valueselected", i)
+        ////console.log("valueselected", i)
     };
 
     // useEffect(() => {

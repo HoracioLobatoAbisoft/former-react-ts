@@ -56,7 +56,7 @@ const TablaLavori = () => {
   useEffect(() => {
     ClienteService.getLavori(userData.id).then((res) => {
       let data = res?.data;
-      console.log(data);
+      //console.log(data);
       setDataLavori(data);
       setIsLoading(false)
     });

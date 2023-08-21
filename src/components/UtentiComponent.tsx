@@ -25,7 +25,7 @@ const UtentiComponent = ():JSX.Element => {
   const [globalFilter, setGlobalFilter] = useState('')
   const [sorting, setSorting] = useState<SortingState>([])
 
-  console.log(globalFilter)
+  //console.log(globalFilter)
 
   const columns = [
     // {
@@ -139,12 +139,12 @@ const UtentiComponent = ():JSX.Element => {
     ClienteService.getUtenti().then((res) => {
       let data = res?.data.data;
 
-      console.log(data);
+      //console.log(data);
       setData(data);
     });
   }, []);
 
-  console.log(argomentiDate);
+  //console.log(argomentiDate);
 
   return (
     <div className="px-6 py-4">

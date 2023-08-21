@@ -23,10 +23,10 @@ const RegisterForm = () => {
 
   const onSubmit = (data: any) => {
     if (client != "") {
-      console.log("data");
-      console.log(data);
+      //console.log("data");
+      //console.log(data);
     } else {
-      console.log("Debe seleccionar un tipo de cliente");      
+      //console.log("Debe seleccionar un tipo de cliente");      
     }
   };
 

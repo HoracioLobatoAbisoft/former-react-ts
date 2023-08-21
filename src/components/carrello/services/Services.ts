@@ -78,7 +78,7 @@ export const httpGetAplicaCouponSconto = async (CodiceCoupon: string, TipoUtente
 
         return response.data;
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         throw new Error("")
     }
 }
@@ -90,7 +90,7 @@ export const httpGetCaricaCorriere =async (IdUt:number) => {
         }});
         return response.data;
     } catch (error) {
-        //console.log(error)
+        ////console.log(error)
         throw new Error("")
     }
 }

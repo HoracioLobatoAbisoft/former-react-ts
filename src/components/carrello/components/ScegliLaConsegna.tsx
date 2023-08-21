@@ -58,7 +58,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
             setTotaleProvisorio(responseGetTotaleProvisorio)
         }
         localStorage.setItem('cons', String(i))
-        //console.log(i)
+        ////console.log(i)
     }
 
     // const handleScandeza = () => {
@@ -103,7 +103,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
     const handleCapTotaleProvisorio = async (event: ChangeEvent<HTMLSelectElement>) => {
 
         const selectedValue: indirizoJson = JSON.parse(event.target.value);
-        //console.log('valoeCap',selectedValue)
+        ////console.log('valoeCap',selectedValue)
 
         const IdPrev = arrayCarrello[indexScandeza].idPrev;
         const IdFormProd = arrayCarrello[indexScandeza].IdFormProd;

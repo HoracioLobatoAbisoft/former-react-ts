@@ -37,8 +37,8 @@ export const InputCustomSelect = ({
   const setHoveredState = (stateBool: boolean) => {
     setIsHovered(stateBool);
   };
-  //console.log("vvvvvvvvvv", initialState,)
-  //console.log("werewrewr",position,valueSelect)
+  ////console.log("vvvvvvvvvv", initialState,)
+  ////console.log("werewrewr",position,valueSelect)
   // useEffect(() => {
   //   if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
   // }, [valueSelect]);
@@ -141,7 +141,7 @@ export const InputCustomSelect = ({
     //debugger
     if (initialState != undefined) {
       if (name in initialState) {
-        console.log("asdfasdfsadfadsfasdf", options.find((x: any) => x.value == initialState[name]))
+        //console.log("asdfasdfsadfadsfasdf", options.find((x: any) => x.value == initialState[name]))
         return options.find((x: any) => x.value == initialState[name])
 
       }
@@ -151,7 +151,7 @@ export const InputCustomSelect = ({
   }
   useEffect(() => {
     if (valuesStampaCaldoOpz != undefined && name !== "Format" && name !== "base" && name !== "coloreStampa" && name !== "depth" && name !== "height" && name !== "quantity" && name !== "tipoCarta" && name !== "formatoS" && name !== "facciatePagine" && name !== 'nome' && name !== 'note') {
-      console.log('opcioniList - entro')
+      //console.log('opcioniList - entro')
       const name = label;
       valuesStampaCaldoOpz[name] = Number(options[0].value);
     }
@@ -159,7 +159,7 @@ export const InputCustomSelect = ({
 
   }, [])
 
-  //console.log('options',options)
+  ////console.log('options',options)
 
   return (
     <tr className="">

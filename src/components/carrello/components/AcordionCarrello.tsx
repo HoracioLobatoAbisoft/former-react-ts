@@ -27,7 +27,7 @@ type PropsAcordionCarrello = {
 const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, deleteItem, step = 0, setStepperStep = null }: PropsAcordionCarrello) => {
 
 
-    //console.log('arrayCarrello', ArrayLocalCarrello[0].stampaOPZ)
+    ////console.log('arrayCarrello', ArrayLocalCarrello[0].stampaOPZ)
 
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">

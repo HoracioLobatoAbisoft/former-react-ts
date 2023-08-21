@@ -57,7 +57,7 @@ const useCarrello = () => {
         let Colli = 0;
         if (LocalCarrello) {
             ArrayLocalCarrello = JSON.parse(LocalCarrello);
-            //console.log('Carello', ArrayLocalCarrello)
+            ////console.log('Carello', ArrayLocalCarrello)
             ArrayLocalCarrello.reverse();
             setArrayCarrello(ArrayLocalCarrello);
             const mayorFecha1 = ArrayLocalCarrello.length > 0
@@ -71,7 +71,7 @@ const useCarrello = () => {
                     return mayor;
                 }, { fecha1: new Date(0), index: -1 })
                 : null;
-            //console.log(mayorFecha1?.index);
+            ////console.log(mayorFecha1?.index);
             setIndezScandeza(mayorFecha1 ? mayorFecha1.index : 0)
             //setScadenza(ArrayLocalCarrello[0].scadenza);
         }
@@ -108,17 +108,17 @@ const useCarrello = () => {
             const responseDataUtn = await httpGetUtente(idUt);
             setdataUtente(responseDataUtn.data)
         } catch (error) {
-            console.log(error)
+            //console.log(error)
         }
     }
 
     const getTotaleProvisorio = async (idUt: number, TotalePeso: number, cero: number, TotalePrezzo: number, Sconto: number | null, tipoPagamento: number, IdCorriere: number, cap?: string) => {
         try {
-            //console.log('lavori',dataTotale.TotalPrezo)
+            ////console.log('lavori',dataTotale.TotalPrezo)
             const responseProvisorio = await httpGetTotaleProvisorio(idUt, TotalePeso, cero, TotalePrezzo, Sconto, tipoPagamento, IdCorriere, cap);
             return responseProvisorio.data;
         } catch (error) {
-            console.log('error use Carrello ', error)
+            //console.log('error use Carrello ', error)
         }
     }
 
@@ -128,7 +128,7 @@ const useCarrello = () => {
             setIndirizzoList(responseIndirizzo.data);
 
         } catch (error) {
-            console.log('error use IndirizzoUt Carrello', error)
+            //console.log('error use IndirizzoUt Carrello', error)
         }
     }
 
@@ -137,7 +137,7 @@ const useCarrello = () => {
             const responseOreMinuti = await httpGetDatesAlleghiPDF();
             setAlleghiPDF(responseOreMinuti.data)
         } catch (error) {
-            console.log('error use getDatesAlleghiPDF Carrello', error)
+            //console.log('error use getDatesAlleghiPDF Carrello', error)
         }
     }
 
@@ -229,7 +229,7 @@ const useCarrello = () => {
 
     const handleGetCorriereSelezionata = async (IdCorriere?: number, Cap?: string, IdPrev?: number, IdFormProd?: number, IdTipoCarta?: number, IdColoreStampa?: number) => {
         //debugger
-        //console.log('cap',Cap)
+        ////console.log('cap',Cap)
         const carrello = arrayCarrello[indexScandeza];
         const responseIndirizzo = await httpGetIndirizzo(dataTotale.idUt);
         const responseGetCorreore = await getCorriereSelezionata(IdCorriere === undefined ? radio : IdCorriere, Cap === undefined ? String(responseIndirizzo.data.find(x => x.predefinito == true)?.cap) : Cap, IdPrev === undefined ? Number(carrello.idPrev) : IdPrev, IdFormProd === undefined ? Number(carrello.IdFormProd) : IdFormProd, IdTipoCarta === undefined ? Number(carrello.IdTipoCarta) : IdTipoCarta, IdColoreStampa === undefined ? Number(carrello.IdColoreStampa) : IdColoreStampa)
@@ -239,7 +239,7 @@ const useCarrello = () => {
     }
 
     const handleShow = async () => {
-        console.log(' step mando 6')
+        //console.log(' step mando 6')
         window.parent.postMessage({ operation: enOperationFrame.show }, GLOBAL_CONFIG.IMG_IP);
     }
 
@@ -302,7 +302,7 @@ const useCarrello = () => {
             }
             const responsePostAquistaOra = await postAquistaOra(data);
             
-            console.log('ordine',responsePostAquistaOra.data)
+            //console.log('ordine',responsePostAquistaOra.data)
         }
 
     }
