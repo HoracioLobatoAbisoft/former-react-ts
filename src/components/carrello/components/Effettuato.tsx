@@ -118,15 +118,19 @@ export default function Effettuato() {
                                 
                             </div>
                             <div className='col col-12 mb-4'>
+                            <Link to={'/AreaPersonale'}>
                                 <p onClick={()=>handleRedirectITuoiOrdini()} >
                                     per <span className='font-bold'>CARICARE I FILE DI STAMPA</span>
                                 </p>
+                                </Link>
                             </div>
                             <div className='col col-12 mb-1'>
-                                <p onClick={()=>handleRedirectITuoiOrdini()}>
+                              <Link to={'/AreaPersonale'}>
+                              <p onClick={()=>handleRedirectITuoiOrdini()}>
                                     o <span className='font-bold'> EFFETTUARE IL PAGAMENTO</span>
 
                                 </p>
+                              </Link>
                             </div>
                         </div>
                     </div>
