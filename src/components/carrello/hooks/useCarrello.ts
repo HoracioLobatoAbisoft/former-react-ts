@@ -211,7 +211,7 @@ const useCarrello = () => {
     }
 
     const handleRedirectITuoiOrdini = () => {
-        window.parent.postMessage({ operation: enOperationFrame.hidden }, GLOBAL_CONFIG.IMG_IP);
+        window.parent.postMessage({ operation: enOperationFrame.redirectITuoiOrdini }, GLOBAL_CONFIG.IMG_IP);
     }
 
     const handleTotaleProvisorio = async () => {

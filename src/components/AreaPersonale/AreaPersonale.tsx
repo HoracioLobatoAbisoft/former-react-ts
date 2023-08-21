@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
-
+import SideBarAreaPersonale from './Componentes/LayOut/SideBar';
 const AreaPersonale = () =>{
 
     return(
         <>
-        <div className="flex flex-row">
+        <div className="bg-[blue]">
             <div className='row'> 
                 <div className='w-[200px]'>
-                        
+                    <SideBarAreaPersonale />
                 </div>
                 <div className='w-[600px] bg-[red]'>
                     <Routes>
