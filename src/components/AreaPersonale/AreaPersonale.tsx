@@ -7,7 +7,7 @@ const AreaPersonale = () =>{
         <div className="flex flex-row">
             <div className='row'> 
                 <div className='w-[200px]'>
-
+                        
                 </div>
                 <div className='w-[600px] bg-[red]'>
                     <Routes>
