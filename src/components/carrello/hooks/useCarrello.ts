@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { ObjCarrello } from '../../formProdottoV1/interface/ObjCarrrello';
-import { httpGetAplicaCouponSconto, httpGetCaricaCorriere, httpGetCorriereSelezionata, httpGetDatesAlleghiPDF, httpGetIndirizzo, httpGetMetodiPagamento, httpGetTotaleProvisorio, httpPostAquistaOra } from '../services/Services';
+import { httpGetAplicaCouponSconto, httpGetCaricaCorriere, httpGetCorriereSelezionata, httpGetDatesAlleghiPDF, httpGetIndirizzo, httpGetMetodiPagamento, httpGetPromo, httpGetTotaleProvisorio, httpPostAquistaOra } from '../services/Services';
 import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { DataGetIndirizzo } from '../Interfaces/Indirizzo';
@@ -12,6 +12,7 @@ import { DataGetCaricaCorriere } from '../Interfaces/CaricaCorriere';
 import { DataGgetCorriereSelezionata } from '../Interfaces/Corriere';
 import { GLOBAL_CONFIG } from '../../../_config/global';
 import { DataPostAquistaOra } from '../Interfaces/AquistaOra';
+import { DataGetPromo } from '../Interfaces/Promo';
 
 const useCarrello = () => {
 
@@ -19,6 +20,7 @@ const useCarrello = () => {
     const [TotaleProvisorio, setTotaleProvisorio] = useState<DataGetTotaleProvisorio>()
     const [arrayCarrello, setArrayCarrello] = useState<ObjCarrello[]>([]);
     const [indirizzoList, setIndirizzoList] = useState<DataGetIndirizzo[]>([])
+    const [promoList, setPromoList] = useState<DataGetPromo[]>([])
     const [alleghiPDF, setAlleghiPDF] = useState<DataGetAlleghiPDF>();
     const [scadenza, setScadenza] = useState<DateEntrega>()
     const [tipoPagamento, setTipoPagamento] = useState<DataGetTipoPagamenti[]>([])
@@ -208,6 +210,10 @@ const useCarrello = () => {
         window.parent.postMessage({ operation: enOperationFrame.returnIndex }, GLOBAL_CONFIG.IMG_IP);
     }
 
+    const handleRedirectITuoiOrdini = () => {
+        window.parent.postMessage({ operation: enOperationFrame.redirectITuoiOrdini }, GLOBAL_CONFIG.IMG_IP);
+    }
+
     const handleTotaleProvisorio = async () => {
         const scontoLocal = localStorage.getItem('sc')
         const responseTotale = await getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, scontoLocal == undefined ? null : Number(scontoLocal), radioPagamento, radio);
@@ -307,6 +313,16 @@ const useCarrello = () => {
 
     }
 
+    const getPromo = async () => {
+        try {
+            const responsePromo = await httpGetPromo(dataTotale.idUt);
+            setPromoList(responsePromo.data);
+
+        } catch (error) {
+            console.log('error use IndirizzoUt Carrello', error)
+        }
+    }
+
     /**
      * *Funciones efectHelpers
      */
@@ -359,7 +375,10 @@ const useCarrello = () => {
         setStep,
         steptext,
         setSteptext,
-        handleShow
+        handleShow,
+        handleRedirectITuoiOrdini,
+        getPromo,
+        promoList,
     }
 }
 

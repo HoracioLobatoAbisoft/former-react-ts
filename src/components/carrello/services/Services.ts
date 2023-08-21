@@ -8,6 +8,7 @@ import { ResponseGetIndirizzo } from "../Interfaces/Indirizzo"
 import { ResponseGetTipoPagamento } from "../Interfaces/TipoPagamento"
 import { ResponseGetAlleghiPDF } from "../Interfaces/dateAlleghiPDF"
 import { ReponseGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio"
+import { ResponseGetPromo } from "../Interfaces/Promo"
 
 export const httpGetTotaleProvisorio = async (IdUt: number, PesoKg: number, pesoVolumetrico: number, prezzoTotaleOrdini: number,Sconto:number | null,tp:number,IdCorriere:number,cap? :string) => {
     try {
@@ -114,6 +115,20 @@ export const httpGetCorriereSelezionata =async (IdCorriere:number,Cap:string,IdP
 export const httpPostAquistaOra =async (data:DataPostAquistaOra) => {
     try {
         const response = await applicationConnect.post<ResponsePostAquistaOra>('AcquistaOra/PostCreateOrdine',data);
+        return response.data;
+    } catch (error) {
+        throw new Error("")
+    }
+}
+
+export const httpGetPromo = async (idUt: number) => {
+    try {
+
+        const response = await applicationConnect.get<ResponseGetPromo>('Promo/GetPromo', {
+            params: {
+                idUt
+            }
+        });
         return response.data;
     } catch (error) {
         throw new Error("")

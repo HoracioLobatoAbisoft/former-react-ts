@@ -22,7 +22,7 @@ const AllegaIFile = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSt
             <div className="w-[73%]">
                 <h2 className="text-[14px] font-bold border-b-[1px]  border-[#aaa] mb-[10px] flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoAttach16.png`} className='w-[16px] h-[16px]' />Allega i file</h2>
 
-                <Container sx={{ border: '1px solid #aaa', width: '95%', borderRadius: '5px', p: '20px' }}>
+                <Container sx={{ border: '1px solid #aaa', width: '100%', borderRadius: '5px', p: '20px' }}>
                     <center>
                         <h2 className='text-[12px] bg-[#d6e03d] w-[138px] p-[4px] font-bold'>
                             COME ALLEGARE I FILE

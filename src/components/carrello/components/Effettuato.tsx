@@ -9,6 +9,7 @@ import "../styles/ordine-confermato.css"
 import PhoneMissedIcon from '@mui/icons-material/PhoneMissed';
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import Promo from './Promo';
+import useCarrello from '../hooks/useCarrello';
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
@@ -18,7 +19,6 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -46,6 +46,7 @@ function a11yProps(index: number) {
 export default function Effettuato() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const {handleRedirectITuoiOrdini} = useCarrello();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -69,7 +70,9 @@ export default function Effettuato() {
             className="custom-tab" 
             label={ 
                 <p className='tab-p'> 
-                    Ordine Confermato
+                    <span className='ml-1 capitalize text-[11px]'>
+                      Ordine Confermato
+                    </span>
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoProdotti.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
                 </p>}
             {...a11yProps(0)} 
@@ -77,9 +80,11 @@ export default function Effettuato() {
           <Tab iconPosition='start'
             className="custom-tab" 
             label={ 
-                <p className='tab-p-2'> 
+                <p className='labPromo flex flex-row items-center justify-center'> 
+                  <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
+                  <span className='ml-1 text-[11px]'>
                     Promo
-                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
+                  </span>
                 </p>} 
             {...a11yProps(1)} 
             />
@@ -101,17 +106,20 @@ export default function Effettuato() {
                     <div className='card-click-aqui'>
                         <div className='row'>
                             <div className='col col-12 mt-3 mb-4'>
-                                <span className='font-bold text-[red]'>
+                                <span 
+                                  className='font-bold text-[red]'
+                                  onClick={()=>handleRedirectITuoiOrdini()}
+                                >
                                     CLICCA QUI
                                 </span>
                             </div>
                             <div className='col col-12 mb-4'>
-                                <p>
+                                <p onClick={()=>handleRedirectITuoiOrdini()} >
                                     per <span className='font-bold'>CARICARE I FILE DI STAMPA</span>
                                 </p>
                             </div>
                             <div className='col col-12 mb-1'>
-                                <p>
+                                <p onClick={()=>handleRedirectITuoiOrdini()}>
                                     o <span className='font-bold'> EFFETTUARE IL PAGAMENTO</span>
 
                                 </p>

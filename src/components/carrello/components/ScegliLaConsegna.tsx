@@ -12,6 +12,7 @@ import { DataGetCaricaCorriere } from "../Interfaces/CaricaCorriere";
 import { CorrDaUsare, DataGgetCorriereSelezionata, DateConsegna } from "../Interfaces/Corriere";
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import { DateFormatItWDMY } from "../../../Helpers/formatDates";
+
 type PropsScegliLaConsegna = {
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
@@ -190,31 +191,34 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                 <div className="information">
                     {caricaCorriere.map((item, i) => (
                         <>
-                            <img key={i} src="https://www.tipografiaformer.it/img/pixel.gif" alt="" width={17} height={11} />
-                            <input key={i} type="radio" checked={radio === item.idCorriere ? true : false} onChange={() => handleRadio(item.idCorriere)} />
-                            <label key={i} htmlFor="" className="ms-[5px]"><strong>{item.descrizione}</strong></label>
-                            <br />
-                            <span key={i} style={{ 'fontSize': 12 }}>
-                                <i key={i} dangerouslySetInnerHTML={{ __html: String(item.label) }}></i>
-                            </span>
-                            <br />
+                            <div className="mt-[5px]">
+                                <img key={i} src={`${GLOBAL_CONFIG.IMG_IP}${ radio === item.idCorriere?`/img/icoCheck.gif`:`/img/pixel.gif`}`} alt="" className="w-[17px] h-[11px]" /> 
+                                <input key={i} type="radio" checked={radio === item.idCorriere ? true : false} onChange={() => handleRadio(item.idCorriere)} />
+                                <label key={i} htmlFor="" className="ms-[5px]"><strong>{item.descrizione}</strong></label>
+                                <br />
+                                <span key={i} style={{ 'fontSize': 12 }}>
+                                    <i key={i} dangerouslySetInnerHTML={{ __html: String(item.label) }}></i>
+                                </span>
+                                <br />
+                            </div>
+                            
                         </>
                     ))
                     }
                     {radio == 0 ?
-                        <div className="retiroInfo">
+                        <div className="retiroInfo mt-[10px]">
                             <p className="text-[12px]"><strong>INDIRIZZO DI RITIRO</strong></p>
                             <span style={{ 'fontSize': 12 }}>L'indirizzo per il ritiro presso la nostra sede di Roma è:</span>
-                            <div style={{ 'width': 300, 'fontSize': '13px' }}>
+                            <div style={{ 'width': 300, 'fontSize': '13px', marginTop: '10px' , marginBottom: '8px'}}>
                                 <strong>Tipografia Former</strong>, Via Cassia, 2010 - 00123 Roma
                             </div>
-                            <span style={{ 'fontSize': 12 }}>La merce potrà essere ritirata presso la nostra sede di Roma (Peso complessivo {TotaleProvisorio?.pesoKG} kg ±)  </span>
+                            <span style={{ 'fontSize': 12  }}>La merce potrà essere ritirata presso la nostra sede di Roma (Peso complessivo {TotaleProvisorio?.pesoKG} kg ±)  </span>
                         </div>
                         :
                         <div className=" w-full ps-[10px] mt-[15px]">
-                            <p className=" text-[12px] font-bold ">INDIRIZZO DI CONSEGNA</p>
+                            <p className=" text-[12px] font-bold">INDIRIZZO DI CONSEGNA</p>
                             <p className=" text-[12px]">Scegli un Indirizzo per la consegna tra quelli che hai inserito o aggiungine uno nuovo</p>
-                            <select id="" className="text-[13.333px] mt-[5px] w-[450px] mx-[2px] h-[24px] outline-none border border-[#aaa]" onChange={handleCapTotaleProvisorio}>
+                            <select id="" className="text-[13.333px] mt-[10px] w-[450px] mx-[2px] h-[24px] outline-none border border-[#aaa]" onChange={handleCapTotaleProvisorio}>
                                 {indirizzoList.map((elem, i) => {
                                     return (
                                         <option selected={elem.predefinito == true} key={i} value={JSON.stringify({ cap: elem.cap, nome: `${elem.nome}: ${elem.riassunto}`, id: elem.idIndirizzo })} defaultValue={elem.cap}>{elem.nome} : {elem.riassunto} {`${elem.predefinito ? '(predefinito)' : ''}`}</option>
@@ -228,7 +232,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
 
                 </div>
                 <div className="consegna mt-[10px]">
-                    <div className="center-title" style={{ 'margin': 15, 'fontSize': 14 }}>
+                    <div className="center-title " style={{ 'margin': 0, marginBottom: 15, 'fontSize': 14 }}>
                         <div style={{ 'backgroundColor': '#d6e03d', 'padding': '0px 5px', 'fontSize': '12px' }}>
                             <strong>DATA DI CONSEGNA PREVISTA  <span className="text-[16px] capitalize">{handleDateConsegne(corriereSelezionata?.dateConsegna)}</span></strong>
                         </div>

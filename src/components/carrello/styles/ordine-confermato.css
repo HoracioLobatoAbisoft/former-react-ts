@@ -1,6 +1,6 @@
 .custom-tabs {
-    height: 40px;
-    min-height: 40px !important;
+    height: 30px;
+    min-height: 30px !important;
 }
 .custom-tab{
     font-weight:400;
@@ -14,7 +14,11 @@
     padding: 1px !important;
     padding-left: 5px;
     padding-right: 5px;
-    min-height: 40px !important;
+    min-height: 30px !important;
+}
+
+.MuiTabs-indicator{
+    background: #fff !important;
 }
 
 .tab-p {
@@ -57,4 +61,35 @@
     font-size: 11px;
     font-style: italic;
     padding: 5px 0;
+}
+
+.risultatoRicerca {
+    margin: 0 5px 10px;
+    padding: 5px;
+    border: 3px solid #d3d3d3;
+    border-radius: 5px;
+}
+
+.boxPromo {
+    border: 2px solid #009ec9;
+    border-radius: 3px;
+    padding: 10px;
+    display: inline-block;
+}
+
+
+
+.labPromo {
+    padding: 0 3px;
+    font-weight: 400;
+    color: #fff;
+    border-radius: 3px;
+    background-color: #009ec9;
+}
+
+.prezzoPromo {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 0;
+    color: #009ec9;
 }
