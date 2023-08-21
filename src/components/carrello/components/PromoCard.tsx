@@ -47,12 +47,12 @@ const PromoCard = ({promo}: PromoCardProps) =>{
         return `${date[2]??'00'}/${date[1]??'00'}/${date[0]??'0000'}`;
     }
     return <>
-    <div className="col col-12 promo-card-container risultatoRicerca">
-        <div className="row">
-            <div className="col col-3">
+    <div className="col col-12 promo-card-container">
+        <div className="row risultatoRicerca ml-[10px] mr-[5px]">
+            <div className="col col-2">
                 <img src={`${GLOBAL_CONFIG.IMG_IP}/${promo.imgRif??''}`}/>
             </div>
-            <div className="col col-9">
+            <div className="col col-10">
                 <div className="row">
                     <div className="col col-9">
                         <div className="row">

@@ -13,9 +13,9 @@ const Promo = () =>{
                 <div className="col col-12">
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/titoloOfferte.png`}/>
                 </div>
-                <div className="col col-12">
+                <div className="col col-12 mt-[20px] mb-[20px]">
                     <p className="text-[14px]">
-                        In questa pagina trovi tutti i prodotti in <span> PROMO </span>. Approfittane e risparmia sull' acquisto dei nostri prodotti!
+                        In questa pagina trovi tutti i prodotti in <span className="labPromo"> PROMO</span>. Approfittane e risparmia sull' acquisto dei nostri prodotti!
                     </p>
                 </div>
                 <div className="col col-12">

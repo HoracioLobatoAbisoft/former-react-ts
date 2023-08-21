@@ -70,7 +70,7 @@ export default function Effettuato() {
             className="custom-tab" 
             label={ 
                 <p className='tab-p'> 
-                    <span className='ml-1'>
+                    <span className='ml-1 capitalize text-[11px]'>
                       Ordine Confermato
                     </span>
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoProdotti.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
@@ -80,9 +80,9 @@ export default function Effettuato() {
           <Tab iconPosition='start'
             className="custom-tab" 
             label={ 
-                <p className='tab-p-2 flex flex-row items-center justify-center'> 
+                <p className='labPromo flex flex-row items-center justify-center'> 
                   <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
-                  <span className='ml-1'>
+                  <span className='ml-1 text-[11px]'>
                     Promo
                   </span>
                 </p>} 

@@ -1,6 +1,6 @@
 .custom-tabs {
-    height: 40px;
-    min-height: 40px !important;
+    height: 30px;
+    min-height: 30px !important;
 }
 .custom-tab{
     font-weight:400;
@@ -14,11 +14,11 @@
     padding: 1px !important;
     padding-left: 5px;
     padding-right: 5px;
-    min-height: 40px !important;
+    min-height: 30px !important;
 }
 
-.MuiTabs-indicator.css-lafep3-MuiTabs-indicator{
-    background: #fff;
+.MuiTabs-indicator{
+    background: #fff !important;
 }
 
 .tab-p {
@@ -76,6 +76,8 @@
     padding: 10px;
     display: inline-block;
 }
+
+
 
 .labPromo {
     padding: 0 3px;
