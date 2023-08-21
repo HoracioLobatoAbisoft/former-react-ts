@@ -23,7 +23,8 @@ export const userContext = React.createContext({});
 import "./App.css";
 import ConfiguraProdottoRefactor from "./components/formProdottoV1/ConfiguraProdottoRefactor";
 import CarrelloProdotto from "./components/carrello/CarrelloProdotto";
-import AllegaIFile from "./components/carrello/components/AllegaIFile"; "./components/carrello/components/AllegaIFile";
+import AllegaIFile from "./components/carrello/components/AllegaIFile";import AreaPersonale from "./components/AreaPersonale/AreaPersonale";
+ "./components/carrello/components/AllegaIFile";
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
 
           <Route path="/Contact" element={<ContactPage />} />
           <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
+          <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
         </Routes>
       </UserContextProvider>
     </div>

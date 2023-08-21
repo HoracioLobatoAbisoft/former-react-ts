@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -106,12 +107,15 @@ export default function Effettuato() {
                     <div className='card-click-aqui'>
                         <div className='row'>
                             <div className='col col-12 mt-3 mb-4'>
+                              <Link to={'/AreaPersonale'}>
                                 <span 
                                   className='font-bold text-[red]'
                                   onClick={()=>handleRedirectITuoiOrdini()}
                                 >
-                                    CLICCA QUI
+                                      CLICCA QUI
                                 </span>
+                              </Link>
+                                
                             </div>
                             <div className='col col-12 mb-4'>
                                 <p onClick={()=>handleRedirectITuoiOrdini()} >
