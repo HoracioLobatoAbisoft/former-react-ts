@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import SideBarAreaPersonale from './Componentes/LayOut/SideBar';
+import SideBarAreaPersonale from './Componentes/LayOut/SideBarAreaPersonale';
 const AreaPersonale = () =>{
 
     return(
