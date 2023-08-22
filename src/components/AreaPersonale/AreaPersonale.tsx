@@ -6,8 +6,10 @@ const AreaPersonale = () =>{
     return(
         <>
         <div className="">
-            <div className='row'> 
-                <div className='w-[200px]'>
+            {/* <div className='row'> 
+                <div className='w-[200px]'>*/}
+            <div className='row mt-[15px]'>  
+                <div className='w-[205px]'>
                     <SideBarAreaPersonale />
                 </div>
                 <div className='w-[800px] '>
