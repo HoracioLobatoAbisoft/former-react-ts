@@ -86,5 +86,8 @@ export interface ListLavori {
     statoStrO: string;
     supportoStr: string;
     title: string;
+    iconaStato:string;
+    stato:number;
+    showSVG:boolean;
 }
 

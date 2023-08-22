@@ -57,12 +57,15 @@ const useCarrello = () => {
         let TotalPeso = 0;
         let idUt = 0;
         let Colli = 0;
+
+        let mayorFecha1;
+
         if (LocalCarrello) {
             ArrayLocalCarrello = JSON.parse(LocalCarrello);
             ////console.log('Carello', ArrayLocalCarrello)
             ArrayLocalCarrello.reverse();
             setArrayCarrello(ArrayLocalCarrello);
-            const mayorFecha1 = ArrayLocalCarrello.length > 0
+            mayorFecha1 = ArrayLocalCarrello.length > 0
                 ? ArrayLocalCarrello.reduce((mayor, obj, index) => {
                     if (obj && obj.scadenza) {
                         const fecha1 = new Date(obj.scadenza.date1);
@@ -98,8 +101,8 @@ const useCarrello = () => {
         dataTotale.TotalPeso = TotalPeso;
         dataTotale.TotalPrezo = TotalPrezo;
         dataTotale.Colli = Colli;
-
-        const responseMetodiPagamento = await getMetodiPagamento(idUt, dataTotale.TotalPrezo, radio)
+        //ArrayLocalCarrello[mayorFecha1 ? mayorFecha1.index : 0].prezzo
+        const responseMetodiPagamento = await getMetodiPagamento(idUt,dataTotale.TotalPrezo, radio)
         setTipoPagamento(responseMetodiPagamento);
         const responseCaricaCorriere = await getCaricaCorriere(idUt);
         setCaricaCorriere(responseCaricaCorriere.data);
