@@ -1,8 +1,8 @@
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { ListLavori } from '../Interfaces/OrdiniIntarface';
-import { GLOBAL_CONFIG } from '../../../_config/global';
+import { ListLavori } from '../../Interfaces/OrdiniIntarface';
+import { GLOBAL_CONFIG } from '../../../../_config/global';
 
 type PropsAcordionLavori = {
     listLavori: ListLavori[]

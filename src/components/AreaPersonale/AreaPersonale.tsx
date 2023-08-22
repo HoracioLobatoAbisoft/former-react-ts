@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import SideBarAreaPersonale from './Componentes/LayOut/SideBarAreaPersonale';
-import ITouiOrdini from './Componentes/ITouiOrdini';
+import ITouiOrdini from './pages/ITouiOrdini';
 const AreaPersonale = () =>{
 
     return(

@@ -1,9 +1,9 @@
-import { GLOBAL_CONFIG } from '../../../_config/global';
+import { GLOBAL_CONFIG } from '../../../../_config/global';
 import AcordionLavori from './AcordionLavori';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { OrdineList } from '../Interfaces/OrdiniIntarface';
+import { OrdineList } from '../../Interfaces/OrdiniIntarface';
 
 type PropsAcordionOrdini = {
     listOrdini: OrdineList[]

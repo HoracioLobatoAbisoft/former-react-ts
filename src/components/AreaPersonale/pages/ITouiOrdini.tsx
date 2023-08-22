@@ -1,6 +1,6 @@
 
 import useITuoiOrdini from '../hooks/useITuoiOrdini';
-import AcordionOrdini from './AcordionOrdini';
+import AcordionOrdini from '../Componentes/ITouiOrdini/AcordionOrdini';
 
 
 const ITouiOrdini = () => {
