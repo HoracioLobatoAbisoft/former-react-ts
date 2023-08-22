@@ -139,7 +139,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                     return DateFormatItWDMY(dateConsegna?.dataFast);
                 }
             case "N":
-                if (radio == 0 && code == "N") {
+                if (radio == 0 ) {
                     localStorage.setItem('prv', String(dateConsegna?.dataNormale));
                     localStorage.setItem('gro', String(dateConsegna?.dataNormaleProduzione))
                     return DateFormatItWDMY(dateConsegna?.dataNormaleProduzione);
