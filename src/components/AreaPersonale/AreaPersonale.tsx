@@ -4,9 +4,9 @@ const AreaPersonale = () =>{
 
     return(
         <>
-        <div className="bg-[blue]">
-            <div className='row'> 
-                <div className='w-[200px]'>
+        <div className="">
+            <div className='row mt-[15px]'> 
+                <div className='w-[205px]'>
                     <SideBarAreaPersonale />
                 </div>
                 <div className='w-[600px] bg-[red]'>
