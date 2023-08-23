@@ -46,6 +46,8 @@ export interface OrdineList {
     showTraciabile: boolean;
     statoStr: string;
     tracciabile: boolean;
+    idStatoConsegna:number;
+    modificabile:boolean;
 }
 
 
@@ -89,5 +91,6 @@ export interface ListLavori {
     iconaStato:string;
     stato:number;
     showSVG:boolean;
+    labelCopertina:string;
 }
 

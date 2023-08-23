@@ -53,6 +53,7 @@ const useCarrello = () => {
         const LocalCarrello = localStorage.getItem('c');
         let ArrayLocalCarrello: ObjCarrello[] = [];
         let TotalPrezo = 0;
+        let maxPrezzo = 0;
         let countLavori = 0;
         let TotalPeso = 0;
         let idUt = 0;
@@ -102,7 +103,7 @@ const useCarrello = () => {
         dataTotale.TotalPrezo = TotalPrezo;
         dataTotale.Colli = Colli;
         //ArrayLocalCarrello[mayorFecha1 ? mayorFecha1.index : 0].prezzo
-        const responseMetodiPagamento = await getMetodiPagamento(idUt,dataTotale.TotalPrezo, radio)
+        const responseMetodiPagamento = await getMetodiPagamento(idUt,12, radio)
         setTipoPagamento(responseMetodiPagamento);
         const responseCaricaCorriere = await getCaricaCorriere(idUt);
         setCaricaCorriere(responseCaricaCorriere.data);
