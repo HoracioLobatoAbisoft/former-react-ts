@@ -32,9 +32,9 @@ export const Tab = ({index, value, setValue, children}:TabProps) => {
         <li className="mr-1" role="presentation">
             <button 
                 className={(index == value)?
-                    "inline-block p-1 border-b-4 border-b-[white] border bg-[#ffffff] border-[1px] rounded-t-lg"
+                    "inline-block p-1 border-b-4 border-b-[#ffffff] border bg-[#ffffff] border-[2px] rounded-t-lg"
                     :
-                    "inline-block p-1 border-b-2 border bg-[#f1f1f1] border-[2px] rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                    "inline-block p-1 border-b-4 border-b-[#f1f1f1] border bg-[#f1f1f1] border-[2px] rounded-t-lg hover:text-gray-600 dark:hover:text-gray-300"
                  }
                 id={`tab-${index}`} 
                 onClick={()=>setValue(index)}
