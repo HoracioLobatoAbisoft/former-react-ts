@@ -29,7 +29,7 @@ const useITuoiOrdini = () => {
         *Funcones handle
     */
 
-    const handleGetOrdini = async (idUt: number, pageNumber: number) => {
+    const handleGetOrdini = async ( pageNumber: number,idUt= 1684,) => {
         const responseGetOrdini = await getOrdini(idUt, pageNumber);
         setListOrdini(responseGetOrdini ? responseGetOrdini.ordineList : []);
         setPageOrdini(responseGetOrdini ? responseGetOrdini?.paginationList : []);
@@ -37,13 +37,14 @@ const useITuoiOrdini = () => {
 
 
     useEffect(() => {
-        handleGetOrdini(1684,1);
+        handleGetOrdini(1);
     }, [])
 
 
     return {
         listOrdini,
-        pageOrdini
+        pageOrdini,
+        handleGetOrdini,
     }
 }
 

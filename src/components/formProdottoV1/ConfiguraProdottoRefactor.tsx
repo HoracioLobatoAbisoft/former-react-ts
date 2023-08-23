@@ -78,7 +78,9 @@ const ConfiguraProdottoRefactor = () => {
         idFustella,
         openLoadingBackdrop,
         setOpenLoadingBackdrop,
-        prezzoActive
+        prezzoActive,
+        idUt,
+        handleLogin
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -233,7 +235,7 @@ const ConfiguraProdottoRefactor = () => {
                     <RadioCustom name="iva" value={1} checked={initialState.iva == 1 ? true : false} label="Con IVA" handleCheckboxChange={handleChange} />
                 </div>
                 <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
-                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} prezzoActive={prezzoActive}/>
+                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} prezzoActive={prezzoActive} />
                 {
                     showTablePreez == true && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
                 }
@@ -270,19 +272,29 @@ const ConfiguraProdottoRefactor = () => {
                 <div className="w-full flex items-center justify-center px-5 mt-2 text-[#000] font-[400]"><textarea rows={2} cols={20} className="w-full text-[14px] border border-[#000] px-[2px] py-[1px] rounded-[2px]" placeholder="Qui puoi aggiungere note o indicazioni particolari riguardanti questo ordine" name="note" onChange={handleChange}></textarea></div>
                 <div className="w-full mt-5  flex justify-end">
                     <div className="w-[200px] h-[134px] border border-[#aaa] rounded-[5px] p-[15px] flex flex-col justify-between">
-                        <Link to={"/carrello"}>
-                            <button onClick={() => handleCarrello()} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
-                        </Link>
-                        <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
-                            oppure
-                        </Divider>
-                        <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                        {idUt != undefined && idUt > '0' ?
+                            <>
+                                <Link to={"/carrello"}>
+                                    <button onClick={() => handleCarrello()} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
+                                </Link>
+                                <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
+                                    oppure
+                                </Divider>
+                                <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                            </>
+                            :
+                            <>
+                                <button onClick={handleLogin} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
+                                <button onClick={handleLogin} className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" ><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                            </>
+                        }
+
                     </div>
                 </div>
 
             </div>
             <div className="w-[25%]  ">
-                <MenuCarrelo handleHidden={handleHidden} />
+                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} />
             </div>
         </div>
 

@@ -6,4 +6,5 @@ export enum enOperationFrame {
     redirectITuopiCouponSconto = 5,
     show = 6,
     redirectITuoiOrdini = 7,
+    redirectLogin = 8,
 }

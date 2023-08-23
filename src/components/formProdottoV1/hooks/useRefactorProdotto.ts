@@ -1019,6 +1019,11 @@ const useRefactorProdotto = () => {
         setOpzioniListStatic(responseOpzioniStatic.data);
     }
 
+    const handleLogin = () => {
+        //alert('first')
+        window.parent.postMessage({ operation: enOperationFrame.redirectLogin }, GLOBAL_CONFIG.IMG_IP);
+    }
+
     ////console.log("params2",idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idFogli, idUt, idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete)
     // * ---------------Efects Helpers-----------------------
 
@@ -1273,7 +1278,9 @@ const useRefactorProdotto = () => {
         idFustella,
         openLoadingBackdrop,
         setOpenLoadingBackdrop,
-        prezzoActive
+        prezzoActive,
+        idUt,
+        handleLogin
     }
 }
 

@@ -12,7 +12,7 @@ const AcordionLavori = ({ listLavori }: PropsAcordionLavori) => {
     return (
         <>
             {listLavori.map((item, index) => (
-                <Accordion key={index }>
+                <Accordion key={item.idOrdineWeb }>
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"

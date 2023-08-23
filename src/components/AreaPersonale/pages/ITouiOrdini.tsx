@@ -6,7 +6,7 @@ import AcordionOrdini from '../Componentes/ITouiOrdini/AcordionOrdini';
 
 const ITouiOrdini = () => {
     const [activeTab, setActiveTab] = React.useState(0);
-    const { listOrdini, pageOrdini } = useITuoiOrdini();
+    const { listOrdini, pageOrdini,handleGetOrdini } = useITuoiOrdini();
 
     return (
         <>
@@ -39,7 +39,7 @@ const ITouiOrdini = () => {
                 index={0}
                 value={activeTab}
             >
-                <AcordionOrdini listOrdini={listOrdini} pageOrdini={pageOrdini} />
+                <AcordionOrdini listOrdini={listOrdini} pageOrdini={pageOrdini} handleGetOrdini={handleGetOrdini}/>
 
             </TabPanel>
             <TabPanel

@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
 import { GLOBAL_CONFIG } from "../../../_config/global";
+import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 
 type PropsMenuCarrrelo = {
     handleHidden: () => Promise<void>
+    idUt: string | undefined
+    handleLogin: () => void
 }
-const MenuCarrelo = ({ handleHidden }: PropsMenuCarrrelo) => {
+const MenuCarrelo = ({ handleHidden, idUt,handleLogin }: PropsMenuCarrrelo) => {
+
+
     return (
         <>
             <div className="bg-[#f1f1f1] w-full h-[200px] text-[12px] ">
@@ -50,9 +55,14 @@ const MenuCarrelo = ({ handleHidden }: PropsMenuCarrrelo) => {
                         </tr>
                     </tbody></table>
                 <center>
-                    <Link to={'/carrello'} onClick={()=>handleHidden()}>
-                        <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
-                    </Link>
+                    {idUt != undefined && idUt > '0' ?
+                        <Link to={'/carrello'} onClick={() => handleHidden()}>
+                            <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
+                        </Link>
+                        :
+                        <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]" onClick={handleLogin}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
+                    }
+
 
                 </center>
 
@@ -91,7 +101,7 @@ const MenuCarrelo = ({ handleHidden }: PropsMenuCarrrelo) => {
                         </tr>
                     </tbody></table>
                 <center>
-                    <button className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                    <button onClick={handleLogin} className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                 </center>
             </div>
             <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">

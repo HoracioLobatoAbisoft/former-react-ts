@@ -7,12 +7,18 @@ import { OrdineList } from '../../Interfaces/OrdiniIntarface';
 
 type PropsAcordionOrdini = {
     listOrdini: OrdineList[]
-    pageOrdini: number[]
+    pageOrdini: number[];
+    handleGetOrdini: (pageNumber: number, idUt?: number) => Promise<void>
 }
 
-const AcordionOrdini = ({ listOrdini, pageOrdini }: PropsAcordionOrdini) => {
+
+
+
+const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordionOrdini) => {
+
+
     return (
-        <>
+        <div className='w-full bg-white'>
             {
                 listOrdini.map((item, index) => (
                     <Accordion key={index}>
@@ -79,7 +85,16 @@ const AcordionOrdini = ({ listOrdini, pageOrdini }: PropsAcordionOrdini) => {
                     </Accordion>
                 ))
             }
-        </>
+            <p className="">Vai alla pagina </p>
+            <div className="w-full flex">
+                {pageOrdini.map((item, index) => (
+                    <a key={item}  className="text-[12px] hover:underline cursor-pointer py-[5px] px-[10px] bg-[#2b2b2b] text-white border-[1px] border-[#aaa] rounded-[3px]" onClick={()=>{handleGetOrdini(item)}}>{item}</a>
+                ))
+                }
+            </div>
+
+
+        </div>
     )
 }
 
