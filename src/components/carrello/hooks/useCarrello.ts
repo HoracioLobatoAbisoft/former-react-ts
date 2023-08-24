@@ -103,7 +103,7 @@ const useCarrello = () => {
         dataTotale.TotalPrezo = TotalPrezo;
         dataTotale.Colli = Colli;
         //ArrayLocalCarrello[mayorFecha1 ? mayorFecha1.index : 0].prezzo
-        const responseMetodiPagamento = await getMetodiPagamento(idUt,12, radio)
+        const responseMetodiPagamento = await getMetodiPagamento(idUt, 12, radio)
         setTipoPagamento(responseMetodiPagamento);
         const responseCaricaCorriere = await getCaricaCorriere(idUt);
         setCaricaCorriere(responseCaricaCorriere.data);
@@ -253,7 +253,7 @@ const useCarrello = () => {
         window.parent.postMessage({ operation: enOperationFrame.show }, GLOBAL_CONFIG.IMG_IP);
     }
 
-    
+
 
 
     const handleScandeza = async (Cap: string) => {
@@ -311,7 +311,7 @@ const useCarrello = () => {
                 ordineDataDTO: arrayCarrello,
             }
             const responsePostAquistaOra = await postAquistaOra(data);
-            
+
             //console.log('ordine',responsePostAquistaOra.data)
         }
 
@@ -327,18 +327,35 @@ const useCarrello = () => {
         }
     }
 
+    const handleHistory = () => {
+        window.addEventListener('popstate', function (event) {
+            //alert("Usuario retrocedió en el historial");
+            window.parent.postMessage({ operation: enOperationFrame.show }, GLOBAL_CONFIG.IMG_IP);
+
+        });
+    }
+
+
     /**
      * *Funciones efectHelpers
      */
 
     useEffect(() => {
+
+
+
         getLocalCarrello();
         handleTotaleProvisorio();
         getDatesAlleghiPDF();
         getIndirizzoUt();
+        handleHistory();
 
 
         localStorage.setItem('cons', '1');
+
+
+        const ste = localStorage.getItem('stp');
+        if(ste != undefined && ste == '1')setStep(5); 
     }, [])
 
 

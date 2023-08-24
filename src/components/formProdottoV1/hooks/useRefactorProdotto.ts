@@ -1024,6 +1024,11 @@ const useRefactorProdotto = () => {
         window.parent.postMessage({ operation: enOperationFrame.redirectLogin }, GLOBAL_CONFIG.IMG_IP);
     }
 
+    const handleImg = () => {
+        const img = hanldeFormatoList().find(x=>x.value == initialState.formatoS)
+        return img == undefined ?  hanldeFormatoList()[0]?.image : img.image
+    }
+
     ////console.log("params2",idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idFogli, idUt, idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete)
     // * ---------------Efects Helpers-----------------------
 
@@ -1280,7 +1285,8 @@ const useRefactorProdotto = () => {
         setOpenLoadingBackdrop,
         prezzoActive,
         idUt,
-        handleLogin
+        handleLogin,
+        handleImg
     }
 }
 

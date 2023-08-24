@@ -80,7 +80,8 @@ const ConfiguraProdottoRefactor = () => {
         setOpenLoadingBackdrop,
         prezzoActive,
         idUt,
-        handleLogin
+        handleLogin,
+        handleImg
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -123,18 +124,18 @@ const ConfiguraProdottoRefactor = () => {
                                         </span>
                                     </td>
                                 </tr> :
-                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} defaulSelect={idFormProd} />
+                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} defaulSelect={idFormProd} initialState={initialState} />
                             }
 
                             {orientamiento ? <InputCustomSelect showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
-                            <InputCustomSelect showIcon={false} name="tipoCarta" handleChange={handleChange} label={textTipoCarta} options={handleOptionsTipoCarta()} defaulSelect={IdTipoCarta} />
+                            <InputCustomSelect showIcon={false} name="tipoCarta" handleChange={handleChange} label={textTipoCarta} options={handleOptionsTipoCarta()} defaulSelect={IdTipoCarta} initialState={initialState} />
 
                             {showCoperatina ? <ListCustom label={copertina[0].text} options={handleCoperatinaOpz()} /> : null}
                             {showSotoblocco ? <ListCustom label={sotoblocco[0].text} options={handleSotobloccoOpz()} /> : null}
 
-                            <InputCustomSelect showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} defaulSelect={IdColoreStampa} />
+                            <InputCustomSelect showIcon={false} name="coloreStampa" handleChange={handleChange} label="Colore di stampa" options={handleOptionsColoreStampa()} defaulSelect={IdColoreStampa} initialState={initialState} />
 
-                            {showFaciatePagine ? <InputCustomSelect stylePerzonalize={'w-3/4'} showIcon={true} name="facciatePagine" handleChange={handleChange} label={labelFogli} options={handleFogliPagine()} /> : null}
+                            {showFaciatePagine ? <InputCustomSelect stylePerzonalize={'w-3/4'} showIcon={true} name="facciatePagine" handleChange={handleChange} label={labelFogli} options={handleFogliPagine()} initialState={initialState} /> : null}
 
                             {showBloccoMisure &&
                                 <>
@@ -188,7 +189,7 @@ const ConfiguraProdottoRefactor = () => {
                                 ////console.log("elemselect",stampaCalOpz)
                                 if (elem.tipoControllo === 1) {
                                     return (
-                                        <InputCustomSelect key={i} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handleStampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} valuesStampaCaldoOpz={valuesStampaCaldoOpz} />
+                                        <InputCustomSelect key={i} showIcon={true} name={elem.descrizione} label={elem.descrizione} options={handleStampaCaldoOpz(elem.optionsSelect)} handleChange={handleChange} valuesStampaCaldoOpz={valuesStampaCaldoOpz} initialState={initialState} />
                                     )
                                 }
                             })}
@@ -197,7 +198,7 @@ const ConfiguraProdottoRefactor = () => {
                     <div className=" w-[25%]">
                         {showSvg ?
                             <ImageCustom svgImage={imageSvg} /> :
-                            <img src={`https://localhost:44311//listino/img/${() => { }/*handleChangeSVG()*/}`} alt="" width={128} />
+                            <img src={`https://tipografiaformer.it/listino/img/${handleImg()}`} alt="" width={128} />
                         }
                     </div>
                 </div>
@@ -280,7 +281,10 @@ const ConfiguraProdottoRefactor = () => {
                                 <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
                                     oppure
                                 </Divider>
-                                <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                                <Link to={"/carrello"} onClick={()=>{localStorage.setItem('stp','1');handleCarrello()}}>
+                                    <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                                </Link>
+
                             </>
                             :
                             <>
@@ -294,7 +298,7 @@ const ConfiguraProdottoRefactor = () => {
 
             </div>
             <div className="w-[25%]  ">
-                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} />
+                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello}/>
             </div>
         </div>
 

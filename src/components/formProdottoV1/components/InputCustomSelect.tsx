@@ -8,13 +8,13 @@ interface Props {
   label: string;
   options: OptionsSelect[];
   name: string;
-  handleChange: (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>void;
+  handleChange: (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
   valueSelect?: any;
   showIcon: boolean;
   initialState?: any;
   stylePerzonalize?: string;
   valuesStampaCaldoOpz?: Record<string, number>
-  defaulSelect?:number | string | null;
+  defaulSelect?: number | string | null;
 }
 export const InputCustomSelect = ({
   label,
@@ -34,6 +34,9 @@ export const InputCustomSelect = ({
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isHovered2, setIsHovered2] = useState(false);
+  const [index, setIndex] = useState(0)
+
+
   const setHoveredState = (stateBool: boolean) => {
     setIsHovered(stateBool);
   };
@@ -142,20 +145,26 @@ export const InputCustomSelect = ({
     if (initialState != undefined) {
       if (name in initialState) {
         //console.log("asdfasdfsadfadsfasdf", options.find((x: any) => x.value == initialState[name]))
-        return options.find((x: any) => x.value == initialState[name])
-
+        const fil = options.find((x) => x.value == initialState[name])
+        return fil == undefined ? options[0] : fil; 
       }
-    } else {
-
+      return options[0]
     }
   }
+
+  const handleInfo = () => {
+    //setIndex(i)
+  }
+
   useEffect(() => {
     if (valuesStampaCaldoOpz != undefined && name !== "Format" && name !== "base" && name !== "coloreStampa" && name !== "depth" && name !== "height" && name !== "quantity" && name !== "tipoCarta" && name !== "formatoS" && name !== "facciatePagine" && name !== 'nome' && name !== 'note') {
       //console.log('opcioniList - entro')
       const name = label;
       valuesStampaCaldoOpz[name] = Number(options[0].value);
     }
+
     selected()
+    //console.log('diooooooooooooooooo')
 
   }, [])
 
@@ -170,7 +179,7 @@ export const InputCustomSelect = ({
         <select name={name} onChange={handleChange} className={`border-[1px] ${stylePerzonalize ? stylePerzonalize : "w-full"} border-[#ddd] py-[3px]`}>
           {
             options.map((elem, i) => (
-              <option key={elem.value}  selected={defaulSelect == elem.value ? true : false} value={elem.value}>{elem.label}</option>
+              <option key={elem.value} selected={defaulSelect == elem.value ? true : false} value={elem.value}>{elem.label}</option>
             ))
           }
         </select>
@@ -178,7 +187,7 @@ export const InputCustomSelect = ({
       <td className=" p-[6px]">
         {/* {(showIcon === true && position === 0) ||
           position === undefined ? null : ( */}
-        {(selected()?.value != 0 && name != "orientamiento" && name != "facciatePagine") &&
+        {(name != "orientamiento" && name != "facciatePagine" && selected()?.value != 0) &&
           <span
             className={`text-xs  text-gray-800 cursor-pointer relative`}
             onMouseEnter={() => setHoveredState(true)}
@@ -193,25 +202,34 @@ export const InputCustomSelect = ({
           <div className="absolute right-0 mt-5 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
             <div className="flex">
               <div className="w-48 max-w-full">
-                <img
+                {/* <img
                   src={
                     options && (position === 0 || position === undefined)
-                      ? `https://localhost:44311//listino/` + selected()?.image
-                      : `https://localhost:44311//listino/` +
+                      ? `https://tipografiaformer.it/listino/img/` + selected()?.image
+                      : `https://tipografiaformer.it/listino/img/` +
                       selected()?.image
                   }
                   alt=""
+                /> */}
+                <img
+                  src={
+                    `https://tipografiaformer.it/listino/img/` + selected()?.image
+                  }
+                  alt=""
                 />
+                {/* <img src={`https://tipografiaformer.it/listino/img/${options[index].image}`} alt="" className="" /> */}
               </div>
               <div className="ml-4">
                 <div className="mb-3">
                   <h2 className="text-yellow-400 capitalize">
                     {selected()?.label}
+                    {/* {options[index].label} */}
                   </h2>
                   <hr className="border border-white" />
                 </div>
                 <p className="max-w-[500px] text-justify text-white">
                   {selected()?.description}
+                  {/* {options[index].description} */}
                 </p>
               </div>
             </div>
