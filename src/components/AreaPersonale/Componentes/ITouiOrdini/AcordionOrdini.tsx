@@ -28,7 +28,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                 </div>
             </div>
             <div className='flex flex-row mt-[15px]'>
-                <div className='ml-[100px] flex justify-end px-1'>
+                <div className='ml-[105px] flex justify-end px-1'>
                     <span className='text-[red] text-[10px] font-bold'>
                         STATO
                     </span>
@@ -38,7 +38,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                         ORDINE
                     </span>
                 </div>
-                <div className='w-[280px] flex justify-start ml-[30px] px-1'>
+                <div className='w-[260px] flex justify-start ml-[35px] px-1'>
                     <span className='text-[red] text-[10px] font-bold'>
                      DATA CONSEGNA
                     </span>
@@ -72,10 +72,10 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                             //expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
-                            sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding:0, height: '15px' }}
-                            className={`AcordionHeader`}
+                            sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding:0, height: '15px', width:'760px' }}
+                            className={`arcodion-ordini`}
                         >
-                            <div className='w-full flex flex-row items-center '>
+                            <div className='w-full flex flex-row items-center hover:font-bold'>
                                 <div className="w-[3%]  text-center">+</div>
                                 <div className="w-[4%]  items-center justify-center">
                                     <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaCorriere} alt="" />
@@ -86,30 +86,30 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                         className={` w-[25px] h-[25px] rounded border-[1px] border-[#aaa]`}
                                     />
                                 </div>
-                                <div className=" flex w-[10%] justify-start px-1">
-                                    <span className='text-[12px]'>
+                                <div className="">
+                                    <span className='text-[11px]'>
                                         {item.statoStr}
                                     </span>
                                 </div>
-                                <div className="w-[20%] flex justify-center">
-                                    <span className='text-[12px] font-bold'>
+                                <div className="ml-[60px]">
+                                    <span className='text-[11px] font-bold'>
                                         {`N° ${item.idConsegnaView} del ${item.inseritoStr}`}
                                     </span>
                                 </div>
-                                <div className='flex w-[35%] items-center justify-start px-2'>
-                                    <span className={`bg-[${item.dataOrdineClasse}] rounded text-[12px] p-[1px] px-[2px] font-bold`}>
+                                <div className='ml-[38px]'>
+                                    <span className={`bg-[${item.dataOrdineClasse}] rounded text-[11px] p-[1px] px-[2px] font-bold`}>
                                         {item.giornoStr}
                                     </span>
-                                    <span className='ml-[25px] text-[12px]'>
+                                    <span className='ml-[25px] text-[11px]'>
                                         {item.corriereStr}
                                     </span>
                                 </div>
-                                <div className="w-[50px]  flex justify-center">
-                                    <span className='text-[12px]'>
+                                <div className="ml-[85px] w-[50px] flex justify-center">
+                                    <span className='text-[11px]'>
                                         {item.count}
                                     </span>
                                 </div>
-                                <div className='w-[130px] flex justify-end'>
+                                <div className='w-[132px] flex justify-end'>
                                     <span className='font-bold text-[12px]'>
                                         € {Number(item.importoTotNettoStr).toLocaleString('it-IT')} + iva
                                     </span>
@@ -118,7 +118,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                            
                         </AccordionSummary>
                         <AccordionDetails 
-                            sx={{ bgcolor: "", display: '', fontSize: 11, width: '100%', border:'1px solid #ddd', }}
+                            sx={{ bgcolor: "", display: '', fontSize: 11, width: '760px', border:'1px solid #ddd', }}
                         >
                             <div className="flex w-full p-0">
                                 <div className='row m-0 w-full'>
@@ -283,11 +283,12 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                         </div>
                                     </div>
                                     <div className='col col-12'>
-                                        <div className='row'>
-                                            <AcordionLavori listLavori={item.listLavori} />
-                                        </div>
+                                       
+                                                <AcordionLavori listLavori={item.listLavori} />
+
+                                        
                                     </div>
-                                    <div className="col col-12 mt-[10px] mb-[10px] px-[5px]">
+                                    <div className="col col-12 mt-[10px] mb-[10px] px-0 pl-[15px]">
                                         <div className="flex border-[#d6e03d] border-[1px] bg-[#f58220] "/>
                                     </div>
                                     <div className='col col-12'>
@@ -295,23 +296,23 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                             <div className='col col-12 px-0 pr-[3px]'>
                                                 <div className="flex mx-0 items-center justify-end">
                                                     {item.idStatoConsegna == 10 ?
-                                                        <button className="ml-2 p-1 flex bg-[#ffd30c] rounded">
+                                                        <button className="ml-2 p-[2px] px-[4px] bg-[#e70031] hover:bg-[#ff5829]">
                                                             <img src="https://tipografiaformer.it/img/icoPrezzo16.png" />
                                                             <b>EFFETTUA IL PAGAMENTO</b>
                                                         </button>
                                                         : item.tracciabile ?
-                                                            <button className="ml-2 p-1 flex bg-[#ffd30c] rounded">
+                                                            <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
                                                                 <img src="https://tipografiaformer.it/img/icoCorriere20.png" width="16" />
                                                                 <b>TRACCIA IL MIO PACCO</b>
                                                             </button>
                                                             : null
                                                     }
-                                                        <button className="ml-2 p-1 flex bg-[#ffd30c] rounded">
+                                                        <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
                                                             <img src="https://tipografiaformer.it/img/icoFreccia16.png" /> 
                                                             Vai al Dettaglio Ordine
                                                         </button>
                                                     {item.modificabile &&
-                                                        <button className="ml-2 p-1 flex bg-[#ffd30c] rounded">
+                                                        <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
                                                             <img src="https://tipografiaformer.it/img/icoCestino16.png" />
                                                             Elimina Ordine
                                                         </button>

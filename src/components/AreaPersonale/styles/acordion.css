@@ -1,0 +1,20 @@
+
+.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters.arcodion-ordini:hover {
+    background: #d6e03d;
+}
+
+.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters.arcodion-ordini{
+    min-height: 48px;
+    height: 48px;
+    background: #d6e03d;
+}
+
+.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters.acodion-lavori:hover {
+    background: #d6e03d;
+}
+
+.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters.acodion-lavori{
+    min-height: 48px;
+    height: 48px;
+    background: #d6e03d;
+}
