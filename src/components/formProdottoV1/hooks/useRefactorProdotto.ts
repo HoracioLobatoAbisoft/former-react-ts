@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { InitialValuesProdotto, OptionsSelect } from '../../formProdotto/interfaces/prodotto';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getSvgImageService, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetFormatoStr, httpGetHelperData, httpGetOpzioni, httpGetOpzioniCarrello, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
+import { getSvgImageService, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetFormatoStr, httpGetHelperData, httpGetOpzioni, httpGetOpzioniCarrello, httpGetProdottoConsigliato, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
 import { TipoDiCarta } from '../interface/tipoCarta';
 import { ColoreStampa } from '../interface/coloreStampa';
 import { Opzioni } from '../interface/opzioni';
@@ -24,6 +24,7 @@ import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { DataDimensioniStr, ResponseDimensioniStr } from '../interface/DimensioneStr';
 import { DataGetOpzioniStatic } from '../interface/opzioniStatic';
 import { GLOBAL_CONFIG } from '../../../_config/global';
+import { DataGetProduttoConsigliato } from '../interface/prodottoConsigliato';
 
 const initialValues: InitialValuesProdotto = {
     base: null,
@@ -71,6 +72,7 @@ const useRefactorProdotto = () => {
     const [helperDataProdotto, setHelperDataProdotto] = useState<DataGetHelperDataProdotto>()
     const [dimensionniStr, setDimensionniStr] = useState<DataDimensioniStr>()
     const [opzioniListStatic, setOpzioniListStatic] = useState<DataGetOpzioniStatic[]>([])
+    const [prodottoConsigliato, setProdottoConsigliato] = useState<DataGetProduttoConsigliato[]>([])
 
     const [showTablePreez, setShowTablePreez] = useState<boolean>();
     const [orientamiento, setOrientamiento] = useState<boolean>();
@@ -292,6 +294,11 @@ const useRefactorProdotto = () => {
             }
 
             setOpenLoadingBackdrop(false)
+
+            const responseProdottoCOnsigliato = await geProdottoConsigliato(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS, initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta, initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,GLOBAL_CONFIG.IMG_IP)
+
+            setProdottoConsigliato(responseProdottoCOnsigliato.data);
+
         } catch (error) {
             //console.log('ErrorHandleData', error)
         }
@@ -530,6 +537,11 @@ const useRefactorProdotto = () => {
     const getOpzioniStatic = async (IdPrevOST: number, IdFormProdOST: number, IdTipoCartaOST: number, IdColoreStampaOST: number) => {
         const responseOpzioniStatic = await httpGetOpzioniCarrello(IdPrevOST, IdFormProdOST, IdTipoCartaOST, IdColoreStampaOST)
         return responseOpzioniStatic;
+    }
+
+    const geProdottoConsigliato =async (IdPrevPC:number,IdFormProdPC:number, IdTipoCartaPC:number, IdColoreStampaPC:number,uriPC: string) => {
+        const responseProdottoConsigliato = await httpGetProdottoConsigliato(IdPrevPC,IdFormProdPC, IdTipoCartaPC, IdColoreStampaPC,uriPC)
+        return responseProdottoConsigliato;
     }
 
     /* 
@@ -1286,7 +1298,8 @@ const useRefactorProdotto = () => {
         prezzoActive,
         idUt,
         handleLogin,
-        handleImg
+        handleImg,
+        prodottoConsigliato
     }
 }
 

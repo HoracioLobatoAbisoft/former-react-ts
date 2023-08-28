@@ -15,6 +15,7 @@ import { Link } from "react-router-dom"
 import { numberFormat } from "../../Helpers/formatNumber"
 import { GLOBAL_CONFIG } from "../../_config/global"
 import { DateFormatDDMMYY } from "../../Helpers/formatDates"
+import ProdottiSuggeriti from "./components/ProdottiSuggeriti"
 
 const ConfiguraProdottoRefactor = () => {
     const {
@@ -81,7 +82,8 @@ const ConfiguraProdottoRefactor = () => {
         prezzoActive,
         idUt,
         handleLogin,
-        handleImg
+        handleImg,
+        prodottoConsigliato,
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -237,9 +239,9 @@ const ConfiguraProdottoRefactor = () => {
                 </div>
                 <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
                 <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} prezzoActive={prezzoActive} />
-                {
-                    showTablePreez == true && <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
-                }
+
+                <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
+
                 <div className="bg-[#d6e03d] w-full p-[10px] h-[92px] flex flex-col justify-between mt-1">
                     <div className="flex justify-between">
                         <p className="text-[10px] flex items-center gap-1">
@@ -250,11 +252,11 @@ const ConfiguraProdottoRefactor = () => {
                                 </>
                             ) : ''}
                         </p>
-                        <p className="text-[22px] font-bold">€ {numberFormat(calcolaTuto?.prezzoCalcolatoNetto)} + iva</p>
+                        <p className="text-[22px] font-bold"> {showTablePreez ? "€" + numberFormat(calcolaTuto?.prezzoCalcolatoNetto) + " + iva" : "-"} </p>
                     </div>
                     <div className=" flex justify-between">
                         <a href="#" className="flex gap-1 text-[12px]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePDF.png`} width={20} height={20} /> Preventivo PDF  ↓</a>
-                        <p className="text-[11px]">Prezzo consigliato al pubblico min. <b>€ {numberFormat(calcolaTuto?.prezzoPubblico)} + iva</b>  (+ grafica € <b>{numberFormat(calcolaTuto?.graficaPerFacciata)}</b> a facciata)</p>
+                        <p className="text-[11px]">Prezzo consigliato al pubblico min. <b> {showTablePreez ? "€ " + numberFormat(calcolaTuto?.prezzoPubblico) + " + iva" : "-"} </b>  (+ grafica € <b>{numberFormat(calcolaTuto?.graficaPerFacciata)}</b> a facciata)</p>
                     </div>
                 </div>
                 <div className="bg-[#f1f1f1] w-full p-[10px] flex flex-col justify-between mt-4">
@@ -265,7 +267,7 @@ const ConfiguraProdottoRefactor = () => {
                             Prodotto in promozione con sconto del <span className="bg-[#009ec9] px-[3px] text-white font-normal rounded-[3px] mx-[2px]"> {calcolaTuto?.promoPercentuale} %</span>  fino al {DateFormatDDMMYY(calcolaTuto?.dataFineValidita)}
                         </p>
                     }
-                    <p className="text-[12px] flex items-center gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCorriere20.png`} /> <b>SPEDIZIONE:</b> Numero di colli indicativo <b>{calcolaTuto?.colli}</b> , Peso indicativo <b>{calcolaTuto?.pesoStr}</b> kg ± , Costo <b>€ {numberFormat(calcolaTuto?.costo)}</b></p>
+                    <p className="text-[12px] flex items-center gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCorriere20.png`} /> <b>SPEDIZIONE:</b> Numero di colli indicativo <b>{showTablePreez ? calcolaTuto?.colli : "-"}</b> , Peso indicativo <b>{showTablePreez ? calcolaTuto?.pesoStr : "-"}</b> kg ± , Costo <b>€ {numberFormat(calcolaTuto?.costo)}</b></p>
                 </div>
                 <h4 className="bg-[#e8e8e8] w-full mt-3 text-[12px] ps-[20px] pt-[4px]">DAI UN NOME AL LAVORO</h4>
                 <div className="w-full flex items-center justify-center px-5 mt-2 text-[#000] font-[400]"><input type="text" maxLength={100} name="nome" onChange={handleChange} className="w-full text-[14px] border border-[#000] px-[2px] py-[1px] rounded-[2px]" placeholder="Qui se vuoi puoi dare un nome a questo lavoro per riconoscerlo più agevolmente in seguito" ></input></div>
@@ -281,7 +283,7 @@ const ConfiguraProdottoRefactor = () => {
                                 <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
                                     oppure
                                 </Divider>
-                                <Link to={"/carrello"} onClick={()=>{localStorage.setItem('stp','1');handleCarrello()}}>
+                                <Link to={"/carrello"} onClick={() => { localStorage.setItem('stp', '1'); handleCarrello() }}>
                                     <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                                 </Link>
 
@@ -295,10 +297,18 @@ const ConfiguraProdottoRefactor = () => {
 
                     </div>
                 </div>
-
+                <div className="mt-[15px]  w-full">
+                    <h2 className="bg-[#d6e03d] text-[12px] mt-0 mb-[5px] pt-[2px] ps-[20px] leading-[22px]">ALCUNI PRODOTTI SUGGERITI PER TE</h2>
+                    <div className="">
+                        {prodottoConsigliato.map((elem, item) => (
+                            <ProdottiSuggeriti prodottoConsigliato={elem} />
+                        ))
+                        }
+                    </div>
+                </div>
             </div>
             <div className="w-[25%]  ">
-                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello}/>
+                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} />
             </div>
         </div>
 

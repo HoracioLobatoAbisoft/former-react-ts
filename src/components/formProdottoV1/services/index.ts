@@ -11,6 +11,7 @@ import { ResponseFormatDinamico } from "../interface/formatoDinamico";
 import { ResposeGetHelperDataProdotto } from "../interface/helpersDataProdotto";
 import { Opzioni } from "../interface/opzioni";
 import { ResponseGetOpzioniStatic } from "../interface/opzioniStatic";
+import { ResponseGetProduttoConsigliato } from "../interface/prodottoConsigliato";
 import { PrezzoValue, ResponsePrezzoTabella } from "../interface/showColumPrezzo";
 import { IShowOpzioni } from "../interface/showOpzioni";
 import { showSvgReponse } from "../interface/showSvg";
@@ -568,5 +569,23 @@ export const httpGetOpzioniCarrello =async (IdPrev:number,IdFormProd:number,IdTi
   } catch (error) {
     throw new Error('')
     
+  }
+}
+
+export const httpGetProdottoConsigliato =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number,uri:string) => {
+  try {
+    
+    const result = await applicationConnect.get<ResponseGetProduttoConsigliato>('Packagin/GetProdottoConsigliato',{params:{
+      IdPrev,
+      IdFormProd,
+      IdTipoCarta,
+      IdColoreStampa,
+      uri,
+    }})
+
+    return result.data;
+
+  } catch (error) { 
+    throw new Error('')
   }
 }
