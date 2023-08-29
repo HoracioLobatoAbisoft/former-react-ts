@@ -3,6 +3,7 @@ import { TabPanel, Tab, Tabs, TabContainer } from '../Componentes/LayOut/Tabs';
 import useITuoiOrdini from '../hooks/useITuoiOrdini';
 import AcordionOrdini from '../Componentes/ITouiOrdini/AcordionOrdini';
 import { GLOBAL_CONFIG } from "../../../_config/global";
+import LegendaStatoOrdini from '../Componentes/ITouiOrdini/LegendaStatoOrdini';
 
 const ITouiOrdini = () => {
     const [activeTab, setActiveTab] = React.useState(0);
@@ -55,28 +56,21 @@ const ITouiOrdini = () => {
 
 
                 </Tabs>
-                <TabContainer>
+                <TabContainer
+                    className={`border`}
+                >
                     <TabPanel
                         index={0}
                         value={activeTab}
                     >
                         <AcordionOrdini listOrdini={listOrdini} pageOrdini={pageOrdini} handleGetOrdini={handleGetOrdini} />
-                        {/* </Tabs> */}
-                        {/* <TabContainer>
-                <TabPanel
-                    index={0}
-                    value={activeTab}
-                >
-                    <AcordionOrdini listOrdini={listOrdini} pageOrdini={pageOrdini} />
-*/}
                     </TabPanel>
                     <TabPanel
                         index={1}
                         value={activeTab}
+                        className=''
                     >
-                        <p>
-                            this is a test
-                        </p>
+                       <LegendaStatoOrdini/>
                     </TabPanel>
                 </TabContainer>
             </div>

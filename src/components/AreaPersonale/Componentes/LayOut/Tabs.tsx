@@ -6,7 +6,7 @@ interface TabsProps {
 
 export const Tabs = ({children, classNameDiv, classNameUl}:TabsProps) =>{
     return (<>
-    <div className={`mb-2 border-b border-gray-200 dark:border-gray-700 ${classNameDiv}`}>
+    <div className={` border-b border-gray-200 dark:border-gray-700 ${classNameDiv}`}>
         <ul 
             className={`flex flex-wrap ${classNameUl}`}
             id="myTab" 
@@ -56,7 +56,7 @@ interface TabPanelProps {
 export const TabPanel = ({children, index, value, className}: TabPanelProps)=>{
     return (
         <>
-            <div className={`${index !== value?`hidden`:`block`} p-4 rounded-lg bg-gray-50 dark:bg-gray-800 ${className}`}             
+            <div className={`${index !== value?`hidden`:`block`}  rounded-lg ${className}`}             
             >
                 {children}
             </div>
