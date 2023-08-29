@@ -29,31 +29,33 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                     </div>
                 </div>
                 <div className='flex flex-row mt-[15px]'>
-                    <div className='ml-[105px] flex justify-end px-1'>
-                        <span className='text-[red] text-[10px] font-bold'>
+                    <div className='ml-[65px] w-[130px] flex justify-center px-1'>
+                        <span className='text-[red] text-[10px] font-bold text-center'>
                             STATO
                         </span>
                     </div>
-                    <div className='ml-[90px] flex justify-end px-1'>
+                    <div className='w-[120px] flex justify-center px-1'>
                         <span className='text-[red] text-[10px] font-bold'>
                             ORDINE
                         </span>
                     </div>
-                    <div className='w-[260px] flex justify-start ml-[35px] px-1'>
+                    <div className='w-[100px] flex justify-center px-1'>
                         <span className='text-[red] text-[10px] font-bold'>
                         DATA CONSEGNA
                         </span>
-                        <span className='text-[red] text-[10px] font-bold ml-[25px]'>
-                        CORRIERE
+                    </div>
+                    <div className='w-[160px] flex justify-start px-1'>
+                        <span className='text-[red] text-[10px] font-bold text-center'>
+                            CORRIERE
                         </span>
                     </div>
-                    <div className='w-[80px]  flex justify-start'>
+                    <div className='w-[70px]  flex justify-start self-end'>
                         <span className='text-[red] text-[10px] font-bold'>
                         N° LAVORI
                         </span>
                     </div>
-                    <div className='flex w-[96px] justify-end ml-[10px] px-1'>
-                        <span className='text-[red] text-[10px] font-bold'>
+                    <div className='flex w-[110px] justify-end ml-[10px] px-1 self-end'>
+                        <span className='text-[red] text-[10px] font-bold text-right'>
                         IMPORTO NETTO
 
                         </span>
@@ -77,42 +79,44 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                 className={`arcodion-ordini`}
                             >
                                 <div className='w-full flex flex-row items-center hover:font-bold'>
-                                    <div className="w-[3%]  text-center">+</div>
-                                    <div className="w-[4%]  items-center justify-center">
+                                    <div className="w-[30px]  text-center">+</div>
+                                    <div className="w-[30px]  items-center justify-center">
                                         <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaCorriere} alt="" />
                                     </div>
-                                    <div className='w-[4%]  items-center justify-center'>
+                                    <div className='w-[30px]  items-center justify-center'>
                                         <div 
                                             style={{ 'backgroundColor': `${item.coloreStatoHtml}` }} 
                                             className={` w-[25px] h-[25px] rounded border-[1px] border-[#aaa]`}
                                         />
                                     </div>
-                                    <div className="">
+                                    <div className="w-[80px]">
                                         <span className='text-[11px]'>
                                             {item.statoStr}
                                         </span>
                                     </div>
-                                    <div className="ml-[60px]">
-                                        <span className='text-[11px] font-bold'>
+                                    <div className="w-[130px] justify-center">
+                                        <span className='text-[11px] font-bold text-center'>
                                             {`N° ${item.idConsegnaView} del ${item.inseritoStr}`}
                                         </span>
                                     </div>
-                                    <div className='ml-[38px]'>
-                                        <span className={`bg-[${item.dataOrdineClasse}] rounded text-[11px] p-[1px] px-[2px] font-bold`}>
+                                    <div className='w-[90px] flex justify-center'>
+                                        <span className={`bg-[${item.dataOrdineClasse}] text-center rounded text-[11px] p-[1px] px-[2px] font-bold`}>
                                             {item.giornoStr}
                                         </span>
-                                        <span className='ml-[25px] text-[11px]'>
+                                    </div>
+                                    <div className='w-[165px] flex justify-start'>
+                                        <span className='text-[11px]'>
                                             {item.corriereStr}
                                         </span>
                                     </div>
-                                    <div className="ml-[85px] w-[50px] flex justify-center">
-                                        <span className='text-[11px]'>
+                                    <div className="w-[60px] flex justify-center">
+                                        <span className='text-[11px] text-center'>
                                             {item.count}
                                         </span>
                                     </div>
-                                    <div className='w-[132px] flex justify-end'>
-                                        <span className='font-bold text-[12px]'>
-                                            € {Number(item.importoTotNettoStr).toLocaleString('it-IT')} + iva
+                                    <div className='w-[130px] flex justify-end'>
+                                        <span className='font-bold text-[12px] text-right'>
+                                            € {item.importoTotNettoStr} + iva
                                         </span>
                                     </div>
                                 </div>
