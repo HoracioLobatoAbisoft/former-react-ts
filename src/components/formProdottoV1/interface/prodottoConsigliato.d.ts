@@ -17,4 +17,5 @@ export interface DataGetProduttoConsigliato {
     url: string;
     recesioni:number;
     aggregateRatingStr:string;
+    percentualePromo:number;
 }

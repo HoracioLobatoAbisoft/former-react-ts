@@ -16,6 +16,7 @@ import { numberFormat } from "../../Helpers/formatNumber"
 import { GLOBAL_CONFIG } from "../../_config/global"
 import { DateFormatDDMMYY } from "../../Helpers/formatDates"
 import ProdottiSuggeriti from "./components/ProdottiSuggeriti"
+import RecencioniC from "./components/RecencioniC"
 
 const ConfiguraProdottoRefactor = () => {
     const {
@@ -84,6 +85,9 @@ const ConfiguraProdottoRefactor = () => {
         handleLogin,
         handleImg,
         prodottoConsigliato,
+        rencensioniP,
+        recencioniC,
+        descrizioneDinamica
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -104,7 +108,7 @@ const ConfiguraProdottoRefactor = () => {
         }
     }
     return (
-        <div className="w-full flex gap-3 relative">
+        <div className="w-full flex gap-3 relative ">
             <div className="w-[75%]">
                 <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} />
                 <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO</h5>
@@ -297,7 +301,7 @@ const ConfiguraProdottoRefactor = () => {
 
                     </div>
                 </div>
-                <div className="mt-[15px]  w-full">
+                <div className="mt-[15px]  w-full mb-[40px]">
                     <h2 className="bg-[#d6e03d] text-[12px] mt-0 mb-[5px] pt-[2px] ps-[20px] leading-[22px]">ALCUNI PRODOTTI SUGGERITI PER TE</h2>
                     <div className="">
                         {prodottoConsigliato.map((elem, item) => (
@@ -306,6 +310,47 @@ const ConfiguraProdottoRefactor = () => {
                         }
                     </div>
                 </div>
+                <div className="">
+                    <h2 className="bg-[#d6e03d] text-[12px] mt-0 mb-[5px] pt-[2px] ps-[20px] leading-[22px]">RECENSIONI DEI CLIENTI DI QUESTO PRODOTTO</h2>
+                    <div className="flex justify-between items-center">
+                        <div className="flex flex-col gap-2">
+                            <div className="flex items-end text-[12px] gap-2">
+                                <span className="flex" dangerouslySetInnerHTML={{ __html: String(rencensioniP?.stars) }}></span>
+                                <span className=""><b>{rencensioniP?.recesioni}</b> recensioni</span>
+                            </div>
+                            {rencensioniP && rencensioniP.voto > '0' ?
+                                <p className="text-[12px] ms-[10px]"><b>{rencensioniP?.voto}</b> su 5 stelle</p>
+                                : null
+                            }
+                        </div>
+                        <button className="flex bg-[#d6e03d] text-[11px] w-[150px] h-[30px] font-bold leading-[30px] uppercase justify-center items-center gap-1 rounded me-[15px]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoRecensione.png`} className="w-[22px]" /> Scrivi recensione</button>
+                    </div>
+                </div>
+                <div className="">
+                    <h3 className="font-bold text-[13px] mt-[13px] mb-[5px]">Le più recenti tra le recensioni dei clienti</h3>
+                    {recencioniC.map((item, i) => (
+                        <RecencioniC item={item} key={i} />
+                    ))}
+                </div>
+                <div className="p-[10px] leading-[30px] bg-[#f1f1f1]">
+                    <h2 className="text-[1.3em] font-bold mb-[15px]">{descrizioneDinamica?.nombe}</h2>
+                    <p className="w-full text-[14px] text-justify">
+                        {descrizioneDinamica?.descrizioneEstesa}
+                    </p>
+                    <h3 className="text-[1.1em] font-bold my-[14px]">Il {descrizioneDinamica?.tipoCarta}</h3>
+                    <p className="w-full text-[14px] text-justify">
+                        {descrizioneDinamica?.descrizioneEstesaEx}
+                    </p>
+                    {handleOptionsOpzioni().map((item, i) => (
+                        <div className="w-full">
+                            <h4 className="text-[17px] font-bold my-[13px]">Opzione inclusa {item.catLav}</h4>
+                            <p className="text-[14px] text-justify indent-[5px] leading-[24px]"><b>{item.label}</b>, {item.description}
+                            </p>
+                        </div>
+
+                    ))}
+                </div>
+
             </div>
             <div className="w-[25%]  ">
                 <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} />

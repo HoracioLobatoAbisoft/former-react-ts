@@ -26,6 +26,9 @@ export interface OptionsSelect {
   image?: string
   formatoCartaStr?: string
   pdfTemplate?: string
+  catLav?:string;
+  idCatLav?:number;
+  opzione?:string;
 }
 
 

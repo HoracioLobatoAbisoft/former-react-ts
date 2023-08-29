@@ -9,4 +9,8 @@ export interface Opzioni {
     descrizioneEstesa: string;
     idLavoro: number;
     imgRif:string;
+    catLav:{
+        idCatLav: number,
+        descrizione: string,
+    }
 }

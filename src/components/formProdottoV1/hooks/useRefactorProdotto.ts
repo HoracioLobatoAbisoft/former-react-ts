@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { InitialValuesProdotto, OptionsSelect } from '../../formProdotto/interfaces/prodotto';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getSvgImageService, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetFormatoStr, httpGetHelperData, httpGetOpzioni, httpGetOpzioniCarrello, httpGetProdottoConsigliato, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
-import { TipoDiCarta } from '../interface/tipoCarta';
+import { getSvgImageService, httpGetAggiornaReview, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDescrizioniDinamica, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetFormatoStr, httpGetHelperData, httpGetOpzioni, httpGetOpzioniCarrello, httpGetProdottoConsigliato, httpGetRecensioni, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from '../services';
+import { ResponseApi, TipoDiCarta } from '../interface/tipoCarta';
 import { ColoreStampa } from '../interface/coloreStampa';
 import { Opzioni } from '../interface/opzioni';
 import { OptionsSelectS, StaCalOpz } from '../interface/stampaCaldo';
@@ -25,6 +25,9 @@ import { DataDimensioniStr, ResponseDimensioniStr } from '../interface/Dimension
 import { DataGetOpzioniStatic } from '../interface/opzioniStatic';
 import { GLOBAL_CONFIG } from '../../../_config/global';
 import { DataGetProduttoConsigliato } from '../interface/prodottoConsigliato';
+import { DataGetResencioniP, ResponseGetRecensioni } from '../interface/RecensioniP';
+import { DataGetAggiornaReview } from '../interface/AggiornaReview';
+import { DataGetDescrizioniDinamica } from '../interface/DescrizioneDinamica';
 
 const initialValues: InitialValuesProdotto = {
     base: null,
@@ -55,7 +58,7 @@ const useRefactorProdotto = () => {
     const [tipoCartaList, setTipoCartaList] = useState<TipoDiCarta[]>([])
     const [coloreStampaList, setColoreStampaList] = useState<ColoreStampa[]>([])
     const [opzioniList, setOpzioniList] = useState<Opzioni[]>([])
-    const [stampaCalOpz, setStampaCalOpz] = useState<StaCalOpz[]>()
+    const [stampaCalOpz, setStampaCalOpz] = useState<StaCalOpz[]>([])
     const [tablaDate, setTablaDate] = useState<TableDate>()
     const [showColumTable, setShowColumTable] = useState<PrezzoValue>()
     const [tablaDataPrezzi, setTablaDataPrezzi] = useState<TablePrezzi[]>([])
@@ -73,6 +76,10 @@ const useRefactorProdotto = () => {
     const [dimensionniStr, setDimensionniStr] = useState<DataDimensioniStr>()
     const [opzioniListStatic, setOpzioniListStatic] = useState<DataGetOpzioniStatic[]>([])
     const [prodottoConsigliato, setProdottoConsigliato] = useState<DataGetProduttoConsigliato[]>([])
+    const [rencensioniP, setRencensioniP] = useState<DataGetResencioniP>()
+    const [recencioniC, setRecencioniC] = useState<DataGetAggiornaReview[]>([])
+    const [descrizioneDinamica, setDescrizioneDinamica] = useState<DataGetDescrizioniDinamica>()
+    const [opzInclusa, setOpzInclusa] = useState<OptionsSelect[]>([])
 
     const [showTablePreez, setShowTablePreez] = useState<boolean>();
     const [orientamiento, setOrientamiento] = useState<boolean>();
@@ -99,7 +106,9 @@ const useRefactorProdotto = () => {
 
     const [showCoperatina, setShowCoperatina] = useState<number>()
     const [showSotoblocco, setShowSotoblocco] = useState<number>();
-    const [prezzoActive, setPrezzoActive] = useState<number>(0)
+    const [prezzoActive, setPrezzoActive] = useState<number>(0);
+    
+
     const [scadenza, setScadenza] = useState<Date>()
 
     const [selectRow, setSelectRow] = useState({
@@ -295,9 +304,23 @@ const useRefactorProdotto = () => {
 
             setOpenLoadingBackdrop(false)
 
-            const responseProdottoCOnsigliato = await geProdottoConsigliato(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS, initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta, initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,GLOBAL_CONFIG.IMG_IP)
+            const responseProdottoCOnsigliato = await geProdottoConsigliato(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS, initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta, initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa, GLOBAL_CONFIG.IMG_IP)
 
             setProdottoConsigliato(responseProdottoCOnsigliato.data);
+
+            const responseRecensioniP = await getRecensioni(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS, initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta, initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa, GLOBAL_CONFIG.IMG_IP)
+
+            setRencensioniP(responseRecensioniP.data);
+
+            const responseAggiornaReview = await getAggiornaReview(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS, initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta, initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa, GLOBAL_CONFIG.IMG_IP)
+
+            setRecencioniC(responseAggiornaReview.data);
+
+            const responseDescrizioniDinamica = await getDescrizioniDinammica(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS, initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta, initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,)
+
+            setDescrizioneDinamica(responseDescrizioniDinamica.data);
+
+            handleOpzioneInclusa(responseStampaCaldo.data);
 
         } catch (error) {
             //console.log('ErrorHandleData', error)
@@ -539,10 +562,27 @@ const useRefactorProdotto = () => {
         return responseOpzioniStatic;
     }
 
-    const geProdottoConsigliato =async (IdPrevPC:number,IdFormProdPC:number, IdTipoCartaPC:number, IdColoreStampaPC:number,uriPC: string) => {
-        const responseProdottoConsigliato = await httpGetProdottoConsigliato(IdPrevPC,IdFormProdPC, IdTipoCartaPC, IdColoreStampaPC,uriPC)
+    const geProdottoConsigliato = async (IdPrevPC: number, IdFormProdPC: number, IdTipoCartaPC: number, IdColoreStampaPC: number, uriPC: string) => {
+        const responseProdottoConsigliato = await httpGetProdottoConsigliato(IdPrevPC, IdFormProdPC, IdTipoCartaPC, IdColoreStampaPC, uriPC)
         return responseProdottoConsigliato;
     }
+
+    const getRecensioni = async (IdPrevR: number, IdFormProdR: number, IdTipoCartaR: number, IdColoreStampaR: number, uriR: string) => {
+        const responseRecensioni = await httpGetRecensioni(IdPrevR, IdFormProdR, IdTipoCartaR, IdColoreStampaR, uriR)
+        return responseRecensioni;
+    }
+
+    const getAggiornaReview = async (IdPrevAR: number, IdFormProdAR: number, IdTipoCartaAR: number, IdColoreStampaAR: number, uriAR: string) => {
+        const responseAggiornaReview = await httpGetAggiornaReview(IdPrevAR, IdFormProdAR, IdTipoCartaAR, IdColoreStampaAR, uriAR)
+        return responseAggiornaReview;
+    }
+
+    const getDescrizioniDinammica = async (IdPrevDD: number, IdFormProdDD: number, IdTipoCartaDD: number, IdColoreStampaDD: number) => {
+        const responseDescrizioniDinamica = await httpGetDescrizioniDinamica(IdPrevDD, IdFormProdDD, IdTipoCartaDD, IdColoreStampaDD)
+        return responseDescrizioniDinamica;
+    }
+
+
 
     /* 
     * <===================handleChange | eventos de cambios=======================>
@@ -670,7 +710,8 @@ const useRefactorProdotto = () => {
                 label: elem.descrizione,
                 value: elem.idLavoro,
                 description: elem.descrizioneEstesa,
-                image: elem.imgRif
+                image: elem.imgRif,
+                catLav: elem.catLav.descrizione
             }
         })
         return options
@@ -987,7 +1028,7 @@ const useRefactorProdotto = () => {
             showFogli: showFaciatePagine,
             fogli: handleCarrelloData(initialState.facciatePagine, responseHandFacPagine).label,
             labelFogli: labelFogli,
-            pdfTemplate: handleCarrelloData(initialState.formatoS == null? Number(idFormProd) :initialState.formatoS, responseHandFormato).pdfTemplate,
+            pdfTemplate: handleCarrelloData(initialState.formatoS == null ? Number(idFormProd) : initialState.formatoS, responseHandFormato).pdfTemplate,
             idReparto: dimensionniStr?.idReparto,
             base: initialState.base ?? 0,
             produndita: initialState.base ?? 0,
@@ -1037,8 +1078,61 @@ const useRefactorProdotto = () => {
     }
 
     const handleImg = () => {
-        const img = hanldeFormatoList().find(x=>x.value == initialState.formatoS)
-        return img == undefined ?  hanldeFormatoList()[0]?.image : img.image
+        const img = hanldeFormatoList().find(x => x.value == initialState.formatoS)
+        return img == undefined ? hanldeFormatoList()[0]?.image : img.image
+    }
+
+    const handleOpzioneInclusa = (responseStampaCaldo: StaCalOpz[]) => {
+        const valStampaCaldo0 = responseStampaCaldo.filter(x => x.optionsSelect[0].idLavoro != 0);
+
+
+
+        var opzH: OptionsSelect[] = [];
+        var opz: OptionsSelect;
+        const arrayStampa: OptionsSelect[] = [];
+        Object.keys(valuesStampaCaldoOpz).forEach((key) => {
+            const value = valuesStampaCaldoOpz[key];
+            const objVaStampa: OptionsSelect = {
+                label: key,
+                value: value,
+            }
+            arrayStampa.push(objVaStampa);
+        })
+
+        arrayStampa.map((item, i) => {
+            const val = responseStampaCaldo.filter(x => x.optionsSelect[0].idLavoro != 0);
+
+            val.map((elem, j) => {
+                if (elem.descrizione == item.label && item.value != 0 && item.value == elem.optionsSelect[0].idLavoro) {
+                    //console.log('emntra')
+                    opz = {
+                        value: elem.optionsSelect[0].idLavoro,
+                        label: elem.optionsSelect[0].descrizione,
+                        catLav: elem.descrizione,
+                        opzione: 'inclusa '
+                    }
+                    opzH.push(opz);
+                } else {
+                    elem.optionsSelect.map((pro, k) => {
+                        if (elem.descrizione == item.label && pro.idLavoro == item.value) {
+                            opz = {
+                                value: pro.idLavoro,
+                                label: pro.descrizione,
+                                catLav: elem.descrizione,
+                                opzione: 'Scelta '
+                            }
+                            opzH.push(opz);
+                        }
+                    })
+                }
+            })
+
+            setOpzInclusa(opzH);
+
+            console.log(item.label)
+
+        })
+        console.log('valueOpz', opzH)
     }
 
     ////console.log("params2",idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idFogli, idUt, idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete)
@@ -1227,7 +1321,6 @@ const useRefactorProdotto = () => {
         handleData();
         effectSvg();
         handleDimensioniStr();
-
     }, [initialState.base, initialState.depth, initialState.height, initialState.quantity, initialState.iva, initialState.coloreStampa, initialState.facciatePagine, valuesStampaCaldoOpz])
 
     ////console.log("setSenderComandargument" ,tablaDataPrezzi)
@@ -1299,7 +1392,10 @@ const useRefactorProdotto = () => {
         idUt,
         handleLogin,
         handleImg,
-        prodottoConsigliato
+        prodottoConsigliato,
+        rencensioniP,
+        recencioniC,
+        descrizioneDinamica
     }
 }
 

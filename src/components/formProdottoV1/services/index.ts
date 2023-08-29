@@ -1,8 +1,11 @@
 import applicationConnect from "../../../api";
+import { ResponseGetAggiornaReview } from "../interface/AggiornaReview";
 import { DataAlertMassimo } from "../interface/AlertMassimo";
+import { ResponseGetDescrizioniDinamica } from "../interface/DescrizioneDinamica";
 import { ResponseDimensioniStr } from "../interface/DimensioneStr";
 import { ResponseFormato } from "../interface/Formato";
 import { IshowOrientamiento } from "../interface/IshowOrientamiento";
+import { ResponseGetRecensioni } from "../interface/RecensioniP";
 import { ResponseGetCalcolaTuto } from "../interface/calcolaTuto";
 import { ColoreStampa } from "../interface/coloreStampa";
 import { ResponseDisabledProfundita } from "../interface/disabledProfundita";
@@ -586,6 +589,53 @@ export const httpGetProdottoConsigliato =async (IdPrev:number,IdFormProd:number,
     return result.data;
 
   } catch (error) { 
+    throw new Error('')
+  }
+}
+
+export const httpGetRecensioni =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number,uri:string) => {
+  try {
+    const result = await applicationConnect.get<ResponseGetRecensioni>('Packagin/GetRecensioni',{params:{
+      IdPrev,
+      IdFormProd,
+      IdTipoCarta,
+      IdColoreStampa,
+      uri,
+    }})
+
+    return result.data;
+  } catch (error) {
+      throw new Error('')
+  }
+}
+
+export const httpGetAggiornaReview =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number,uri:string) => {
+  try {
+    const result = await applicationConnect.get<ResponseGetAggiornaReview>('Packagin/GetAggiornaReview',{params:{
+      IdPrev,
+      IdFormProd,
+      IdTipoCarta,
+      IdColoreStampa,
+      uri,
+    }})
+    return result.data;
+  } catch (error) {
+      throw new Error('')
+  }
+}
+
+export const httpGetDescrizioniDinamica =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number) => {
+  try {
+    const result = await applicationConnect.get<ResponseGetDescrizioniDinamica>('Packagin/GetDescrizioneDinamica',{params:{
+      IdPrev,
+      IdFormProd,
+      IdTipoCarta,
+      IdColoreStampa,
+    }})
+
+    return result.data;
+
+  } catch (error) {
     throw new Error('')
   }
 }
