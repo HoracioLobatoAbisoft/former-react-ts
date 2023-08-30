@@ -65,7 +65,9 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
             </div>
             <div className='w-full bg-white'>
                 {
-                    listOrdini.map((item, index) => (
+                    listOrdini.map((item, index) => {
+                        console.log('item', item);
+                        return (
                         <Accordion 
                             key={index}
                             className={`bg-[red]`}
@@ -343,7 +345,8 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
 
                             </AccordionDetails>
                         </Accordion>
-                    ))
+                        )
+                    })
                 }
                 <p className="w-full flex my-[5px]">
                     <span>

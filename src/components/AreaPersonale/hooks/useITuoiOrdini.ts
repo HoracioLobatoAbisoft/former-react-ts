@@ -43,11 +43,21 @@ const useITuoiOrdini = () => {
         window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioOrdini, id: idOrdini }, GLOBAL_CONFIG.IMG_IP);
     }
 
+    const handleRedirectToDetaglioLavoro = (idLavoro: number|string) => {
+        window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioLavoro, id: idLavoro }, GLOBAL_CONFIG.IMG_IP);
+    }
+
+    const handleNewTagListinoTemplate = (path: number|string) => {
+        window.parent.postMessage({ operation: enOperationFrame.newTagListinoTemplate, path: path }, GLOBAL_CONFIG.IMG_IP);
+    }
+
     return {
         listOrdini,
         pageOrdini,
         handleGetOrdini,
         handleRedirectToDetaglioOrdini,
+        handleRedirectToDetaglioLavoro,
+        handleNewTagListinoTemplate,
     }
 }
 
