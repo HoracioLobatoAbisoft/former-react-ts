@@ -4,7 +4,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { OrdineList } from '../../Interfaces/OrdiniIntarface';
-
+import useITuoiOrdini from '../../hooks/useITuoiOrdini';
 type PropsAcordionOrdini = {
     listOrdini: OrdineList[]
     pageOrdini: number[];
@@ -16,7 +16,7 @@ type PropsAcordionOrdini = {
 
 const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordionOrdini) => {
 
-
+    const {handleRedirectToDetaglioOrdini} = useITuoiOrdini();
     return (
         <>
         <div className='w-[790px] p-4'>
@@ -94,27 +94,27 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                             {item.statoStr}
                                         </span>
                                     </div>
-                                    <div className="w-[130px] justify-center">
+                                    <div className="w-[140px] justify-center">
                                         <span className='text-[11px] font-bold text-center'>
                                             {`N° ${item.idConsegnaView} del ${item.inseritoStr}`}
                                         </span>
                                     </div>
                                     <div className='w-[90px] flex justify-center'>
-                                        <span className={`bg-[${item.dataOrdineClasse}] text-center rounded text-[11px] p-[1px] px-[2px] font-bold`}>
+                                        <span className={`bg-[${item.dataOrdineClasse}] text-center ${['purple', 'green'].includes(item.dataOrdineClasse)?'text-[white]':''} rounded text-[11px] p-[1px] px-[2px] font-bold`}>
                                             {item.giornoStr}
                                         </span>
                                     </div>
                                     <div className='w-[165px] flex justify-start'>
-                                        <span className='text-[11px]'>
+                                        <span className='text-[11px] font-bold'>
                                             {item.corriereStr}
                                         </span>
                                     </div>
-                                    <div className="w-[60px] flex justify-center">
-                                        <span className='text-[11px] text-center'>
+                                    <div className="w-[70px] flex justify-center">
+                                        <span className='text-[11px] text-center font-bold'>
                                             {item.count}
                                         </span>
                                     </div>
-                                    <div className='w-[130px] flex justify-end'>
+                                    <div className='w-[120px] flex justify-end'>
                                         <span className='font-bold text-[12px] text-right'>
                                             € {item.importoTotNettoStr} + iva
                                         </span>
@@ -140,7 +140,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                                     </p>
                                                 </div>
                                                 <div className='col col-8'>
-                                                    <span className={`bg-[${item.dataOrdineClasse}] p-1 rounded font-bold`} >
+                                                    <span className={`bg-[${item.dataOrdineClasse}] ${['purple', 'green'].includes(item.dataOrdineClasse)?'text-[white]':''} p-1 rounded font-bold`} >
                                                         {item.giornoStr} {item.dataOrdineLabel}
                                                     </span>
                                                 </div>
@@ -300,8 +300,9 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                             <div className='row'>
                                                 <div className='col col-12 px-0 pr-[3px]'>
                                                     <div className="flex mx-0 items-center justify-end">
+                                                   
                                                         {item.idStatoConsegna == 10 ?
-                                                            <button className="ml-2 p-[2px] px-[4px] bg-[#e70031] hover:bg-[#ff5829]">
+                                                            <button className="ml-2 p-[2px] p-[4px] flex rounded px-[4px] bg-[#e70031] hover:bg-[#ff5829]">
                                                                 <img src="https://tipografiaformer.it/img/icoPrezzo16.png" />
                                                                 <b>EFFETTUA IL PAGAMENTO</b>
                                                             </button>
@@ -312,7 +313,10 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                                                 </button>
                                                                 : null
                                                         }
-                                                            <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
+                                                            <button 
+                                                                className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
+                                                                onClick={()=>handleRedirectToDetaglioOrdini(item.idConsegna)}
+                                                            >
                                                                 <img src="https://tipografiaformer.it/img/icoFreccia16.png" /> 
                                                                 Vai al Dettaglio Ordine
                                                             </button>
@@ -341,7 +345,11 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                         </Accordion>
                     ))
                 }
-                <p className="">Vai alla pagina </p>
+                <p className="w-full flex my-[5px]">
+                    <span>
+                        Vai alla pagina 
+                    </span>
+                </p>
                 <div className="w-full flex">
                     {pageOrdini.map((item, index) => (
                         <a key={item}  className="text-[12px] hover:underline cursor-pointer py-[5px] px-[10px] bg-[#2b2b2b] text-white border-[1px] border-[#aaa] rounded-[3px]" onClick={()=>{handleGetOrdini(item)}}>{item}</a>

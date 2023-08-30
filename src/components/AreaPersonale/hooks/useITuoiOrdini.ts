@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { httpGetOrdini } from '../services/OrdiniServices';
 import { OrdineList } from '../Interfaces/OrdiniIntarface';
-
+import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
+import { GLOBAL_CONFIG } from '../../../_config/global';
 const useITuoiOrdini = () => {
 
     const [listOrdini, setListOrdini] = useState<OrdineList[]>([])
@@ -15,10 +16,8 @@ const useITuoiOrdini = () => {
 
     const getOrdini = async (idUt: number, pageNumber: number) => {
         try {
-
             const responseGetOrdini = await httpGetOrdini(idUt, pageNumber);
             return responseGetOrdini.data;
-
         } catch (error) {
             console.log('error', error)
         }
@@ -40,11 +39,15 @@ const useITuoiOrdini = () => {
         handleGetOrdini(1);
     }, [])
 
+    const handleRedirectToDetaglioOrdini = (idOrdini: number|string) => {
+        window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioOrdini, id: idOrdini }, GLOBAL_CONFIG.IMG_IP);
+    }
 
     return {
         listOrdini,
         pageOrdini,
         handleGetOrdini,
+        handleRedirectToDetaglioOrdini,
     }
 }
 

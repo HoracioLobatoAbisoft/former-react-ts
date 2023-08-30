@@ -7,4 +7,5 @@ export enum enOperationFrame {
     show = 6,
     redirectITuoiOrdini = 7,
     redirectLogin = 8,
+    redirectDetaglioOrdini = 9,
 }
