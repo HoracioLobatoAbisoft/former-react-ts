@@ -300,8 +300,9 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                             <div className='row'>
                                                 <div className='col col-12 px-0 pr-[3px]'>
                                                     <div className="flex mx-0 items-center justify-end">
+                                                   
                                                         {item.idStatoConsegna == 10 ?
-                                                            <button className="ml-2 p-[2px] px-[4px] bg-[#e70031] hover:bg-[#ff5829]">
+                                                            <button className="ml-2 p-[2px] p-[4px] flex rounded px-[4px] bg-[#e70031] hover:bg-[#ff5829]">
                                                                 <img src="https://tipografiaformer.it/img/icoPrezzo16.png" />
                                                                 <b>EFFETTUA IL PAGAMENTO</b>
                                                             </button>
@@ -341,7 +342,11 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                         </Accordion>
                     ))
                 }
-                <p className="">Vai alla pagina </p>
+                <p className="w-full flex my-[5px]">
+                    <span>
+                        Vai alla pagina 
+                    </span>
+                </p>
                 <div className="w-full flex">
                     {pageOrdini.map((item, index) => (
                         <a key={item}  className="text-[12px] hover:underline cursor-pointer py-[5px] px-[10px] bg-[#2b2b2b] text-white border-[1px] border-[#aaa] rounded-[3px]" onClick={()=>{handleGetOrdini(item)}}>{item}</a>
