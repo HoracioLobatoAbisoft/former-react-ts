@@ -10,7 +10,7 @@ type PropsAcordionLavori = {
 }
 //AreaPersonale/iTuoiOrdini
 const AcordionLavori = ({ listLavori }: PropsAcordionLavori) => {
-    const { handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate} = useITuoiOrdini();
+    const { handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro} = useITuoiOrdini();
     return (
         <>
             {listLavori.map((item, index) => (
@@ -283,7 +283,13 @@ const AcordionLavori = ({ listLavori }: PropsAcordionLavori) => {
                                     </button>
                                     : null
                                 }
-                                <button className="flex rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"><img src="https://tipografiaformer.it/img/icoCestino16.png" />Elimina lavoro</button>
+                                <button 
+                                className="flex rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"
+                                onClick={()=>handleDeleteLavoro(item.idOrdineWeb)}
+                                >
+                                    <img src="https://tipografiaformer.it/img/icoCestino16.png" />
+                                    Elimina lavoro
+                                </button>
                             </div>
 
                         </div>

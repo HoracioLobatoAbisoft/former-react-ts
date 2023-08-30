@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { httpGetOrdini } from '../services/OrdiniServices';
+import { httpDeleteLavoro, httpDeleteOrdine, httpGetOrdini } from '../services/OrdiniServices';
 import { OrdineList } from '../Interfaces/OrdiniIntarface';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { GLOBAL_CONFIG } from '../../../_config/global';
@@ -18,6 +18,25 @@ const useITuoiOrdini = () => {
         try {
             const responseGetOrdini = await httpGetOrdini(idUt, pageNumber);
             return responseGetOrdini.data;
+        } catch (error) {
+            console.log('error', error)
+        }
+    }
+
+    const deleteOrdini = async (idOrdine: number|string) => {
+        try {
+            const responseDeleteOrdine = await httpDeleteOrdine(idOrdine);
+            handleGetOrdini(1)
+        } catch (error) {
+            console.log('error', error)
+        }
+    }
+
+    const deleteLavoro = async (idLavoro: number|string) => {
+        try {
+            const responseDeleteOrdine = await httpDeleteLavoro(idLavoro);
+            console.log('responseDeleteOrdine', responseDeleteOrdine);
+            handleGetOrdini(1)
         } catch (error) {
             console.log('error', error)
         }
@@ -51,6 +70,15 @@ const useITuoiOrdini = () => {
         window.parent.postMessage({ operation: enOperationFrame.newTagListinoTemplate, path: path }, GLOBAL_CONFIG.IMG_IP);
     }
 
+    const handleDeleteLavoro = (idLavoro: number|string) => {
+        deleteLavoro(idLavoro);
+    }
+
+    const handleDeleteOrdine = (idOrdine: number|string) => {
+        deleteOrdini(idOrdine);
+    }
+
+
     return {
         listOrdini,
         pageOrdini,
@@ -58,6 +86,8 @@ const useITuoiOrdini = () => {
         handleRedirectToDetaglioOrdini,
         handleRedirectToDetaglioLavoro,
         handleNewTagListinoTemplate,
+        handleDeleteLavoro,
+        handleDeleteOrdine,
     }
 }
 
