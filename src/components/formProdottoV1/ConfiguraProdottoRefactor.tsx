@@ -87,7 +87,8 @@ const ConfiguraProdottoRefactor = () => {
         prodottoConsigliato,
         rencensioniP,
         recencioniC,
-        descrizioneDinamica
+        descrizioneDinamica,
+        opzInclusa
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -341,6 +342,13 @@ const ConfiguraProdottoRefactor = () => {
                     <p className="w-full text-[14px] text-justify">
                         {descrizioneDinamica?.descrizioneEstesaEx}
                     </p>
+                    {opzInclusa.map((item, i) => (
+                        <div className="w-full">
+                            <h4 className="text-[17px] font-bold my-[13px]">Opzione {item.opzione}  {item.catLav}</h4>
+                            <p className="text-[14px] text-justify indent-[5px] leading-[24px]"><b>{item.label}</b>, {item.description}
+                            </p>
+                        </div>
+                    ))}
                     {handleOptionsOpzioni().map((item, i) => (
                         <div className="w-full">
                             <h4 className="text-[17px] font-bold my-[13px]">Opzione inclusa {item.catLav}</h4>
@@ -349,6 +357,7 @@ const ConfiguraProdottoRefactor = () => {
                         </div>
 
                     ))}
+
                 </div>
 
             </div>

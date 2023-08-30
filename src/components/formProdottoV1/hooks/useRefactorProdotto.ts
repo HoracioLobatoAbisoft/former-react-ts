@@ -1100,7 +1100,7 @@ const useRefactorProdotto = () => {
         })
 
         arrayStampa.map((item, i) => {
-            const val = responseStampaCaldo.filter(x => x.optionsSelect[0].idLavoro != 0);
+            const val = responseStampaCaldo//.filter(x => x.optionsSelect[0].idLavoro != 0);
 
             val.map((elem, j) => {
                 if (elem.descrizione == item.label && item.value != 0 && item.value == elem.optionsSelect[0].idLavoro) {
@@ -1108,17 +1108,19 @@ const useRefactorProdotto = () => {
                     opz = {
                         value: elem.optionsSelect[0].idLavoro,
                         label: elem.optionsSelect[0].descrizione,
+                        description:elem.optionsSelect[0].descrizioneEstesa,
                         catLav: elem.descrizione,
                         opzione: 'inclusa '
                     }
                     opzH.push(opz);
                 } else {
                     elem.optionsSelect.map((pro, k) => {
-                        if (elem.descrizione == item.label && pro.idLavoro == item.value) {
+                        if (elem.descrizione == item.label && pro.idLavoro == item.value && item.value != 0) {
                             opz = {
                                 value: pro.idLavoro,
                                 label: pro.descrizione,
                                 catLav: elem.descrizione,
+                                description:pro.descrizioneEstesa,
                                 opzione: 'Scelta '
                             }
                             opzH.push(opz);
@@ -1395,7 +1397,8 @@ const useRefactorProdotto = () => {
         prodottoConsigliato,
         rencensioniP,
         recencioniC,
-        descrizioneDinamica
+        descrizioneDinamica,
+        opzInclusa
     }
 }
 
