@@ -8,4 +8,6 @@ export enum enOperationFrame {
     redirectITuoiOrdini = 7,
     redirectLogin = 8,
     redirectDetaglioOrdini = 9,
+    redirectDetaglioLavoro = 10,
+    newTagListinoTemplate = 11,
 }

@@ -4,11 +4,13 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { ListLavori } from '../../Interfaces/OrdiniIntarface';
 import { GLOBAL_CONFIG } from '../../../../_config/global';
 import '../../styles/acordion.css'
+import useITuoiOrdini from '../../hooks/useITuoiOrdini';
 type PropsAcordionLavori = {
     listLavori: ListLavori[]
 }
 //AreaPersonale/iTuoiOrdini
 const AcordionLavori = ({ listLavori }: PropsAcordionLavori) => {
+    const { handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate} = useITuoiOrdini();
     return (
         <>
             {listLavori.map((item, index) => (
@@ -250,18 +252,35 @@ const AcordionLavori = ({ listLavori }: PropsAcordionLavori) => {
                                 {item.idOrdineWeb ?
                                     <>
                                         {item.stato == 5 && item.omaggio != 1 ?
-                                            <button className="flex rounded p-[2px] px-[4px] bg-[#e70031] hover:bg-[#ff5829]"><img src="https://tipografiaformer.it/img/icoAttach16.png" alt=""  /><b>INVIA I FILE</b></button>
+                                            <button 
+                                                className="flex rounded p-[2px] px-[4px] bg-[#e70031] hover:bg-[#ff5829]"
+                                                onClick={()=>handleRedirectToDetaglioLavoro(item.idOrdineWeb)}
+                                            >
+                                                <img src="https://tipografiaformer.it/img/icoAttach16.png" alt=""  />
+                                                <b>INVIA I FILE</b>
+                                            </button>
                                             : null
                                         }
                                         {item.omaggio != 1 ?
-                                            <button className="flex rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"><img src="https://tipografiaformer.it/img/icoFreccia16.png" alt="" />Vai al Dettaglio Lavoro</button>
+                                            <button 
+                                                className="flex rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"
+                                                onClick={()=>handleRedirectToDetaglioLavoro(item.idOrdineWeb)}
+                                            >
+                                                <img src="https://tipografiaformer.it/img/icoFreccia16.png" alt="" />Vai al Dettaglio Lavoro
+                                            </button>
                                             : null
                                         }
                                     </>
                                     : null
                                 }
                                 {item.pathTemplate.length > 0 && item.omaggio != 1 ?
-                                    <button className="flex rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"><img src="https://tipografiaformer.it/img/icoInfo16.png" />Scarica il Template</button>
+                                    <button 
+                                        className="flex rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"
+                                        onClick={()=>handleNewTagListinoTemplate(item.pathTemplate)}
+                                    >
+                                        <img src="https://tipografiaformer.it/img/icoInfo16.png" />
+                                        Scarica il Template
+                                    </button>
                                     : null
                                 }
                                 <button className="flex rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"><img src="https://tipografiaformer.it/img/icoCestino16.png" />Elimina lavoro</button>
