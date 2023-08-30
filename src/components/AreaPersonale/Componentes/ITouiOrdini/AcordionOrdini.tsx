@@ -4,7 +4,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { OrdineList } from '../../Interfaces/OrdiniIntarface';
-
+import useITuoiOrdini from '../../hooks/useITuoiOrdini';
 type PropsAcordionOrdini = {
     listOrdini: OrdineList[]
     pageOrdini: number[];
@@ -16,7 +16,7 @@ type PropsAcordionOrdini = {
 
 const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordionOrdini) => {
 
-
+    const {handleRedirectToDetaglioOrdini} = useITuoiOrdini();
     return (
         <>
         <div className='w-[790px] p-4'>
@@ -313,7 +313,10 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                                                 </button>
                                                                 : null
                                                         }
-                                                            <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
+                                                            <button 
+                                                                className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
+                                                                onClick={()=>handleRedirectToDetaglioOrdini(item.idConsegna)}
+                                                            >
                                                                 <img src="https://tipografiaformer.it/img/icoFreccia16.png" /> 
                                                                 Vai al Dettaglio Ordine
                                                             </button>
