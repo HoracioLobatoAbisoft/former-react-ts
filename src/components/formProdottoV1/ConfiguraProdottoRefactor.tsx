@@ -333,7 +333,7 @@ const ConfiguraProdottoRefactor = () => {
                         <RecencioniC item={item} key={i} />
                     ))}
                 </div>
-                <div className="p-[10px] leading-[30px] bg-[#f1f1f1]">
+                <div className="p-[10px] leading-[30px] bg-[#f1f1f1] mt-8">
                     <h2 className="text-[1.3em] font-bold mb-[15px]">{descrizioneDinamica?.nombe}</h2>
                     <p className="w-full text-[14px] text-justify">
                         {descrizioneDinamica?.descrizioneEstesa}
