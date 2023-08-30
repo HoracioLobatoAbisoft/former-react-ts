@@ -88,7 +88,8 @@ const ConfiguraProdottoRefactor = () => {
         rencensioniP,
         recencioniC,
         descrizioneDinamica,
-        opzInclusa
+        opzInclusa,
+        handleCompraloSubito
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -288,9 +289,9 @@ const ConfiguraProdottoRefactor = () => {
                                 <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
                                     oppure
                                 </Divider>
-                                <Link to={"/carrello"} onClick={() => { localStorage.setItem('stp', '1'); handleCarrello() }}>
-                                    <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
-                                </Link>
+                                {/* <Link to={"/carrello"} > */}
+                                    <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => {handleCompraloSubito()  }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                                {/* </Link> */}
 
                             </>
                             :
@@ -305,8 +306,8 @@ const ConfiguraProdottoRefactor = () => {
                 <div className="mt-[15px]  w-full mb-[40px]">
                     <h2 className="bg-[#d6e03d] text-[12px] mt-0 mb-[5px] pt-[2px] ps-[20px] leading-[22px]">ALCUNI PRODOTTI SUGGERITI PER TE</h2>
                     <div className="">
-                        {prodottoConsigliato.map((elem, item) => (
-                            <ProdottiSuggeriti prodottoConsigliato={elem} />
+                        {prodottoConsigliato.map((elem, i) => (
+                            <ProdottiSuggeriti prodottoConsigliato={elem} key={i}/>
                         ))
                         }
                     </div>
@@ -343,14 +344,14 @@ const ConfiguraProdottoRefactor = () => {
                         {descrizioneDinamica?.descrizioneEstesaEx}
                     </p>
                     {opzInclusa.map((item, i) => (
-                        <div className="w-full">
+                        <div className="w-full" key={i}>
                             <h4 className="text-[17px] font-bold my-[13px]">Opzione {item.opzione}  {item.catLav}</h4>
                             <p className="text-[14px] text-justify indent-[5px] leading-[24px]"><b>{item.label}</b>, {item.description}
                             </p>
                         </div>
                     ))}
                     {handleOptionsOpzioni().map((item, i) => (
-                        <div className="w-full">
+                        <div className="w-full" key={i}>
                             <h4 className="text-[17px] font-bold my-[13px]">Opzione inclusa {item.catLav}</h4>
                             <p className="text-[14px] text-justify indent-[5px] leading-[24px]"><b>{item.label}</b>, {item.description}
                             </p>

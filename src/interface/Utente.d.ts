@@ -30,6 +30,9 @@ export interface DataResponseGetUtente {
     tipoUtStr: string;
     urlDettaglio: string;
     tipo:number;
+    indirizoS:string;
+    indirizoR:string;
+    idIndirizzo:number;
 }
 
 export interface Corriere {

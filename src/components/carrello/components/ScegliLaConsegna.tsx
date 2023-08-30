@@ -88,7 +88,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
     // };
 
     const handleAggiungiIndirizzo = () => {
-        window.parent.postMessage({ operation: enOperationFrame.redirectAggiungiIndirizzo }, 'https://localhost:44311//');
+        window.parent.postMessage({ operation: enOperationFrame.redirectAggiungiIndirizzo }, GLOBAL_CONFIG.IMG_IP);
     }
 
     const handleUseMiaMail = () => {
@@ -191,7 +191,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                 <div className="information">
                     {caricaCorriere.map((item, i) => (
                         <>
-                            <div className="mt-[5px]">
+                            <div className="mt-[5px]" key={i}>
                                 <img key={i} src={`${GLOBAL_CONFIG.IMG_IP}${ radio === item.idCorriere?`/img/icoCheck.gif`:`/img/pixel.gif`}`} alt="" className="w-[17px] h-[11px]" /> 
                                 <input key={i} type="radio" checked={radio === item.idCorriere ? true : false} onChange={() => handleRadio(item.idCorriere)} />
                                 <label key={i} htmlFor="" className="ms-[5px]"><strong>{item.descrizione}</strong></label>

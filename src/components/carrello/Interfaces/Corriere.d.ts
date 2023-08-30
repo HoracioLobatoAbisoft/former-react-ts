@@ -1,5 +1,5 @@
 export interface ResponseGetCorriereSelezionata {
-    data: Data;
+    data: DataGgetCorriereSelezionata;
     message: string;
     status: number;
 }

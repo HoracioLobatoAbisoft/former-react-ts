@@ -28,6 +28,9 @@ import { DataGetProduttoConsigliato } from '../interface/prodottoConsigliato';
 import { DataGetResencioniP, ResponseGetRecensioni } from '../interface/RecensioniP';
 import { DataGetAggiornaReview } from '../interface/AggiornaReview';
 import { DataGetDescrizioniDinamica } from '../interface/DescrizioneDinamica';
+import { httpGetCorriereSelezionata, httpGetMetodiPagamento, httpGetTotaleProvisorio } from '../../carrello/services/Services';
+import { DateFormatItWDMY } from '../../../Helpers/formatDates';
+import { DataGgetCorriereSelezionata } from '../../carrello/Interfaces/Corriere';
 
 const initialValues: InitialValuesProdotto = {
     base: null,
@@ -53,6 +56,8 @@ const initialValues: InitialValuesProdotto = {
 const useRefactorProdotto = () => {
 
     let { idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idFogli, idUt, idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete } = useParams()
+
+    const navigate = useNavigate();
 
     const [initialState, setInitialState] = useState(initialValues);
     const [tipoCartaList, setTipoCartaList] = useState<TipoDiCarta[]>([])
@@ -107,7 +112,7 @@ const useRefactorProdotto = () => {
     const [showCoperatina, setShowCoperatina] = useState<number>()
     const [showSotoblocco, setShowSotoblocco] = useState<number>();
     const [prezzoActive, setPrezzoActive] = useState<number>(0);
-    
+
 
     const [scadenza, setScadenza] = useState<Date>()
 
@@ -939,7 +944,6 @@ const useRefactorProdotto = () => {
     const handleCarrello = async () => {
 
         //const arrayCarrello = [];
-        handleHidden();
 
         const responseHandFormato = hanldeFormatoList();
         const responseHandTipoCarta = handleOptionsTipoCarta();
@@ -1044,6 +1048,8 @@ const useRefactorProdotto = () => {
         localStorage.setItem('c', JSON.stringify(updateCarrello));
 
         //navigate('/carrello');
+        handleHidden();
+
     }
 
     const handleHidden = async () => {
@@ -1108,7 +1114,7 @@ const useRefactorProdotto = () => {
                     opz = {
                         value: elem.optionsSelect[0].idLavoro,
                         label: elem.optionsSelect[0].descrizione,
-                        description:elem.optionsSelect[0].descrizioneEstesa,
+                        description: elem.optionsSelect[0].descrizioneEstesa,
                         catLav: elem.descrizione,
                         opzione: 'inclusa '
                     }
@@ -1120,7 +1126,7 @@ const useRefactorProdotto = () => {
                                 value: pro.idLavoro,
                                 label: pro.descrizione,
                                 catLav: elem.descrizione,
-                                description:pro.descrizioneEstesa,
+                                description: pro.descrizioneEstesa,
                                 opzione: 'Scelta '
                             }
                             opzH.push(opz);
@@ -1135,6 +1141,107 @@ const useRefactorProdotto = () => {
 
         })
         console.log('valueOpz', opzH)
+    }
+
+    const handleScandeza = (dateConsegnas: DataGgetCorriereSelezionata,) => {
+        const code = codeStart;
+        const dateConsegna = dateConsegnas.dateConsegna;
+
+        switch (code) {
+            case "F":
+                if (utenteData?.corriere.idMetodoConsegna == 0) {
+                    localStorage.setItem('gro', String(dateConsegna?.dataFastProduzione));
+                    localStorage.setItem('prv', String(dateConsegna?.dataFast));
+                    localStorage.setItem('scande', String(dateConsegna?.dataFast));
+                    return DateFormatItWDMY(dateConsegna?.dataFastProduzione);
+                } else {
+                    localStorage.setItem('gro', String(dateConsegna?.dataFastProduzione));
+                    localStorage.setItem('prv', String(dateConsegna?.dataFast));
+                    return DateFormatItWDMY(dateConsegna?.dataFast);
+                }
+                break;
+            case "N":
+                if (utenteData?.corriere.idMetodoConsegna == 0) {
+                    localStorage.setItem('prv', String(dateConsegna?.dataNormale));
+                    localStorage.setItem('gro', String(dateConsegna?.dataNormaleProduzione))
+                    return DateFormatItWDMY(dateConsegna?.dataNormaleProduzione);
+                } else {
+                    localStorage.setItem('gro', String(dateConsegna?.dataNormaleProduzione))
+                    localStorage.setItem('prv', String(dateConsegna?.dataNormale));
+                    return DateFormatItWDMY(dateConsegna?.dataNormale);
+                }
+                break;
+            case "S":
+                if (utenteData?.corriere.idMetodoConsegna == 0) {
+                    localStorage.setItem('prv', String(dateConsegna?.dataSlow));
+                    localStorage.setItem('gro', String(dateConsegna?.dataSlowProduzione))
+                    return DateFormatItWDMY(dateConsegna?.dataSlowProduzione);
+                } else {
+                    localStorage.setItem('prv', String(dateConsegna?.dataSlow));
+                    localStorage.setItem('prv', String(dateConsegna?.dataSlow));
+                    return DateFormatItWDMY(dateConsegna?.dataSlow);
+                }
+                break;
+            default:
+                return ""
+
+                break;
+        }
+    }
+
+    const handleCorriere = () => {
+        const responseScandeza = httpGetCorriereSelezionata(1, String(utenteData?.defaultCap), Number(idPrev),
+            initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,
+            initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
+            initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,)
+
+        responseScandeza.then(r => {
+            if (r) {
+                const dateConsegna = r.data;
+                const scandeza = handleScandeza(dateConsegna,)
+                localStorage.setItem('scande', String(scandeza))
+
+
+
+            }
+        })
+
+    }
+
+    const handleCompraloSubito = async () => {
+        handleCorriere();
+
+        localStorage.setItem('stp', '1');
+        localStorage.setItem('cons', String(utenteData?.corriere.idMetodoConsegna));
+        localStorage.setItem('mil', String(utenteData?.email));
+        localStorage.setItem('ind', String(utenteData?.indirizoS) + " " + utenteData?.indirizoR);
+        localStorage.setItem('indid', String(utenteData?.idIndirizzo));
+
+        const pzo = localStorage.getItem('pzo')
+        if (pzo) {
+            var p = pzo + calcolaTuto?.pesoStr
+            localStorage.setItem('pzo', p)
+        } else {
+            localStorage.setItem('pzo', String(calcolaTuto?.pesoStr));
+        }
+
+        const responseMetodiPagamento = httpGetMetodiPagamento(Number(utenteData?.idUt), prezzoActive, Number(utenteData?.corriere.idMetodoConsegna));
+
+        responseMetodiPagamento.then(r => {
+            if (r) {
+                const corr = r.data.find(x => x.idTipoPagamento == 5);
+                //const colli = dataTotale.Colli;
+                localStorage.setItem('tp', String(corr?.titulo));
+                localStorage.setItem('tpI', String(corr?.imgRif));
+                localStorage.setItem('tpD', String(corr?.descrizione));
+                localStorage.setItem('tppr', String(corr?.periodoPagamento));
+                localStorage.setItem('tpDI', String(corr?.idTipoPagamento));
+                localStorage.setItem('tpDI', String(corr?.idTipoPagamento));
+                handleCarrello().then(rc => {
+                    navigate('/carrello')
+                });
+            }
+        })
     }
 
     ////console.log("params2",idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idFogli, idUt, idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete)
@@ -1398,7 +1505,8 @@ const useRefactorProdotto = () => {
         rencensioniP,
         recencioniC,
         descrizioneDinamica,
-        opzInclusa
+        opzInclusa,
+        handleCompraloSubito
     }
 }
 

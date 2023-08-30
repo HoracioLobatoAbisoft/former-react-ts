@@ -90,7 +90,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                         />
                                     </div>
                                     <div className="w-[80px]">
-                                        <span className='text-[11px]'>
+                                        <span className='text-[11px] p-0 m-0 '>
                                             {item.statoStr}
                                         </span>
                                     </div>
