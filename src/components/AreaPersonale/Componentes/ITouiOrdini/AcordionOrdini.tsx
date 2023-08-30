@@ -100,7 +100,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                         </span>
                                     </div>
                                     <div className='w-[90px] flex justify-center'>
-                                        <span className={`bg-[${item.dataOrdineClasse}] text-center rounded text-[11px] p-[1px] px-[2px] font-bold`}>
+                                        <span className={`bg-[${item.dataOrdineClasse}] text-center ${['purple', 'green'].includes(item.dataOrdineClasse)?'text-[white]':''} rounded text-[11px] p-[1px] px-[2px] font-bold`}>
                                             {item.giornoStr}
                                         </span>
                                     </div>
@@ -140,7 +140,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                                     </p>
                                                 </div>
                                                 <div className='col col-8'>
-                                                    <span className={`bg-[${item.dataOrdineClasse}] p-1 rounded font-bold`} >
+                                                    <span className={`bg-[${item.dataOrdineClasse}] ${['purple', 'green'].includes(item.dataOrdineClasse)?'text-[white]':''} p-1 rounded font-bold`} >
                                                         {item.giornoStr} {item.dataOrdineLabel}
                                                     </span>
                                                 </div>
