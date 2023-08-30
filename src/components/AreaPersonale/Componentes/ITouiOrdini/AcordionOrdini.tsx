@@ -94,7 +94,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                             {item.statoStr}
                                         </span>
                                     </div>
-                                    <div className="w-[130px] justify-center">
+                                    <div className="w-[140px] justify-center">
                                         <span className='text-[11px] font-bold text-center'>
                                             {`N° ${item.idConsegnaView} del ${item.inseritoStr}`}
                                         </span>
@@ -105,16 +105,16 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                         </span>
                                     </div>
                                     <div className='w-[165px] flex justify-start'>
-                                        <span className='text-[11px]'>
+                                        <span className='text-[11px] font-bold'>
                                             {item.corriereStr}
                                         </span>
                                     </div>
-                                    <div className="w-[60px] flex justify-center">
-                                        <span className='text-[11px] text-center'>
+                                    <div className="w-[70px] flex justify-center">
+                                        <span className='text-[11px] text-center font-bold'>
                                             {item.count}
                                         </span>
                                     </div>
-                                    <div className='w-[130px] flex justify-end'>
+                                    <div className='w-[120px] flex justify-end'>
                                         <span className='font-bold text-[12px] text-right'>
                                             € {item.importoTotNettoStr} + iva
                                         </span>
