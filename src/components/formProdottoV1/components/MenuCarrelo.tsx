@@ -6,9 +6,14 @@ type PropsMenuCarrrelo = {
     handleHidden: () => Promise<void>
     idUt: string | undefined
     handleLogin: () => void;
-    handleCarrello: () => Promise<void>
+    handleCarrello: () => Promise<void>,
+    pdfTemplate: string | undefined;
 }
-const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello }: PropsMenuCarrrelo) => {
+const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate }: PropsMenuCarrrelo) => {
+
+    const OpenTemplateWindow = (pdfTemplate: string|undefined) => {
+        window.open(`https://www.tipografiaformer.it/listino/template/${pdfTemplate}`)
+    }
 
 
     return (
@@ -115,7 +120,12 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello }: PropsM
             <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">
                 <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
                 <center>
-                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" ><img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />Scarica Template</button>
+                    <a className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" 
+                        onClick={()=>OpenTemplateWindow(pdfTemplate)}
+                    >
+                        <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />
+                        Scarica Template
+                    </a>
                     <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold"><img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} /> Campione Gratuito</button>
                 </center>
                 <br />
