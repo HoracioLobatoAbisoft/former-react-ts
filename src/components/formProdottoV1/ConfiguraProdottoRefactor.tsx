@@ -91,16 +91,15 @@ const ConfiguraProdottoRefactor = () => {
         descrizioneDinamica
     } = useRefactorProdotto()
     const [pdfTemplate, setPdfTemplate] = useState<string|undefined>();
+    const [prodotto, setProdotto] = useState<any|undefined>();
 
     const CustomFormatTemplateChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         handleChange(evt);
         let listFormat = hanldeFormatoList();
         const { name, value } = evt.target;
-        console.log('value', value);
-        console.log('listFormat', listFormat);
         let result = listFormat.find(e=> e.value == value);
-        console.log('result', result);
         setPdfTemplate(result?.pdfTemplate);
+        setProdotto(result);
     }
 
     const SelectFormato = () => {
@@ -125,8 +124,10 @@ const ConfiguraProdottoRefactor = () => {
         let listFormat = hanldeFormatoList();
         if (listFormat?.length > 0){
             setPdfTemplate(listFormat[0].pdfTemplate);
+            setProdotto(listFormat[0]);
         } 
     }, [])
+
     return (
         <div className="w-full flex gap-3 relative ">
             <div className="w-[75%]">
@@ -379,6 +380,7 @@ const ConfiguraProdottoRefactor = () => {
                     handleLogin={handleLogin} 
                     handleCarrello={handleCarrello}
                     pdfTemplate={pdfTemplate}
+                    prodotto={prodotto}
                  />
             </div>
         </div>

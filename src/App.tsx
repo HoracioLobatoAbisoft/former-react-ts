@@ -24,6 +24,7 @@ import "./App.css";
 import ConfiguraProdottoRefactor from "./components/formProdottoV1/ConfiguraProdottoRefactor";
 import CarrelloProdotto from "./components/carrello/CarrelloProdotto";
 import AllegaIFile from "./components/carrello/components/AllegaIFile";import AreaPersonale from "./components/AreaPersonale/AreaPersonale";
+import RichiediUnCampioneGratuitoPage from "./components/RichiediUnCampioneGratuito/pages/RichiediUnCampioneGratuitoPage";
  "./components/carrello/components/AllegaIFile";
 
 
@@ -69,6 +70,8 @@ function App() {
           <Route path="/Contact" element={<ContactPage />} />
           <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
           <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
+          <Route path="/richiedi-un-campione-gratuito" element={ <RichiediUnCampioneGratuitoPage/>} />
+
         </Routes>
       </UserContextProvider>
     </div>

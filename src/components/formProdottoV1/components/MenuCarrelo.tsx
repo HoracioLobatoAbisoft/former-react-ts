@@ -8,13 +8,12 @@ type PropsMenuCarrrelo = {
     handleLogin: () => void;
     handleCarrello: () => Promise<void>,
     pdfTemplate: string | undefined;
+    prodotto: any | undefined;
 }
-const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate }: PropsMenuCarrrelo) => {
-
+const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto }: PropsMenuCarrrelo) => {
     const OpenTemplateWindow = (pdfTemplate: string|undefined) => {
         window.open(`https://www.tipografiaformer.it/listino/template/${pdfTemplate}`)
     }
-
 
     return (
         <>
@@ -125,8 +124,14 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                     >
                         <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />
                         Scarica Template
-                    </a>
-                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold"><img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} /> Campione Gratuito</button>
+                    </a> 
+                    <Link 
+                        to={`/richiedi-un-campione-gratuito`}
+                        state={prodotto}
+                        className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold">
+                        <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} /> 
+                        Campione Gratuito
+                    </Link>
                 </center>
                 <br />
             </div>
