@@ -120,13 +120,22 @@ const ConfiguraProdottoRefactor = () => {
         }
     }
 
-    useEffect(()=>{
-        let listFormat = hanldeFormatoList();
+    const setInitial = async() =>{
+        let listFormat = await hanldeFormatoList();
         if (listFormat?.length > 0){
             setPdfTemplate(listFormat[0].pdfTemplate);
+            console.log(listFormat)
             setProdotto(listFormat[0]);
         } 
+    }
+
+    useEffect(()=>{
+       setInitial();
     }, [])
+
+    useEffect(()=>{
+        console.log('prodotto', prodotto);
+    }, [prodotto])
 
     return (
         <div className="w-full flex gap-3 relative ">

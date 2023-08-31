@@ -2,9 +2,9 @@ import React from "react";
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import { Tabs, Tab, TabContainer, TabPanel } from "../../Layout/Tabs";
 import Promo from "../../carrello/components/Promo";
-import RichiediUnCampioneGratuito from "../compontes/RichiediUnCampioneGratuito";
+import CampioneGratuitoRichiesto from "../compontes/CampioneGratuitoRichiesto";
 import { useLocation } from "react-router-dom";
-const RichiediUnCampioneGratuitoPage = () =>{
+const CampioneGratuitoRichiestoPage = () =>{
     const [activeTab, setActiveTab] = React.useState(0);
     const {state: stateLocation} = useLocation();
     console.log('stateLocation', stateLocation);
@@ -22,7 +22,7 @@ const RichiediUnCampioneGratuitoPage = () =>{
                         <div className='flex flex-row items-center m-[3px]'>
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoProdotti.png`} alt="" className="w-[16px] h-[16px]" />
                             <span className={`text-[12px] ml-1`}>
-                            Richiedi un Campione Gratuito
+                            Campione Gratuito Richiesto
                             </span>
                         </div>
                     </Tab>
@@ -51,7 +51,7 @@ const RichiediUnCampioneGratuitoPage = () =>{
                         index={0}
                         value={activeTab}
                     >
-                        <RichiediUnCampioneGratuito
+                        <CampioneGratuitoRichiesto
                             prodotto={stateLocation}
                         />
 
@@ -61,7 +61,7 @@ const RichiediUnCampioneGratuitoPage = () =>{
                         value={activeTab}
                         className=''
                     >
-                        <div className="w-[790px] p-[10px]" >
+                        <div className="w-[780px] p-[10px]" >
                             <Promo></Promo>    
                         </div>
                     </TabPanel>
@@ -71,4 +71,4 @@ const RichiediUnCampioneGratuitoPage = () =>{
     )
 
 }
-export default RichiediUnCampioneGratuitoPage;
+export default CampioneGratuitoRichiestoPage;
