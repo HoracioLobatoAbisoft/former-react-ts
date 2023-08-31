@@ -16,7 +16,7 @@ type PropsAcordionOrdini = {
 
 const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordionOrdini) => {
 
-    const {handleRedirectToDetaglioOrdini} = useITuoiOrdini();
+    const {handleRedirectToDetaglioOrdini, handleDeleteOrdine} = useITuoiOrdini();
     return (
         <>
         <div className='w-[790px] p-4'>
@@ -66,11 +66,9 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
             <div className='w-full bg-white'>
                 {
                     listOrdini.map((item, index) => {
-                        console.log('item', item);
                         return (
                         <Accordion 
                             key={index}
-                            className={`bg-[red]`}
                         
                         >
                             <AccordionSummary
@@ -323,7 +321,10 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                                                 Vai al Dettaglio Ordine
                                                             </button>
                                                         {item.modificabile &&
-                                                            <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
+                                                            <button 
+                                                                className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
+                                                                onClick={()=>handleDeleteOrdine(item.idConsegna)}
+                                                            >
                                                                 <img src="https://tipografiaformer.it/img/icoCestino16.png" />
                                                                 Elimina Ordine
                                                             </button>

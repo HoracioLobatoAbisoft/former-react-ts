@@ -94,3 +94,14 @@ export interface ListLavori {
     labelCopertina:string;
 }
 
+export interface ReponseDeleteOridine {
+    data: DataGetOrdini;
+    message: string;
+    status: number;
+}
+
+export interface ReponseDeleteLavoro {
+    data: DataGetOrdini;
+    message: string;
+    status: number;
+}
