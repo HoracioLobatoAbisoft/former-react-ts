@@ -6,11 +6,13 @@ import { GLOBAL_CONFIG } from '../../../../_config/global';
 import '../../styles/acordion.css'
 import useITuoiOrdini from '../../hooks/useITuoiOrdini';
 type PropsAcordionLavori = {
-    listLavori: ListLavori[]
+    listLavori: ListLavori[],
+    handleRedirectToDetaglioLavoro: Function;
+    handleNewTagListinoTemplate: Function;
+    handleDeleteLavoro: Function;
 }
 //AreaPersonale/iTuoiOrdini
-const AcordionLavori = ({ listLavori }: PropsAcordionLavori) => {
-    const { handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro} = useITuoiOrdini();
+const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro}: PropsAcordionLavori) => {
     return (
         <>
             {listLavori.map((item, index) => (

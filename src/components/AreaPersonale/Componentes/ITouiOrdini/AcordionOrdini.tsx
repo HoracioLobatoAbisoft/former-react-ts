@@ -9,14 +9,18 @@ type PropsAcordionOrdini = {
     listOrdini: OrdineList[]
     pageOrdini: number[];
     handleGetOrdini: (pageNumber: number, idUt?: number) => Promise<void>
+    handleRedirectToDetaglioOrdini: Function;
+    handleDeleteOrdine: Function;
+    handleRedirectToDetaglioLavoro: Function;
+    handleNewTagListinoTemplate: Function;
+    handleDeleteLavoro: Function;
 }
 
 
 
 
-const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordionOrdini) => {
+const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini , handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro }: PropsAcordionOrdini) => {
 
-    const {handleRedirectToDetaglioOrdini, handleDeleteOrdine} = useITuoiOrdini();
     return (
         <>
         <div className='w-[790px] p-4'>
@@ -288,10 +292,12 @@ const AcordionOrdini = ({ listOrdini, pageOrdini,handleGetOrdini }: PropsAcordio
                                             </div>
                                         </div>
                                         <div className='col col-12'>
-                                        
-                                                    <AcordionLavori listLavori={item.listLavori} />
-
-                                            
+                                            <AcordionLavori 
+                                                listLavori={item.listLavori}
+                                                handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro}
+                                                handleNewTagListinoTemplate={handleNewTagListinoTemplate} 
+                                                handleDeleteLavoro={handleDeleteLavoro}
+                                            />
                                         </div>
                                         <div className="col col-12 mt-[10px] mb-[10px] px-0 pl-[15px]">
                                             <div className="flex border-[#d6e03d] border-[1px] bg-[#f58220] "/>
