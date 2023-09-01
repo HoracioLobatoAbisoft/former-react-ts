@@ -321,7 +321,7 @@ const useCarrello = () => {
             const responsePostAquistaOra = await postAquistaOra(data);
             if (responsePostAquistaOra) {
                 handleShow();
-                handleDeleteAllCarrello();
+                //handleDeleteAllCarrello();
                 //setStep(6);
             }
             //console.log('ordine',data)
