@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { GLOBAL_CONFIG } from "../../../_config/global";
+import useCarrello from "../hooks/useCarrello";
 
 interface RowPricePromoProps {
     price: String;
@@ -41,6 +42,7 @@ interface PromoCardProps {
 }
 
 const PromoCard = ({promo}: PromoCardProps) =>{
+    const {hanldeRedirectFrameTo} = useCarrello();
 
     const formatingValidDate = (dateString: string) => {
         let date = dateString.split('T')[0].split("-");
@@ -156,12 +158,12 @@ const PromoCard = ({promo}: PromoCardProps) =>{
                     <div className="col col-12 mt-[10px] mb-[10px] px-[5px]">
                         <div className="flex border-[#d6e03d] border-[1px] bg-[#f58220] "/>
                         <div className="flex flex-row items-center justify-end mx-0 px-0 mt-[10px]">
-                            <Link to={`${promo.url}`} className="flex flex-row">
+                            <a onClick={()=>hanldeRedirectFrameTo(`${promo.url}`)} className="flex flex-row">
                                 <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFreccia16.png`}/>
                                 <span className="ml-[3px] text-[12px]">
                                     Vai al dettaglio del Prodotto
                                 </span>
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>

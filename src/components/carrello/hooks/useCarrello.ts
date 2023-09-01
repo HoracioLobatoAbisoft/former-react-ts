@@ -261,6 +261,10 @@ const useCarrello = () => {
         window.parent.postMessage({ operation: enOperationFrame.show }, GLOBAL_CONFIG.IMG_IP);
     }
 
+    const hanldeRedirectFrameTo = async (uri: string) => {
+        window.parent.postMessage({ uri: uri, operation: enOperationFrame.reliadUrl }, GLOBAL_CONFIG.IMG_IP);
+    }
+
 
 
 
@@ -412,6 +416,7 @@ const useCarrello = () => {
         handleRedirectITuoiOrdini,
         getPromo,
         promoList,
+        hanldeRedirectFrameTo,
     }
 }
 
