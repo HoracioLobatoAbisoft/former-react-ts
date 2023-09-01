@@ -7,6 +7,7 @@ import { ObjCarrello } from "../../formProdottoV1/interface/ObjCarrrello";
 import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import { DataPostAquistaOra, ResponsePostAquistaOra } from "../Interfaces/AquistaOra";
+import { DataOrdineStep5 } from "../Interfaces/DataTotaleORdineStep5";
 type PropsCompletaLOrdine = {
     ArrayLocalCarrello: ObjCarrello[];
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
@@ -28,25 +29,18 @@ type PropsCompletaLOrdine = {
         Colli: number;
     };
     postAquistaOra: (data: DataPostAquistaOra) => Promise<ResponsePostAquistaOra>;
-    handleAquistaOra: () => Promise<void>
-}
-
-type dataOrdineStep5 = {
-    email: string | null;
-    indirizzo: string | null;
-    fecha: string | null;
-    consega: string | null;
-    pesokg: string | null;
-    corrie: string | null;
-    corrieI: string | null;
-    corrieD: string | null
+    handleAquistaOra: () => Promise<void>;
+    dataOrdine:DataOrdineStep5 
+    setDataOrdine: React.Dispatch<React.SetStateAction<DataOrdineStep5 >>;
 }
 
 
-const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem ,dataTotale,postAquistaOra,handleAquistaOra}: PropsCompletaLOrdine) => {
 
 
-    const [dataOrdine, setDataOrdine] = useState<dataOrdineStep5>()
+const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem ,dataTotale,postAquistaOra,handleAquistaOra,dataOrdine,setDataOrdine}: PropsCompletaLOrdine) => {
+
+
+    //const [dataOrdine, setDataOrdine] = useState<dataOrdineStep5>()
 
 
     const getDataLocalOrdine = () => {

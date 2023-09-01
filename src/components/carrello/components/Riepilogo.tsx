@@ -42,10 +42,10 @@ const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrel
                     <div className="h-[260px] border rounded-[5px] border-[#aaa] w-full flex items-center justify-center text-[24px] text-[#f58220] font-bold">Il tuo carrello è vuoto</div> :
                     <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello} deleteItem={deleteItem} />
                 }
-                <ContinuaGliAcquisti changebuttonstep={changebuttonstep} step={step}/>
+                <ContinuaGliAcquisti changebuttonstep={changebuttonstep} step={step} ArrayLocalCarrello={ArrayLocalCarrello}/>
             </div>
             <div className="w-[22%]">
-                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}  handleAquistaOra={handleAquistaOra}/>
+                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}  handleAquistaOra={handleAquistaOra} ArrayLocalCarrello={ArrayLocalCarrello}/>
                 {/* <div className="w-[20%]">
                     <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
                 </div> */}

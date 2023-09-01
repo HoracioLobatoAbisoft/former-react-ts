@@ -1,27 +1,27 @@
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
+import { ObjCarrello } from "../../formProdottoV1/interface/ObjCarrrello";
 
 type ProspGliAquisti = {
     changebuttonstep: (step: number) => string;
     step: number;
+    ArrayLocalCarrello?: ObjCarrello[]
 }
 
-const ContinuaGliAcquisti = ({step,changebuttonstep}: ProspGliAquisti) => {
+const ContinuaGliAcquisti = ({ step, changebuttonstep, ArrayLocalCarrello }: ProspGliAquisti) => {
 
-    const handleIndexReload  = () => {
-        window.parent.postMessage({ operation: enOperationFrame.returnIndex}, GLOBAL_CONFIG.IMG_IP);
+    const handleIndexReload = () => {
+        window.parent.postMessage({ operation: enOperationFrame.returnIndex }, GLOBAL_CONFIG.IMG_IP);
     }
 
     return (
-        // <div className="mt-[15px] flex flex-col gap-2">
-        //     <p style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> {changebuttonstep(step+1)}</strong></p>
-        //     <p  style={{ 'fontSize': 12 }}>Se vuoi ordinare altri prodotti clicca qui e <a  className="hover:underline cursor-pointer" style={{ 'fontSize': '16px', 'color': '#f58220', 'fontWeight': 'bold' }} onClick={handleIndexReload}>Continua gli acquisti.</a></p> 
         <div>
-            <p style={{'marginTop': '15px' }}>
-                <span style={{ 'fontSize': 12}}>Se vuoi completare l'acquisto clicca su <strong> {changebuttonstep(step+1)}</strong></span>
-            </p>
-            <p style={{'marginTop': '10px' }}>
-                <span style={{ 'fontSize': 12, marginTop: 40 }}>Se vuoi ordinare altri prodotti clicca qui e</span> <a href="" style={{ 'fontSize': '16px', 'color': '#f58220', 'fontWeight': 'bold' }} onClick={handleIndexReload}>Continua gli acquisti.</a>
+            {ArrayLocalCarrello && ArrayLocalCarrello.length > 0 ? <p style={{ 'marginTop': '15px' }}>
+                <span style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> {changebuttonstep(step + 1)}</strong></span>
+            </p> : null}
+
+            <p style={{ 'marginTop': '10px' }}>
+                <span style={{ 'fontSize': 12, marginTop: 40 }}>{ArrayLocalCarrello && ArrayLocalCarrello.length > 0 ? 'Se vuoi ordinare altri prodotti clicca qui e' : "Il tuo carrello è vuoto, clicca qui e"}</span> <a href="" style={{ 'fontSize': '16px', 'color': '#f58220', 'fontWeight': 'bold' }} onClick={handleIndexReload}>Continua gli acquisti.</a>
             </p>
         </div>
     )
