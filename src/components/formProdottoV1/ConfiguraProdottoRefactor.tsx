@@ -93,14 +93,14 @@ const ConfiguraProdottoRefactor = () => {
         menuDateConsegna,
         handleCompraloSubito,
     } = useRefactorProdotto()
-    const [pdfTemplate, setPdfTemplate] = useState<string|undefined>();
-    const [prodotto, setProdotto] = useState<any|undefined>();
+    const [pdfTemplate, setPdfTemplate] = useState<string | undefined>();
+    const [prodotto, setProdotto] = useState<any | undefined>();
 
     const CustomFormatTemplateChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         handleChange(evt);
         let listFormat = hanldeFormatoList();
         const { name, value } = evt.target;
-        let result = listFormat.find(e=> e.value == value);
+        let result = listFormat.find(e => e.value == value);
         setPdfTemplate(result?.pdfTemplate);
         setProdotto(result);
     }
@@ -123,20 +123,20 @@ const ConfiguraProdottoRefactor = () => {
         }
     }
 
-    const setInitial = async() =>{
+    const setInitial = async () => {
         let listFormat = await hanldeFormatoList();
-        if (listFormat?.length > 0){
+        if (listFormat?.length > 0) {
             setPdfTemplate(listFormat[0].pdfTemplate);
             console.log(listFormat)
             setProdotto(listFormat[0]);
-        } 
+        }
     }
 
-    useEffect(()=>{
-       setInitial();
+    useEffect(() => {
+        setInitial();
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('prodotto', prodotto);
     }, [prodotto])
 
@@ -315,13 +315,13 @@ const ConfiguraProdottoRefactor = () => {
                         {idUt != undefined && idUt > '0' ?
                             <>
                                 <Link to={"/carrello"}>
-                                    <button onClick={() => {handleCarrello();localStorage.setItem('stp','1')}} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
+                                    <button onClick={() => { handleCarrello(); localStorage.setItem('stp', '1') }} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
                                 </Link>
                                 <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
                                     oppure
                                 </Divider>
                                 {/* <Link to={"/carrello"} > */}
-                                    <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => {handleCompraloSubito()  }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                                <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => { handleCompraloSubito() }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                                 {/* </Link> */}
 
                             </>
@@ -338,7 +338,7 @@ const ConfiguraProdottoRefactor = () => {
                     <h2 className="bg-[#d6e03d] text-[12px] mt-0 mb-[5px] pt-[2px] ps-[20px] leading-[22px]">ALCUNI PRODOTTI SUGGERITI PER TE</h2>
                     <div className="">
                         {prodottoConsigliato.map((elem, i) => (
-                            <ProdottiSuggeriti prodottoConsigliato={elem} key={i}/>
+                            <ProdottiSuggeriti prodottoConsigliato={elem} key={i} />
                         ))
                         }
                     </div>
@@ -395,8 +395,10 @@ const ConfiguraProdottoRefactor = () => {
             </div>
             <div className="w-[25%]  ">
                 <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna} pdfTemplate={pdfTemplate}
-                    prodotto={prodotto}/>
-                {/* <MenuCarrelo 
+                    prodotto={prodotto} />
+                {/* 
+                    //comentario
+                <MenuCarrelo 
                     handleHidden={handleHidden} 
                     idUt={idUt} 
                     handleLogin={handleLogin} 
