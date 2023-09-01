@@ -20,9 +20,17 @@ export const DateFormatDDMMYY = (fechaP: Date | undefined) => {
 
         const fecha = new Date(fechaP);
         const dia = fecha.getDate().toString().padStart(2, '0');
-        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); 
+        const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
         const año = fecha.getFullYear();
         return `${dia}/${mes}/${año}`;
+    }
+    return ''
+}
+
+export const DateFormatDDMM = (fechaP: Date | undefined) => {
+    if (fechaP) {
+        const fecha = new Date(fechaP);
+        return fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
     }
     return ''
 }

@@ -111,7 +111,7 @@ const CompletaLOrdine = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAll
                                 <p className="">{dataOrdine?.email && 'Email notifiche:'}</p>
                             </div>
                             <div className=" leading-6">
-                                <p className="bg-[#d6e03d] text-center  w-[200px] text-[16px] ps-[1px] font-bold capitalize">{dataOrdine?.fecha}</p>
+                                <p className="bg-[#d6e03d] text-center  w-[60%] text-[16px] ps-[1px] font-bold capitalize ">{dataOrdine?.fecha}</p>
                                 <p className="text-[16px] font-bold">{dataOrdine && dataOrdine?.consega == '1' ? 'Con Corriere' : 'Compra e Ritira '}</p>
                                 <p className="">{dataOrdine?.indirizzo ? dataOrdine?.indirizzo  : 'Tipografia Former, Via Cassia, 2010 - 00123 Roma'}</p>
                                 <p className="">{dataOrdine?.pesokg} kg ±</p>

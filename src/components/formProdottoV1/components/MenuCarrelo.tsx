@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
+import { DataGetCalcolaTuto } from "../interface/calcolaTuto";
+import { numberFormat } from "../../../Helpers/formatNumber";
 
 type PropsMenuCarrrelo = {
     handleHidden: () => Promise<void>
     idUt: string | undefined
     handleLogin: () => void;
-    handleCarrello: () => Promise<void>
+    handleCarrello: () => Promise<void>;
+    handleCompraloSubito: () => Promise<void>;
+    calcolaTuto: DataGetCalcolaTuto | undefined;
+    qtaSelezinata: number;
+    menuDateConsegna: string | undefined
 }
-const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello }: PropsMenuCarrrelo) => {
+const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello,handleCompraloSubito,calcolaTuto,qtaSelezinata,menuDateConsegna }: PropsMenuCarrrelo) => {
 
 
     return (
@@ -76,7 +82,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello }: PropsM
                             Quantità
                         </td>
                         <td className="pt-[5px] pr-[10px]">
-                            <b>100</b>
+                            <b>{qtaSelezinata}</b>
                         </td>
                     </tr>
                         <tr>
@@ -84,7 +90,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello }: PropsM
                                 Consegna
                             </td>
                             <td className="pr-[10px]">
-                                <b>12 lug</b>
+                                <b>{menuDateConsegna}</b>
                             </td>
                         </tr>
                         <tr>
@@ -92,7 +98,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello }: PropsM
                                 Prezzo Netto
                             </td>
                             <td className="pr-[10px]">
-                                <b>12,00</b>
+                                <b>{numberFormat(calcolaTuto?.prezzoCalcolatoNetto)}</b>
                             </td>
                         </tr>
                         <tr>
@@ -103,9 +109,9 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello }: PropsM
                     </tbody></table>
                 <center>
                     {idUt != undefined && idUt > '0' ?
-                        <Link to={"/carrello"} onClick={() => { localStorage.setItem('stp', '1'); handleCarrello() }}>
-                            <button  className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
-                        </Link>
+                        // <Link to={"/carrello"} onClick={() => { localStorage.setItem('stp', '1'); handleCarrello() }}>
+                            <button  className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={()=>handleCompraloSubito()}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                        // </Link>
                         :
                         <button onClick={handleLogin} className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                     }

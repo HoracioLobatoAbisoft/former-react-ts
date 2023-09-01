@@ -29,12 +29,24 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
 
     ////console.log('arrayCarrello', ArrayLocalCarrello[0].stampaOPZ)
 
+    const [expanded, setExpanded] = useState<string>('')
+
+    const handleAcordion = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+        console.log(panel)
+        if (panel === expanded) {
+            setExpanded('')
+        } else {
+            setExpanded(panel)
+
+        }
+    }
+
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
             <div className="flex justify-between pe-[10px] rounded-[5px]  bg-[#f1f1f1] ps-[30px]  py-[10px] h-[40px] text-[12px]">
                 <h5 className="flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} className='h-[16px] w-[16px]' /> <b>CARRELLO ACQUISTI: {ArrayLocalCarrello.length}</b> Lavoro/i contenuti in questo Ordine.</h5>
-                {step !== 5  && <a className="cursor-pointer flex hover:underline" onClick={() => { handleDeleteAllCarrello() }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoDel20.png`} /> Svuota il Carrello</a>}
-                
+                {step !== 5 && <a className="cursor-pointer flex hover:underline" onClick={() => { handleDeleteAllCarrello() }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoDel20.png`} /> Svuota il Carrello</a>}
+
             </div>
             <hr className=" border-[#aaa]" />
             <b className="text-[12px] ms-[10px]"> LAVORI NELL' ORDINE</b>
@@ -43,8 +55,8 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
 
                     ArrayLocalCarrello.map((elem, i) => {
                         return (
-                            <Accordion key={i} >
-                                <AccordionSummary className='carrello' aria-controls="panel1d-content" id="panel1d-header" sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
+                            <Accordion key={i} expanded={expanded === `panel${i}`} onChange={handleAcordion(`panel${i}`)}>
+                                <AccordionSummary className='carrello' sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
                                     <div className=" w-[10%] flex">
                                         <AddIcon sx={{ fontSize: 18 }} />
                                     </div>
@@ -56,7 +68,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                         <p className="">€ {formatNumber(Number(elem.prezzo))} + iva</p>
                                     </div>
                                 </AccordionSummary>
-                                <AccordionDetails sx={{ bgcolor: "", display: '', fontSize: 11, width: '100%', border:'1px solid #ddd'}}>
+                                <AccordionDetails sx={{ bgcolor: "", display: '', fontSize: 11, width: '100%', border: '1px solid #ddd' }}>
                                     <div className="w-full flex gap-2">
 
                                         {typeof elem.img === 'object' ? <ImageCustom svgImage={elem.img} /> : <img src={`https://tipografiaformer.it/listino/img/${elem.img}`} className='w-[100px] h-[100px] ' alt="" />}
@@ -66,7 +78,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                 <p className="">Nome lavoro:</p>
                                                 <p className="">Quantità:</p>
                                                 <p className="">Prodotto:</p>
-                                                <p className="">{elem.idReparto != enRepartoWeb.Ricamo ? 'Dimensioni:':null}</p>
+                                                <p className="">{elem.idReparto != enRepartoWeb.Ricamo ? 'Dimensioni:' : null}</p>
                                                 <p className="">{elem.orientamiento && 'Orientamento:'}</p>
                                                 <p className="">Supporto:</p>
                                                 <p className="">Stampa:</p>
@@ -85,7 +97,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                 <p className={`${elem.nome ? "" : "text-white"}`}>{elem.nome ? elem.nome : "--"} </p>
                                                 <p className="">{numberFormat(elem.qta, undefined, 0, 0)}</p>
                                                 <p className="w-full">{numberFormat(elem.qta, undefined, 0, 0)} {elem.prodotto} </p>
-                                                <p className="">{elem.idReparto != enRepartoWeb.Ricamo ? elem.dimencioni:null}</p>
+                                                <p className="">{elem.idReparto != enRepartoWeb.Ricamo ? elem.dimencioni : null}</p>
                                                 <p className="">{elem.orientamiento && elem.orientamiento}</p>
                                                 <p className="">{elem.suporto}</p>
                                                 <p className="">{elem.stampa}</p>
@@ -104,11 +116,11 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                 </p>
                                                 <p className="font-normal">Colli <b>{elem.colli}</b>, Peso <b>{elem.peso}</b> kg ±</p>
                                                 <div className='flex'>
-                                                    <div className="flex flex-row min-w-[140px] bg-[#d6e03d] mt-[15px] bg-[#d6e03d] h-[30px] py-[2px] px-[5px] text-[18px] rounded-[5px] items-center justify-center">
+                                                    <div className="flex flex-row min-w-[140px] bg-[#d6e03d] mt-[15px]  h-[30px] py-[2px] px-[5px] text-[18px] rounded-[5px] items-center justify-center">
                                                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} className='w-[20px] h-[25px]' /> <b className='ml-1'>€ {formatNumber(Number(elem.prezzo))} + iva</b>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <p className="bg-[#f1f1f1] font-normal mt-[15px] w-[75%]">
                                                     {elem.note}
                                                 </p>
@@ -122,8 +134,8 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo16.png`} />
                                             <span className='min-w-[95px]'>
                                                 Scarica il Template
-                                            </span> 
-                                            </a>}
+                                            </span>
+                                        </a>}
                                         <a className="flex gap-1 p-[4px] rounded-[5px] bg-[#ffe055] cursor-pointer" onClick={() => handleRetornaProdotto(i, String(elem.nomeUrl))}>
                                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCestinoGo16.png`} />
                                             <span className=' min-w-[175px]'>

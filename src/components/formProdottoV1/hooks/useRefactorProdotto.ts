@@ -29,7 +29,7 @@ import { DataGetResencioniP, ResponseGetRecensioni } from '../interface/Recensio
 import { DataGetAggiornaReview } from '../interface/AggiornaReview';
 import { DataGetDescrizioniDinamica } from '../interface/DescrizioneDinamica';
 import { httpGetCorriereSelezionata, httpGetMetodiPagamento, httpGetTotaleProvisorio } from '../../carrello/services/Services';
-import { DateFormatItWDMY } from '../../../Helpers/formatDates';
+import { DateFormatDDMM, DateFormatItWDMY } from '../../../Helpers/formatDates';
 import { DataGgetCorriereSelezionata } from '../../carrello/Interfaces/Corriere';
 
 const initialValues: InitialValuesProdotto = {
@@ -104,7 +104,8 @@ const useRefactorProdotto = () => {
     const [codeStart, setCodeStart] = useState<string>("N")
     const [textTipoCarta, setTextTipoCarta] = useState<string>('')
 
-    const [dateConsegna, setDateConsegna] = useState<DateConsegna>()
+    const [dateConsegna, setDateConsegna] = useState<DateConsegna>();
+    const [menuDateConsegna, setMenuDateConsegna] = useState<string>()
 
     const [qtaSelezinata, setQtaSelezinata] = useState<number>(0)
     const [heplerFormProd, setHeplerFormProd] = useState<number>(0)
@@ -186,6 +187,11 @@ const useRefactorProdotto = () => {
 
             setTablaDate(responseDateTable.data);
             setDateConsegna({ ...dateConsegna, date1: responseDateTable.data.dataNormale, date2: responseDateTable.data.dataNormaleProduzione })
+
+            if (menuDateConsegna === undefined) {
+                const menuDate = DateFormatDDMM(responseDateTable.data.dataNormale);
+                setMenuDateConsegna(menuDate)
+            }
 
             const responseShowColumnTable = await getShowColumnTable(Number(idPrev))
             setShowColumTable(responseShowColumnTable?.data)
@@ -857,7 +863,7 @@ const useRefactorProdotto = () => {
         setViewRows(!viewRows)
     }
 
-    const handleCalcolaTuto = async (code: string, QtaSelezionata: number, prezzoOrdini: number, i: number) => {
+    const handleCalcolaTuto = async (code: string, QtaSelezionata: number, prezzoOrdini: number, i: number, dateConsegna: Date | undefined) => {
 
         initialState.qtaSelezinata = QtaSelezionata;
         setCodeStart(code)
@@ -865,6 +871,9 @@ const useRefactorProdotto = () => {
         const responsNoRender = await effectTablePrezziNoRender();
         ////console.log('Cacol', QtaSelezionata)
         setPrezzoActive(prezzoOrdini)
+        const menuDate = DateFormatDDMM(dateConsegna);
+
+        setMenuDateConsegna(menuDate)
 
         switch (code) {
             case 'F':
@@ -1046,7 +1055,6 @@ const useRefactorProdotto = () => {
         ////console.log("IdsCarrellos", objDataProdotto)
         const updateCarrello = [...dataCarrelli, objDataProdotto];
         localStorage.setItem('c', JSON.stringify(updateCarrello));
-
         //navigate('/carrello');
         handleHidden();
 
@@ -1211,7 +1219,7 @@ const useRefactorProdotto = () => {
     const handleCompraloSubito = async () => {
         handleCorriere();
 
-        localStorage.setItem('stp', '1');
+        localStorage.setItem('stp', '5');
         localStorage.setItem('cons', String(utenteData?.corriere.idMetodoConsegna));
         localStorage.setItem('mil', String(utenteData?.email));
         localStorage.setItem('ind', String(utenteData?.indirizoS) + " " + utenteData?.indirizoR);
@@ -1219,8 +1227,8 @@ const useRefactorProdotto = () => {
 
         const pzo = localStorage.getItem('pzo')
         if (pzo) {
-            var p = pzo + calcolaTuto?.pesoStr
-            localStorage.setItem('pzo', p)
+            var p = parseInt(pzo) + parseInt(String(calcolaTuto?.pesoStr))
+            localStorage.setItem('pzo', String(p))
         } else {
             localStorage.setItem('pzo', String(calcolaTuto?.pesoStr));
         }
@@ -1506,7 +1514,8 @@ const useRefactorProdotto = () => {
         recencioniC,
         descrizioneDinamica,
         opzInclusa,
-        handleCompraloSubito
+        handleCompraloSubito,
+        menuDateConsegna,
     }
 }
 

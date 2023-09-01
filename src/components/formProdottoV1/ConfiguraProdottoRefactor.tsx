@@ -89,7 +89,8 @@ const ConfiguraProdottoRefactor = () => {
         recencioniC,
         descrizioneDinamica,
         opzInclusa,
-        handleCompraloSubito
+        menuDateConsegna,
+        handleCompraloSubito,
     } = useRefactorProdotto()
 
     const SelectFormato = () => {
@@ -284,7 +285,7 @@ const ConfiguraProdottoRefactor = () => {
                         {idUt != undefined && idUt > '0' ?
                             <>
                                 <Link to={"/carrello"}>
-                                    <button onClick={() => handleCarrello()} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
+                                    <button onClick={() => {handleCarrello();localStorage.setItem('stp','1')}} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
                                 </Link>
                                 <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
                                     oppure
@@ -363,7 +364,7 @@ const ConfiguraProdottoRefactor = () => {
 
             </div>
             <div className="w-[25%]  ">
-                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} />
+                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna}/>
             </div>
         </div>
 

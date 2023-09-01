@@ -182,11 +182,19 @@ const useCarrello = () => {
     */
 
     const deleteItem = async (id: number) => {
+
+        
+
         arrayCarrello.splice(id, 1);
         setArrayCarrello([...arrayCarrello]);
         localStorage.setItem('c', JSON.stringify([...arrayCarrello]))
         getLocalCarrello();
+
         const responseGetTotaleProvisorio = await getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, null, radioPagamento, radio);
+
+        console.log(dataTotale.TotalPeso)
+        
+        localStorage.setItem('pzo',String(dataTotale.TotalPeso))
 
         setTotaleProvisorio(responseGetTotaleProvisorio)
     }
@@ -311,8 +319,12 @@ const useCarrello = () => {
                 ordineDataDTO: arrayCarrello,
             }
             const responsePostAquistaOra = await postAquistaOra(data);
-
-            //console.log('ordine',responsePostAquistaOra.data)
+            if (responsePostAquistaOra) {
+                handleShow();
+                handleDeleteAllCarrello();
+                //setStep(6);
+            }
+            //console.log('ordine',data)
         }
 
     }
@@ -355,7 +367,7 @@ const useCarrello = () => {
 
 
         const ste = localStorage.getItem('stp');
-        if(ste != undefined && ste == '1')setStep(5); 
+        if (ste != undefined) {setStep(Number(ste));} else {setStep(1)};
     }, [])
 
 
