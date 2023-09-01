@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TabPanel, Tab, Tabs, TabContainer } from '../Componentes/LayOut/Tabs';
 import useITuoiOrdini from '../hooks/useITuoiOrdini';
 import AcordionOrdini from '../Componentes/ITouiOrdini/AcordionOrdini';
@@ -7,8 +7,11 @@ import LegendaStatoOrdini from '../Componentes/ITouiOrdini/LegendaStatoOrdini';
 
 const ITouiOrdini = () => {
     const [activeTab, setActiveTab] = React.useState(0);
-    const { listOrdini, pageOrdini, handleGetOrdini } = useITuoiOrdini();
+    const { listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro} = useITuoiOrdini();
 
+    useEffect(()=>{
+        console.log('listOrdini', listOrdini)
+    }, [listOrdini])
     return (
         <>
             <div className='row ml-[15px] my-[10px]'>
@@ -63,7 +66,16 @@ const ITouiOrdini = () => {
                         index={0}
                         value={activeTab}
                     >
-                        <AcordionOrdini listOrdini={listOrdini} pageOrdini={pageOrdini} handleGetOrdini={handleGetOrdini} />
+                        <AcordionOrdini 
+                            listOrdini={listOrdini} 
+                            pageOrdini={pageOrdini} 
+                            handleGetOrdini={handleGetOrdini} 
+                            handleDeleteLavoro={handleDeleteLavoro}
+                            handleDeleteOrdine={handleDeleteOrdine}
+                            handleNewTagListinoTemplate={handleNewTagListinoTemplate}
+                            handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro}
+                            handleRedirectToDetaglioOrdini={handleRedirectToDetaglioOrdini}
+                        />
                     </TabPanel>
                     <TabPanel
                         index={1}

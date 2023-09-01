@@ -12,10 +12,20 @@ type PropsMenuCarrrelo = {
     handleCompraloSubito: () => Promise<void>;
     calcolaTuto: DataGetCalcolaTuto | undefined;
     qtaSelezinata: number;
-    menuDateConsegna: string | undefined
+    menuDateConsegna: string | undefined,
+    pdfTemplate: string | undefined;
+    prodotto: any | undefined;
 }
-const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello,handleCompraloSubito,calcolaTuto,qtaSelezinata,menuDateConsegna }: PropsMenuCarrrelo) => {
+// const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello,}: PropsMenuCarrrelo) => {
 
+//     handleCarrello: () => Promise<void>,
+//     pdfTemplate: string | undefined;
+//     prodotto: any | undefined;
+// }
+const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto,handleCompraloSubito,calcolaTuto,qtaSelezinata,menuDateConsegna  }: PropsMenuCarrrelo) => {
+    const OpenTemplateWindow = (pdfTemplate: string|undefined) => {
+        window.open(`https://www.tipografiaformer.it/listino/template/${pdfTemplate}`)
+    }
 
     return (
         <>
@@ -121,8 +131,19 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello,handleCom
             <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">
                 <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
                 <center>
-                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" ><img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />Scarica Template</button>
-                    <button className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold"><img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} /> Campione Gratuito</button>
+                    <a className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" 
+                        onClick={()=>OpenTemplateWindow(pdfTemplate)}
+                    >
+                        <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />
+                        Scarica Template
+                    </a> 
+                    <Link 
+                        to={`/richiedi-un-campione-gratuito`}
+                        state={prodotto}
+                        className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold">
+                        <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} /> 
+                        Campione Gratuito
+                    </Link>
                 </center>
                 <br />
             </div>

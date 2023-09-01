@@ -17,6 +17,7 @@ import { GLOBAL_CONFIG } from "../../_config/global"
 import { DateFormatDDMMYY } from "../../Helpers/formatDates"
 import ProdottiSuggeriti from "./components/ProdottiSuggeriti"
 import RecencioniC from "./components/RecencioniC"
+import { useEffect, useState } from "react"
 
 const ConfiguraProdottoRefactor = () => {
     const {
@@ -92,6 +93,17 @@ const ConfiguraProdottoRefactor = () => {
         menuDateConsegna,
         handleCompraloSubito,
     } = useRefactorProdotto()
+    const [pdfTemplate, setPdfTemplate] = useState<string|undefined>();
+    const [prodotto, setProdotto] = useState<any|undefined>();
+
+    const CustomFormatTemplateChange = (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        handleChange(evt);
+        let listFormat = hanldeFormatoList();
+        const { name, value } = evt.target;
+        let result = listFormat.find(e=> e.value == value);
+        setPdfTemplate(result?.pdfTemplate);
+        setProdotto(result);
+    }
 
     const SelectFormato = () => {
         switch (idBaseEtiquete) {
@@ -110,6 +122,24 @@ const ConfiguraProdottoRefactor = () => {
                 break;
         }
     }
+
+    const setInitial = async() =>{
+        let listFormat = await hanldeFormatoList();
+        if (listFormat?.length > 0){
+            setPdfTemplate(listFormat[0].pdfTemplate);
+            console.log(listFormat)
+            setProdotto(listFormat[0]);
+        } 
+    }
+
+    useEffect(()=>{
+       setInitial();
+    }, [])
+
+    useEffect(()=>{
+        console.log('prodotto', prodotto);
+    }, [prodotto])
+
     return (
         <div className="w-full flex gap-3 relative ">
             <div className="w-[75%]">
@@ -133,7 +163,7 @@ const ConfiguraProdottoRefactor = () => {
                                         </span>
                                     </td>
                                 </tr> :
-                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={handleChange} label="Formato" options={hanldeFormatoList()} defaulSelect={idFormProd} initialState={initialState} />
+                                <InputCustomSelect showIcon={true} name="formatoS" handleChange={CustomFormatTemplateChange} label="Formato" options={hanldeFormatoList()} defaulSelect={idFormProd} initialState={initialState} />
                             }
 
                             {orientamiento ? <InputCustomSelect showIcon={false} name="orientamiento" handleChange={handleChange} label="Orientamento" options={handleOrientamiento()} /> : null}
@@ -364,7 +394,16 @@ const ConfiguraProdottoRefactor = () => {
 
             </div>
             <div className="w-[25%]  ">
-                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna}/>
+                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna} pdfTemplate={pdfTemplate}
+                    prodotto={prodotto}/>
+                {/* <MenuCarrelo 
+                    handleHidden={handleHidden} 
+                    idUt={idUt} 
+                    handleLogin={handleLogin} 
+                    handleCarrello={handleCarrello}
+                    pdfTemplate={pdfTemplate}
+                    prodotto={prodotto}
+                 /> */}
             </div>
         </div>
 
