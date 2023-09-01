@@ -467,6 +467,7 @@ const useRefactorProdotto = () => {
     }
 
     const getFormatoList = async (idPrevF: number) => {
+            console.log('idPrevF', idPrevF);
         const formatoList = await httpGetFormatoArray(idPrevF);
         return formatoList;
     }
@@ -1516,6 +1517,7 @@ const useRefactorProdotto = () => {
         opzInclusa,
         handleCompraloSubito,
         menuDateConsegna,
+        formatoList,
     }
 }
 

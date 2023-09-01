@@ -92,6 +92,7 @@ const ConfiguraProdottoRefactor = () => {
         opzInclusa,
         menuDateConsegna,
         handleCompraloSubito,
+        formatoList,
     } = useRefactorProdotto()
     const [pdfTemplate, setPdfTemplate] = useState<string | undefined>();
     const [prodotto, setProdotto] = useState<any | undefined>();
@@ -123,18 +124,17 @@ const ConfiguraProdottoRefactor = () => {
         }
     }
 
-    const setInitial = async () => {
-        let listFormat = await hanldeFormatoList();
+    const setInitial = () => {
+        let listFormat = hanldeFormatoList();
         if (listFormat?.length > 0) {
             setPdfTemplate(listFormat[0].pdfTemplate);
-            console.log(listFormat)
             setProdotto(listFormat[0]);
         }
     }
 
     useEffect(() => {
         setInitial();
-    }, [])
+    }, [formatoList])
 
     useEffect(() => {
         console.log('prodotto', prodotto);
