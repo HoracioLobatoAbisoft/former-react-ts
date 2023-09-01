@@ -6,16 +6,16 @@ const CustomCarousel = () => {
     const handleDragStart = (e:any) => e.preventDefault();
 
     const items = [
-        <img src="https://placehold.co/100x100"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/200x200"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/300x300"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/400x400"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/500x500"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/600x600"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/700x700"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/800x800"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/900x900"     role="presentation" className="w-[64px] h-[64px]" />,
-        <img src="https://placehold.co/1000x1000"   role="presentation" className="w-[64px] h-[64px]" />,
+        <img src="https://placehold.co/100x100"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/200x200"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/300x300"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/400x400"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/500x500"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/600x600"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/700x700"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/800x800"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/900x900"     role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
+        <img src="https://placehold.co/1000x1000"   role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
     ];
     const thumbItems = (items :any , [setThumbIndex, setThumbAnimation]:any) => {
         return items.map((item:any, i:number) => (
@@ -55,7 +55,7 @@ const CustomCarousel = () => {
          <div className="w-full p-0 flex h-[100px] justify-around items-center">
                         <div className="w-[5%] flex justify-center items-center">
                             <div className="btn-prev  rounded" onClick={()=>slidePrev()}>
-                                <span className="text-[30px]">
+                                <span className="text-[30px] font-bold text-[purple]">
                                     &lang;
                                 </span>
                             </div>   
@@ -79,7 +79,7 @@ const CustomCarousel = () => {
                         </div>
                         <div className="w-[5%] flex justify-center items-center">
                             <div className="btn-prev  rounded " onClick={()=>slideNext()}>
-                                <span className="text-[30px]">
+                                <span className="text-[30px] font-bold text-[purple]">
                                     &rang;
                                 </span>
                             </div>   
