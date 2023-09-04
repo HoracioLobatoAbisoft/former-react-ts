@@ -6,6 +6,7 @@ import RichiediUnCampioneGratuito from "../compontes/RichiediUnCampioneGratuito"
 import { useLocation } from "react-router-dom";
 import CustomCarousel from "../../Layout/CustomCarousel";
 import useRichiediUnCampione from "../hooks/useRichiediUnCampione";
+import CustomSlider from "../../Layout/CustomSlider";
 
 const RichiediUnCampioneGratuitoPage = () => {
     const [activeTab, setActiveTab] = React.useState(0);
@@ -75,6 +76,12 @@ const RichiediUnCampioneGratuitoPage = () => {
                 </div>
                 <div className="w-full">
                     <CustomCarousel items={itemsCarousel} />
+                </div>
+                <div className="w-full flex-row">
+                    <div className="w-[284px] h-[150px] bg-[green]">
+                        <CustomSlider></CustomSlider>
+                    </div>
+
                 </div>
             </div>
         </>
