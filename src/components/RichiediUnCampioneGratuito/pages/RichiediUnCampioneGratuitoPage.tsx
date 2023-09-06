@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import CustomCarousel from "../../Layout/CustomCarousel";
 import useRichiediUnCampione from "../hooks/useRichiediUnCampione";
 import CustomSlider from "../../Layout/CustomSlider";
-
+import RandomProduct from "../../Layout/RandomProduct";
 const RichiediUnCampioneGratuitoPage = () => {
     const [activeTab, setActiveTab] = React.useState(0);
     const { state: stateLocation } = useLocation();
@@ -77,7 +77,11 @@ const RichiediUnCampioneGratuitoPage = () => {
                 <div className="w-full">
                     <CustomCarousel items={itemsCarousel} />
                 </div>
-                <div className="w-full flex-row">
+                <div className="w-full flex flex-row">
+                    <div className="w-[500px] pt-[5px]">
+                        <RandomProduct />
+
+                    </div>
                     <div className="w-[284px] h-[150px]">
                         <CustomSlider></CustomSlider>
                     </div>

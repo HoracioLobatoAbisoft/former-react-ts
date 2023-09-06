@@ -26,22 +26,7 @@ const CustomSlider = () => {
     const [thumbIndex, setThumbIndex] = useState(0);
     const [thumbAnimation, setThumbAnimation] = useState(false);
     const [thumbs] = useState(thumbItems([...items, ...items, ...items], [setThumbIndex, setThumbAnimation]));
-    const slideNext = () => {
-        console.log('thumbIndex slideNext', thumbIndex)
-        
-        if (thumbIndex < thumbs.length - 1) {
-            setThumbAnimation(true);
-            setThumbIndex(thumbIndex + 1);
-        }
-    };
-
-    const slidePrev = () => {
-        console.log('thumbIndex slidePrev', thumbIndex)
-        if (thumbIndex > 0) {
-            setThumbAnimation(true);
-            setThumbIndex(thumbIndex - 1);
-        } 
-    };
+   
 
     const responsive = {
         0: { items: 1, itemsFit: 'contain', },

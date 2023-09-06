@@ -53,9 +53,7 @@ const useRichiediUnCampione = () => {
         if (responseGetCarouselEvidenza) {
 
             const items2 = responseGetCarouselEvidenza.data.map((item, i) => {
-                console.log('itemCarrousel', item);
                 const  urlImgFile = `${GLOBAL_CONFIG.IMG_IP}/listino/img/${item.getImgFormato}`;
-                console.log(`urlImgFile: ${urlImgFile}`);
                 return  <img 
                             key={i} 
                             src={`${urlImgFile}`} 
