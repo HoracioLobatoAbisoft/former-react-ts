@@ -26,6 +26,7 @@ import CarrelloProdotto from "./components/carrello/CarrelloProdotto";
 import AllegaIFile from "./components/carrello/components/AllegaIFile";import AreaPersonale from "./components/AreaPersonale/AreaPersonale";
 import RichiediUnCampioneGratuitoPage from "./components/RichiediUnCampioneGratuito/pages/RichiediUnCampioneGratuitoPage";
 import CampioneGratuitoRichiestoPage from "./components/CampioneGratuitoRichiesto/pages/CampioneGratuitoRichiestoPage";
+import DettaglioOrdine from "./components/AreaPersonale/Componentes/ITouiOrdini/DettaglioOrdine";
  "./components/carrello/components/AllegaIFile";
 
 
@@ -71,6 +72,7 @@ function App() {
           <Route path="/Contact" element={<ContactPage />} />
           <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
           <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
+          <Route path="/dettaglioOrdine/:idConsegna" element={<DettaglioOrdine />} />
           <Route path="/richiedi-un-campione-gratuito" element={ <RichiediUnCampioneGratuitoPage/>} />
           <Route path="/campione-gratuito-registrata" element={ <CampioneGratuitoRichiestoPage/>} />
 

@@ -1,4 +1,5 @@
 import applicationConnect from "../../../api"
+import { ResponseGetOrdiniById } from "../Interfaces/GetOrdiniById";
 import { ReponseGetOridini, ReponseDeleteOridine, ReponseDeleteLavoro } from "../Interfaces/OrdiniIntarface"
 
 export const httpGetOrdini=async (idUtn:number,pageNumber:number) => {
@@ -7,6 +8,11 @@ export const httpGetOrdini=async (idUtn:number,pageNumber:number) => {
         pageNumber
     }})
 
+    return response.data;
+}
+
+export const httpGetOrdiniById =async (idConsegna:number) => {
+    const response = await applicationConnect.get<ResponseGetOrdiniById>('Ordini/GetById',{params:{idConsegna}});
     return response.data;
 }
 
