@@ -27,7 +27,7 @@ import AllegaIFile from "./components/carrello/components/AllegaIFile";import Ar
 import RichiediUnCampioneGratuitoPage from "./components/RichiediUnCampioneGratuito/pages/RichiediUnCampioneGratuitoPage";
 import CampioneGratuitoRichiestoPage from "./components/CampioneGratuitoRichiesto/pages/CampioneGratuitoRichiestoPage";
  "./components/carrello/components/AllegaIFile";
-
+import DettaglioLavoroPage from "./components/DettaglioLavoro/pages/DettaglioLavoroPage";
 
 function App() {
   const location = useLocation();
@@ -73,7 +73,7 @@ function App() {
           <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
           <Route path="/richiedi-un-campione-gratuito" element={ <RichiediUnCampioneGratuitoPage/>} />
           <Route path="/campione-gratuito-registrata" element={ <CampioneGratuitoRichiestoPage/>} />
-
+          <Route path="/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
         </Routes>
       </UserContextProvider>
     </div>

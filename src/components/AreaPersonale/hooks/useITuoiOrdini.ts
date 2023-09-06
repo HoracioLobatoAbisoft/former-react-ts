@@ -3,7 +3,9 @@ import { httpDeleteLavoro, httpDeleteOrdine, httpGetOrdini } from '../services/O
 import { OrdineList } from '../Interfaces/OrdiniIntarface';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { GLOBAL_CONFIG } from '../../../_config/global';
+import { useNavigate } from 'react-router-dom';
 const useITuoiOrdini = () => {
+    const navigate = useNavigate()
 
     const [listOrdini, setListOrdini] = useState<OrdineList[]>([])
     const [pageOrdini, setPageOrdini] = useState<number[]>([])
@@ -59,7 +61,10 @@ const useITuoiOrdini = () => {
     }, [])
 
     const handleRedirectToDetaglioOrdini = (idOrdini: number|string) => {
-        window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioOrdini, id: idOrdini }, GLOBAL_CONFIG.IMG_IP);
+        navigate('/dettaglio-lavoro')
+        window.parent.postMessage({ operation: enOperationFrame.hidden }, GLOBAL_CONFIG.IMG_IP);
+
+        //window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioOrdini, id: idOrdini }, GLOBAL_CONFIG.IMG_IP);
     }
 
     const handleRedirectToDetaglioLavoro = (idLavoro: number|string) => {
