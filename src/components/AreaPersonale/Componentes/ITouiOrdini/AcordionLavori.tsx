@@ -21,7 +21,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
-                        sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: width }}
+                        sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: 720 }}
                         className='acodion-lavori w-full'
                     >
                         <div className={` flex w-[100%] items-center`}>
@@ -54,7 +54,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                         </div>
                     </AccordionSummary>
                     <AccordionDetails
-                        sx={{ bgcolor: "", display: '', fontSize: 11, width: width, border: '1px solid #ddd', }}
+                        sx={{ bgcolor: "", display: '', fontSize: 11, width: 720, border: '1px solid #ddd', }}
                     >
                         <div className="">
                             <div className="flex flex-row">

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-
+import { GLOBAL_CONFIG } from "../../_config/global";
 type CarouselProps = {
     items:JSX.Element[];
 }
@@ -24,8 +24,6 @@ const CustomCarousel = ({items}:CarouselProps) => {
     //     <img src="https://placehold.co/1000x1000"   role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
     // ];
 
-    console.log('item',items)
-
     const thumbItems = (items :any , [setThumbIndex, setThumbAnimation]:any) => {
         return items.map((item:any, i:number) => (
             <div key={`item-carousel-${i}`} className="rounded mx-[15px] p-[5px]" onClick={() => (setThumbIndex(i), setThumbAnimation(true))}>
@@ -35,7 +33,7 @@ const CustomCarousel = ({items}:CarouselProps) => {
     };
     const [thumbIndex, setThumbIndex] = useState(0);
     const [thumbAnimation, setThumbAnimation] = useState(false);
-    const [thumbs] = useState(thumbItems([...items, ...items, ...items], [setThumbIndex, setThumbAnimation]));
+    const [thumbs] = useState(thumbItems([...items], [setThumbIndex, setThumbAnimation]));
     const slideNext = () => {
         console.log('thumbIndex slideNext', thumbIndex)
         
@@ -58,6 +56,9 @@ const CustomCarousel = ({items}:CarouselProps) => {
         568: { items: 7, itemsFit: 'contain', },
         1024: { items: 6 },
       };
+    useEffect(()=>{
+
+    }, [thumbIndex])
     
     return (
         <>
@@ -71,13 +72,13 @@ const CustomCarousel = ({items}:CarouselProps) => {
                         </div>
                         <div className="w-[90%]">
                             <AliceCarousel
-                                infinite={true}
+                                //infinite={true}
                                 //?items={thumbs} 
                                 items={items} //!modifique los items porque con thumbs no me reconocia la lectura de lo que la api traia en items que lo pase por props
                                 autoPlay={true}
-                                animationType="fadeout"
-                                autoPlayInterval={1000}
-                                animationDuration={1000}
+                                //animationType="fadeout"
+                                autoPlayInterval={3000}
+                                animationDuration={3000}
                                 mouseTracking={false}
                                 responsive={responsive}
                                 disableDotsControls={true}
