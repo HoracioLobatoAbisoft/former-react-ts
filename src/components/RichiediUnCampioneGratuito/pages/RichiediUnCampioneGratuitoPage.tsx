@@ -78,7 +78,7 @@ const RichiediUnCampioneGratuitoPage = () => {
                     <CustomCarousel items={itemsCarousel} />
                 </div>
                 <div className="w-full flex-row">
-                    <div className="w-[284px] h-[150px] bg-[green]">
+                    <div className="w-[284px] h-[150px]">
                         <CustomSlider></CustomSlider>
                     </div>
 

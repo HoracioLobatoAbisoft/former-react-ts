@@ -28,7 +28,7 @@ import RichiediUnCampioneGratuitoPage from "./components/RichiediUnCampioneGratu
 import CampioneGratuitoRichiestoPage from "./components/CampioneGratuitoRichiesto/pages/CampioneGratuitoRichiestoPage";
 import DettaglioOrdine from "./components/AreaPersonale/Componentes/ITouiOrdini/DettaglioOrdine";
  "./components/carrello/components/AllegaIFile";
-
+import DettaglioLavoroPage from "./components/DettaglioLavoro/pages/DettaglioLavoroPage";
 
 function App() {
   const location = useLocation();
@@ -75,7 +75,7 @@ function App() {
           <Route path="/dettaglioOrdine/:idConsegna" element={<DettaglioOrdine />} />
           <Route path="/richiedi-un-campione-gratuito" element={ <RichiediUnCampioneGratuitoPage/>} />
           <Route path="/campione-gratuito-registrata" element={ <CampioneGratuitoRichiestoPage/>} />
-
+          <Route path="/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
         </Routes>
       </UserContextProvider>
     </div>
