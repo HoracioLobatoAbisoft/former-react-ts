@@ -136,10 +136,6 @@ const ConfiguraProdottoRefactor = () => {
         setInitial();
     }, [formatoList])
 
-    useEffect(() => {
-        console.log('prodotto', prodotto);
-    }, [prodotto])
-
     return (
         <div className="w-full flex gap-3 relative ">
             <div className="w-[75%]">

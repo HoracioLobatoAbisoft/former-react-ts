@@ -74,7 +74,7 @@ const DettaglioOrdine = () => {
                         <h4 className="font-bold">LAVORI NELL' ORDINE</h4>
                         <p className="">Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.</p>
                         <div className="w-full ">
-                            <AcordionLavori listLavori={ordiniData ? ordiniData.listLavori : []} handleDeleteLavoro={handleDeleteLavoro} handleNewTagListinoTemplate={handleNewTagListinoTemplate} handleRedirectToDetaglioLavoro={handleRedirectToDetaglioOrdini} width={'100%'}/>
+                            <AcordionLavori listLavori={ordiniData ? ordiniData.listLavori : []} handleDeleteLavoro={handleDeleteLavoro} handleNewTagListinoTemplate={handleNewTagListinoTemplate} handleRedirectToDetaglioLavoro={handleRedirectToDetaglioOrdini} width={'100%'} />
                         </div>
                     </div>
                     <div className="">
@@ -101,27 +101,30 @@ const DettaglioOrdine = () => {
                     <div className="">
                         <h4 className="text-[12px] font-[700] leading-[22px] h-[22px] mt-[5px] mb-[10px] pt-[2px] pl-[20px] uppercase text-[#fff] bg-[#f58220]">PAGAMENTO</h4>
                         <p className="">Puoi effettuare il pagamento di questo ordine tramite:</p>
-                        <div className="mb-[10px] p-[20px] rounded-[5px] border border-[#aaa] mt-[10px]">
-                            <p className="flex gap-1 items-center tracking-wide">
-                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/payment/icoPP.png`} alt="Pagamento con PayPal" className="rounded-[3px]" />
-                                <b>PAGA CON PAYPAL</b>
-                            </p>
-                            <p className="mt-[1.5em]">Tipografia Former accetta il pagamento attraverso il circuito sicuro PayPal.</p>
-                            <center>
-                                <button className="mt-[1.5em] bg-[#d6e03d] font-bold tex-[11px] leading-[30px] w-[120px] h-[30px] text-center rounded-[3px] hover:bg-[#f1fc45]">PAGA ADESSO</button>
-                            </center>
-                            <div className="flex items-center mt-[2em]">
-                                <div className=" leading-[13px]">
-                                    <p className=""><b>PayPal</b>, società del gruppo eBay, consente a chiunque possieda un indirizzo e-mail di inviare e ricevere pagamenti online in modo facile, veloce e sicuro.</p>
-                                    <p className="">La registrazione al servizio e l'invio di denaro sono gratuiti ed è possibile effettuare pagamenti istantanei in tutta sicurezza con la propria carta di credito.</p>
+                        {ordiniData?.pagabile &&
+                            <div className="mb-[10px] p-[20px] rounded-[5px] border border-[#aaa] mt-[10px]">
+                                <p className="flex gap-1 items-center tracking-wide">
+                                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/payment/icoPP.png`} alt="Pagamento con PayPal" className="rounded-[3px]" />
+                                    <b>PAGA CON PAYPAL</b>
+                                </p>
+                                <p className="mt-[1.5em]">Tipografia Former accetta il pagamento attraverso il circuito sicuro PayPal.</p>
+                                <center>
+                                    <button className="mt-[1.5em] bg-[#d6e03d] font-bold tex-[11px] leading-[30px] w-[120px] h-[30px] text-center rounded-[3px] hover:bg-[#f1fc45]">PAGA ADESSO</button>
+                                </center>
+                                <div className="flex items-center mt-[2em]">
+                                    <div className=" leading-[13px]">
+                                        <p className=""><b>PayPal</b>, società del gruppo eBay, consente a chiunque possieda un indirizzo e-mail di inviare e ricevere pagamenti online in modo facile, veloce e sicuro.</p>
+                                        <p className="">La registrazione al servizio e l'invio di denaro sono gratuiti ed è possibile effettuare pagamenti istantanei in tutta sicurezza con la propria carta di credito.</p>
+                                    </div>
+                                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/PPVerified.png`} />
                                 </div>
-                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/PPVerified.png`} />
+                                <div className="mt-[1.2em]">
+                                    <p className=""><b>Tipografia</b> Former non ha accesso in nessun modo ai dati della tua Carta di Credito o ai tuoi dati di accesso a PayPal</p>
+                                    <p className="mt-[1em]">Pagando tramite <b>PayPal</b> il suo ordine passerà automaticamente <b>In Lavorazione</b> appena effettuerà il pagamento.</p>
+                                </div>
                             </div>
-                            <div className="mt-[1.2em]">
-                                <p className=""><b>Tipografia</b> Former non ha accesso in nessun modo ai dati della tua Carta di Credito o ai tuoi dati di accesso a PayPal</p>
-                                <p className="mt-[1em]">Pagando tramite <b>PayPal</b> il suo ordine passerà automaticamente <b>In Lavorazione</b> appena effettuerà il pagamento.</p>
-                            </div>
-                        </div>
+                        }
+
                         <div className=" p-[20px] rounded-[5px] border border-[#aaa] mt-[10px]">
                             <p className="flex gap-1 items-center tracking-wide">
                                 <img src={`${GLOBAL_CONFIG.IMG_IP}/img/payment/icoBB.png`} alt="Pagamento con PayPal" className="rounded-[3px]" />

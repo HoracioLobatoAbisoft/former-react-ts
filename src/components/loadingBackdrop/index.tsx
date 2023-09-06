@@ -13,16 +13,66 @@ const LoadingBackdrop = ({isOpen,HandleChange}:Props) => {
 
     return (
         <Backdrop
-            sx={{ bgcolor: 'rgba(225,225,225,0.4)', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            sx={{ bgcolor: 'rgba(225,225,225,0.4)',display:'flex',flexDirection:'column',justifyContent:'space-between',pr:8,}}
             open={isOpen}
-            onClick={()=>HandleChange(!isOpen)}
+            //onClick={()=>HandleChange(!isOpen)}
         >
+            
             <RotatingLines
                 strokeColor="grey"
                 strokeWidth="2.5"
                 animationDuration="0.75"
                 width="140"
                 visible={true}
+                
+            />
+            <RotatingLines
+                strokeColor="grey"
+                strokeWidth="2.5"
+                animationDuration="0.75"
+                width="140"
+                visible={true}
+                
+            />
+            <RotatingLines
+                strokeColor="grey"
+                strokeWidth="2.5"
+                animationDuration="0.75"
+                width="140"
+                visible={true}
+                
+            />
+            <RotatingLines
+                strokeColor="grey"
+                strokeWidth="2.5"
+                animationDuration="0.75"
+                width="140"
+                visible={true}
+                
+            />
+            <RotatingLines
+                strokeColor="grey"
+                strokeWidth="2.5"
+                animationDuration="0.75"
+                width="140"
+                visible={true}
+                
+            />
+            <RotatingLines
+                strokeColor="grey"
+                strokeWidth="2.5"
+                animationDuration="0.75"
+                width="140"
+                visible={true}
+                
+            />
+            <RotatingLines
+                strokeColor="grey"
+                strokeWidth="2.5"
+                animationDuration="0.75"
+                width="140"
+                visible={true}
+                
             />
         </Backdrop>
     )

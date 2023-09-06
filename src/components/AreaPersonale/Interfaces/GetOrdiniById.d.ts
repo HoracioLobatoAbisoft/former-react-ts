@@ -45,6 +45,7 @@ export interface DataGetOrdiniById {
     showTraciabile: boolean;
     statoStr: string;
     tracciabile: boolean;
+    pagabile:boolean;
 }
 
 

@@ -866,6 +866,8 @@ const useRefactorProdotto = () => {
 
     const handleCalcolaTuto = async (code: string, QtaSelezionata: number, prezzoOrdini: number, i: number, dateConsegna: Date | undefined) => {
 
+        setOpenLoadingBackdrop(true)
+
         initialState.qtaSelezinata = QtaSelezionata;
         setCodeStart(code)
         setQtaSelezinata(QtaSelezionata)
@@ -911,6 +913,8 @@ const useRefactorProdotto = () => {
         ////console.log("Calcola", code, " ", responseCalcolaTuto.data.boxLavoracioni)
 
         setCalcolaTuto(responseCalcolaTuto.data)
+        setOpenLoadingBackdrop(false)
+
     }
 
     const handleSelectDate = (code: string, date1: Date | undefined, date2: Date | undefined) => {

@@ -324,13 +324,16 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                         </button>
                                                                         : null
                                                                 }
-                                                                <button
-                                                                    className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
-                                                                    onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)}
-                                                                >
-                                                                    <img src="https://tipografiaformer.it/img/icoFreccia16.png" />
-                                                                    Vai al Dettaglio Ordine
-                                                                </button>
+                                                                <Link to={`/dettaglioOrdine/${item.idConsegna}`}>
+                                                                    <button
+                                                                        className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
+                                                                    //onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)}
+                                                                    >
+                                                                        <img src="https://tipografiaformer.it/img/icoFreccia16.png" />
+                                                                        Vai al Dettaglio Ordine
+                                                                    </button>
+                                                                </Link>
+
                                                                 {item.modificabile &&
                                                                     <button
                                                                         className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
