@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { httpGetCarouselEvidenza } from "../services/RichiediCampioneServices";
 import { DataCarouseEvidenza } from "../interfaces/GetCarouselEvidenza";
 import { GLOBAL_CONFIG } from "../../../_config/global";
-
+import { enOperationFrame } from '../../../enHelpers/enOperationFrame'
 const items4 = [
     <img src="https://placehold.co/100x100" role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
     <img src="https://placehold.co/200x200" role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />,
@@ -23,6 +23,13 @@ const useRichiediUnCampione = () => {
     */
 
     const [itemsCarousel, setItemsCarousel] = useState<JSX.Element[]>(items4)
+    /*
+        other special funcions
+    */
+
+    const customRedirect = (uri: String)=>{ 
+        window.parent.postMessage({ uri: uri, operation: enOperationFrame.reliadUrl,  }, GLOBAL_CONFIG.IMG_IP);
+    }
     /*
         *Funciones Getters  
     */
@@ -45,9 +52,18 @@ const useRichiediUnCampione = () => {
         const responseGetCarouselEvidenza = await getCarouselEvidenza();
         if (responseGetCarouselEvidenza) {
 
-            const items2 = responseGetCarouselEvidenza.data.map((item, i) => (
-                <img key={i} src={`http://95.110.133.251:5051/listino/img/${item.getImgFormato}`} role="presentation" className="w-[64px] h-[64px] border rounded hover:border-[purple]" />
-            ));
+            const items2 = responseGetCarouselEvidenza.data.map((item, i) => {
+                const  urlImgFile = `${GLOBAL_CONFIG.IMG_IP}/listino/img/${item.getImgFormato}`;
+                return  <img 
+                            key={i} 
+                            src={`${urlImgFile}`} 
+                            role="presentation" 
+                            className="w-[64px] h-[64px] border rounded hover:border-[purple]" 
+                            onClick={()=>{customRedirect(item.url)}}
+                        />
+            }
+                
+            )
 
             setItemsCarousel(items2);
         };
