@@ -16,6 +16,8 @@ const AreaPersonale = () => {
                     <div className='w-[800px] '>
                         <Routes>
                             <Route index element={<ITouiOrdini />} />
+                            <Route path="iTuoiOrdini" element={<ITouiOrdini />} />
+                            <Route path="iTuoiOrdini/:id" element={<ITouiOrdini />} />
                             <Route path="/iTuoiOrdini" element={<ITouiOrdini />} />
                             <Route path="/iTuoiLavori" element={<ITouiLavori />} />
 
