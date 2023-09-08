@@ -207,7 +207,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                     </div>
                                                 </div>
                                                 <div className="col col-3">
-                                                    <div className='row mt-[40px]'>
+                                                    <div className='row mt-[20px]'>
                                                         <div className={`col col-12`}>
                                                             <div className='flex  justify-center items-center'>
                                                                 <span style={{ background: item.coloreStatoHtml }} className={`p-1 rounded font-bold`}>
@@ -216,66 +216,38 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className='row'>
-                                                        <div className='col col-12'>
-                                                            <div className='row mt-[3px] justify-end'>
-
-                                                                <div className='col col-8 px-0'>
-                                                                    <span>
-                                                                        Totale Lavori:
-                                                                    </span>
-                                                                </div>
-                                                                <div className='col col-3 px-0'>
-                                                                    <div className='flex  justify-end items-center'>
-                                                                        <span className='text-end font-bold'>
-                                                                            € {item.importoTotOrdiniNettoOriginaleStr}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div className='row mt-[3px] justify-end'>
-                                                                <div className='col col-8 px-0'>
-                                                                    <span>
-                                                                        Totale Spedizioni:
-                                                                    </span>
-                                                                </div>
-                                                                <div className='col col-3 px-0'>
-                                                                    <div className='flex  justify-end items-center'>
-                                                                        <span className='text-end font-bold'>
-                                                                            € {item.importoConsegnaStr}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className='row mt-[3px] justify-end'>
-                                                                <div className='col col-8 px-0'>
-                                                                    <span>
-                                                                        IVA (22%):
-                                                                    </span>
-                                                                </div>
-                                                                <div className='col col-3 px-0'>
-                                                                    <div className='flex  justify-end items-center'>
-                                                                        <span className='text-end font-bold'>
-                                                                            € {item.importoTotIvaStr}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className='row mt-[3px] justify-end'>
-                                                                <div className='col col-8 px-0 bg-[#d6e03d] border-x-2 border-x-[#fff]'>
-                                                                    <p className='flex font-bold'>
-                                                                        TOTALE:
-                                                                    </p>
-                                                                </div>
-                                                                <div className='col col-3 px-0 bg-[#d6e03d] '>
-                                                                    <div className='flex  justify-end items-center px-0'>
-                                                                        <p className='text-end font-bold '>
-                                                                            € {item.importoTotStr}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                    <div className='row mt-[15px]'>
+                                                        <div className='w-full flex justify-between'>
+                                                            <span>
+                                                                Totale Lavori:
+                                                            </span>
+                                                            <span className='text-end font-bold'>
+                                                                € {item.importoTotOrdiniNettoOriginaleStr}
+                                                            </span>
+                                                        </div>
+                                                        <div className='w-full flex justify-between'>
+                                                            <span>
+                                                                Totale Spedizioni:
+                                                            </span>
+                                                            <span className='text-end font-bold'>
+                                                                € {item.importoConsegnaStr}
+                                                            </span>
+                                                        </div>
+                                                        <div className='w-full flex justify-between'>
+                                                            <span>
+                                                                IVA (22%):
+                                                            </span>
+                                                            <span className='text-end font-bold'>
+                                                                € {item.importoTotIvaStr}
+                                                            </span>
+                                                        </div>
+                                                        <div className='w-full flex justify-between bg-[#d6e03d]'>
+                                                            <span>
+                                                                TOTALE:
+                                                            </span>
+                                                            <span className='text-end font-bold pl-[5px] border-l border-l-[white]'>
+                                                            € {item.importoTotStr}
+                                                            </span>
                                                         </div>
                                                     </div>
 
@@ -298,7 +270,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                         handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro}
                                                         handleNewTagListinoTemplate={handleNewTagListinoTemplate}
                                                         handleDeleteLavoro={handleDeleteLavoro}
-                                                        width='750px'
+                                                        width={710}
                                                     />
                                                 </div>
                                                 <div className="col col-12 mt-[10px] mb-[10px] px-0 pl-[15px]">

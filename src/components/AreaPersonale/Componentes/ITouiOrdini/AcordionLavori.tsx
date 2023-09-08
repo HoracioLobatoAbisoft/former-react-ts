@@ -14,6 +14,7 @@ type PropsAcordionLavori = {
 }
 //AreaPersonale/iTuoiOrdini
 const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro,width }: PropsAcordionLavori) => {
+    console.log('list', listLavori);
     return (
         <div className='w-full'>
             {listLavori.map((item, index) => (
@@ -21,30 +22,40 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
-                        sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: 720 }}
+                        sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: width }}
                         className='acodion-lavori w-full'
                     >
                         <div className={` flex w-[100%] items-center`}>
-                            <div className="flex justify-center items-center ml-[10px]">
-                                <span className='font-bold text-[12px]'>
+                            <div className="flex flew-row justify-center items-center w-[85px]">
+                                <span className='font-bold text-[12px] ml-[10px]'>
                                     +
                                 </span>
+                                <div className="mx-[5px] w-[40px] flex justify-center items-center">
+                                    <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaStato} alt="" />
+                                </div>
+                                <div style={{ 'backgroundColor': item.coloreStatoHTMLO }} className="w-[25px] h-[25px] rounded border border-[#aaa]"></div>
+
                             </div>
-                            <div className="mx-[5px] w-[40px] flex justify-center items-center">
-                                <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaStato} alt="" />
-                            </div>
-                            <div style={{ 'backgroundColor': item.coloreStatoHTMLO }} className="w-[25px] h-[25px] rounded border border-[#aaa]"></div>
-                            <div className="ml-[15px]">
+                            
+                            <div className="flex w-[268px] px-[2px]">
                                 <span className='text-[11px] font-bold'>
                                     {item.title}
                                 </span>
                             </div>
-                            <div className="ml-[100px] w-[190px] flex justify-end ">
+                            <div className="w-[160px] flex justify-end ">
                                 <span className='text-[11px] font-bold text-[red]'>
-                                    {(item.stato == 5 && item.idOrdineWeb != 0 && item.omaggio != 1) ? "ALLEGARE I FILE!" : "EFFETTUA IL PAGAMENTO! "}
+                                    {
+                                    //(item.stato == 5 && item.idOrdineWeb != 0 && item.omaggio != 1) ? "ALLEGARE I FILE!" : "EFFETTUA IL PAGAMENTO! "
+                                    (item.stato == 5 && item.idOrdineWeb != 0 && item.omaggio != 1) ? "ALLEGARE I FILE!" : item.stato == 15 ?  "EFFETTUA IL PAGAMENTO!  "  :''
+                                    }
                                 </span>
                             </div>
-                            <div className="w-[200px] flex justify-end">
+                            <div className="w-[70px] flex justify-end">
+                                <span className='font-bold text-[11px]'>
+                                    { `${item.nOrdineStr}`}
+                                </span>
+                            </div>
+                            <div className="w-[110px] flex justify-end">
                                 <span className='font-bold text-[11px]'>
                                     {item.omaggio ? "OMAGGIO" : `${item.importoNettoStr}`}
                                 </span>
@@ -54,7 +65,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                         </div>
                     </AccordionSummary>
                     <AccordionDetails
-                        sx={{ bgcolor: "", display: '', fontSize: 11, width: 720, border: '1px solid #ddd', }}
+                        sx={{ bgcolor: "", display: '', fontSize: 11, width: width, border: '1px solid #ddd', }}
                     >
                         <div className="">
                             <div className="flex flex-row">
