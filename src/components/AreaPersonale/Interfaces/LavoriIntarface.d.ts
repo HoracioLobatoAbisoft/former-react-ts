@@ -1,10 +1,5 @@
-export interface ReponseGetLavori {
-    data: DataGetLavori;
-    message: string;
-    status: number;
-}
 
-export interface DataGetLavori {
+export interface ReponseGetLavori {
     list: LavoriList[];
     paginatedList: number[];
 }

@@ -12,9 +12,7 @@ type PropsAcordionLavori = {
 //AreaPersonale/iTuoiOrdini
 const AcordionLavori = ({  width }: PropsAcordionLavori) => {
     const {listLavori, pageLavori, handleGetLavori, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro} = useITuoiLavori()
-    useEffect(()=>{
-        console.log('listLavori', listLavori)
-    },[listLavori])
+    
     return (<>
     <div className='w-[790px] p-[10px]'>
         <div className='w-full'>

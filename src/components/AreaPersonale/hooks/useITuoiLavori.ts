@@ -20,25 +20,21 @@ const useITuoiLavori = () => {
     const getLavori = async (idUt: number, pageNumber: number) => {
         try {
             const responseGetLavori = await httpGetLavori(idUt, pageNumber);
-            return responseGetLavori.data;
+            return responseGetLavori;
         } catch (error) {
-            console.log('error', error)
+            console.warn('error', error)
         }
     }
 
     const handleGetLavori = async ( pageNumber: number,idUt= 1684,) => {
         const responseGetLavori = await getLavori(idUt, pageNumber);
-        console.log('responseGetLavori', responseGetLavori);
         setListLavori(responseGetLavori?.list??[]);
-        setPageLavori( responseGetLavori?.paginatedList??[]);
-        
-       
+        setPageLavori( responseGetLavori?.paginatedList??[]); 
     }
 
     const deleteLavoro = async (idLavoro: number|string) => {
         try {
             const responseDeleteLavore = await httpDeleteLavoro(idLavoro);
-            console.log('responseDeleteLavore', responseDeleteLavore);
             handleGetLavori(1);
         } catch (error) {
             console.log('error', error)
@@ -56,6 +52,10 @@ const useITuoiLavori = () => {
     useEffect(() => {
         handleGetLavori(1);
     }, [])
+
+    useEffect(()=>{
+        console.log('listLavori', listLavori)
+    },[listLavori])
 
     const handleRedirectToDetaglioLavoro = (idLavori: number|string) => {
         navigate('/dettaglio-lavoro')
