@@ -62,7 +62,7 @@ const SideBarAreaPersonale = () =>{
                     </span>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-[2px]">
+                    <Link to={'/AreaPersonale/iTuoiOrdini'} className="flex flex-row items-center mt-[2px]">
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
@@ -71,7 +71,7 @@ const SideBarAreaPersonale = () =>{
                     </Link>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <Link to={'/AreaPersonale/iTuoiLavori'} className="flex flex-row items-center mt-1">
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoLavoro20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">

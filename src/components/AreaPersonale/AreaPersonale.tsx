@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import SideBarAreaPersonale from './Componentes/LayOut/SideBarAreaPersonale';
 import ITouiOrdini from './pages/ITouiOrdini';
-import DettaglioOrdine from './Componentes/ITouiOrdini/DettaglioOrdine';
+import ITouiLavori from './pages/ITouiLavori';
 const AreaPersonale = () => {
 
     return (
@@ -16,7 +16,8 @@ const AreaPersonale = () => {
                     <div className='w-[800px] '>
                         <Routes>
                             <Route index element={<ITouiOrdini />} />
-                            <Route path="iTuoiOrdini" element={<ITouiOrdini />} />
+                            <Route path="/iTuoiOrdini" element={<ITouiOrdini />} />
+                            <Route path="/iTuoiLavori" element={<ITouiLavori />} />
 
                         </Routes>
                     </div>
