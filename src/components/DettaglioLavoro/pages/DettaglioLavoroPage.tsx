@@ -2,6 +2,13 @@ import { GLOBAL_CONFIG } from "../../../_config/global";
 import { useState } from "react";
 const DettaglioLavoroPage = () => {
     const [showEditSection, setShowEditSection] = useState<boolean>(false)
+    const [showTipoRetroRow, setShowTipoRetroRow] = useState<boolean>(true)
+    const [showPreventivoRow, setPreventivoRow] = useState<boolean>(true)
+    const [disabledTipoRetro, setDisabledTipoRetro] = useState<boolean>(false)
+    const [checkedPreventivo, setCheckedPreventivo] = useState<boolean>(true)
+    const [disabledPreventivo, setDisabledPreventivo] = useState<boolean>(false)
+    const [showModifyButton, setshowModifyButton] = useState<boolean>(true)
+    
     return <>
         <div className="w-[1000px]">
             <div className="w-full flex flex-row items-center justify-center my-[10px]">
@@ -121,7 +128,9 @@ const DettaglioLavoroPage = () => {
                                     </span>
                                 </div>
                                 <div className="w-full flex items-start justify-center">
-                                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoEdit20.png`} className="w-[128px] h-[128px] mt-[26px]" />
+                                    <img    src={`${GLOBAL_CONFIG.IMG_IP}/img/icoEdit20.png`} 
+                                            className="w-[128px] h-[128px] mt-[26px]" 
+                                    />
 
                                 </div>
 
@@ -137,12 +146,8 @@ const DettaglioLavoroPage = () => {
                                         {`€ ${`12,00`} + iva`}
                                     </span>
                                 </div>
-
                             </div>
-
                         </div>
-                        
-
                     </div>
                     <div className="w-full bg-[orange] my-[5px]">
                         <span className="text-[14px] text-[white] font-bold ml-[20px]">
@@ -155,45 +160,68 @@ const DettaglioLavoroPage = () => {
                                 <span className="w-[114px] px-[10px] text-[11px]">
                                 Nome Lavoro:
                                 </span>
-                                <div  className="w-[390px] min-h-[22px] flex bg-[#f1f1f1] ">
+                                <div  className={`w-[${showModifyButton?'390px':'542px'}] min-h-[22px] flex bg-[#f1f1f1] `}>
                                     <p className="text-justify m-[5px]">
-                                    {`
-
-`}
+                                        {` `}
                                     </p>
                                 </div>
-                                <div className="w-[152px] px-[2px]">
-                                    <div 
-                                        className="w-[118px] flex flex-row bg-[#ffd30c] hover:bg-[#ffe055] rounded p-[5px]"
-                                        onClick={()=>setShowEditSection(true)}
-                                    >
-                                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoEdit20.png`} alt="" />
-                                        <span className="text-[12px]">
-                                            Modifica Nome 
-                                        </span>
+                                {
+                                    showModifyButton&&
+                                    <div className="w-[152px] px-[2px]">
+                                        <div 
+                                            className="w-[118px] flex flex-row bg-[#ffd30c] hover:bg-[#ffe055] rounded p-[5px]"
+                                            onClick={()=>setShowEditSection(true)}
+                                        >
+                                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoEdit20.png`} alt="" />
+                                            <span className="text-[12px]">
+                                                Modifica Nome 
+                                            </span>
 
+                                        </div>
                                     </div>
-
-                                </div>
-
+                                }
+                                
                             </div>
+                            {
+                                showTipoRetroRow&&
                             <div className="w-full flex flex-row py-[5px]">
                                 <span className="w-[114px] px-[10px] text-[11px]">
-                                Tipo Retro:
+                                    Tipo Retro:
                                 </span>
                                 <div  className="w-[390px] min-h-[22px] flex">
-                                <select 
-                                    className="w-[200px] flex border boder-[black] h-[22px]"
-                                >
-                                        <option selected value="0">Fronte e Retro differenti</option>
-                                        <option value="1">Fronte e Retro uguali</option>
-                                        <option value="2">Retro contenuto nel file Fronte</option>
-                                        <option value="3">Retro Bianco</option>
-                                </select>
+                                    <select 
+                                        className="w-[200px] flex border boder-[black] h-[22px]"
+                                        disabled={disabledTipoRetro}
+                                    >
+                                            <option selected value="0">Fronte e Retro differenti</option>
+                                            <option value="1">Fronte e Retro uguali</option>
+                                            <option value="2">Retro contenuto nel file Fronte</option>
+                                            <option value="3">Retro Bianco</option>
+                                    </select>
                                 </div>
-                                
-
                             </div>
+                        }
+                          {
+                                showPreventivoRow&&
+                            <div className="w-full flex flex-row py-[5px]">
+                                <span className="w-[114px] px-[10px] text-[11px]">
+                                    Preventivo:
+                                </span>
+                                <div  className="w-[390px] min-h-[22px] flex flex-row">
+                                    <input
+                                        type="checkbox"
+                                        checked={checkedPreventivo}
+                                        disabled={disabledPreventivo}
+                                        id="preventivo"
+                                        onClick={()=>setCheckedPreventivo(!checkedPreventivo)}
+                                    />
+                                    <label className="px-[2px]" htmlFor="preventivo">
+                                        (richiedi preventivo)
+                                    </label>
+                                    
+                                </div>
+                            </div>
+                        }
                             <div className="w-full flex flex-row py-[5px]">
                                 <span className="w-[114px] px-[10px] text-[11px]">
                                 Note:
