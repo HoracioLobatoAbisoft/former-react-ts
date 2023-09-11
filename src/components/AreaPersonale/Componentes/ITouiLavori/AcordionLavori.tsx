@@ -340,7 +340,7 @@ const AcordionLavori = ({  width }: PropsAcordionLavori) => {
                 Vai alla pagina
             </span>
         </div>
-        <div className="w-full flex">
+        <div className="w-full flex overflow-x-auto">
             {
             pageLavori.map((item, index) => (
                 <a key={item} className="text-[12px] hover:underline cursor-pointer py-[5px] px-[10px] bg-[#2b2b2b] text-white border-[1px] border-[#aaa] rounded-[3px]" onClick={() => { handleGetLavori(item) }}>{item}</a>
