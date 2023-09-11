@@ -13,7 +13,7 @@ interface Props {
     handleChangeRowSelect: (conditional: boolean, value: number, quantity: number) => void
     radioIva?: number;
     showColumTable: PrezzoValue | undefined;
-    showTablePreez: boolean | undefined;
+    showTablePreez: boolean ;
     senderComandargument: string;
     setSenderComandargument: React.Dispatch<React.SetStateAction<string>>
     handleCalcolaTuto: (code: string, QtaSelezionata: number, prezoSelezionata: number, i: number, dateConsegna: Date | undefined) => void

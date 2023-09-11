@@ -389,19 +389,9 @@ const ConfiguraProdottoRefactor = () => {
                 </div>
 
             </div>
-            <div className="w-[25%]  ">
+            <div className="w-[25%] ">
                 <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna} pdfTemplate={pdfTemplate}
-                    prodotto={prodotto} />
-                {/* 
-                    //comentario
-                <MenuCarrelo 
-                    handleHidden={handleHidden} 
-                    idUt={idUt} 
-                    handleLogin={handleLogin} 
-                    handleCarrello={handleCarrello}
-                    pdfTemplate={pdfTemplate}
-                    prodotto={prodotto}
-                 /> */}
+                    prodotto={prodotto} showTablePreez={showTablePreez} descrizioneDinamica={descrizioneDinamica} /> 
             </div>
         </div>
 

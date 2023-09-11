@@ -9,4 +9,8 @@ export interface DataGetDescrizioniDinamica {
     descrizioneEstesaEx: string;
     nombe: string;
     tipoCarta: string;
+    idReparto:number;
+    showTemplate:boolean;
+    showTemplate2D:boolean;
+    showTemplate3D:boolean;
 }

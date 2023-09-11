@@ -86,7 +86,7 @@ const useRefactorProdotto = () => {
     const [descrizioneDinamica, setDescrizioneDinamica] = useState<DataGetDescrizioniDinamica>()
     const [opzInclusa, setOpzInclusa] = useState<OptionsSelect[]>([])
 
-    const [showTablePreez, setShowTablePreez] = useState<boolean>();
+    const [showTablePreez, setShowTablePreez] = useState<boolean>(false);
     const [orientamiento, setOrientamiento] = useState<boolean>();
     const [showBloccoMisure, setShowBloccoMisure] = useState<boolean>()
     const [showProfundita, setShowProfundita] = useState<boolean>();
@@ -308,7 +308,7 @@ const useRefactorProdotto = () => {
             setQtaSelezinata(responseCalcolaTuto.data.qta);
             setPrezzoActive(responseCalcolaTuto.data.prezzoCalcolatoNetto)
             await handleOpzionisStatic();
-            if (initialState.base != null && initialState.depth != null) {
+            if (initialState.base != null && initialState.height != null) {
 
                 await handleShowAlertMassimo();
             }

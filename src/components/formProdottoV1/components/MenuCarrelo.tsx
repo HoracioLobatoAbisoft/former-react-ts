@@ -3,6 +3,7 @@ import { GLOBAL_CONFIG } from "../../../_config/global";
 import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 import { DataGetCalcolaTuto } from "../interface/calcolaTuto";
 import { numberFormat } from "../../../Helpers/formatNumber";
+import { DataGetDescrizioniDinamica } from "../interface/DescrizioneDinamica";
 
 type PropsMenuCarrrelo = {
     handleHidden: () => Promise<void>
@@ -15,6 +16,8 @@ type PropsMenuCarrrelo = {
     menuDateConsegna: string | undefined,
     pdfTemplate: string | undefined;
     prodotto: any | undefined;
+    showTablePreez: boolean;
+    descrizioneDinamica: DataGetDescrizioniDinamica | undefined
 }
 // const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello,}: PropsMenuCarrrelo) => {
 
@@ -22,8 +25,8 @@ type PropsMenuCarrrelo = {
 //     pdfTemplate: string | undefined;
 //     prodotto: any | undefined;
 // }
-const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto,handleCompraloSubito,calcolaTuto,qtaSelezinata,menuDateConsegna  }: PropsMenuCarrrelo) => {
-    const OpenTemplateWindow = (pdfTemplate: string|undefined) => {
+const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto, handleCompraloSubito, calcolaTuto, qtaSelezinata, menuDateConsegna, showTablePreez, descrizioneDinamica }: PropsMenuCarrrelo) => {
+    const OpenTemplateWindow = (pdfTemplate: string | undefined) => {
         window.open(`https://www.tipografiaformer.it/listino/template/${pdfTemplate}`)
     }
 
@@ -89,10 +92,10 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                 <table className="w-full mt-[10px]">
                     <tbody className="text-end "><tr>
                         <td className="pt-[5px]">
-                            Quantità
+                            {descrizioneDinamica?.idReparto == 2 ? 'Copie' : 'Quantità'}
                         </td>
                         <td className="pt-[5px] pr-[10px]">
-                            <b>{qtaSelezinata}</b>
+                            <b>{showTablePreez ? qtaSelezinata : "0"}</b>
                         </td>
                     </tr>
                         <tr>
@@ -100,7 +103,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 Consegna
                             </td>
                             <td className="pr-[10px]">
-                                <b>{menuDateConsegna}</b>
+                                <b>{showTablePreez ? menuDateConsegna : ' '}</b>
                             </td>
                         </tr>
                         <tr>
@@ -108,7 +111,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 Prezzo Netto
                             </td>
                             <td className="pr-[10px]">
-                                <b>{numberFormat(calcolaTuto?.prezzoCalcolatoNetto)}</b>
+                                <b>{showTablePreez ? numberFormat(calcolaTuto?.prezzoCalcolatoNetto) : '-'}</b>
                             </td>
                         </tr>
                         <tr>
@@ -120,7 +123,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                 <center>
                     {idUt != undefined && idUt > '0' ?
                         // <Link to={"/carrello"} onClick={() => { localStorage.setItem('stp', '1'); handleCarrello() }}>
-                            <button  className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={()=>handleCompraloSubito()}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                        <button className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => handleCompraloSubito()}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                         // </Link>
                         :
                         <button onClick={handleLogin} className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
@@ -128,25 +131,29 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
 
                 </center>
             </div>
-            <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">
-                <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
-                <center>
-                    <a className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold" 
-                        onClick={()=>OpenTemplateWindow(pdfTemplate)}
-                    >
-                        <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />
-                        Scarica Template
-                    </a> 
-                    <Link 
-                        to={`/richiedi-un-campione-gratuito`}
-                        state={prodotto}
-                        className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold">
-                        <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} /> 
-                        Campione Gratuito
-                    </Link>
-                </center>
-                <br />
-            </div>
+            {descrizioneDinamica?.showTemplate ?
+                <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">
+                    <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
+                    <center>
+                        <a className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold"
+                            onClick={() => OpenTemplateWindow(pdfTemplate)}
+                        >
+                            <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />
+                            Scarica Template
+                        </a>
+                        <Link
+                            to={`/richiedi-un-campione-gratuito`}
+                            state={prodotto}
+                            className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold">
+                            <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} />
+                            Campione Gratuito
+                        </Link>
+                    </center>
+                    <br />
+                </div>
+                : null
+            }
+
         </>
     )
 }

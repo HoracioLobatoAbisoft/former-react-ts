@@ -227,8 +227,8 @@ export const InputCustomSelect = ({
                   </h2>
                   <hr className="border border-white" />
                 </div>
-                <p className="max-w-[500px] text-justify text-white">
-                  {selected()?.description}
+                <p className="max-w-[500px] text-justify text-white" dangerouslySetInnerHTML={{__html:String(selected()?.description)}}>
+                  
                   {/* {options[index].description} */}
                 </p>
               </div>
