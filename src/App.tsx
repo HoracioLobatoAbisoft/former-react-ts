@@ -76,6 +76,7 @@ function App() {
           <Route path="/richiedi-un-campione-gratuito" element={ <RichiediUnCampioneGratuitoPage/>} />
           <Route path="/campione-gratuito-registrata" element={ <CampioneGratuitoRichiestoPage/>} />
           <Route path="/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
+          <Route path="/:idDettaglioLavoro/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
         </Routes>
       </UserContextProvider>
     </div>

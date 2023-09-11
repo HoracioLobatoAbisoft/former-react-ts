@@ -1,14 +1,18 @@
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import { useState } from "react";
+import FileSection from "../components/FileSection";
+
 const DettaglioLavoroPage = () => {
     const [showEditSection, setShowEditSection] = useState<boolean>(false)
     const [showTipoRetroRow, setShowTipoRetroRow] = useState<boolean>(true)
-    const [showPreventivoRow, setPreventivoRow] = useState<boolean>(true)
+    const [showPreventivoRow, setPreventivoRow] = useState<boolean>(false)
     const [disabledTipoRetro, setDisabledTipoRetro] = useState<boolean>(false)
     const [checkedPreventivo, setCheckedPreventivo] = useState<boolean>(true)
     const [disabledPreventivo, setDisabledPreventivo] = useState<boolean>(false)
-    const [showModifyButton, setshowModifyButton] = useState<boolean>(true)
-    
+    const [showModifyButton, setshowModifyButton] = useState<boolean>(false)
+    const [isThereFile, setIsThereFile] = useState<boolean>(true)
+    const [files, setFiles] = useState<any>([]);
+
     return <>
         <div className="w-[1000px]">
             <div className="w-full flex flex-row items-center justify-center my-[10px]">
@@ -288,25 +292,22 @@ const DettaglioLavoroPage = () => {
                         </div>
                     </div>
                     }
-
-                    <div className="w-full bg-[orange] my-[5px]">
-                        <span className="text-[14px] text-[white] font-bold ml-[20px]">
-                            INVIO FILE
-                        </span>
-                    </div>
-                   
-                    <div className="w-full rounded-[5px] border justify-center items-center p-[10px] my-[5px]">
-                        <div className=" text-center text-[11px] my-[10px]">
-                            Prima di inviare i file devi effettuare il pagamento dell'ordine in cui hai inserito questo lavoro.
-                        </div>
-                        <div className=" text-center text-[11px] my-[10px]">
-                            <span className="font-bold mx-[2px]">
-                            CLICCA QUI 
-                            </span>
-                            
-                            per andare al dettaglio dell'ordine
-                        </div>
-                    </div>
+                    <FileSection 
+                        step={3} 
+                        props={{
+                            files:[{
+                                    nome: 'Test',
+                                    type: 'Fronted',
+                                    idDettaglioLavoro: 127871
+                                },
+                                {
+                                    nome: 'Test',
+                                    type: 'Retro',
+                                    idDettaglioLavoro: 127871
+                                }
+                            ]
+                        }}
+                    />
                     <div className="w-full flex flex-row justify-end items-center my-[10px] ">
                         <span className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#f58220] hover:bg-[#e96b00] text-center rounded mx-[3px]">
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoIndietroW.png`} className="w-[22px] h-[22px]"/>
