@@ -18,6 +18,10 @@ import { DateFormatDDMMYY } from "../../Helpers/formatDates"
 import ProdottiSuggeriti from "./components/ProdottiSuggeriti"
 import RecencioniC from "./components/RecencioniC"
 import { useEffect, useState } from "react"
+import PreventivoPDF, { PreventivoPDFhtmlString } from "./components/PreventivoPDF"
+import jsPDF from 'jspdf';
+import ReactDOMServer from 'react-dom/server';
+import { enOperationFrame } from "../../enHelpers/enOperationFrame"
 
 const ConfiguraProdottoRefactor = () => {
     const {
@@ -93,6 +97,11 @@ const ConfiguraProdottoRefactor = () => {
         menuDateConsegna,
         handleCompraloSubito,
         formatoList,
+        handleOptionOPZ,
+        handleCarrelloData,
+        handleDonwloadPDF,
+        TotaleProvisorio,
+        dimensionniStr
     } = useRefactorProdotto()
     const [pdfTemplate, setPdfTemplate] = useState<string | undefined>();
     const [prodotto, setProdotto] = useState<any | undefined>();
@@ -105,6 +114,8 @@ const ConfiguraProdottoRefactor = () => {
         setPdfTemplate(result?.pdfTemplate);
         setProdotto(result);
     }
+
+
 
     const SelectFormato = () => {
         switch (idBaseEtiquete) {
@@ -139,7 +150,7 @@ const ConfiguraProdottoRefactor = () => {
     return (
         <div className="w-full flex gap-3 relative ">
             <div className="w-[75%]">
-                <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} />
+                <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} x={5} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', pr: 8, }} />
                 <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO</h5>
                 <div className="flex mt-3 ps-[4.5px]">
                     <table className="w-[75%]">
@@ -287,8 +298,14 @@ const ConfiguraProdottoRefactor = () => {
                         </p>
                         <p className="text-[22px] font-bold"> {showTablePreez ? "€" + numberFormat(calcolaTuto?.prezzoCalcolatoNetto) + " + iva" : "-"} </p>
                     </div>
+
                     <div className=" flex justify-between">
-                        <a href="#" className="flex gap-1 text-[12px]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePDF.png`} width={20} height={20} /> Preventivo PDF  ↓</a>
+                        <div className="hidden">
+                            <PreventivoPDF utenteData={utenteData} descrizioneDinamica={descrizioneDinamica} initialState={initialState} hanldeFormatoList={hanldeFormatoList} handleOptionsTipoCarta={handleOptionsTipoCarta} handleOptionsColoreStampa={handleOptionsColoreStampa} handleOptionOPZ={handleOptionOPZ} qtaSelezinata={qtaSelezinata} showTablePreez={showTablePreez} handleCarrelloData={handleCarrelloData} menuDateConsegna={menuDateConsegna} calcolaTuto={calcolaTuto} idBaseEtiquete={idBaseEtiquete} dimensionniStr={dimensionniStr} showOpzzioni={showOpzzioni} idAltezaEtiquete={idAltezaEtiquete}/>
+                        </div>
+
+                        <a className="flex gap-1 text-[12px] cursor-pointer" onClick={handleDonwloadPDF}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePDF.png`} width={20} height={20} /> Preventivo PDF  ↓</a>
+
                         <p className="text-[11px]">Prezzo consigliato al pubblico min. <b> {showTablePreez ? "€ " + numberFormat(calcolaTuto?.prezzoPubblico) + " + iva" : "-"} </b>  (+ grafica € <b>{numberFormat(calcolaTuto?.graficaPerFacciata)}</b> a facciata)</p>
                     </div>
                 </div>
@@ -310,20 +327,23 @@ const ConfiguraProdottoRefactor = () => {
                     <div className="w-[200px] h-[134px] border border-[#aaa] rounded-[5px] p-[15px] flex flex-col justify-between">
                         {idUt != undefined && idUt > '0' ?
                             <>
-                                <Link to={"/carrello"}>
-                                    <button onClick={() => { handleCarrello(); localStorage.setItem('stp', '1') }} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
-                                </Link>
+                                {/* <Link to={"/carrello"}> */}
+                                    <button onClick={() => { (showBloccoMisure && initialState.base && initialState.height) && (showProfundita && initialState.depth) ? handleCarrello(): null; (showBloccoMisure === false || showProfundita === false) ? handleCarrello() :null }} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
+                                {/* </Link> */}
                                 <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
                                     oppure
                                 </Divider>
                                 {/* <Link to={"/carrello"} > */}
-                                <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => { handleCompraloSubito() }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
+                                <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => {(showBloccoMisure && initialState.base && initialState.height) || (showProfundita && initialState.depth) ? handleCompraloSubito(): null; (showBloccoMisure === false || showProfundita === false) ? handleCompraloSubito() :null  }}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                                 {/* </Link> */}
 
                             </>
                             :
                             <>
                                 <button onClick={handleLogin} className="flex gap-[2px] items-center bg-[#d6e03d] rounded-[4px] w-full text-[11.5px] font-medium uppercase px-[4px] py-[4px] hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Aggiungi al Carrello</button>
+                                <Divider orientation="horizontal" variant="middle" flexItem sx={{ fontSize: 11, alignItems: 'center' }}>
+                                    oppure
+                                </Divider>
                                 <button onClick={handleLogin} className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" ><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                             </>
                         }
@@ -352,7 +372,7 @@ const ConfiguraProdottoRefactor = () => {
                                 : null
                             }
                         </div>
-                        <button className="flex bg-[#d6e03d] text-[11px] w-[150px] h-[30px] font-bold leading-[30px] uppercase justify-center items-center gap-1 rounded me-[15px]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoRecensione.png`} className="w-[22px]" /> Scrivi recensione</button>
+                        <button className="flex bg-[#d6e03d] text-[11px] w-[150px] h-[30px] font-bold leading-[30px] uppercase justify-center items-center gap-1 rounded me-[15px]" onClick={()=>handleHidden(enOperationFrame.reliadUrl,'le-tue-recensioni')}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoRecensione.png`} className="w-[22px]" /> Scrivi recensione</button>
                     </div>
                 </div>
                 <div className="">
@@ -391,7 +411,7 @@ const ConfiguraProdottoRefactor = () => {
             </div>
             <div className="w-[25%] ">
                 <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna} pdfTemplate={pdfTemplate}
-                    prodotto={prodotto} showTablePreez={showTablePreez} descrizioneDinamica={descrizioneDinamica} /> 
+                    prodotto={prodotto} showTablePreez={showTablePreez} descrizioneDinamica={descrizioneDinamica} TotaleProvisorio={TotaleProvisorio} />
             </div>
         </div>
 
@@ -404,4 +424,6 @@ export default ConfiguraProdottoRefactor
 /**
  * !FIXME : AL CAMBIAR EL TIPO DE CARTA BORRA LOS INPUTS O LOS VALORES DE LOS INPUTS
  * !FIXME: EN LOS CHECKBOX SELECCIONAR FUNCIONA AL QUINTAR LA SELECCION NO DESCUENTA DE LOS PRECIOS
+ * !FIXME: AL INGRESAR UN VALOR U VACIALO A LOS INPUTS SE CUELLGA OTRA VEZ XD
+ *  
  */

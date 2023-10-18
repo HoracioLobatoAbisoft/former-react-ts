@@ -20,7 +20,6 @@ const AreaPersonale = () => {
                             <Route path="iTuoiOrdini/:id" element={<ITouiOrdini />} />
                             <Route path="/iTuoiOrdini" element={<ITouiOrdini />} />
                             <Route path="/iTuoiLavori" element={<ITouiLavori />} />
-
                         </Routes>
                     </div>
                 </div>

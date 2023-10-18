@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import { GLOBAL_CONFIG } from "../../../../_config/global";
-const SideBarAreaPersonale = () =>{
+import { enOperationFrame } from "../../../../enHelpers/enOperationFrame";
+const SideBarAreaPersonale = () =>{ 
+
+    const handleLink = (href:string) =>{
+        window.parent.postMessage({ operation: enOperationFrame.reliadUrl, uri:href}, GLOBAL_CONFIG.IMG_IP);
+    }
+
     return(<>
         <div className="flex">
             <div className="row">
                 <div className="col col-12">
-                    <div className="flex border border-[0.1px] bg-[#000] "/>
+                    <div className="flex  border-[0.1px] bg-[#000] "/>
                 </div>
                 <div className="col col-12 mt-[5px]">
                     <span className="ml-[20px] text font-bold text-[14px]">
@@ -13,7 +19,7 @@ const SideBarAreaPersonale = () =>{
                     </span>
                 </div>
                 <div className="col col-12 mt-[5px]">
-                    <div className="flex border border-[0.1px] bg-[#000] "/>
+                    <div className="flex  border-[0.1px] bg-[#000] "/>
                 </div>
                 <div className="col col-12 mt-[5px]">
                     <span className="ml-[20px] text font-bold text-[14px]">
@@ -21,40 +27,40 @@ const SideBarAreaPersonale = () =>{
                     </span>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('i-tuoi-dati')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoUt20B.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Il tuo Profilo
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('i-tuoi-dati')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPwd20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Cambio Password
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('aggiorna-dati-fiscali')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/_icoDatiFiscali20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Aggiorna Dati Fiscali
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('indirizzi-spedizione')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInd20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Indirizzi e Corriere
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12 mt-[15px]">
                     <span className="ml-[20px] text font-bold text-[14px]">
@@ -80,31 +86,31 @@ const SideBarAreaPersonale = () =>{
                     </Link>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('i-tuoi-coupon-di-sconto')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoMieiCoupon20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - I tuoi Coupon di Sconto
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('offerte-e-promozioni')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoOfferte16.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Offerte e Promozioni
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('le-tue-fatture')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPdf20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Le tue Fatture
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12 mt-[15px]">
                     <span className="ml-[20px] text font-bold text-[14px]">
@@ -112,13 +118,13 @@ const SideBarAreaPersonale = () =>{
                     </span>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-[2px]">
+                    <a href="http://listini.tipografiaformer.it/" target="_blank" className="flex flex-row items-center mt-[2px]">
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPdf20.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Crea il tuo listino
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12 mt-[15px]">
                     <span className="ml-[20px] text font-bold text-[14px]">
@@ -126,16 +132,16 @@ const SideBarAreaPersonale = () =>{
                     </span>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-[2px]">
+                    <a  className="flex flex-row items-center mt-[2px] cursor-pointer" onClick={()=>handleLink('le-tue-recensioni')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icorecensione.png`} className="ml-[5px] w-[25px] h-[21px]"/>
                         <span className="ml-1 text-[12px]">
                             - Le tue Recensioni
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12 mt-[5px]">
-                    <div className="flex border border-[0.1px] bg-[#000] "/>
+                    <div className="flex  border-[0.1px] bg-[#000] "/>
                 </div>
                 <div className="col col-12 mt-[5px]">
                     <span className="ml-[20px] text font-bold text-[14px]">
@@ -143,50 +149,50 @@ const SideBarAreaPersonale = () =>{
                     </span>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('assistenza-clienti')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <span className="ml-1 text-[12px]">
                             Contattaci
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('le-nostre-lavorazioni')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <span className="ml-1 text-[12px]">
                             Le nostre lavorazioni
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a  className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('glossario-tipografico')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <span className="ml-1 text-[12px]">
                             Glossario Tipografico
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-1">
+                    <a className="flex flex-row items-center mt-1 cursor-pointer" onClick={()=>handleLink('suggerimenti-per-inviarci-i-file')}>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoElenco.png`} className="ml-[20px] w-[5px] h-[6px]"/>
                         <span className="ml-1 text-[12px]">
                             Come creare file perfetti
                         </span>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12 mt-[5px]">
-                    <div className="flex border border-[0.1px] "/>
+                    <div className="flex  border-[0.1px] "/>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-[20px]">
+                    <a href="https://www.google.com/chrome/" target="_blank" className="flex flex-row items-center mt-[20px]">
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnHomeBrowser.png`} className="ml-[15px] w-[15
                             8px] h-[60px]"/>
-                    </Link>
+                    </a>
                 </div>
                 <div className="col col-12">
-                    <Link to={'#'} className="flex flex-row items-center mt-[12px]">
+                    <a href={`${GLOBAL_CONFIG.IMG_IP}/suggerimenti-per-inviarci-i-file`} target="_blank" className="flex flex-row items-center mt-[12px]">
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnHomeInvioFile.png`} className="ml-[15px] w-[188px] h-[60px]"/>
-                    </Link>
+                    </a>
                 </div>
                 
             </div>
@@ -195,3 +201,4 @@ const SideBarAreaPersonale = () =>{
 }
 
 export default SideBarAreaPersonale;
+

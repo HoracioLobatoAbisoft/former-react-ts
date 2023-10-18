@@ -56,8 +56,8 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                     ArrayLocalCarrello.map((elem, i) => {
                         return (
                             <Accordion key={i} expanded={expanded === `panel${i}`} onChange={handleAcordion(`panel${i}`)}>
-                                <AccordionSummary className='carrello' sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
-                                    <div className=" w-[10%] flex">
+                                <AccordionSummary className='carrello'  sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
+                                    <div className=" w-[10%] flex" id='acordion'>
                                         <AddIcon sx={{ fontSize: 18 }} />
                                     </div>
                                     <div className=" w-full flex justify-between text-[11px] font-semibold">

@@ -31,6 +31,9 @@ import { DataGetDescrizioniDinamica } from '../interface/DescrizioneDinamica';
 import { httpGetCorriereSelezionata, httpGetMetodiPagamento, httpGetTotaleProvisorio } from '../../carrello/services/Services';
 import { DateFormatDDMM, DateFormatItWDMY } from '../../../Helpers/formatDates';
 import { DataGgetCorriereSelezionata } from '../../carrello/Interfaces/Corriere';
+import jsPDF from 'jspdf';
+import { DataGetTotaleProvisorio } from '../../carrello/Interfaces/totaleProvvisorio';
+import axios, { AxiosResponse } from 'axios';
 
 const initialValues: InitialValuesProdotto = {
     base: null,
@@ -85,6 +88,8 @@ const useRefactorProdotto = () => {
     const [recencioniC, setRecencioniC] = useState<DataGetAggiornaReview[]>([])
     const [descrizioneDinamica, setDescrizioneDinamica] = useState<DataGetDescrizioniDinamica>()
     const [opzInclusa, setOpzInclusa] = useState<OptionsSelect[]>([])
+    const [TotaleProvisorio, setTotaleProvisorio] = useState<DataGetTotaleProvisorio>()
+
 
     const [showTablePreez, setShowTablePreez] = useState<boolean>(false);
     const [orientamiento, setOrientamiento] = useState<boolean>();
@@ -332,7 +337,7 @@ const useRefactorProdotto = () => {
             setDescrizioneDinamica(responseDescrizioniDinamica.data);
 
             handleOpzioneInclusa(responseStampaCaldo.data);
-
+            await handleTotaleProvisorio();
         } catch (error) {
             //console.log('ErrorHandleData', error)
         }
@@ -467,7 +472,7 @@ const useRefactorProdotto = () => {
     }
 
     const getFormatoList = async (idPrevF: number) => {
-            console.log('idPrevF', idPrevF);
+        console.log('idPrevF', idPrevF);
         const formatoList = await httpGetFormatoArray(idPrevF);
         return formatoList;
     }
@@ -594,8 +599,15 @@ const useRefactorProdotto = () => {
         return responseDescrizioniDinamica;
     }
 
-
-
+    const getTotaleProvisorio = async (idUt: number, TotalePeso: number, cero: number, TotalePrezzo: number, Sconto: number | null, tipoPagamento: number, IdCorriere: number, cap?: string) => {
+        try {
+            ////console.log('lavori',dataTotale.TotalPrezo)
+            const responseProvisorio = await httpGetTotaleProvisorio(idUt, TotalePeso, cero, TotalePrezzo, Sconto, tipoPagamento, IdCorriere, cap);
+            return responseProvisorio.data;
+        } catch (error) {
+            //console.log('error use Carrello ', error)
+        }
+    }
     /* 
     * <===================handleChange | eventos de cambios=======================>
     */
@@ -604,15 +616,6 @@ const useRefactorProdotto = () => {
         const { name, value } = evt.target;
 
         if (name !== "Format" && name !== "base" && name !== "coloreStampa" && name !== "depth" && name !== "height" && name !== "quantity" && name !== "tipoCarta" && name !== "formatoS" && name !== "facciatePagine" && name !== 'nome' && name !== 'note') {
-            ////console.log('NO esta ',name,value);
-            // valuesStampaCaldoOpz[name] = Number(value);
-
-            // effectTablePrezzi()
-            // if (valuesStampaCaldoOpz) {
-            //     effectTablePrezzi()
-            // }
-            //valuesStampaCaldoOpz.name = Number(value);
-
             setValuesStampaCaldoOpz({
                 ...valuesStampaCaldoOpz,
                 [name]: Number(value)
@@ -622,7 +625,7 @@ const useRefactorProdotto = () => {
             if (parseInt(value) > 0) {
                 setMMValue({
                     ...mmValue,
-                    [name]: false
+                    [name]: value
                 })
             }
         }
@@ -638,6 +641,12 @@ const useRefactorProdotto = () => {
                     newBase = parseInt(value) < 70 ? 70 : parseInt(value);
                 } else if (showProfundita === false) {
                     newBase = parseInt(value) < 1 ? 1 : parseInt(value);
+                    if (parseInt(value) > 440) {
+                        newBase = 440;
+                    } else {
+                        newBase = parseInt(value);
+                    }
+
                 }
                 else {
                     newBase = parseInt(value) < 20 ? 20 : parseInt(value);
@@ -664,6 +673,11 @@ const useRefactorProdotto = () => {
                     newheight = parseInt(value) < 100 ? 100 : parseInt(value);
                 } else if (showProfundita === false) {
                     newheight = parseInt(value) < 1 ? 1 : parseInt(value);
+                    if (parseInt(value) > 310) {
+                        newheight = 310;
+                    } else {
+                        newheight = parseInt(value);
+                    }
                 }
                 else {
                     newheight = parseInt(value) < 40 ? 40 : parseInt(value);
@@ -684,6 +698,7 @@ const useRefactorProdotto = () => {
         }
 
     }
+
 
 
 
@@ -957,14 +972,69 @@ const useRefactorProdotto = () => {
 
     const handleCarrello = async () => {
 
-        //const arrayCarrello = [];
+        navigate('/carrello')
 
+        localStorage.setItem('stp', '1')
+        // (showBloccoMisure && initialState.base && initialState.height) || (showProfundita && initialState.depth)
         const responseHandFormato = hanldeFormatoList();
         const responseHandTipoCarta = handleOptionsTipoCarta();
         const responseHandColoreStampa = handleOptionsColoreStampa();
         const responseHandOrientamiento = handleOrientamiento();
         const responseHandFacPagine = handleFogliPagine();
 
+        const OPZ = handleOptionOPZ()
+
+        const objDataProdotto: ObjCarrello = {
+            idUt: idUt,
+            idPrev: idPrev,
+            IdFormProd: initialState.formatoS == null ? idFormProd : initialState.formatoS,
+            IdTipoCarta: initialState.tipoCarta == null ? IdTipoCarta : initialState.tipoCarta,
+            IdColoreStampa: initialState.coloreStampa == null ? IdColoreStampa : initialState.coloreStampa,
+            nome: initialState.nome,
+            note: initialState.note,
+            qta: qtaSelezinata,
+            img: showSvg ? imageSvg : helperDataProdotto?.imgRif,
+            svgImg: showSvg,
+            prodotto: dimensionniStr?.prodotto,
+            orientamiento: orientamiento && handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
+            idOrientamiento: orientamiento ? Number(handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).value) : null,
+            suporto: handleCarrelloData(initialState.tipoCarta, responseHandTipoCarta).label,
+            stampa: handleCarrelloData(initialState.coloreStampa, responseHandColoreStampa).label,
+            dimencioni: parseInt(String(idBaseEtiquete)) != 0 ? `(${idBaseEtiquete}B x ${idAltezaEtiquete}A mm)` : dimensionniStr?.dimensioniStr,
+            colli: calcolaTuto?.colli,
+            peso: calcolaTuto?.pesoStr,
+            prezzo: calcolaTuto?.prezzoCalcolatoNetto,
+            descrizione: showColumTable?.descrizione,
+            stampaOPZ: OPZ._stampaOpz,
+            _stampaOpzId: OPZ._stampaOpzId,
+            nomeUrl: helperDataProdotto?.url,
+            scadenza: dateConsegna,
+            code: codeStart,
+            idListinoBase: helperDataProdotto?.idListinoBase,
+            showFogli: showFaciatePagine,
+            fogli: handleCarrelloData(initialState.facciatePagine, responseHandFacPagine).label,
+            labelFogli: labelFogli,
+            pdfTemplate: handleCarrelloData(initialState.formatoS == null ? Number(idFormProd) : initialState.formatoS, responseHandFormato).pdfTemplate,
+            idReparto: dimensionniStr?.idReparto,
+            base: initialState.base ?? 0,
+            produndita: initialState.base ?? 0,
+            altezza: initialState.base ?? 0,
+        }//Buste Intestate 11x23 con Finestra e strip a colori solo fronte
+        const existCarreloLocal = localStorage.getItem('c');
+        let dataCarrelli: any[] = [];
+        if (existCarreloLocal) {
+            dataCarrelli = JSON.parse(existCarreloLocal);
+        }
+        ////console.log("IdsCarrellos", objDataProdotto)
+        const updateCarrello = [...dataCarrelli, objDataProdotto];
+        localStorage.setItem('c', JSON.stringify(updateCarrello));
+        //navigate('/carrello');
+
+        handleHidden(enOperationFrame.hidden);
+
+    }
+
+    const handleOptionOPZ = () => {
         const arrayStampa: OptionsSelect[] = [];
         const _stampaOpzId: number[] = []
         Object.keys(valuesStampaCaldoOpz).forEach((key) => {
@@ -1014,73 +1084,33 @@ const useRefactorProdotto = () => {
             _stampaOpzId.push(ele?.idLavoro)
 
         })
-
-        //console.log('StampaLstss \n', noExistentes, '\n', opzioniList, "\n", arrayStampa, valuesStampaCaldoOpz)
-        const objDataProdotto: ObjCarrello = {
-            idUt: idUt,
-            idPrev: idPrev,
-            IdFormProd: initialState.formatoS == null ? idFormProd : initialState.formatoS,
-            IdTipoCarta: initialState.tipoCarta == null ? IdTipoCarta : initialState.tipoCarta,
-            IdColoreStampa: initialState.coloreStampa == null ? IdColoreStampa : initialState.coloreStampa,
-            nome: initialState.nome,
-            note: initialState.note,
-            qta: qtaSelezinata,
-            img: showSvg ? imageSvg : helperDataProdotto?.imgRif,
-            svgImg: showSvg,
-            prodotto: dimensionniStr?.prodotto,
-            orientamiento: orientamiento && handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
-            idOrientamiento: orientamiento ? Number(handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).value) : null,
-            suporto: handleCarrelloData(initialState.tipoCarta, responseHandTipoCarta).label,
-            stampa: handleCarrelloData(initialState.coloreStampa, responseHandColoreStampa).label,
-            dimencioni: parseInt(String(idBaseEtiquete)) != 0 ? `(${idBaseEtiquete}B x ${idAltezaEtiquete}A mm)` : dimensionniStr?.dimensioniStr,
-            colli: calcolaTuto?.colli,
-            peso: calcolaTuto?.pesoStr,
-            prezzo: calcolaTuto?.prezzoCalcolatoNetto,
-            descrizione: showColumTable?.descrizione,
-            stampaOPZ: _stampaOpz,
-            _stampaOpzId: _stampaOpzId,
-            nomeUrl: helperDataProdotto?.url,
-            scadenza: dateConsegna,
-            code: codeStart,
-            idListinoBase: helperDataProdotto?.idListinoBase,
-            showFogli: showFaciatePagine,
-            fogli: handleCarrelloData(initialState.facciatePagine, responseHandFacPagine).label,
-            labelFogli: labelFogli,
-            pdfTemplate: handleCarrelloData(initialState.formatoS == null ? Number(idFormProd) : initialState.formatoS, responseHandFormato).pdfTemplate,
-            idReparto: dimensionniStr?.idReparto,
-            base: initialState.base ?? 0,
-            produndita: initialState.base ?? 0,
-            altezza: initialState.base ?? 0,
-        }//Buste Intestate 11x23 con Finestra e strip a colori solo fronte
-        const existCarreloLocal = localStorage.getItem('c');
-        let dataCarrelli: any[] = [];
-        if (existCarreloLocal) {
-            dataCarrelli = JSON.parse(existCarreloLocal);
-        }
-        ////console.log("IdsCarrellos", objDataProdotto)
-        const updateCarrello = [...dataCarrelli, objDataProdotto];
-        localStorage.setItem('c', JSON.stringify(updateCarrello));
-        //navigate('/carrello');
-        handleHidden();
-
+        return { _stampaOpz, _stampaOpzId }
     }
 
-    const handleHidden = async () => {
-        ////console.log('mando 1')
-        window.parent.postMessage({ color: 'bg_hidden', operation: enOperationFrame.hidden }, GLOBAL_CONFIG.IMG_IP);
+    const handleHidden = (operation: enOperationFrame, uri?: string) => {
+        console.log('mando 1')
+        window.parent.postMessage({ color: 'bg_hidden', operation: operation, uri: uri }, GLOBAL_CONFIG.IMG_IP);
     }
 
     const handleCarrelloData = (Id: number | null | undefined, options: OptionsSelect[]) => {
-        const defaultOption = options[0];
-        const selectedOption = options.find(x => x.value === Number(Id));
-        const data = {
-            value: selectedOption ? selectedOption.value : defaultOption.value,
-            label: selectedOption ? selectedOption.label : defaultOption.label,
-            dimencioni: selectedOption ? selectedOption.formatoCartaStr : defaultOption.formatoCartaStr,
-            img: selectedOption ? selectedOption.image : defaultOption.image,
-            pdfTemplate: selectedOption ? selectedOption.pdfTemplate : defaultOption.pdfTemplate,
+
+        const optionsVoid: OptionsSelect = {
+            value: 0,
+            label: ''
         }
-        return data;
+        if (options.length > 0) {
+            const defaultOption = options[0];
+            const selectedOption = options.find(x => x.value === Number(Id));
+            const data = {
+                value: selectedOption ? selectedOption.value : defaultOption.value,
+                label: selectedOption ? selectedOption.label : defaultOption.label,
+                dimencioni: selectedOption ? selectedOption.formatoCartaStr : defaultOption.formatoCartaStr,
+                img: selectedOption ? selectedOption.image : defaultOption.image,
+                pdfTemplate: selectedOption ? selectedOption.pdfTemplate : defaultOption.pdfTemplate,
+            }
+            return data;
+        }
+        return optionsVoid
     }
 
     const handleOpzionisStatic = async () => {
@@ -1257,6 +1287,46 @@ const useRefactorProdotto = () => {
         })
     }
 
+    const handleDonwloadPDF = () => {
+        const pdf = new jsPDF();
+        const prevPDF = document.getElementById('preventivoPDFID');
+        if (prevPDF) {
+            pdf.html(prevPDF, {
+                callback: (pdf) => {
+                    pdf.save('Preventivo_' + calcolaTuto?.nomePreventivo);
+                }
+            });
+        }
+    }
+
+    const handleTotaleProvisorio = async () => {
+        const LocalCarrello = localStorage.getItem('c');
+        let ArrayLocalCarrello: ObjCarrello[] = [];
+        let TotalPrezo = 0;
+        let TotalPeso = 0;
+        if (LocalCarrello) {
+            ArrayLocalCarrello = JSON.parse(LocalCarrello);
+            ArrayLocalCarrello.map((lem, i) => {
+                if (lem.prezzo != undefined) {
+
+                    TotalPrezo += lem.prezzo
+                }
+                if (lem.peso != undefined) {
+                    TotalPeso += lem.peso
+                }
+            })
+        }
+        if (ArrayLocalCarrello.length > 0) {
+            const scontoLocal = localStorage.getItem('sc');
+            const radioPagamento = localStorage.getItem('tpDI');
+            const radio = localStorage.getItem('cons');
+            const responseTotale = await getTotaleProvisorio(Number(ArrayLocalCarrello[0].idUt), TotalPeso, 0, TotalPrezo, scontoLocal == undefined ? null : Number(scontoLocal), Number(radioPagamento), Number(radio));
+            setTotaleProvisorio(responseTotale);
+        } else {
+            setTotaleProvisorio(undefined);
+        }
+    }
+
     ////console.log("params2",idPrev, idFormProd, IdTipoCarta, IdColoreStampa, idFogli, idUt, idFustella, idCategoria, idBaseEtiquete, idAltezaEtiquete)
     // * ---------------Efects Helpers-----------------------
 
@@ -1301,6 +1371,7 @@ const useRefactorProdotto = () => {
         //debugger
         if (initialState.formatoS != null && initialState.formatoS != Number(idFormProd)) {
             setValuesStampaCaldoOpz({})
+            setAlertMassimo('')
             //console.log('cambio formato')
             ////console.log("cambio formatoS",)
             // initialState.tipoCarta = null;
@@ -1420,7 +1491,33 @@ const useRefactorProdotto = () => {
         }
     }
 
+    const effectPermiso = async () => {
+        const url = 'http://localhost:5173/#/form-prodotto-v2/2/131/72/1/1/1684/0/0/0/0';
 
+        // Configura las opciones de solicitud CORS
+        const corsOptions = {
+            method: 'GET', // Puedes configurar el método que necesitas
+            headers: {
+                'Origin': 'https://localhost:44311/', // Reemplaza con tu dominio HTTP
+            },
+        };
+
+        // Realiza la solicitud CORS
+        axios(url, corsOptions)
+            .then((response: AxiosResponse) => {
+                if (response.status === 200) {
+                    // La solicitud fue exitosa, puedes acceder al contenido de la respuesta
+                    console.log('Datos de la respuesta:', response.data);
+                } else {
+                    // La solicitud falló, muestra el código de estado
+                    console.error('La solicitud falló con el código de estado:', response.status);
+                }
+            })
+            .catch((error: any) => {
+                // Maneja cualquier error que pueda ocurrir durante la solicitud
+                console.error('Error:', error);
+            });
+    }
 
     useEffect(() => {
         efectFormato();
@@ -1434,6 +1531,8 @@ const useRefactorProdotto = () => {
     //     effectTablePrezzi();
     // }, [valuesStampaCaldoOpz])
 
+    
+
     useEffect(() => {
         const c = localStorage.getItem('c')
         if (c === undefined) {
@@ -1443,7 +1542,8 @@ const useRefactorProdotto = () => {
         handleData();
         effectSvg();
         handleDimensioniStr();
-    }, [initialState.base, initialState.depth, initialState.height, initialState.quantity, initialState.iva, initialState.coloreStampa, initialState.facciatePagine, valuesStampaCaldoOpz])
+        //effectPermiso();
+    }, [(initialState.base && initialState.base > 0) ? initialState.base : null, (initialState.depth && initialState.depth > 0) ? initialState.depth : null, (initialState.height && initialState.height > 0) ? initialState.height : null, (initialState.quantity && initialState.quantity > 0) ? initialState.quantity : null, initialState.iva, initialState.coloreStampa, initialState.facciatePagine, valuesStampaCaldoOpz])
 
     ////console.log("setSenderComandargument" ,tablaDataPrezzi)
     ////console.log("opcioniList", valuesStampaCaldoOpz)
@@ -1522,6 +1622,11 @@ const useRefactorProdotto = () => {
         handleCompraloSubito,
         menuDateConsegna,
         formatoList,
+        handleOptionOPZ,
+        handleCarrelloData,
+        handleDonwloadPDF,
+        TotaleProvisorio,
+        dimensionniStr
     }
 }
 

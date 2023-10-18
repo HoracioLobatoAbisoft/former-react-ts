@@ -1,24 +1,39 @@
-import { Backdrop } from "@mui/material";
+import { Backdrop, SxProps } from "@mui/material";
 import React from "react";
 import { RotatingLines } from "react-loader-spinner";
 import useLoadingBackdrop from "./useLoadingBackdrop";
+import { Theme } from "@emotion/react";
 
 interface Props {
-    isOpen:boolean
-    HandleChange:(v:boolean) => void
+    isOpen: boolean
+    HandleChange?: (v: boolean) => void
+    x: number;
+    sx?: SxProps<Theme> | undefined
 }
-const LoadingBackdrop = ({isOpen,HandleChange}:Props) => {
+const LoadingBackdrop = ({ isOpen, HandleChange, x = 1,sx }: Props) => {
 
 
+    const IconRoating: JSX.Element[] = [];
 
+    for (let i = 0; i < x; i++) {
+        IconRoating.push(<RotatingLines
+            key={i}
+            strokeColor="grey"
+            strokeWidth="2.5"
+            animationDuration="0.75"
+            width="140"
+            visible={true}
+
+        />)
+    }
     return (
         <Backdrop
-            sx={{ bgcolor: 'rgba(225,225,225,0.4)',display:'flex',flexDirection:'column',justifyContent:'space-between',pr:8,}}
+            sx={sx}
             open={isOpen}
-            //onClick={()=>HandleChange(!isOpen)}
+        //onClick={()=>HandleChange(!isOpen)}
         >
-            
-            <RotatingLines
+            {IconRoating}
+            {/* <RotatingLines
                 strokeColor="grey"
                 strokeWidth="2.5"
                 animationDuration="0.75"
@@ -73,7 +88,7 @@ const LoadingBackdrop = ({isOpen,HandleChange}:Props) => {
                 width="140"
                 visible={true}
                 
-            />
+            /> */}
         </Backdrop>
     )
 

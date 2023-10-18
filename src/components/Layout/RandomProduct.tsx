@@ -20,7 +20,7 @@ const RandomProduct = () =>{
         loadProduct()
     },[])
     return<>
-        <div className="w-[480px] border border-[2px] rounded p-[3px]">
+        <div className="w-[480px]  border-[2px] rounded p-[3px]">
             {
                 product&&
            
@@ -46,12 +46,12 @@ const RandomProduct = () =>{
             </div>
             <hr className="bg-[purple] border text-[purple] border-[purple] mt-[10px]"/>
             <div className="w-full flex flex-row justify-end items-center" >
-                <div className="flex flex-row my-[5px]" onClick={()=>customRedirect(product.url)}>
+                <a className="flex flex-row my-[5px] cursor-pointer" onClick={()=>customRedirect(product.url)}>
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFreccia16.png`} alt="" className="w-[16px] h-[16px]" />
                     <span className="text-[11px]" >
                         Vai al dettaglio del Prodotto
                     </span>
-                </div>
+                </a>
             </div>
             </>
              }

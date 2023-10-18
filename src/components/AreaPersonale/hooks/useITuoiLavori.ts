@@ -58,9 +58,8 @@ const useITuoiLavori = () => {
     },[listLavori])
 
     const handleRedirectToDetaglioLavoro = (idLavori: number|string) => {
-        navigate('/dettaglio-lavoro')
+        navigate(`/${idLavori}/dettaglio-lavoro`)
         window.parent.postMessage({ operation: enOperationFrame.hidden }, GLOBAL_CONFIG.IMG_IP);
-
         //window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioLavori, id: idLavori }, GLOBAL_CONFIG.IMG_IP);
     }
 

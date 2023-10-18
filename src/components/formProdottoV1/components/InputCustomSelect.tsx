@@ -40,113 +40,14 @@ export const InputCustomSelect = ({
   const setHoveredState = (stateBool: boolean) => {
     setIsHovered(stateBool);
   };
-  ////console.log("vvvvvvvvvv", initialState,)
-  ////console.log("werewrewr",position,valueSelect)
-  // useEffect(() => {
-  //   if(valueSelect != null) {setPosition(valueSelect); showIcon=true}
-  // }, [valueSelect]);
-  // return (
-  //   <div className="border-[#e2e2e2] border-b flex w-full flex-col pt-3 ">
-  //     <div className="w-full flex justify-between gap-5 items-center mb-3">
-  //       <h2 className="font- text-xs w-[28%]">{label}</h2>
-  //       <div className="flex w-[72%] justify-between ">
-  //         <div className="w-full bg-[#f1f1f1] px-[10px] py-[4px]">
-  //           <select name={name} onChange={handleChange} className="block  text-gray-700 border outline-none border-gray-200
-  //         px-3 leading-tight text-[14px] font-[open sans]">
-  //             {
-  //               options.map((elem, i) => (
-  //                 <option key={elem.value} value={elem.value} >{elem.label}</option>
-  //               ))
-  //             }
-  //           </select>
-  //         </div>
 
-  //         {(showIcon === true && position === 0) ||
-  //           position === undefined ? null : (
-  //           <span
-  //             className={`text-xs ${!isHovered ? "opacity-70" : "opacity-100"
-  //               } text-base text-gray-800 cursor-pointer relative`}
-  //             onMouseEnter={() => setHoveredState(true)}
-  //             onMouseLeave={() => setHoveredState(false)}
-  //           >
-  //             <BsInfoCircleFill />
-  //           </span>
-  //         )}
-  //       </div>
-  //     </div>
-  // {isHovered && (
-  //   <div className="absolute right-0 mt-5 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
-  //     <div className="flex">
-  //       <div className="w-48 max-w-full">
-  //         <img
-  //           src={
-  //             options && (position === 0 || position === undefined)
-  //               ? `https://localhost:44311//listino/` + options[0]?.image
-  //               : `https://localhost:44311//listino/` +
-  //               options.find((x) => Number(x.value) === Number(position))?.image
-  //           }
-  //           alt=""
-  //         />
-  //       </div>
-  //       <div className="ml-4">
-  //         <div className="mb-3">
-  //           <h2 className="text-yellow-400 capitalize">
-  //             {options[position]?.label}
-  //           </h2>
-  //           <hr className="border border-white" />
-  //         </div>
-  //         <p className="max-w-[500px] text-justify text-white">
-  //           {options[position]?.description}
-  //         </p>
-  //       </div>
-  //     </div>
-  //   </div>
-
-  // )}
-  //     {/* <Collapse isOpened={!isCollapsed}>
-  //       <div className="w-3/4 max-w-3/4 bg-black bg-opacity-80 p-4 shadow-custom rounded relative ">
-  //         <div className="row">
-  //           <div className="col md:col-5 lg:col-4">
-  //             <div className="w-48 max-w-full h-full">
-  //               <img
-  //                 src={
-  //                   options && (position === 0 || position === undefined)
-  //                     ? `https://localhost:44311//listino/` + options[0]?.image
-  //                     : `https://localhost:44311//listino/` +
-  //                       options.find(
-  //                         (x) => Number(x.value) === Number(position)
-  //                       )?.image
-  //                 }
-  //                 alt=""
-  //               />
-  //             </div>
-  //           </div>
-  //           <div className="col md:col-7 lg:col-8">
-  //             <div className="relative mb-3">
-  //               <h2 className="text-yellow-400 capitalize">
-
-  //                 {options[position]?.label}
-  //               </h2>
-  //             </div>
-  //             <p className="max-w-[500px] text-justify text-white">
-  //               {
-
-  //                 options[position]?.description
-  //               }
-  //             </p>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </Collapse> */}
-  //   </div>
-  // );${isHovered ==true? 'border-b-[2px] border-[#fff]':'border-[2px] border-[#d6e03d]'}
   const selected = () => {
     //debugger
     if (initialState != undefined) {
       if (name in initialState) {
         //console.log("asdfasdfsadfadsfasdf", options.find((x: any) => x.value == initialState[name]))
         const fil = options.find((x) => x.value == initialState[name])
-        return fil == undefined ? options[0] : fil; 
+        return fil == undefined ? options[0] : fil;
       }
       return options[0]
     }
@@ -193,16 +94,13 @@ export const InputCustomSelect = ({
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.3)', }} />
+            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ width:'2em', }} className="relative"/>
           </span>
         }
-
-        {/* )} */}
         {isHovered && (
-          <div className="absolute right-0 mt-5 me-[35%] bg-black text-white rounded-md shadow-md p-4 h-auto w-2/1 max-w-2/1">
-            <div className="flex">
-              <div className="w-48 max-w-full">
-                {/* <img
+          <div className="absolute right-0 max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px]">
+            <div className="flex gap-1 leading-[12px]" style={{wordWrap:'break-word',direction:'ltr'}}>
+              {/* <img
                   src={
                     options && (position === 0 || position === undefined)
                       ? `https://tipografiaformer.it/listino/img/` + selected()?.image
@@ -211,24 +109,22 @@ export const InputCustomSelect = ({
                   }
                   alt=""
                 /> */}
-                <img
-                  src={
-                    `https://tipografiaformer.it/listino/img/` + selected()?.image
-                  }
-                  alt=""
-                />
-                {/* <img src={`https://tipografiaformer.it/listino/img/${options[index].image}`} alt="" className="" /> */}
-              </div>
-              <div className="ml-4">
-                <div className="mb-3">
-                  <h2 className="text-yellow-400 capitalize">
-                    {selected()?.label}
-                    {/* {options[index].label} */}
-                  </h2>
-                  <hr className="border border-white" />
-                </div>
-                <p className="max-w-[500px] text-justify text-white" dangerouslySetInnerHTML={{__html:String(selected()?.description)}}>
-                  
+              <img
+                src={
+                  `https://tipografiaformer.it/listino/img/` + selected()?.image
+                }
+                alt=""
+                className="w-[128px] h-[128px]"
+              />
+              {/* <img src={`https://tipografiaformer.it/listino/img/${options[index].image}`} alt="" className="" /> */}
+              <div className="flex flex-col " style={{wordWrap:'break-word',direction:'ltr'}}>
+                <h2 className="text-[12px] font-[400] text-[#d6e03d] border-b border-[#fff] mb-[2em]">
+                  {selected()?.label}
+                  {/* {options[index].label} */}
+                </h2>
+                {/* <hr className="border border-white" /> */}
+                <p className=" text-justify text-white" dangerouslySetInnerHTML={{ __html: String(selected()?.description) }}>
+
                   {/* {options[index].description} */}
                 </p>
               </div>

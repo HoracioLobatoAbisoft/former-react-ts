@@ -6,15 +6,20 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useDettaglioOrdine from "../../hooks/useDettaglioOrdine";
 import AcordionLavori from "./AcordionLavori";
+import PayPalButton from "../../../paypal/PayPalButton";
+import LoadingBackdrop from "../../../loadingBackdrop";
 
 const DettaglioOrdine = () => {
 
     //AreaPersonale/iTuoiOrdini
 
-    const { ordiniData, handleDeleteLavoro, handleNewTagListinoTemplate, handleRedirectToDetaglioOrdini } = useDettaglioOrdine()
+    const { ordiniData, handleDeleteLavoro, handleNewTagListinoTemplate, handleRedirectToDetaglioOrdini,handleTokenAuth,openloadingBackdrop } = useDettaglioOrdine()
+
+    
 
     return (
         <div className="w-full  h-full font-[Arial]">
+            <LoadingBackdrop isOpen={openloadingBackdrop} x={1} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around',alignItems: 'center',flexDirection:'column'  }}/>
             <div className="text-[11px] flex gap-[2px] text-white justify-center">
                 <b className="bg-[#aaa] py-[5px] px-[10px] text-center rounded-[5px]">1) Aggiungi al Carrello</b>
                 <b className="bg-[#aaa] py-[5px] px-[10px] text-center rounded-[5px]">2) ORDINA</b>
@@ -109,7 +114,9 @@ const DettaglioOrdine = () => {
                                 </p>
                                 <p className="mt-[1.5em]">Tipografia Former accetta il pagamento attraverso il circuito sicuro PayPal.</p>
                                 <center>
-                                    <button className="mt-[1.5em] bg-[#d6e03d] font-bold tex-[11px] leading-[30px] w-[120px] h-[30px] text-center rounded-[3px] hover:bg-[#f1fc45]">PAGA ADESSO</button>
+                                    <button className="mt-[1.5em] bg-[#d6e03d] font-bold tex-[11px] leading-[30px] w-[120px] h-[30px] text-center rounded-[3px] hover:bg-[#f1fc45]" onClick={()=>handleTokenAuth()}>PAGA ADESSO</button>
+                                    {/* <PayPalButton amount="12.00" description="Biglieti da visita"/> */}
+                                    
                                 </center>
                                 <div className="flex items-center mt-[2em]">
                                     <div className=" leading-[13px]">

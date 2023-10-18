@@ -20,10 +20,11 @@ type PropsAcordionOrdini = {
 
 
 
-const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro }: PropsAcordionOrdini) => {
+const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, }: PropsAcordionOrdini) => {
 
     return (
-        <>
+        <>  
+            
             <div className='w-[790px] p-4'>
                 <div className=' w-full bg-white'>
                     <div className='flex flex-row'>

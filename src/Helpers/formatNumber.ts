@@ -8,3 +8,7 @@ export const numberFormat = (
     var numeroResultFormat = formatNumber.format(Number(value));
     return numeroResultFormat
 }
+
+export const numberPercentuale = (monto:number, porcentuaje:number) => {
+    return (monto * porcentuaje) / 100
+}

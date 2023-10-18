@@ -38,7 +38,7 @@ const CustomSlider = () => {
         <>
          <div className="w-full p-0 flex justify-around items-center">
                     
-                        <div className="w-[100%]">
+                        <div className="w-[100%] cursor-pointer">
                             <AliceCarousel
                                 infinite={true}
                                 items={thumbs} 

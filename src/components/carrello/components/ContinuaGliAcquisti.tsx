@@ -16,7 +16,7 @@ const ContinuaGliAcquisti = ({ step, changebuttonstep, ArrayLocalCarrello }: Pro
 
     return (
         <div>
-            {ArrayLocalCarrello && ArrayLocalCarrello.length > 0 ? <p style={{ 'marginTop': '15px' }}>
+            {ArrayLocalCarrello && ArrayLocalCarrello.length > 0 || step > 1 ? <p style={{ 'marginTop': '15px' }}>
                 <span style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> {changebuttonstep(step + 1)}</strong></span>
             </p> : null}
 

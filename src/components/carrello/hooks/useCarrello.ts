@@ -56,8 +56,6 @@ const useCarrello = () => {
         const LocalCarrello = localStorage.getItem('c');
         let ArrayLocalCarrello: ObjCarrello[] = [];
         let TotalPrezo = 0;
-        let maxPrezzo = 0;
-        let countLavori = 0;
         let TotalPeso = 0;
         let idUt = 0;
         let Colli = 0;
@@ -190,36 +188,36 @@ const useCarrello = () => {
 
     const deleteItem = async (id: number) => {
 
+        const confirme = confirm('Sicuro di voler eliminare questo Lavoro? Verrà modificato anche il relativo Ordine');
 
+        if (confirme) {
+            arrayCarrello.splice(id, 1);
+            setArrayCarrello([...arrayCarrello]);
+            localStorage.setItem('c', JSON.stringify([...arrayCarrello]))
+            getLocalCarrello();
 
-        arrayCarrello.splice(id, 1);
-        setArrayCarrello([...arrayCarrello]);
-        localStorage.setItem('c', JSON.stringify([...arrayCarrello]))
-        getLocalCarrello();
+            const responseGetTotaleProvisorio = await getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, null, radioPagamento, radio);
 
-        const responseGetTotaleProvisorio = await getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, null, radioPagamento, radio);
+            console.log(dataTotale.TotalPeso)
+            localStorage.setItem('pzo', String(dataTotale.TotalPeso))
+            dataOrdine.pesokg = String(dataTotale.TotalPeso);
 
-        console.log(dataTotale.TotalPeso)
-        localStorage.setItem('pzo', String(dataTotale.TotalPeso))
-        dataOrdine.pesokg = String(dataTotale.TotalPeso);
+            setTotaleProvisorio(responseGetTotaleProvisorio)
 
-        setTotaleProvisorio(responseGetTotaleProvisorio)
-
-        const carr = JSON.parse(String(localStorage.getItem('c')));
-        if (carr.length < 1) {
-            setStep(1);
-            setDataTotale({
-                TotalPrezo: 0,
-                TotalPeso: 0,
-                idUt: 0,
-                desconto: 0,
-                Colli: 0,
-            });
-            //setArrayCarrello([]);
-            handleDeleteAllCarrello();
+            const carr = JSON.parse(String(localStorage.getItem('c')));
+            if (carr.length < 1) {
+                setStep(1);
+                setDataTotale({
+                    TotalPrezo: 0,
+                    TotalPeso: 0,
+                    idUt: 0,
+                    desconto: 0,
+                    Colli: 0,
+                });
+                //setArrayCarrello([]);
+                handleDeleteAllCarrello();
+            }
         }
-
-
     }
 
     const handleDeleteAllCarrello = () => {

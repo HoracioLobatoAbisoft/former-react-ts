@@ -17,4 +17,5 @@ export interface DataGetCalcolaTuto {
     qta:number;
     promoPercentuale:number;
     dataFineValidita:Date;
+    nomePreventivo:string;
 }

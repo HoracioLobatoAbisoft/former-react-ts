@@ -18,7 +18,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
     return (
         <div className='w-full'>
             {listLavori.map((item, index) => (
-                <Accordion key={item.idOrdineWeb}>
+                <Accordion key={index}>
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"

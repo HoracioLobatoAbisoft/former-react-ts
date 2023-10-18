@@ -219,6 +219,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                             <p className=" text-[12px] font-bold">INDIRIZZO DI CONSEGNA</p>
                             <p className=" text-[12px]">Scegli un Indirizzo per la consegna tra quelli che hai inserito o aggiungine uno nuovo</p>
                             <select id="" className="text-[13.333px] mt-[10px] w-[450px] mx-[2px] h-[24px] outline-none border border-[#aaa]" onChange={handleCapTotaleProvisorio}>
+                                <option value={JSON.stringify({ cap: dataUtente?.cap, nome: `${dataUtente?.nominativo}: ${dataUtente?.indirizzo} - ${dataUtente?.cap} - ${dataUtente?.cap} ${dataUtente?.citta} (${dataUtente?.provincia})`, id: 0 })}>{dataUtente?.nominativo}, {dataUtente?.indirizzo} - {dataUtente?.cap} {dataUtente?.citta} ({dataUtente?.provincia})</option>
                                 {indirizzoList.map((elem, i) => {
                                     return (
                                         <option selected={elem.predefinito == true} key={i} value={JSON.stringify({ cap: elem.cap, nome: `${elem.nome}: ${elem.riassunto}`, id: elem.idIndirizzo })} defaultValue={elem.cap}>{elem.nome} : {elem.riassunto} {`${elem.predefinito ? '(predefinito)' : ''}`}</option>

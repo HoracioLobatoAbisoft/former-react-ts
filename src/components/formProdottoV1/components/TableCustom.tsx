@@ -73,32 +73,40 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
         return `€ ${numberFormat(value)}`
     }
 
+    const bgColor_ = ( bgColor:string,value: number, quantity?: number)=>{
+        if (radioIva === 2 && quantity != null) {
+            const valueC = value * quantity
+            if (valueC === 0) {
+                return ""
+            } else {
+                return bgColor
+            }
+        }
+        if (value === 0) return ""
+        return bgColor
+    }
+
+    const selectPrecio = (value: number, quantity?: number) => {
+        if (radioIva === 2 && quantity != null) {
+            const valueC = value * quantity
+            if (valueC === 0) {
+                return false
+            } else {
+                return true
+            }
+        }
+        if (value === 0) return false
+        return true
+    }
+
+    const handlePrimary = (i: number,qta: number,row:string,prezzo: number,data: Date | undefined) =>{
+        handleChangeRowSelect(false, i, qta); 
+        handleCalcolaTuto(row, qta, prezzo, i, data); 
+        handleSelectDate(row, tablaDate?.dataFast, tablaDate?.dataFastProduzione);
+    }
+
     const promo = tablaDataPrezzi.some(x => x.prezzoPromo > 0);
-    // const viewSelectQuantity = (value: number) => {
-    //     if (value === selectRow.quantity) return "bg-[#d6e03d]"
-    //     return "bg-[#eef3f1]"
-    // }
-    // const viewSelectPrice = (conditional: boolean, value: number, element: number) => {
-    //     if (value === selectRow.value && conditional === selectRow.conditional) return "bg-[#d6e03d]"
-
-    //     if (conditional && element === 0) return "bg-[#fff]"
-    //     const valueValidation = formatValue(element)
-    //     if (valueValidation == "-" || element == 0) return "bg-[#ffff]"
-    //     if (conditional) return "bg-[#d4e8df]"
-    //     return "bg-[#eef3f1]"
-
-    // }
-
-    // useEffect(() => {
-    //     if(alertMassimo != '' && initialState.base != null && initialState.height != null)setTablaDataPrezzi([])
-    // }, [initialState.base,initialState.height])
-
-
-    ////console.log("adsfdsfadsfdsfadsfdsfadsfs",tab NlaDataPrezzi)
-    //selectRow
-
-    //console.log('prezzoActive',prezzoActive)
-
+    // handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("N", elem.richiestaCalcoloPrezzo.qtaRichiesta, elem.prezzoPubbl, i, tablaDate?.dataNormale); handleSelectDate("N", tablaDate?.dataNormale, tablaDate?.dataNormaleProduzione)
     return (
         <>
             {tablaDate &&
@@ -161,13 +169,13 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
                                     <p className=" text-end text-[14px]">{formatQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                 </div>
                                 {showColumTable?.prezzoFazt ?
-                                    <div onClick={() => { handleChangeRowSelect(false, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("F", elem.richiestaCalcoloPrezzo.qtaRichiesta, elem.prezzoRiv, i, tablaDate?.dataFast); handleSelectDate("F", tablaDate?.dataFast, tablaDate?.dataFastProduzione) }} className={` 
-                                    ${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoRiv ? 'bg-[#d6e03d]' : 'bg-[#eef3f1]'} w-[228px] ${promo ? 'h-[45px]' : 'h-[32.8px]'} rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center mb-[2px]`}>
+                                    <div onClick={() => {selectPrecio(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)?handlePrimary(i,elem.richiestaCalcoloPrezzo.qtaRichiesta,"F",elem.prezzoRiv,tablaDate?.dataFast) : null  }} className={` 
+                                    ${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoRiv ? 'bg-[#d6e03d]' : bgColor_('bg-[#eef3f1]',elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta,)} w-[228px] ${promo ? 'h-[45px]' : 'h-[32.8px]'} rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center mb-[2px]`}>
                                         <p className="text-[14px]">{formatValue(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }
                                 {showColumTable?.prezzoNorm ?
-                                    <div onClick={() => { handleChangeRowSelect(true, i, elem.richiestaCalcoloPrezzo.qtaRichiesta); handleCalcolaTuto("N", elem.richiestaCalcoloPrezzo.qtaRichiesta, elem.prezzoPubbl, i, tablaDate?.dataNormale); handleSelectDate("N", tablaDate?.dataNormale, tablaDate?.dataNormaleProduzione) }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoPubbl ? 'bg-[#d6e03d]' : 'bg-[#d4e8df]'}  w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] mb-[2px] flex items-center justify-center `}>
+                                    <div onClick={() => {selectPrecio(elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta) ?handlePrimary(i,elem.richiestaCalcoloPrezzo.qtaRichiesta,"N",elem.prezzoPubbl,tablaDate?.dataNormale) : null  }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoPubbl ? 'bg-[#d6e03d]' : bgColor_('bg-[#d4e8df]',elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta)}  w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] mb-[2px] flex items-center justify-center `}>
                                         <p className="text-[14px]">{formatValue(elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }

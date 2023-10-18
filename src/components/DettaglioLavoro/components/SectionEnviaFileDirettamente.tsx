@@ -5,8 +5,8 @@ import RowFileEnviatoDirettamente from "./RowFileEnviatoDirettamente";
 type SectionEnviaFileDirettamenteProps = {
 
 }
-const SectionEnviaFileDirettamente = ({}: SectionEnviaFileDirettamenteProps) =>{
-    return(<>
+const SectionEnviaFileDirettamente = ({ }: SectionEnviaFileDirettamenteProps) => {
+    return (<>
         <div className="w-full bg-[orange] my-[5px] flex justify-between">
             <div>
                 <span className="text-[14px] text-[white] font-bold ml-[20px]">
@@ -30,24 +30,24 @@ const SectionEnviaFileDirettamente = ({}: SectionEnviaFileDirettamenteProps) =>{
             <div className="w-full flex flex-row">
                 <div className="w-[140px] flex items-center justify-center">
                     <button className="flex flex-row justify-center items-center bg-[red] rounded-[5px] p-[5px]">
-                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoupload20w.png`} className="w-[22px] h-[22px]"/>
+                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoupload20w.png`} className="w-[22px] h-[22px]" />
                         <span className="font-bold text-[white] text-[11px] px-[2px]">
                             Invia File
                         </span>
                     </button>
                 </div>
-                <div className="w-[650px] bg-[blue]">
-                    <RowFileEnviatoDirettamente 
+                <div className="w-[650px] bg-[red]">
+                    <RowFileEnviatoDirettamente
                         nome="test"
                         type="Fronted"
                     />
-                     <RowFileEnviatoDirettamente 
+                    <RowFileEnviatoDirettamente
                         nome="test"
                         type="Retro"
                     />
-                    
+
                 </div>
-                
+
             </div>
         </div>
     </>)

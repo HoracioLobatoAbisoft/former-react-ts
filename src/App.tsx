@@ -29,6 +29,7 @@ import CampioneGratuitoRichiestoPage from "./components/CampioneGratuitoRichiest
 import DettaglioOrdine from "./components/AreaPersonale/Componentes/ITouiOrdini/DettaglioOrdine";
  "./components/carrello/components/AllegaIFile";
 import DettaglioLavoroPage from "./components/DettaglioLavoro/pages/DettaglioLavoroPage";
+import PreventivoPDF from "./components/formProdottoV1/components/PreventivoPDF";
 
 function App() {
   const location = useLocation();
@@ -73,8 +74,10 @@ function App() {
           <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
           <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
           <Route path="/dettaglioOrdine/:idConsegna" element={<DettaglioOrdine />} />
+          <Route path="/dettaglioOrdine/:idConsegna/:tokenPP" element={<DettaglioOrdine />} />
           <Route path="/richiedi-un-campione-gratuito" element={ <RichiediUnCampioneGratuitoPage/>} />
           <Route path="/campione-gratuito-registrata" element={ <CampioneGratuitoRichiestoPage/>} />
+          {/* <Route path="/preventiView" element={ <PreventivoPDF/>} /> */}
           <Route path="/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
           <Route path="/:idDettaglioLavoro/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
         </Routes>

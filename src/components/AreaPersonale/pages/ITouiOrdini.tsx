@@ -4,16 +4,19 @@ import useITuoiOrdini from '../hooks/useITuoiOrdini';
 import AcordionOrdini from '../Componentes/ITouiOrdini/AcordionOrdini';
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import LegendaStatoOrdini from '../Componentes/ITouiOrdini/LegendaStatoOrdini';
+import LoadingBackdrop from '../../loadingBackdrop';
 
 const ITouiOrdini = () => {
     const [activeTab, setActiveTab] = React.useState(0);
-    const { listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro} = useITuoiOrdini();
+    const { listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro,openLoading,handleCheackOutPayPal } = useITuoiOrdini();
 
-    useEffect(()=>{
+    useEffect(() => {
+        handleCheackOutPayPal();
         console.log('listOrdini', listOrdini)
     }, [listOrdini])
     return (
         <>
+            <LoadingBackdrop isOpen={openLoading}  x={2} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around',alignItems: 'center',flexDirection:'column'  }}/>
             <div className='row ml-[15px] my-[10px]'>
                 <div className='col col-12'>
                     <div className='flex flex-row items-center'>
@@ -66,10 +69,10 @@ const ITouiOrdini = () => {
                         index={0}
                         value={activeTab}
                     >
-                        <AcordionOrdini 
-                            listOrdini={listOrdini} 
-                            pageOrdini={pageOrdini} 
-                            handleGetOrdini={handleGetOrdini} 
+                        <AcordionOrdini
+                            listOrdini={listOrdini}
+                            pageOrdini={pageOrdini}
+                            handleGetOrdini={handleGetOrdini}
                             handleDeleteLavoro={handleDeleteLavoro}
                             handleDeleteOrdine={handleDeleteOrdine}
                             handleNewTagListinoTemplate={handleNewTagListinoTemplate}
@@ -82,7 +85,7 @@ const ITouiOrdini = () => {
                         value={activeTab}
                         className=''
                     >
-                       <LegendaStatoOrdini/>
+                        <LegendaStatoOrdini />
                     </TabPanel>
                 </TabContainer>
             </div>

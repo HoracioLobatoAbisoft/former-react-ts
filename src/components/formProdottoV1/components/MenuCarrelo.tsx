@@ -4,9 +4,11 @@ import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 import { DataGetCalcolaTuto } from "../interface/calcolaTuto";
 import { numberFormat } from "../../../Helpers/formatNumber";
 import { DataGetDescrizioniDinamica } from "../interface/DescrizioneDinamica";
+import { DataGetTotaleProvisorio } from "../../carrello/Interfaces/totaleProvvisorio";
+import { formatNumber } from "../../../services/NumberFormat";
 
 type PropsMenuCarrrelo = {
-    handleHidden: () => Promise<void>
+    handleHidden: (operation: enOperationFrame) => void
     idUt: string | undefined
     handleLogin: () => void;
     handleCarrello: () => Promise<void>;
@@ -17,7 +19,8 @@ type PropsMenuCarrrelo = {
     pdfTemplate: string | undefined;
     prodotto: any | undefined;
     showTablePreez: boolean;
-    descrizioneDinamica: DataGetDescrizioniDinamica | undefined
+    descrizioneDinamica: DataGetDescrizioniDinamica | undefined;
+    TotaleProvisorio: DataGetTotaleProvisorio | undefined;
 }
 // const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello,}: PropsMenuCarrrelo) => {
 
@@ -25,10 +28,12 @@ type PropsMenuCarrrelo = {
 //     pdfTemplate: string | undefined;
 //     prodotto: any | undefined;
 // }
-const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto, handleCompraloSubito, calcolaTuto, qtaSelezinata, menuDateConsegna, showTablePreez, descrizioneDinamica }: PropsMenuCarrrelo) => {
+const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto, handleCompraloSubito, calcolaTuto, qtaSelezinata, menuDateConsegna, showTablePreez, descrizioneDinamica, TotaleProvisorio }: PropsMenuCarrrelo) => {
     const OpenTemplateWindow = (pdfTemplate: string | undefined) => {
         window.open(`https://www.tipografiaformer.it/listino/template/${pdfTemplate}`)
     }
+
+    const scontoLocal = localStorage.getItem('sc')
 
     return (
         <>
@@ -41,15 +46,31 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 Totale Netto
                             </td>
                             <td className="pt-[5px] pr-[10px]">
-                                0,00
+                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.prezzoTotaleOrdini) : "00,00"}
                             </td>
                         </tr>
+                        {scontoLocal ?
+                            <>
+                                <tr>
+                                    <td className="px-[10px]">
+                                        Totale Sconto:
+                                    </td>
+                                    <td className="px-[10px] text-end text-[red] font-semibold"> - € {TotaleProvisorio ? formatNumber(Number(scontoLocal)) : "00,00"}</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-[10px]">
+                                        Totale Netto:
+                                    </td>
+                                    <td className="px-[10px] text-end">€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.totalNeto) : "00,00"}</td>
+                                </tr>
+                            </> : null
+                        }
                         <tr>
                             <td >
                                 Spedizioni
                             </td>
                             <td className="pr-[10px]">
-                                0,00
+                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.spedizioni) : "00,00"}
                             </td>
                         </tr>
                         <tr>
@@ -57,7 +78,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 IVA (22%)
                             </td>
                             <td className="pr-[10px] ">
-                                0,00
+                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.iva) : "00,00"}
                             </td>
                         </tr>
                         <tr>
@@ -70,22 +91,19 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 <b>TOTALE</b>
                             </td>
                             <td className="pr-[10px] ">
-                                <b >0,00</b>
+                                <b >{TotaleProvisorio ? formatNumber(TotaleProvisorio.totaleOridini) : "00,00"}</b>
                             </td>
                         </tr>
                     </tbody></table>
                 <center>
                     {idUt != undefined && idUt > '0' ?
-                        <Link to={'/carrello'} onClick={() => handleHidden()}>
+                        <Link to={'/carrello'} onClick={() => handleHidden(enOperationFrame.hidden)}>
                             <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
                         </Link>
                         :
                         <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]" onClick={handleLogin}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
                     }
-
-
                 </center>
-
             </div>
             <div className="bg-[#f1f1f1] w-full h-[179px] mt-[5px] text-[12px]">
                 <h3 className="text-center bg-[#f58220] text-[#fff] uppercase h-[20px]">Riepilogo Lavoro</h3>
@@ -95,7 +113,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                             {descrizioneDinamica?.idReparto == 2 ? 'Copie' : 'Quantità'}
                         </td>
                         <td className="pt-[5px] pr-[10px]">
-                            <b>{showTablePreez ? qtaSelezinata : "0"}</b>
+                            <b>{showTablePreez ? numberFormat(qtaSelezinata, 'it-IT', 0, 0) : "0"}</b>
                         </td>
                     </tr>
                         <tr>
@@ -135,7 +153,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                 <div className="text-[12px] mt-[15px] bg-[#f1f1f1]">
                     <h3 className="text-center bg-[#009ec9] uppercase text-[#fff] h-[20px] mb-[5px]">Info sul Prodotto</h3>
                     <center>
-                        <a className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold"
+                        <a className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[3px] uppercase rounded text-[#fff] font-semibold cursor-pointer"
                             onClick={() => OpenTemplateWindow(pdfTemplate)}
                         >
                             <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />

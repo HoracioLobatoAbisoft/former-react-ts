@@ -33,6 +33,7 @@ export interface DataResponseGetUtente {
     indirizoS:string;
     indirizoR:string;
     idIndirizzo:number;
+    provincia:number;
 }
 
 export interface Corriere {
