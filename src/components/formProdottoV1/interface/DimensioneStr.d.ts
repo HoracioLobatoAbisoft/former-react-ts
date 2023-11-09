@@ -8,4 +8,7 @@ export interface DataDimensioniStr {
     dimensioniStr: string;
     prodotto: string;
     idReparto:number;
+    imgSelezionato:string;
+    orientamiento:number;
+    showTamplate:boolean;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, useLocation } from "react-router-dom";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
 import OrdiniPage from "./components/ordini/OrdiniPage";
@@ -23,13 +23,18 @@ export const userContext = React.createContext({});
 import "./App.css";
 import ConfiguraProdottoRefactor from "./components/formProdottoV1/ConfiguraProdottoRefactor";
 import CarrelloProdotto from "./components/carrello/CarrelloProdotto";
-import AllegaIFile from "./components/carrello/components/AllegaIFile";import AreaPersonale from "./components/AreaPersonale/AreaPersonale";
+import AllegaIFile from "./components/carrello/components/AllegaIFile"; import AreaPersonale from "./components/AreaPersonale/AreaPersonale";
 import RichiediUnCampioneGratuitoPage from "./components/RichiediUnCampioneGratuito/pages/RichiediUnCampioneGratuitoPage";
 import CampioneGratuitoRichiestoPage from "./components/CampioneGratuitoRichiesto/pages/CampioneGratuitoRichiestoPage";
 import DettaglioOrdine from "./components/AreaPersonale/Componentes/ITouiOrdini/DettaglioOrdine";
- "./components/carrello/components/AllegaIFile";
+"./components/carrello/components/AllegaIFile";
 import DettaglioLavoroPage from "./components/DettaglioLavoro/pages/DettaglioLavoroPage";
 import PreventivoPDF from "./components/formProdottoV1/components/PreventivoPDF";
+import ConfiguraProdottoV2 from "./components/formProdottoV1/ConfiguraProdottoV2";
+import Prodotto from "./components/formProdottoV1/Prodotto";
+import Cerca from "./components/Cerca/Cerca";
+import { GLOBAL_CONFIG } from "./_config/global";
+import BtnCarrello from "./components/frameBtnCarrello/BtnCarrello";
 
 function App() {
   const location = useLocation();
@@ -41,11 +46,20 @@ function App() {
   localStorage.setItem("token", token);
   localStorage.setItem("idUtd", idUtd);
 
+  
+
+  useEffect(() => {
+    
+  }, [])
+
+
+
   return (
     <div className="w-full h-screen overflow-x-hidden">
       <UserContextProvider>
         <Routes>
-          <Route path="/" element={<OrdiniPage />}></Route>
+          {/* <Route path="/" element={<OrdiniPage />}></Route> */}
+          <Route path="/:id" element={<h1>title</h1>}></Route>
           <Route path="/ordiniTabella" element={<ContentOrdini />} />
           <Route path="/nav" element={<OrdiniPage />} />
           <Route path="/lavori" element={<LavoriPage />} />
@@ -60,9 +74,12 @@ function App() {
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd" element={<FormProdottoModificated />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt" element={<FormProdottoModificated />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<FormProdottoModificated />} />
-          <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoRefactor />} />
-          <Route path="/carrello" element={<CarrelloProdotto/>}/>
-          
+          {/* <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoRefactor />} /> */}
+          {/* <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoV2 />} /> */}
+          <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<Prodotto />} />
+          <Route path="/cerca/:idUt/:differenzza" element={<Cerca />} />
+          <Route path="/carrello" element={<CarrelloProdotto />} />
+          <Route path="/btnCarrello" element={<BtnCarrello/>} />
           <Route
             path="/OrdineDetails/:userId"
             element={<OrdineDetailsPage />}
@@ -75,11 +92,11 @@ function App() {
           <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
           <Route path="/dettaglioOrdine/:idConsegna" element={<DettaglioOrdine />} />
           <Route path="/dettaglioOrdine/:idConsegna/:tokenPP" element={<DettaglioOrdine />} />
-          <Route path="/richiedi-un-campione-gratuito" element={ <RichiediUnCampioneGratuitoPage/>} />
-          <Route path="/campione-gratuito-registrata" element={ <CampioneGratuitoRichiestoPage/>} />
+          <Route path="/richiedi-un-campione-gratuito" element={<RichiediUnCampioneGratuitoPage />} />
+          <Route path="/campione-gratuito-registrata" element={<CampioneGratuitoRichiestoPage />} />
           {/* <Route path="/preventiView" element={ <PreventivoPDF/>} /> */}
-          <Route path="/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
-          <Route path="/:idDettaglioLavoro/dettaglio-lavoro" element={ <DettaglioLavoroPage/>} />
+          <Route path="/dettaglio-lavoro" element={<DettaglioLavoroPage />} />
+          <Route path="/:idDettaglioLavoro/dettaglio-lavoro" element={<DettaglioLavoroPage />} />
         </Routes>
       </UserContextProvider>
     </div>

@@ -12,7 +12,6 @@ import { GLOBAL_CONFIG } from "../../../_config/global";
 type PropsRepilogo = {
     ArrayLocalCarrello: ObjCarrello[];
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
-
     handleDeleteAllCarrello: () => void
     handleRetornaProdotto: (i: number, uri: string) => void
     setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>
@@ -35,7 +34,6 @@ const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrel
     return (
         <div className="flex gap-[50px]">
             <div className="w-[73%] ">
-
                 <h3 className="flex gap-3"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} /> CARRELLO</h3>
                 <hr className="border my-1" />
                 {ArrayLocalCarrello.length === 0 ?

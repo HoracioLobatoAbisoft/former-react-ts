@@ -12,6 +12,7 @@ import { DataGetCaricaCorriere } from "../Interfaces/CaricaCorriere";
 import { CorrDaUsare, DataGgetCorriereSelezionata, DateConsegna } from "../Interfaces/Corriere";
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import { DateFormatItWDMY } from "../../../Helpers/formatDates";
+import React from "react";
 
 type PropsScegliLaConsegna = {
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
@@ -47,16 +48,25 @@ type indirizoJson = {
     nome: string,
     id: number
 }
-const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, indirizzoList, alleghiPDF, indexScandeza, arrayCarrello, dataUtente, radio, setRadio, caricaCorriere, getTotaleProvisorio, dataTotale, radioPagamento, setTotaleProvisorio, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza,handleAquistaOra }: PropsScegliLaConsegna) => {
+const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, indirizzoList, alleghiPDF, indexScandeza, arrayCarrello, dataUtente, radio, setRadio, caricaCorriere, getTotaleProvisorio, dataTotale, radioPagamento, setTotaleProvisorio, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza, handleAquistaOra }: PropsScegliLaConsegna) => {
 
 
     const [email, setEmail] = useState<string>('')
     const handleRadio = async (i: number) => {
         setRadio(i)
+        console.log(i)
         if (dataUtente) {
             const scontoLocal = localStorage.getItem('sc')
             const responseGetTotaleProvisorio = await getTotaleProvisorio(dataUtente.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, scontoLocal === undefined ? null : Number(scontoLocal), radioPagamento, i);
-            setTotaleProvisorio(responseGetTotaleProvisorio)
+            setTotaleProvisorio(responseGetTotaleProvisorio);
+        }
+        if (i == 1) {
+            var indid = indirizzoList.find(x => x.predefinito == true);
+            localStorage.setItem('indid', String(indid?.idIndirizzo));
+            localStorage.setItem('ind', String(`${indid?.nome} ${indid?.riassunto}`))
+        } else {
+            localStorage.removeItem('indid')
+            localStorage.removeItem('ind')
         }
         localStorage.setItem('cons', String(i))
         ////console.log(i)
@@ -139,7 +149,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                     return DateFormatItWDMY(dateConsegna?.dataFast);
                 }
             case "N":
-                if (radio == 0 ) {
+                if (radio == 0) {
                     localStorage.setItem('prv', String(dateConsegna?.dataNormale));
                     localStorage.setItem('gro', String(dateConsegna?.dataNormaleProduzione))
                     return DateFormatItWDMY(dateConsegna?.dataNormaleProduzione);
@@ -170,18 +180,17 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
     useEffect(() => {
         //handleScandeza()
         handleGetCorriereSelezionata();
-        handleDateConsegne(corriereSelezionata?.dateConsegna)
-        localStorage.setItem('pzo', String(TotaleProvisorio?.pesoKG))
-        if (radio == 1) {
-            var indid = indirizzoList.find(x => x.predefinito == true);
-            localStorage.setItem('indid', String(indid?.idIndirizzo));
-            localStorage.setItem('ind', String(`${indid?.nome} ${indid?.riassunto}`))
-        }else{
-            localStorage.removeItem('indid')
-            localStorage.removeItem('ind')
+        handleDateConsegne(corriereSelezionata?.dateConsegna);
+        const consLocal = localStorage.getItem('cons');
+        if (consLocal) {
+            setRadio(Number(consLocal));
+        } else {
+            localStorage.setItem('cons', '1');
         }
-        //var giorno = 
-    }, [radio])
+
+        localStorage.setItem('pzo', String(TotaleProvisorio?.pesoKG))
+
+    }, [])
 
     return (
         <div className="flex scegli-container">
@@ -190,9 +199,9 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                 <hr className="border-[1px] mt-[5px]" />
                 <div className="information">
                     {caricaCorriere.map((item, i) => (
-                        <>
-                            <div className="mt-[5px]" key={i}>
-                                <img key={i} src={`${GLOBAL_CONFIG.IMG_IP}${ radio === item.idCorriere?`/img/icoCheck.gif`:`/img/pixel.gif`}`} alt="" className="w-[17px] h-[11px]" /> 
+                        <React.Fragment key={i}>
+                            <div className="mt-[5px]" >
+                                <img key={i} src={`${GLOBAL_CONFIG.IMG_IP}${radio === item.idCorriere ? `/img/icoCheck.gif` : `/img/pixel.gif`}`} alt="" className="w-[17px] h-[11px]" />
                                 <input key={i} type="radio" checked={radio === item.idCorriere ? true : false} onChange={() => handleRadio(item.idCorriere)} />
                                 <label key={i} htmlFor="" className="ms-[5px]"><strong>{item.descrizione}</strong></label>
                                 <br />
@@ -201,18 +210,18 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                                 </span>
                                 <br />
                             </div>
-                            
-                        </>
+
+                        </React.Fragment>
                     ))
                     }
                     {radio == 0 ?
                         <div className="retiroInfo mt-[10px]">
                             <p className="text-[12px]"><strong>INDIRIZZO DI RITIRO</strong></p>
                             <span style={{ 'fontSize': 12 }}>L'indirizzo per il ritiro presso la nostra sede di Roma è:</span>
-                            <div style={{ 'width': 300, 'fontSize': '13px', marginTop: '10px' , marginBottom: '8px'}}>
+                            <div style={{ 'width': 300, 'fontSize': '13px', marginTop: '10px', marginBottom: '8px' }}>
                                 <strong>Tipografia Former</strong>, Via Cassia, 2010 - 00123 Roma
                             </div>
-                            <span style={{ 'fontSize': 12  }}>La merce potrà essere ritirata presso la nostra sede di Roma (Peso complessivo {TotaleProvisorio?.pesoKG} kg ±)  </span>
+                            <span style={{ 'fontSize': 12 }}>La merce potrà essere ritirata presso la nostra sede di Roma (Peso complessivo {TotaleProvisorio?.pesoKG} kg ±)  </span>
                         </div>
                         :
                         <div className=" w-full ps-[10px] mt-[15px]">
@@ -265,7 +274,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
 
             </div>
             <div className="w-[23%]">
-                {<TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra}/>}
+                {<TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra} />}
             </div>
         </div>
     )

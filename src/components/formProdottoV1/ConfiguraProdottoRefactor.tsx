@@ -11,7 +11,6 @@ import RadioCustom from "./components/RadioCustom"
 import TableCustom from "./components/TableCustom"
 import useRefactorProdotto from "./hooks/useRefactorProdotto"
 import MenuCarrelo from "./components/MenuCarrelo"
-import { Link } from "react-router-dom"
 import { numberFormat } from "../../Helpers/formatNumber"
 import { GLOBAL_CONFIG } from "../../_config/global"
 import { DateFormatDDMMYY } from "../../Helpers/formatDates"
@@ -19,8 +18,6 @@ import ProdottiSuggeriti from "./components/ProdottiSuggeriti"
 import RecencioniC from "./components/RecencioniC"
 import { useEffect, useState } from "react"
 import PreventivoPDF, { PreventivoPDFhtmlString } from "./components/PreventivoPDF"
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
 import { enOperationFrame } from "../../enHelpers/enOperationFrame"
 
 const ConfiguraProdottoRefactor = () => {
@@ -101,7 +98,9 @@ const ConfiguraProdottoRefactor = () => {
         handleCarrelloData,
         handleDonwloadPDF,
         TotaleProvisorio,
-        dimensionniStr
+        dimensionniStr,
+        codeStart,
+        numberPrezzo,
     } = useRefactorProdotto()
     const [pdfTemplate, setPdfTemplate] = useState<string | undefined>();
     const [prodotto, setProdotto] = useState<any | undefined>();
@@ -114,8 +113,6 @@ const ConfiguraProdottoRefactor = () => {
         setPdfTemplate(result?.pdfTemplate);
         setProdotto(result);
     }
-
-
 
     const SelectFormato = () => {
         switch (idBaseEtiquete) {
@@ -151,7 +148,7 @@ const ConfiguraProdottoRefactor = () => {
         <div className="w-full flex gap-3 relative ">
             <div className="w-[75%]">
                 <LoadingBackdrop isOpen={openLoadingBackdrop} HandleChange={setOpenLoadingBackdrop} x={5} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', pr: 8, }} />
-                <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO</h5>
+                <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">CONFIGURA IL TUO PRODOTTO </h5>
                 <div className="flex mt-3 ps-[4.5px]">
                     <table className="w-[75%]">
                         <tbody>
@@ -183,7 +180,7 @@ const ConfiguraProdottoRefactor = () => {
 
                             {showFaciatePagine ? <InputCustomSelect stylePerzonalize={'w-3/4'} showIcon={true} name="facciatePagine" handleChange={handleChange} label={labelFogli} options={handleFogliPagine()} initialState={initialState} /> : null}
 
-                            {showBloccoMisure &&
+                            {/* {showBloccoMisure &&
                                 <>
                                     <InputCustom
                                         handleChange={handleChange}
@@ -205,6 +202,7 @@ const ConfiguraProdottoRefactor = () => {
                                         /> : null
                                     }
                                     <InputCustom
+                                    
                                         handleChange={handleChange}
                                         name="height"
                                         label="Altezza"
@@ -213,8 +211,8 @@ const ConfiguraProdottoRefactor = () => {
                                         metrics={textMetrics}
                                     />
                                 </>
-                            }
-                            {showQtaCustom &&
+                            } */}
+                            {/* {showQtaCustom &&
                                 showQtaCustom == true ?
                                 <InputCustom
                                     handleChange={handleChange}
@@ -228,7 +226,7 @@ const ConfiguraProdottoRefactor = () => {
                                     metrics=""
                                 />
                                 : false
-                            }
+                            } */}
                             {parseInt(String(idFustella)) === 0 && <ListCustom label="Opzioni" options={handleOptionsOpzioni()} />}
 
                             {stampaCalOpz?.map((elem, i) => {
@@ -282,9 +280,9 @@ const ConfiguraProdottoRefactor = () => {
                     <RadioCustom name="iva" value={1} checked={initialState.iva == 1 ? true : false} label="Con IVA" handleCheckboxChange={handleChange} />
                 </div>
                 <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO</h5>
-                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} prezzoActive={prezzoActive} />
+                <TableCustom handleCalcolaTuto={handleCalcolaTuto} senderComandargument={senderComandargument} setSenderComandargument={setSenderComandargument} tablaDataPrezzi={tablaDataPrezzi} tablaDate={tablaDate} radioIva={Number(initialState.iva)} showColumTable={showColumTable} handleChangeRowSelect={handleChangeRowSelect} showTablePreez={showTablePreez} viewRows={viewRows} selectRow={selectRow} handleSelectDate={handleSelectDate} alertMassimo={alertMassimo} setTablaDataPrezzi={setTablaDataPrezzi} initialState={initialState} qtaSelezinata={qtaSelezinata} calcolaTuto={calcolaTuto} prezzoActive={prezzoActive} codeStart={codeStart} numberPrezzo={numberPrezzo}/>
 
-                <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"} />
+                <ButtonCustom handleChange={handleChangeViewTableRows} text={viewRows ? "▼ Mostra più quantità ▼" : "▲ Mostra meno quantità ▲"}/>
 
                 <div className="bg-[#d6e03d] w-full p-[10px] h-[92px] flex flex-col justify-between mt-1">
                     <div className="flex justify-between">
@@ -405,13 +403,12 @@ const ConfiguraProdottoRefactor = () => {
                         </div>
 
                     ))}
-
                 </div>
 
             </div>
             <div className="w-[25%] ">
-                <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna} pdfTemplate={pdfTemplate}
-                    prodotto={prodotto} showTablePreez={showTablePreez} descrizioneDinamica={descrizioneDinamica} TotaleProvisorio={TotaleProvisorio} />
+                {/* <MenuCarrelo handleHidden={handleHidden} idUt={idUt} handleLogin={handleLogin} handleCarrello={handleCarrello} handleCompraloSubito={handleCompraloSubito} calcolaTuto={calcolaTuto} qtaSelezinata={qtaSelezinata} menuDateConsegna={menuDateConsegna} pdfTemplate={pdfTemplate}
+                    prodotto={prodotto} showTablePreez={showTablePreez} descrizioneDinamica={descrizioneDinamica} TotaleProvisorio={TotaleProvisorio} /> */}
             </div>
         </div>
 

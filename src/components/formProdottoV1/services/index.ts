@@ -232,10 +232,10 @@ export const httpGetShowOrientmiento = async (idPrev: number, idFormProd: number
         IdColoreStampa: idColoreStampa
       },
     });
-    console.warn('httpGetShowOrientmiento', result.data)
+    //console.warn('httpGetShowOrientmiento', result.data)
     return result.data
   } catch (error) {
-    console.error('httpGetShowOrientmiento', error)
+    //console.error('httpGetShowOrientmiento', error)
     throw ("Error")
   }
 }
@@ -250,10 +250,10 @@ export const httpGetShowBloccoMisure = async (idPrev: number, idFormProd: number
         IdColoreStampa: idColoreStampa
       },
     });
-    console.warn('httpGetShowOrientmiento', result.data)
+    //console.warn('httpGetShowOrientmiento', result.data)
     return result.data
   } catch (error) {
-    console.error('httpGetShowOrientmiento', error)
+    //console.error('httpGetShowOrientmiento', error)
   }
 }
 
@@ -267,10 +267,10 @@ export const httpGetShowQtaCustom = async (idPrev: number, idFormProd: number, i
         IdColoreStampa: idColoreStampa
       },
     });
-    console.warn('httpGetShowOrientmiento', result.data)
+    //console.warn('httpGetShowOrientmiento', result.data)
     return result.data
   } catch (error) {
-    console.error('httpGetShowOrientmiento', error)
+    //console.error('httpGetShowOrientmiento', error)
   }
 }
 
@@ -541,7 +541,8 @@ export const httpGetFormatoStr = async (
   IdColoreStampa: number,
   Larghezza: number | null | undefined ,
   Profondita: number | null | undefined ,
-  Altezza: number | null | undefined 
+  Altezza: number | null | undefined ,
+  IdLav?:number | null,
 ) => {
   try {
     const result = await applicationConnect.get<ResponseDimensioniStr>('Packagin/GetDimensioniStr',{params:{
@@ -552,6 +553,7 @@ export const httpGetFormatoStr = async (
       Larghezza,
       Profondita,
       Altezza,
+      IdLav
     }})
     return result.data;
   } catch (error) {

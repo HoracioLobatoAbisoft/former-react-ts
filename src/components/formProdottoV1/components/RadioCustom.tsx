@@ -2,7 +2,7 @@ import React from 'react'
 
 interface Props{
     label:string,
-    handleCheckboxChange:any
+    handleCheckboxChange: (evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
     value:number
     checked:boolean
     name:string

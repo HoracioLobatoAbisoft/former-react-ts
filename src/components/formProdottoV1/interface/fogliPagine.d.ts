@@ -5,15 +5,15 @@ export interface RootObject {
 }
 
 export interface FofliPagine {
-    copertina:          Copertina;
-    data:               Datum[];
-    fogliLabel:         string;
+    copertina: Copertina;
+    data: Datum[];
+    fogliLabel: string;
     getEtichettaMisure: string;
-    showCopertina:      number;
-    showFogliPagine:    boolean;
-    showProfundita:     boolean;
-    sotoblocco:         Sotoblocco;
-    tipoCartaText:      string;
+    showCopertina: number;
+    showFogliPagine: boolean;
+    showProfundita: boolean;
+    sotoblocco: Sotoblocco;
+    tipoCartaText: string;
 }
 
 export interface Datum {
@@ -33,4 +33,12 @@ export interface Sotoblocco {
     showSotoblocco: number;
     textSottoBlocco: string;
     tipologia: string;
+}
+
+export interface ArraySotoblocco {
+    descrizioneEstesa: string,
+    idTipoCartaD: number,
+    imgRif: string,
+    tipologia: string,
+    text: string
 }

@@ -21,7 +21,7 @@ const ContinuaGliAcquisti = ({ step, changebuttonstep, ArrayLocalCarrello }: Pro
             </p> : null}
 
             <p style={{ 'marginTop': '10px' }}>
-                <span style={{ 'fontSize': 12, marginTop: 40 }}>{ArrayLocalCarrello && ArrayLocalCarrello.length > 0 ? 'Se vuoi ordinare altri prodotti clicca qui e' : "Il tuo carrello è vuoto, clicca qui e"}</span> <a href="" style={{ 'fontSize': '16px', 'color': '#f58220', 'fontWeight': 'bold' }} onClick={handleIndexReload}>Continua gli acquisti.</a>
+                <span style={{ 'fontSize': 12, marginTop: 40 }}>{ArrayLocalCarrello && ArrayLocalCarrello.length > 0 ? 'Se vuoi ordinare altri prodotti clicca qui e' : "Il tuo carrello è vuoto, clicca qui e"}</span> <button style={{ 'fontSize': '16px', 'color': '#f58220', 'fontWeight': 'bold' }} onClick={handleIndexReload}>Continua gli acquisti.</button>
             </p>
         </div>
     )

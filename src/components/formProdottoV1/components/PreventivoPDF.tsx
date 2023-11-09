@@ -11,6 +11,7 @@ import {
 import { DataGetCalcolaTuto } from "../interface/calcolaTuto";
 import { numberFormat, numberPercentuale } from "../../../Helpers/formatNumber";
 import { DataDimensioniStr } from "../interface/DimensioneStr";
+import jsPDF from "jspdf";
 
 type PropsPreventivoPDF = {
   utenteData: DataResponseGetUtente | undefined;
@@ -56,37 +57,19 @@ const PreventivoPDF = ({
     label: "--",
   }]
 
-  // const [responseHandleFormato, setResponseHandleFormato] = useState<OptionsSelect[]>(OptionsSelectVoid)
-  // const [responseHandleTipoCarta, setResponseHandleTipoCarta] = useState<OptionsSelect[]>(OptionsSelectVoid)
-  // const [responseHandleColoreStampa, setResponseHandleColoreStampa] = useState<OptionsSelect[]>(OptionsSelectVoid)
-
-  // const handleProdotto = () => {
-  //   switch (idBaseEtiquete) {
-  //     case "0":
-  //       return (
-  //         `${initialState.base} x {}`
-  //       )
-  //     default:
-  //       return (
-  //         <select name="" id="" className="border-[1px] w-full border-[#ddd] font-[open sans] py-[3px]">
-  //           <option value="">{`${idBaseEtiquete} x ${idAltezaEtiquete} (${formatoDinamico})`}
-  //           </option>
-  //         </select>)
-  //       break;
-  //   }
-  // }
-
+  
   const OPZ = handleOptionOPZ()
   const setResponseHandleFormato = (hanldeFormatoList());
   const setResponseHandleTipoCartaconst = (handleOptionsTipoCarta());
   const setResponseHandleColoreStampaconst = (handleOptionsColoreStampa());
 
   const iva = numberPercentuale(Number(calcolaTuto?.prezzoCalcolatoNetto), 22);
-
+  const pdf = new jsPDF();
   useEffect(() => {
 
   }, [])
 
+  ;
 
   return (
     <div
@@ -106,12 +89,13 @@ const PreventivoPDF = ({
             <img
               src={logo}
               alt=""
+              id="logo"
               style={{ background: "", width: "58px", height: "10px" }}
             />
             <h2 style={{ fontWeight: "500" }}>TIPOGRAFIA FORMER</h2>
             <p>Stabilimento e Uffici: Via Cassia 2010, 00123 Roma</p>
             <p>
-              Servizio Clienti: 06.30884518 - Email: info@tipografiaformer.it
+              Servizio Clienti: 06.30884518 - Email: <a href="https://tipografiaformer.it/2/131/72/1/1/Stampa-Biglietti-da-Visita-85-x-55-350gr-UV">{"info@tipografiaformer.it"}</a>
             </p>
             <p>Partita Iva: 14974961006</p>
           </div>
@@ -127,7 +111,7 @@ const PreventivoPDF = ({
             <h4 style={{ fontWeight: "600", letterSpacing: "0.5px" }}>
               Preventivo WEB
             </h4>
-            <p>20 Settembre 2023 15:33</p>
+            <p>20 Settembre 2023 15:34</p>
           </div>
         </div>
         {utenteData && (
@@ -166,11 +150,11 @@ const PreventivoPDF = ({
             >
               {utenteData.nominativo}
             </p>
-            <p style={{ paddingLeft: "1px" }}>Cod. Cliente Online: {utenteData.idUt}</p>
+            <p style={{ paddingLeft: "1px" }}>Cod. Cliente Online: b{utenteData.idUt}</p>
             <p style={{ paddingLeft: "1px" }}>Riferimento: {utenteData.nome} {utenteData.cognome}</p>
             <p style={{ paddingLeft: "1px" }}>Cod. Fisc: {utenteData.codFisc}</p>
             <p style={{ paddingLeft: "1px" }}>P.IVA: {utenteData.piva}</p>
-            <p style={{ paddingLeft: "1px" }}>Email: {utenteData.email}</p>
+            <p style={{ paddingLeft: "1px" }}>Email: <a href={`mailto:${utenteData.email}`} style={{background:''}}>{utenteData.email}</a></p>
             <p style={{ paddingLeft: "1px" }}>Tel: {utenteData.tel}</p>
           </div>
         )}

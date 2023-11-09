@@ -6,12 +6,12 @@ import { SvgImage } from '../../formProdottoV1/interface/svgImage';
 import { ImageCustom } from '../../formProdottoV1/components/ImageCustom';
 import '../styles/acorcdion.css'
 import { ObjCarrello } from '../../formProdottoV1/interface/ObjCarrrello';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { formatNumber } from '../../../services/NumberFormat';
 import { numberFormat } from '../../../Helpers/formatNumber';
 import { enRepartoWeb } from '../../../enHelpers/enRepartoWeb';
 import { GLOBAL_CONFIG } from '../../../_config/global';
-
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 type PropsAcordionCarrello = {
@@ -26,10 +26,7 @@ type PropsAcordionCarrello = {
 
 const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, deleteItem, step = 0, setStepperStep = null }: PropsAcordionCarrello) => {
 
-
-    ////console.log('arrayCarrello', ArrayLocalCarrello[0].stampaOPZ)
-
-    const [expanded, setExpanded] = useState<string>('')
+    const [expanded, setExpanded] = useState<string>('panel0')
 
     const handleAcordion = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         console.log(panel)
@@ -40,6 +37,11 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
 
         }
     }
+
+    useEffect(() => {
+        if (step === 5) { setExpanded('') };
+    }, [])
+
 
     return (
         <div className=" border border-[#aaa] rounded-[5px] ">
@@ -56,9 +58,12 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                     ArrayLocalCarrello.map((elem, i) => {
                         return (
                             <Accordion key={i} expanded={expanded === `panel${i}`} onChange={handleAcordion(`panel${i}`)}>
-                                <AccordionSummary className='carrello'  sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
+                                <AccordionSummary className='carrello' sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
                                     <div className=" w-[10%] flex" id='acordion'>
-                                        <AddIcon sx={{ fontSize: 18 }} />
+                                        {expanded === `panel${i}` ?
+                                            <RemoveIcon sx={{ fontSize: 18 }} />: 
+                                            <AddIcon sx={{ fontSize: 18 }} />
+                                        }
                                     </div>
                                     <div className=" w-full flex justify-between text-[11px] font-semibold">
                                         <div className="flex gap-3">
@@ -95,7 +100,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                             </div>
                                             <div className="font-bold w-[70%] flex flex-col gap-[1.5px]">
                                                 <p className={`${elem.nome ? "" : "text-white"}`}>{elem.nome ? elem.nome : "--"} </p>
-                                                <p className="">{numberFormat(elem.qta, undefined, 0, 0)}</p>
+                                                <p className="">{numberFormat(elem?.qta, undefined, 0, 0)}</p>
                                                 <p className="w-full">{numberFormat(elem.qta, undefined, 0, 0)} {elem.prodotto} </p>
                                                 <p className="">{elem.idReparto != enRepartoWeb.Ricamo ? elem.dimencioni : null}</p>
                                                 <p className="">{elem.orientamiento && elem.orientamiento}</p>

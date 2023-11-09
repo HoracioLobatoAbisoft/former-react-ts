@@ -16,25 +16,14 @@ const CheckBoxCards = ({ options, label, name, handleChange, initialState, setIm
 
     const [selectedOption2, setSelectedOption2] = useState<number>(0);
     const [hoveredState, setHoveredState] = useState({ a: false, b: 0 });
-    const [options2, setOptions2] = useState<OptionsSelect[]>()
     const handleOptionChange2 = (i: number) => {
         setSelectedOption2(i);
-        // if (setImage) {
-        //     setImage(options[i].image)
-        // }
-
-        ////console.log("valueselected", i)
+        //console.log('check',i)
     };
-
-    // useEffect(() => {
-    //     const name = options[0].label.toString();
-    //     valuesStampaCaldoOpz[name] = Number(options[0].value);
-    // }, [])
-
     useEffect(() => {
         const name = options[0].label.toString();
         valuesStampaCaldoOpz[name] = Number(options[0].value);
-    }, [options])
+    }, [])
 
     return (
         <div className=" p-0 m-0 mt-[2px] mb-[40px]">
@@ -50,7 +39,7 @@ const CheckBoxCards = ({ options, label, name, handleChange, initialState, setIm
                                     value={elem.value}
                                     //checked={selectedOption2 == i?true:false}
                                     onChange={handleChange}
-                                    onClick={() => { handleOptionChange2(i) }}
+                                    //onClick={() => { handleOptionChange2(i) }}
                                     defaultChecked={i===0}
                                     //defaultValue={elem.value}
                                     id={elem.value.toString()}

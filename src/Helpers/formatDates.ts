@@ -34,3 +34,18 @@ export const DateFormatDDMM = (fechaP: Date | undefined) => {
     }
     return ''
 }
+
+export const DateFormatDDMSYYHHSS = (fechaP: Date | undefined) => {
+    if (fechaP) {
+        const dateNow = new Date(fechaP);
+        const formattedDate = dateNow.toLocaleDateString('it-IT', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
+        });
+        return formattedDate
+    }
+}

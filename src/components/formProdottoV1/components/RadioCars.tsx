@@ -11,16 +11,6 @@ interface Props {
 }
 const RadioCars = ({ options, label, name, handleChange, initialState, setImage, valuesStampaCaldoOpz }: Props) => {
 
-    // const [select, setSelect] = useState<string | number>(0)
-    // const handleChange = (value: string | number) => {
-    //     setSelect(value);
-    //     //valueSelect(value);
-    // }
-    // const valueDefect = (i:number ) => {
-    //     if(select !== 0) return false
-    //     if(i === 0) return true 
-    //     return false
-    // }
     const [selectedOption, setSelectedOption] = useState<number>(0);
     const [hoveredState, setHoveredState] = useState({ a: false, b: 0 });
     const [options2, setOptions2] = useState<OptionsSelect[]>()
@@ -29,25 +19,17 @@ const RadioCars = ({ options, label, name, handleChange, initialState, setImage,
         if (setImage) {
             setImage(options[i].image)
         }
-
-        ////console.log("valueselected", i)
     };
 
 
     useEffect(() => {
-        // const name = options[0].label.toString();
-        // valuesStampaCaldoOpz[name] = Number(options[0].value);
+        if (setImage) {
+            setImage(options[0].image)
+        }
         const name = label;
         const val = valuesStampaCaldoOpz[name]
         valuesStampaCaldoOpz[name] = Number(options[0].value);
-
     }, [])
-
-    // useEffect(() => {
-    //     const name = label;
-    //     valuesStampaCaldoOpz[name] = Number(options[0].value);
-    // }, [options])
-    ////console.log("ASDFADSFf",options)
     return (
         <div className=" p-0 m-0 mt-[2px] mb-[40px]">
             <h4 className="bg-[#e8e8e8] mb-1 text-[12.5px] p-0 m-0 ps-[20px] pt-[4px] font-normal uppercase">{label}</h4>

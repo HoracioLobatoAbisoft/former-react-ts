@@ -7,7 +7,7 @@ import { GLOBAL_CONFIG } from './_config/global';
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  <>
     {/* <PayPalScriptProvider
       options={{
         clientId: GLOBAL_CONFIG.PAYPAL_CLIENT_ID,
@@ -20,5 +20,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <App />
       </Router>
     {/* </PayPalScriptProvider> */}
-  </React.StrictMode>,
+  </>,
 )

@@ -12,6 +12,7 @@ import { DataResponseGetUtente } from '../../../interface/Utente';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import ModalSegliPagamento from './ModalSegliPagamento';
 import { GLOBAL_CONFIG } from '../../../_config/global';
+import { httpGetMetodiPagamento } from '../services/Services';
 type PropsScegliIlPagamento = {
     TotaleProvisorio: DataGetTotaleProvisorio | undefined
     setStepperStep: React.Dispatch<React.SetStateAction<number>>
@@ -28,7 +29,7 @@ type PropsScegliIlPagamento = {
         TotalPrezo: number;
         TotalPeso: number;
         idUt: number;
-        Colli:number;
+        Colli: number;
     }
     arrayCarrello: ObjCarrello[];
     messageCoupon: string
@@ -39,9 +40,11 @@ type PropsScegliIlPagamento = {
     setTotaleProvisorio: React.Dispatch<React.SetStateAction<DataGetTotaleProvisorio | undefined>>;
     handleRadioPagamento: (idIp: number) => Promise<void>;
     radio: number;
-    handleAquistaOra: () => Promise<void>
+    handleAquistaOra: () => Promise<void>;
+    setTipoPagamento: React.Dispatch<React.SetStateAction<DataGetTipoPagamenti[]>>;
+    getMetodiPagamento: (IdUt: number, TotaleCarrello: number, IdMetodoConsegnaScelto: number) => Promise<DataGetTipoPagamenti[]>
 }
-const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, setArrayCarrello, dataUtente, dataTotale, arrayCarrello, messageCoupon, setMessageCoupon, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, radio,handleAquistaOra }: PropsScegliIlPagamento) => {
+const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, setArrayCarrello, dataUtente, dataTotale, arrayCarrello, messageCoupon, setMessageCoupon, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, radio, handleAquistaOra, setTipoPagamento,getMetodiPagamento }: PropsScegliIlPagamento) => {
 
     const [codice, setCodice] = useState<string>('')
     const [openModal, setOpenModal] = useState<boolean>(false)
@@ -72,15 +75,27 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
         window.parent.postMessage({ operation: enOperationFrame.redirectITuopiCouponSconto }, GLOBAL_CONFIG.IMG_IP);
     }
 
+    const effectAsync = async () => {
+        if (dataUtente) {
+            const consLocal = localStorage.getItem('cons');
+            
+            const responseMetodiPagamento = await getMetodiPagamento(dataUtente.idUt, dataTotale.TotalPrezo, Number(consLocal) )
+            setTipoPagamento(responseMetodiPagamento);
+        }
+
+    }
+
     useEffect(() => {
-        const corr = tipoPagamento.find(x=>x.idTipoPagamento == 5);
+        const corr = tipoPagamento.find(x => x.idTipoPagamento == 5);
         //const colli = dataTotale.Colli;
-        localStorage.setItem('tp',String(corr?.titulo));
-        localStorage.setItem('tpI',String(corr?.imgRif));
-        localStorage.setItem('tpD',String(corr?.descrizione));
-        localStorage.setItem('tppr',String(corr?.periodoPagamento));
-        localStorage.setItem('tpDI',String(corr?.idTipoPagamento));
-        localStorage.setItem('tpDI',String(corr?.idTipoPagamento));
+        console.log(corr)
+        localStorage.setItem('tp', String(corr?.titulo));
+        localStorage.setItem('tpI', String(corr?.imgRif));
+        localStorage.setItem('tpD', String(corr?.descrizione));
+        localStorage.setItem('tppr', String(corr?.periodoPagamento));
+        localStorage.setItem('tpDI', String(corr?.idTipoPagamento));
+        localStorage.setItem('tpDI', String(corr?.idTipoPagamento));
+        effectAsync();
         //localStorage.setItem('cll',String(colli));
     }, [])
 
@@ -108,7 +123,7 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     {showInputCoupon == false && localStorage.getItem('m') == undefined ?
                         <div className=" flex gap-3 w-full justify-center">
                             <p className="text-[11.5px]">Hai un Coupon di Sconto? Inserisci qui il codice e ti verrà applicato</p>
-                            <input type="text" className="ms-4 border rounded-[2px] border-[#000]  h-[21px]" onChange={handleCodice} />
+                            <input type="text" className="ms-4 border rounded-[2px] border-[#000]  h-[21px]" onChange={handleCodice} maxLength={30} />
                             <a className="text-[12px] ms-1 bg-[#f58220] h-[20px] py-[2px] px-[4px] cursor-pointer" onClick={handleAplicaCouponSconto}>Applica</a>
                         </div> : null
                     }
@@ -122,7 +137,7 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                 <ContinuaGliAcquisti changebuttonstep={changebuttonstep} step={step} />
             </div>
             <div className="w-[23%]">
-                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}  handleAquistaOra={handleAquistaOra}/>
+                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra} />
             </div>
         </div>
     )

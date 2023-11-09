@@ -13,7 +13,7 @@ interface Props {
     handleChangeRowSelect: (conditional: boolean, value: number, quantity: number) => void
     radioIva?: number;
     showColumTable: PrezzoValue | undefined;
-    showTablePreez: boolean ;
+    showTablePreez: boolean;
     senderComandargument: string;
     setSenderComandargument: React.Dispatch<React.SetStateAction<string>>
     handleCalcolaTuto: (code: string, QtaSelezionata: number, prezoSelezionata: number, i: number, dateConsegna: Date | undefined) => void
@@ -24,16 +24,20 @@ interface Props {
     qtaSelezinata: number;
     calcolaTuto: DataGetCalcolaTuto | undefined;
     prezzoActive: number;
+    codeStart: string;
+    numberPrezzo: number | null;
 }
-const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable, showTablePreez, senderComandargument, setSenderComandargument, handleCalcolaTuto, handleSelectDate, alertMassimo, initialState, setTablaDataPrezzi, qtaSelezinata, calcolaTuto, prezzoActive, }: Props) => {
+const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleChangeRowSelect, radioIva, showColumTable, showTablePreez, senderComandargument, setSenderComandargument, handleCalcolaTuto, handleSelectDate, alertMassimo, initialState, setTablaDataPrezzi, qtaSelezinata, calcolaTuto, prezzoActive, codeStart, numberPrezzo }: Props) => {
     const formatDate = (value: Date) => {
-
-        
 
         if (value != undefined) {
             const date = new Date(value);
             const valueReturn = date.toLocaleDateString('it-IT', { weekday: 'long', month: 'long', day: 'numeric' })
             const valueConvert = String(valueReturn).split(" ");
+            if (Number(valueConvert[1]) <= 9) {
+                //console.log(valueConvert[1])
+                valueConvert[1] = "0"+ valueConvert[1]
+            }
             //debugger
             return valueConvert;
         }
@@ -73,7 +77,7 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
         return `€ ${numberFormat(value)}`
     }
 
-    const bgColor_ = ( bgColor:string,value: number, quantity?: number)=>{
+    const bgColor_ = (bgColor: string, value: number, quantity?: number) => {
         if (radioIva === 2 && quantity != null) {
             const valueC = value * quantity
             if (valueC === 0) {
@@ -99,9 +103,9 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
         return true
     }
 
-    const handlePrimary = (i: number,qta: number,row:string,prezzo: number,data: Date | undefined) =>{
-        handleChangeRowSelect(false, i, qta); 
-        handleCalcolaTuto(row, qta, prezzo, i, data); 
+    const handlePrimary = (i: number, qta: number, row: string, prezzo: number, data: Date | undefined) => {
+        handleChangeRowSelect(false, i, qta);
+        handleCalcolaTuto(row, qta, prezzo, i, data);
         handleSelectDate(row, tablaDate?.dataFast, tablaDate?.dataFastProduzione);
     }
 
@@ -169,13 +173,13 @@ const TableCustom = ({ tablaDataPrezzi, tablaDate, viewRows, selectRow, handleCh
                                     <p className=" text-end text-[14px]">{formatQuantity(elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                 </div>
                                 {showColumTable?.prezzoFazt ?
-                                    <div onClick={() => {selectPrecio(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)?handlePrimary(i,elem.richiestaCalcoloPrezzo.qtaRichiesta,"F",elem.prezzoRiv,tablaDate?.dataFast) : null  }} className={` 
-                                    ${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoRiv ? 'bg-[#d6e03d]' : bgColor_('bg-[#eef3f1]',elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta,)} w-[228px] ${promo ? 'h-[45px]' : 'h-[32.8px]'} rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center mb-[2px]`}>
+                                    <div onClick={() => { selectPrecio(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta) ? handlePrimary(i, elem.richiestaCalcoloPrezzo.qtaRichiesta, "F", elem.prezzoRiv, tablaDate?.dataFast) : null }} className={` 
+                                    ${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoRiv ? 'bg-[#d6e03d]' : bgColor_('bg-[#eef3f1]', elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta,)} w-[228px] ${promo ? 'h-[45px]' : 'h-[32.8px]'} rounded  px-3  font-semibold text-center cursor-pointer hover:bg-[#d6e03d] flex items-center justify-center mb-[2px]`}>
                                         <p className="text-[14px]">{formatValue(elem.prezzoRiv, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }
                                 {showColumTable?.prezzoNorm ?
-                                    <div onClick={() => {selectPrecio(elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta) ?handlePrimary(i,elem.richiestaCalcoloPrezzo.qtaRichiesta,"N",elem.prezzoPubbl,tablaDate?.dataNormale) : null  }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoPubbl ? 'bg-[#d6e03d]' : bgColor_('bg-[#d4e8df]',elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta)}  w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] mb-[2px] flex items-center justify-center `}>
+                                    <div onClick={() => { selectPrecio(elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta) ? handlePrimary(i, elem.richiestaCalcoloPrezzo.qtaRichiesta, "N", elem.prezzoPubbl, tablaDate?.dataNormale) : null }} className={`${qtaSelezinata == elem.richiestaCalcoloPrezzo.qtaRichiesta && prezzoActive == elem.prezzoPubbl || (codeStart == "N" && (numberPrezzo == i)) ? 'bg-[#d6e03d]' : bgColor_('bg-[#d4e8df]', elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta)}  w-[232px] ${promo ? 'h-[45px]' : 'h-[32.8px]'}  rounded px-3 font-semibold text-center cursor-pointer hover:bg-[#d6e03d] mb-[2px] flex items-center justify-center `}>
                                         <p className="text-[14px]">{formatValue(elem.prezzoPubbl, elem.richiestaCalcoloPrezzo.qtaRichiesta)}</p>
                                     </div> : null
                                 }

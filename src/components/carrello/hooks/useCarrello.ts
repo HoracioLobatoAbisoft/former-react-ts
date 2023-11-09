@@ -14,6 +14,7 @@ import { GLOBAL_CONFIG } from '../../../_config/global';
 import { DataPostAquistaOra } from '../Interfaces/AquistaOra';
 import { DataGetPromo } from '../Interfaces/Promo';
 import { DataOrdineStep5, DataOrdineVoid } from '../Interfaces/DataTotaleORdineStep5.d';
+import { useNavigate } from 'react-router-dom';
 
 
 const useCarrello = () => {
@@ -45,14 +46,15 @@ const useCarrello = () => {
     })
 
     const [dataOrdine, setDataOrdine] = useState<DataOrdineStep5>(DataOrdineVoid)
-
+    const [loading, setLoading] = useState(false)
     // * FUNCIONES GETTER 
 
     // const encontrarFechaMaxima = (fecha1: string, fecha2: string) => {
     //     return new Date(Math.max(new Date(fecha1).getTime(), new Date(fecha2).getTime()));
     // };
-
+    const navigate = useNavigate();
     const getLocalCarrello = async () => {
+        setLoading(true);
         const LocalCarrello = localStorage.getItem('c');
         let ArrayLocalCarrello: ObjCarrello[] = [];
         let TotalPrezo = 0;
@@ -106,12 +108,24 @@ const useCarrello = () => {
             dataTotale.TotalPrezo = TotalPrezo;
             dataTotale.Colli = Colli;
             //ArrayLocalCarrello[mayorFecha1 ? mayorFecha1.index : 0].prezzo
-            const responseMetodiPagamento = await getMetodiPagamento(idUt, 12, radio)
+            const consLocal = localStorage.getItem('cons',)
+            
+            const responseMetodiPagamento = await getMetodiPagamento(idUt, TotalPrezo, consLocal ? Number(consLocal) :radio)
             setTipoPagamento(responseMetodiPagamento);
             const responseCaricaCorriere = await getCaricaCorriere(idUt);
             setCaricaCorriere(responseCaricaCorriere.data);
         }
+        //console.log('entro',ArrayLocalCarrello.length)
+        handleOperationFrame(enOperationFrame.counterCarrello, { count: String(ArrayLocalCarrello.length), data: ArrayLocalCarrello });
+        //handleOperationFrame(enOperationFrame.reliadUrl,'carrello');
+        setLoading(false);
+    }
 
+    const handleOperationFrame = (operation: enOperationFrame, uri?: any, nav?: string) => {
+        window.parent.postMessage({ color: 'bg_hidden', operation: operation, uri: uri }, GLOBAL_CONFIG.IMG_IP);
+        if (nav) {
+            navigate(nav);
+        }
     }
 
     const getDataUtn = async (idUt: number) => {
@@ -135,8 +149,10 @@ const useCarrello = () => {
 
     const getIndirizzoUt = async () => {
         try {
+            setLoading(true);
             const responseIndirizzo = await httpGetIndirizzo(dataTotale.idUt);
             setIndirizzoList(responseIndirizzo.data);
+            setLoading(false);
 
         } catch (error) {
             //console.log('error use IndirizzoUt Carrello', error)
@@ -145,8 +161,10 @@ const useCarrello = () => {
 
     const getDatesAlleghiPDF = async () => {
         try {
+            setLoading(true);
             const responseOreMinuti = await httpGetDatesAlleghiPDF();
             setAlleghiPDF(responseOreMinuti.data)
+            setLoading(false);
         } catch (error) {
             //console.log('error use getDatesAlleghiPDF Carrello', error)
         }
@@ -158,6 +176,7 @@ const useCarrello = () => {
     }
 
     const getAplicaCouponSconto = async (codice: string, tipoUtn: number | undefined, totalLavori: number, ordines: ObjCarrello[]) => {
+        
         const responseAplicaCouponSconto = await httpGetAplicaCouponSconto(codice, tipoUtn, totalLavori, ordines);
         return responseAplicaCouponSconto.data
     }
@@ -179,9 +198,6 @@ const useCarrello = () => {
         const responseAquistaOra = await httpPostAquistaOra(data);
         return responseAquistaOra;
     }
-
-
-
     /*
         *Funciones handle
     */
@@ -191,6 +207,7 @@ const useCarrello = () => {
         const confirme = confirm('Sicuro di voler eliminare questo Lavoro? Verrà modificato anche il relativo Ordine');
 
         if (confirme) {
+            setLoading(true);
             arrayCarrello.splice(id, 1);
             setArrayCarrello([...arrayCarrello]);
             localStorage.setItem('c', JSON.stringify([...arrayCarrello]))
@@ -217,26 +234,36 @@ const useCarrello = () => {
                 //setArrayCarrello([]);
                 handleDeleteAllCarrello();
             }
+            handleOperationFrame(enOperationFrame.counterCarrello, { count: String(arrayCarrello.length), data: arrayCarrello });
+            //handleOperationFrame(enOperationFrame.reliadUrl, 'carrello');
+            setLoading(false);
         }
     }
 
     const handleDeleteAllCarrello = () => {
+        setLoading(true);
         localStorage.removeItem('c');
         localStorage.removeItem('m');
         localStorage.removeItem('sc')
         localStorage.clear();
+        handleOperationFrame(enOperationFrame.counterCarrello, '0');
+        handleOperationFrame(enOperationFrame.reliadUrl, 'carrello');
         setArrayCarrello([]);
         setTotaleProvisorio(undefined)
+        setLoading(false);
     }
 
     const handleRetornaProdotto = (i: number, uri: string) => {
-        window.parent.postMessage({ uri: uri, operation: enOperationFrame.reliadUrl }, GLOBAL_CONFIG.IMG_IP);
-        const updateCarrello = [...arrayCarrello]
-        updateCarrello.splice(i, 1);
-        setArrayCarrello(updateCarrello);
-        localStorage.setItem('c', JSON.stringify(updateCarrello))
-        getLocalCarrello();
-        getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, null, radioPagamento, radio);
+        const confirme = confirm('Sicuro di voler eliminare questo Lavoro dal Carrello?');
+        if (confirme) {
+            window.parent.postMessage({ uri: uri, operation: enOperationFrame.reliadUrl }, GLOBAL_CONFIG.IMG_IP);
+            const updateCarrello = [...arrayCarrello]
+            updateCarrello.splice(i, 1);
+            setArrayCarrello(updateCarrello);
+            localStorage.setItem('c', JSON.stringify(updateCarrello))
+            getLocalCarrello();
+            getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, null, radioPagamento, radio);
+        }
     }
 
     const handleReturnIndex = () => {
@@ -249,9 +276,11 @@ const useCarrello = () => {
     }
 
     const handleTotaleProvisorio = async () => {
+        setLoading(true);
         const scontoLocal = localStorage.getItem('sc')
         const responseTotale = await getTotaleProvisorio(dataTotale.idUt, dataTotale.TotalPeso, 0, dataTotale.TotalPrezo, scontoLocal == undefined ? null : Number(scontoLocal), radioPagamento, radio);
-        setTotaleProvisorio(responseTotale)
+        setTotaleProvisorio(responseTotale);
+        setLoading(false);
     }
 
     const handleRadioPagamento = async (idIp: number) => {
@@ -287,32 +316,7 @@ const useCarrello = () => {
         window.parent.postMessage({ uri: uri, operation: enOperationFrame.reliadUrl }, GLOBAL_CONFIG.IMG_IP);
     }
 
-
-
-
     const handleScandeza = async (Cap: string) => {
-        // const date1 = arrayCarrello[indexScandeza].scadenza?.date1;
-        // const date2 = arrayCarrello[indexScandeza].scadenza?.date2;
-        // if (radio === 1 && date1 !== undefined) {
-        //     const dateNew = new Date(date1)
-        //     return dateNew.toLocaleDateString('it-IT', {
-        //         weekday: 'long',
-        //         day: 'numeric',
-        //         month: 'long',
-        //         year: 'numeric'
-        //     });
-        // }
-        // if (radio === 0 && date2 !== undefined) {
-        //     const dateNew = new Date(date2)
-
-        //     return dateNew.toLocaleDateString('it-IT', {
-        //         weekday: 'long',
-        //         day: 'numeric',
-        //         month: 'long',
-        //         year: 'numeric'
-        //     });
-        // }
-
         const IdPrev = arrayCarrello[indexScandeza].idPrev;
         const IdFormProd = arrayCarrello[indexScandeza].IdFormProd;
         const IdTipoCarta = arrayCarrello[indexScandeza].IdTipoCarta;
@@ -373,26 +377,23 @@ const useCarrello = () => {
         });
     }
 
-
     /**
      * *Funciones efectHelpers
      */
 
     useEffect(() => {
-
-
-
+        
         getLocalCarrello();
         //if (arrayCarrello.length > 0) {
         handleTotaleProvisorio();
         getDatesAlleghiPDF();
         getIndirizzoUt();
         handleHistory();
-        localStorage.setItem('cons', '1');
+        //localStorage.setItem('cons', '1');
         const ste = localStorage.getItem('stp');
         if (ste != undefined) { setStep(Number(ste)); } else { setStep(1) };
+        //
         //}
-
     }, [])
 
 
@@ -439,7 +440,7 @@ const useCarrello = () => {
         promoList,
         dataOrdine,
         setDataOrdine,
-        hanldeRedirectFrameTo,
+        hanldeRedirectFrameTo,loading,setTipoPagamento,getMetodiPagamento,
     }
 }
 

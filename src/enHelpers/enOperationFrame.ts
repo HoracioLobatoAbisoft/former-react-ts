@@ -11,4 +11,6 @@ export enum enOperationFrame {
     redirectDetaglioLavoro = 10,
     newTagListinoTemplate = 11,
     redirectOtherUri = 12,
+    hiddenPage = 13,
+    counterCarrello = 14,
 }

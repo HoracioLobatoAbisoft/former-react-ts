@@ -94,11 +94,11 @@ export const InputCustomSelect = ({
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ width:'2em', }} className="relative"/>
+            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform:'scale(1.3)', }} className=""/>
           </span>
         }
         {isHovered && (
-          <div className="absolute right-0 max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px]">
+          <div className="absolute right-0 max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px] z-10">
             <div className="flex gap-1 leading-[12px]" style={{wordWrap:'break-word',direction:'ltr'}}>
               {/* <img
                   src={
@@ -111,7 +111,7 @@ export const InputCustomSelect = ({
                 /> */}
               <img
                 src={
-                  `https://tipografiaformer.it/listino/img/` + selected()?.image
+                  `${GLOBAL_CONFIG.IMG_IP}/listino/img/` + selected()?.image
                 }
                 alt=""
                 className="w-[128px] h-[128px]"
