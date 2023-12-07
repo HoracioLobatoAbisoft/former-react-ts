@@ -13,13 +13,13 @@ const DettaglioOrdine = () => {
 
     //AreaPersonale/iTuoiOrdini
 
-    const { ordiniData, handleDeleteLavoro, handleNewTagListinoTemplate, handleRedirectToDetaglioOrdini,handleTokenAuth,openloadingBackdrop } = useDettaglioOrdine()
+    const { ordiniData, handleDeleteLavoro, handleNewTagListinoTemplate, handleRedirectToDetaglioOrdini, handleTokenAuth, openloadingBackdrop } = useDettaglioOrdine()
 
-    
+
 
     return (
         <div className="w-full  h-full font-[Arial]">
-            <LoadingBackdrop isOpen={openloadingBackdrop} x={1} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around',alignItems: 'center',flexDirection:'column'  }}/>
+            <LoadingBackdrop isOpen={openloadingBackdrop} x={1} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column' }} />
             <div className="text-[11px] flex gap-[2px] text-white justify-center">
                 <b className="bg-[#aaa] py-[5px] px-[10px] text-center rounded-[5px]">1) Aggiungi al Carrello</b>
                 <b className="bg-[#aaa] py-[5px] px-[10px] text-center rounded-[5px]">2) ORDINA</b>
@@ -30,11 +30,15 @@ const DettaglioOrdine = () => {
                 <b className="bg-[#aaa] py-[5px] px-[10px] text-center rounded-[5px]">7) Ricevi il tuo Ordine</b>
             </div>
             <div className="">
-                <h4 className="flex my-[13px] ms-[80px] text-[13px] items-center text-[#f58220] font-bold gap-1">
-                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCart50.png`} className="w-[50px] h-[26px]" />
-                    DETTAGLIO DEL TUO ORDINE N°
-                    <b className="text-black">{ordiniData?.idConsegnaView} </b> del <b className="text-black"> {ordiniData?.dataInserimentoStr}</b>
-                </h4>
+                <div className="w-full flex justify-between items-center">
+                    <h4 className="flex my-[13px] ms-[80px] text-[13px] items-center text-[#f58220] font-bold gap-1">
+                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCart50.png`} className="w-[50px] h-[26px]" />
+                        DETTAGLIO DEL TUO ORDINE N°
+                        <b className="text-black">{ordiniData?.idConsegnaView} </b> del <b className="text-black"> {ordiniData?.dataInserimentoStr}</b>
+                    </h4>
+                    <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full rounded text-white">React V^18.2.0</span>
+                </div>
+
                 <hr className="border border-[#f58220] mx-[110px] mt-[3px] mb-[5.5px]" />
                 <div className="mx-[110px] text-[11px]">
                     <h4 className="font-bold tracking-wide">Riepilogo Ordine</h4>
@@ -114,9 +118,9 @@ const DettaglioOrdine = () => {
                                 </p>
                                 <p className="mt-[1.5em]">Tipografia Former accetta il pagamento attraverso il circuito sicuro PayPal.</p>
                                 <center>
-                                    <button className="mt-[1.5em] bg-[#d6e03d] font-bold tex-[11px] leading-[30px] w-[120px] h-[30px] text-center rounded-[3px] hover:bg-[#f1fc45]" onClick={()=>handleTokenAuth()}>PAGA ADESSO</button>
+                                    <button className="mt-[1.5em] bg-[#d6e03d] font-bold tex-[11px] leading-[30px] w-[120px] h-[30px] text-center rounded-[3px] hover:bg-[#f1fc45]" onClick={() => handleTokenAuth()}>PAGA ADESSO</button>
                                     {/* <PayPalButton amount="12.00" description="Biglieti da visita"/> */}
-                                    
+
                                 </center>
                                 <div className="flex items-center mt-[2em]">
                                     <div className=" leading-[13px]">

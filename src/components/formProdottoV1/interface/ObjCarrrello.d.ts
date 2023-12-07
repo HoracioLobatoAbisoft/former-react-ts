@@ -33,11 +33,13 @@ export interface ObjCarrello {
     fogli?: string;
     labelFogli?: string
     pdfTemplate: string | undefined;
-    altezza?: number | null  | undefined ;
-    base?: number | null  | undefined ;
-    produndita?: number | null  | undefined ;
+    altezza: number  ;
+    base: number ;
+    produndita: number  ;
     idReparto: number | undefined;
     IdFormProd: string | number | undefined;
     IdTipoCarta: string | number | undefined;
     IdColoreStampa: string | number | undefined;
+    promo:boolean;
+    percentualePromo?:number |string;
 }

@@ -1,3 +1,5 @@
+import { DataGetAplicaCouponSconto } from "./CouponSconto";
+
 export interface ResponseGetTipoPagamento {
     data: DataGetTipoPagamenti[];
     message: string;
@@ -7,8 +9,13 @@ export interface ResponseGetTipoPagamento {
 export interface DataGetTipoPagamenti {
     descrizione: string;
     imgRif: string;
-    note: null;
+    note: null | string;
     titulo: string;
-    idTipoPagamento:number;
-    periodoPagamento:number;
+    idTipoPagamento: number;
+    periodoPagamento: number;
+}
+
+export interface DataLocalPagamento {
+    tipoPagamento?: DataGetTipoPagamenti;
+    dataSconto: DataGetAplicaCouponSconto | undefined
 }

@@ -27,7 +27,6 @@ const useCarrello = () => {
     const [alleghiPDF, setAlleghiPDF] = useState<DataGetAlleghiPDF>();
     const [scadenza, setScadenza] = useState<DateEntrega>()
     const [tipoPagamento, setTipoPagamento] = useState<DataGetTipoPagamenti[]>([])
-    const [messageCoupon, setMessageCoupon] = useState<string>("")
     const [showInputCoupon, setShowInputCoupon] = useState<boolean>(false)
     const [indexScandeza, setIndezScandeza] = useState<number>(0);
     const [radio, setRadio] = useState<number>(1)
@@ -46,7 +45,10 @@ const useCarrello = () => {
     })
 
     const [dataOrdine, setDataOrdine] = useState<DataOrdineStep5>(DataOrdineVoid)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState<string>('');
+    const [alertEmail, setAlertEmail] = useState(false)
+
     // * FUNCIONES GETTER 
 
     // const encontrarFechaMaxima = (fecha1: string, fecha2: string) => {
@@ -61,18 +63,14 @@ const useCarrello = () => {
         let TotalPeso = 0;
         let idUt = 0;
         let Colli = 0;
-
         let mayorFecha1;
-
         if (LocalCarrello) {
             ArrayLocalCarrello = JSON.parse(LocalCarrello);
-            ////console.log('Carello', ArrayLocalCarrello)
-            ArrayLocalCarrello.reverse();
             setArrayCarrello(ArrayLocalCarrello);
             mayorFecha1 = ArrayLocalCarrello.length > 0
                 ? ArrayLocalCarrello.reduce((mayor, obj, index) => {
                     if (obj && obj.scadenza) {
-                        const fecha1 = new Date(obj.scadenza.date1);
+                        const fecha1 = new Date(obj.scadenza.date);
                         if (!mayor || fecha1 > mayor.fecha1) {
                             mayor = { fecha1, index };
                         }
@@ -80,11 +78,8 @@ const useCarrello = () => {
                     return mayor;
                 }, { fecha1: new Date(0), index: -1 })
                 : null;
-            ////console.log(mayorFecha1?.index);
             setIndezScandeza(mayorFecha1 ? mayorFecha1.index : 0)
-            //setScadenza(ArrayLocalCarrello[0].scadenza);
         }
-        //countLavori = ArrayLocalCarrello.length;
         ArrayLocalCarrello.map((lem, i) => {
             if (lem.prezzo != undefined) {
 
@@ -107,17 +102,14 @@ const useCarrello = () => {
             dataTotale.TotalPeso = TotalPeso;
             dataTotale.TotalPrezo = TotalPrezo;
             dataTotale.Colli = Colli;
-            //ArrayLocalCarrello[mayorFecha1 ? mayorFecha1.index : 0].prezzo
             const consLocal = localStorage.getItem('cons',)
-            
-            const responseMetodiPagamento = await getMetodiPagamento(idUt, TotalPrezo, consLocal ? Number(consLocal) :radio)
+            const responseMetodiPagamento = await getMetodiPagamento(idUt, TotalPrezo, consLocal ? Number(consLocal) : radio)
             setTipoPagamento(responseMetodiPagamento);
             const responseCaricaCorriere = await getCaricaCorriere(idUt);
             setCaricaCorriere(responseCaricaCorriere.data);
         }
-        //console.log('entro',ArrayLocalCarrello.length)
+        console.log('aca esta el carrito local \n',ArrayLocalCarrello)
         handleOperationFrame(enOperationFrame.counterCarrello, { count: String(ArrayLocalCarrello.length), data: ArrayLocalCarrello });
-        //handleOperationFrame(enOperationFrame.reliadUrl,'carrello');
         setLoading(false);
     }
 
@@ -139,7 +131,6 @@ const useCarrello = () => {
 
     const getTotaleProvisorio = async (idUt: number, TotalePeso: number, cero: number, TotalePrezzo: number, Sconto: number | null, tipoPagamento: number, IdCorriere: number, cap?: string) => {
         try {
-            ////console.log('lavori',dataTotale.TotalPrezo)
             const responseProvisorio = await httpGetTotaleProvisorio(idUt, TotalePeso, cero, TotalePrezzo, Sconto, tipoPagamento, IdCorriere, cap);
             return responseProvisorio.data;
         } catch (error) {
@@ -176,7 +167,7 @@ const useCarrello = () => {
     }
 
     const getAplicaCouponSconto = async (codice: string, tipoUtn: number | undefined, totalLavori: number, ordines: ObjCarrello[]) => {
-        
+
         const responseAplicaCouponSconto = await httpGetAplicaCouponSconto(codice, tipoUtn, totalLavori, ordines);
         return responseAplicaCouponSconto.data
     }
@@ -218,9 +209,7 @@ const useCarrello = () => {
             console.log(dataTotale.TotalPeso)
             localStorage.setItem('pzo', String(dataTotale.TotalPeso))
             dataOrdine.pesokg = String(dataTotale.TotalPeso);
-
             setTotaleProvisorio(responseGetTotaleProvisorio)
-
             const carr = JSON.parse(String(localStorage.getItem('c')));
             if (carr.length < 1) {
                 setStep(1);
@@ -231,11 +220,9 @@ const useCarrello = () => {
                     desconto: 0,
                     Colli: 0,
                 });
-                //setArrayCarrello([]);
                 handleDeleteAllCarrello();
             }
             handleOperationFrame(enOperationFrame.counterCarrello, { count: String(arrayCarrello.length), data: arrayCarrello });
-            //handleOperationFrame(enOperationFrame.reliadUrl, 'carrello');
             setLoading(false);
         }
     }
@@ -272,7 +259,7 @@ const useCarrello = () => {
 
     const handleRedirectITuoiOrdini = () => {
         handleDeleteAllCarrello();
-        window.parent.postMessage({ operation: enOperationFrame.redirectITuoiOrdini }, GLOBAL_CONFIG.IMG_IP);
+        window.parent.postMessage({ operation: enOperationFrame.reliadUrl, uri: 'i-tuoi-ordini' }, GLOBAL_CONFIG.IMG_IP);
     }
 
     const handleTotaleProvisorio = async () => {
@@ -297,8 +284,6 @@ const useCarrello = () => {
     }
 
     const handleGetCorriereSelezionata = async (IdCorriere?: number, Cap?: string, IdPrev?: number, IdFormProd?: number, IdTipoCarta?: number, IdColoreStampa?: number) => {
-        //debugger
-        ////console.log('cap',Cap)
         const carrello = arrayCarrello[indexScandeza];
         const responseIndirizzo = await httpGetIndirizzo(dataTotale.idUt);
         const responseGetCorreore = await getCorriereSelezionata(IdCorriere === undefined ? radio : IdCorriere, Cap === undefined ? String(responseIndirizzo.data.find(x => x.predefinito == true)?.cap) : Cap, IdPrev === undefined ? Number(carrello.idPrev) : IdPrev, IdFormProd === undefined ? Number(carrello.IdFormProd) : IdFormProd, IdTipoCarta === undefined ? Number(carrello.IdTipoCarta) : IdTipoCarta, IdColoreStampa === undefined ? Number(carrello.IdColoreStampa) : IdColoreStampa)
@@ -325,12 +310,25 @@ const useCarrello = () => {
         const responseDateConsegna = await getCorriereSelezionata(radio, Cap, Number(IdPrev), Number(IdFormProd), Number(IdTipoCarta), Number(IdColoreStampa))
 
         setCorriereSelezionata(responseDateConsegna.data);
-
-        //return '';
-
     };
 
     const handleAquistaOra = async () => {
+        if (step == 3) {
+            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const okEmail = regexEmail.test(email);
+            if (email != "") {
+                if (okEmail) {
+                    setAlertEmail(false)
+                    localStorage.setItem('mil', email);
+                    setStep(4);
+                } else {
+                    setAlertEmail(true);
+                    setStep(3)
+                    return;
+                }
+            }
+        }
+
         if (step == 5) {
             const data: DataPostAquistaOra = {
                 aquistaOraDTO: {
@@ -350,13 +348,37 @@ const useCarrello = () => {
             }
             const responsePostAquistaOra = await postAquistaOra(data);
             if (responsePostAquistaOra) {
-                handleShow();
+                //handleShow();
                 //handleDeleteAllCarrello();
                 //setStep(6);
+                window.parent.postMessage({ operation: enOperationFrame.reliadUrl, uri: 'ordine-confermato' }, GLOBAL_CONFIG.IMG_IP);
+                localStorage.clear();
+                handleOperationFrame(enOperationFrame.counterCarrello, '0');
             }
             //console.log('ordine',data)
         }
 
+        setStep(step + 1); setSteptext(changebuttonstep(step + 1));
+    }
+
+    const changebuttonstep = (step: number) => {
+        let textreturn = "";
+        if (step === 1) {
+            textreturn = "REPILOGO";
+        } else if (step === 2) {
+            textreturn = "ALLEGA I FILE";
+        } else if (step === 3) {
+            textreturn = "SCEGLI LA CONSEGNA";
+        } else if (step === 4) {
+            textreturn = "SCEGLI IL PAGAMENTO";
+        } else if (step === 5) {
+            textreturn = "RIVEDI E ACQUISTA";
+        } else if (step === 6) {
+
+            textreturn = "ACQUISTA ORA"
+        } else if (step === 7) {
+        }
+        return textreturn;
     }
 
     const getPromo = async () => {
@@ -368,32 +390,26 @@ const useCarrello = () => {
             console.log('error use IndirizzoUt Carrello', error)
         }
     }
-
     const handleHistory = () => {
         window.addEventListener('popstate', function (event) {
-            //alert("Usuario retrocedió en el historial");
+            alert("Usuario retrocedió en el historial");
             window.parent.postMessage({ operation: enOperationFrame.show }, GLOBAL_CONFIG.IMG_IP);
 
         });
     }
+    handleHistory();
 
     /**
      * *Funciones efectHelpers
      */
-
     useEffect(() => {
-        
         getLocalCarrello();
-        //if (arrayCarrello.length > 0) {
         handleTotaleProvisorio();
         getDatesAlleghiPDF();
         getIndirizzoUt();
-        handleHistory();
-        //localStorage.setItem('cons', '1');
+
         const ste = localStorage.getItem('stp');
         if (ste != undefined) { setStep(Number(ste)); } else { setStep(1) };
-        //
-        //}
     }, [])
 
 
@@ -418,8 +434,6 @@ const useCarrello = () => {
         radioPagamento,
         getAplicaCouponSconto,
         dataTotale,
-        messageCoupon,
-        setMessageCoupon,
         showInputCoupon,
         setShowInputCoupon,
         getTotaleProvisorio,
@@ -440,7 +454,7 @@ const useCarrello = () => {
         promoList,
         dataOrdine,
         setDataOrdine,
-        hanldeRedirectFrameTo,loading,setTipoPagamento,getMetodiPagamento,
+        hanldeRedirectFrameTo, loading, setTipoPagamento, getMetodiPagamento, setEmail, email, alertEmail, changebuttonstep
     }
 }
 

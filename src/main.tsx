@@ -7,18 +7,16 @@ import { GLOBAL_CONFIG } from './_config/global';
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <>
-    {/* <PayPalScriptProvider
-      options={{
-        clientId: GLOBAL_CONFIG.PAYPAL_CLIENT_ID,
-        currency: 'EUR',
-        components: "buttons,marks,funding-eligibility",
-        
-      }}
-    > */}
-      <Router>
-        <App />
-      </Router>
-    {/* </PayPalScriptProvider> */}
-  </>,
+  <React.StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>,
 )
+/*
+    TODO: Preguntas
+    !1) Donde se suben los archivos de ituoi lavori
+    !2) A que estado cambia al subir los archivos de lavori
+    !3) Cual es el diseño y los datos del email enviado del apartado campione gratuito
+    ? Validar el usuario de antonio para abrir el gestionale
+*/

@@ -12,6 +12,7 @@ import { numberFormat } from '../../../Helpers/formatNumber';
 import { enRepartoWeb } from '../../../enHelpers/enRepartoWeb';
 import { GLOBAL_CONFIG } from '../../../_config/global';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 
 
 type PropsAcordionCarrello = {
@@ -21,15 +22,15 @@ type PropsAcordionCarrello = {
     setArrayLocalCarrello: React.Dispatch<React.SetStateAction<ObjCarrello[]>>;
     deleteItem: (i: number) => void
     setStepperStep?: React.Dispatch<React.SetStateAction<number>> | null
-    step?: number
+    step?: number;
+    handleOperationFrame?: (operation: enOperationFrame, uri?: any, nav?: string | undefined) => void
 }
 
-const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, deleteItem, step = 0, setStepperStep = null }: PropsAcordionCarrello) => {
+const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, deleteItem, step = 0, setStepperStep = null, handleOperationFrame }: PropsAcordionCarrello) => {
 
     const [expanded, setExpanded] = useState<string>('panel0')
 
     const handleAcordion = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-        console.log(panel)
         if (panel === expanded) {
             setExpanded('')
         } else {
@@ -54,14 +55,13 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
             <b className="text-[12px] ms-[10px]"> LAVORI NELL' ORDINE</b>
             <div className="px-[10px] pb-[10px] flex flex-col gap-1">
                 {
-
                     ArrayLocalCarrello.map((elem, i) => {
                         return (
                             <Accordion key={i} expanded={expanded === `panel${i}`} onChange={handleAcordion(`panel${i}`)}>
                                 <AccordionSummary className='carrello' sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center' }}>
                                     <div className=" w-[10%] flex" id='acordion'>
                                         {expanded === `panel${i}` ?
-                                            <RemoveIcon sx={{ fontSize: 18 }} />: 
+                                            <RemoveIcon sx={{ fontSize: 18 }} /> :
                                             <AddIcon sx={{ fontSize: 18 }} />
                                         }
                                     </div>
@@ -120,12 +120,16 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                         })}
                                                 </p>
                                                 <p className="font-normal">Colli <b>{elem.colli}</b>, Peso <b>{elem.peso}</b> kg ±</p>
-                                                <div className='flex'>
+                                                <div className='flex items-center gap-1'>
                                                     <div className="flex flex-row min-w-[140px] bg-[#d6e03d] mt-[15px]  h-[30px] py-[2px] px-[5px] text-[18px] rounded-[5px] items-center justify-center">
-                                                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} className='w-[20px] h-[25px]' /> <b className='ml-1'>€ {formatNumber(Number(elem.prezzo))} + iva</b>
+                                                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} className='w-[20px] h-[25px]' /> <b className='ml-1'>€ {formatNumber(Number(elem.prezzo))} + iva </b>
                                                     </div>
+                                                    {(elem.promo && elem.code === "S" )&&
+                                                        <div className="bg-[#009ec9] text-white rounded-[3px] p-[2px] text-[11px] font-normal  mt-[9px]">
+                                                            <span className='m-0 p-0'>Promo {elem.percentualePromo} %</span>
+                                                        </div>
+                                                    }
                                                 </div>
-
                                                 <p className="bg-[#f1f1f1] font-normal mt-[15px] w-[75%]">
                                                     {elem.note}
                                                 </p>
@@ -158,17 +162,16 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                             </Accordion>
                         )
                     })}
-
             </div>
             {
-                (step != 0 && setStepperStep != null) &&
+                (step == 5 && handleOperationFrame) &&
                 <div>
-                    <a className="w-95 flex justify-end hover:underline cursor-pointer" style={{ 'fontSize': 12, 'margin': 10 }} onClick={() => setStepperStep(1)}>
+                    <a className="w-95 flex justify-end hover:underline cursor-pointer" style={{ 'fontSize': 12, 'margin': 10 }} onClick={() => handleOperationFrame(enOperationFrame.reliadUrl, 'carrello')}>
                         Modifica
                     </a>
                 </div>
             }
-        </div>
+        </div >
     )
 }
 

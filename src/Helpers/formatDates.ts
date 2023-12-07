@@ -15,6 +15,11 @@ export const DateFormatItWDMY = (fecha: Date | undefined) => {
     }
 }
 
+export const DateFormatReal = (fecha:string) =>{
+    console.log(fecha)
+}   
+
+
 export const DateFormatDDMMYY = (fechaP: Date | undefined) => {
     if (fechaP) {
 

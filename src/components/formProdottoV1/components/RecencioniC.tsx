@@ -13,8 +13,14 @@ const RecencioniC = ({ item }: RecencioniCProps) => {
                     <span className="text-[11px]">di <b>{item.nomeUt}</b> il {item.quando}</span>
                 </div>
                 <div className="w-full text-[12px] flex flex-col gap-[5px]">
-                    <p className="w-full flex items-center gap-2"><p className="bg-[#1aaf5d] text-white w-[55px] rounded-[2px] px-[2px] ">+ Pro</p> <i>"{item.pregi}"</i></p>
-                    <p className="w-full flex items-center gap-2"><p className="bg-[red] w-[55px] text-white rounded-[2px] px-[2px] ">- Contro</p><i>"{item.difetti}"</i></p>
+                    <div className="w-full flex items-center gap-2">
+                        <p className="bg-[#1aaf5d] text-white w-[10%] rounded-[2px] px-[2px] ">+ Pro</p> 
+                        <p className="w-[90%]"><i>"{item.pregi}"</i></p>
+                    </div>
+                    <div className="w-full flex gap-2 items-start ">
+                        <p className="bg-[red] w-[10%] text-white rounded-[2px] px-[2px] ">- Contro</p>
+                        <p className="w-[90%]"><i className="">"{item.difetti}"</i></p>
+                    </div>
                 </div>
             </div>
             <p className="text-[11px] mt-[2px]">{item.prodotto}</p>

@@ -66,14 +66,16 @@ const Prodotto = () => {
     showProfundita,
     disableProfundita,
     uriImage,
-    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev, rencensioniP, recencioniC,descrizioneDinamica,opzInclusa,
+    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, TotaleProvisorio,
     handleChangeDinamyc,
     handleChangeValue,
     handleChangeInput,
-    handleChangeCheckbox, valueNome, valueNote, handleCarrello, handleChangeRadio, textTipoCarta, handleOperationFrame, handleDonwloadPDF, handleCompraloSubito, prodottoConsigliato,
+    handleChangeCheckbox, valueNome, valueNote, handleCarrello, handleChangeRadio, textTipoCarta, handleOperationFrame, handleDonwloadPDF, setIndexTable, handleCompraloSubito, prodottoConsigliato, formatoLabel,handleCampioneGratutito,
   } = useProdtto();
 
   //*TODO revisar los presios con una cantidad de 100000 especialmente en 10/87/44/2/50/Stampa-Blocchi-autocopianti-A5-fogli-50x2-Copie-a-colori-solo-fronte
+
+
 
   return (
     <div className="w-full flex gap-3 relative ">
@@ -90,8 +92,9 @@ const Prodotto = () => {
         }}
       />
       <div className="w-[75%] relative">
-        <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal ">
-          CONFIGURA IL TUO PRODOTTO{" "}
+        <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal flex justify-between">
+          CONFIGURA IL TUO PRODOTTO
+          <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full rounded">React V^18.2.0</span>
         </h5>
         <div className="flex mt-3 ps-[4.5px]">
           <table className="w-[75%]">
@@ -109,11 +112,12 @@ const Prodotto = () => {
                 <InputComponent
                   handleChange={handleChange}
                   value={valueFormat}
-                  label="Formato"
+                  label={formatoLabel}
                   name="valueFormat"
                   options={optionFormato}
                   idPrev={idPrev}
                   uriImage={uriImage}
+
                 />
               )}
 
@@ -133,13 +137,13 @@ const Prodotto = () => {
                 name="valueTipoCarta"
                 options={optionTipoCarta}
               />
-              {copertina.length ? (
+              {copertina.length > 0 ? (
                 <ListCustom
                   label={String(copertina[0].opzione)}
                   options={copertina}
                 />
               ) : null}
-              {sotoblocco.length ? (
+              {sotoblocco.length > 0 ? (
                 <ListCustom
                   label={String(sotoblocco[0].opzione)}
                   options={sotoblocco}
@@ -165,6 +169,7 @@ const Prodotto = () => {
               {showBloccoMisure && (
                 <>
                   <InputCustom
+                    descrizioneTooltip={descrizioneMisure?.baseMisure}
                     maxLengt={4}
                     fn={handleChangeInput}
                     handleChange={handleChangeValue}
@@ -176,6 +181,7 @@ const Prodotto = () => {
                   />
                   {showProfundita && (
                     <InputCustom
+                      descrizioneTooltip={descrizioneMisure?.profunditaMisure}
                       maxLengt={4}
                       value={valueProfundita}
                       fn={handleChangeInput}
@@ -188,6 +194,7 @@ const Prodotto = () => {
                     />
                   )}
                   <InputCustom
+                    descrizioneTooltip={descrizioneMisure?.altezzaMisure}
                     maxLengt={4}
                     fn={handleChangeInput}
                     handleChange={handleChangeValue}
@@ -276,10 +283,15 @@ const Prodotto = () => {
             );
           }
         })}
+        <div className="w-full text-xs">
+          {(alertMassimo?.showErroreMisure && (valueAltezza != 0 && valueBase != 0)) ?
+            <p className=" text-center my-3 tracking-tighter text-[#ff0000] text-[12.5px] font-semibold text-">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE <br /><span className="uppercase italic">{alertMassimo?.lblErroreMisureText}</span></p> : null
+          }
+        </div>
         <div className="w-full text-xs ">
           {showOpzzioni === 1 ? (
             <li className="bg-gray-100 rounded py-1 px-1  ">
-              <a href="" className="hover:underline font-bold ">
+              <a className="hover:underline font-bold " onClick={() => handleOperationFrame(enOperationFrame.reliadUrl, 'opsss')}>
                 CLICCA QUI
               </a>{" "}
               per consultare le fustelle già disponibili;
@@ -292,7 +304,7 @@ const Prodotto = () => {
             </li>
           ) : null}
         </div>
-        <RadioGroup handleChange={handleChange} valueRadio={valueRadio} />
+        <RadioGroup handleChange={handleChange} valueRadio={valueRadio} aling={(stampaCalOpz.length === 0 && showOpzzioni != 1 && !showQtaCustom) ? 'center' : 'end'} />
         <h5 className="mb-[13px] ps-[20px] pt-[2.5px] pb-[2.5px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal">
           SCEGLI LA DATA IN CUI VUOI RICEVERE IL PRODOTTO
         </h5>
@@ -306,6 +318,8 @@ const Prodotto = () => {
           showColumTable={showColumTable}
           showTablePreez={showTablePreez}
           rowSelectedIva={rowSelectedIva}
+          indexTable={indexTable}
+          setIndexTable={setIndexTable}
         />
         <ButtonCustom
           text={
@@ -315,6 +329,7 @@ const Prodotto = () => {
           viewRow={viewRow}
         />
         <CalculaTuttoComponent
+          showTablePreez={showTablePreez}
           calcolaTuto={calcolaTuto}
           utenteData={utenteData}
           handleDonwloadPDF={handleDonwloadPDF}
@@ -340,9 +355,9 @@ const Prodotto = () => {
           <p className="text-[12px] flex items-center gap-1">
             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCorriere20.png`} />{" "}
             <b>SPEDIZIONE:</b> Numero di colli indicativo{" "}
-            <b>{/*showTablePreez*/ true ? calcolaTuto?.colli : "-"}</b> , Peso
+            <b>{showTablePreez ? <i>{calcolaTuto?.colli}</i> : "-"}</b> , Peso
             indicativo{" "}
-            <b>{/*showTablePreez*/ true ? calcolaTuto?.pesoStr : "-"}</b> kg ± ,
+            <b>{showTablePreez ? <i>{calcolaTuto?.pesoStr}</i> : "-"}</b> kg ± ,
             Costo <b>€ {numberFormat(calcolaTuto?.costo)}</b>
           </p>
         </div>
@@ -455,7 +470,6 @@ const Prodotto = () => {
                 <p className="text-[14px] text-justify indent-[5px] leading-[24px]"><b>{item.label}</b>, {item.description}
                 </p>
               </div>
-
             ))}
           </div>
         </div>
@@ -471,11 +485,13 @@ const Prodotto = () => {
           qtaSelezinata={0}
           menuDateConsegna={menuDateConsegna}
           pdfTemplate={optionFormato.find(x => x.value == valueFormat)?.pdfTemplate}
+          template3D={optionFormato.find(x => x.value == valueFormat)?.pdfTemplate3d}
           prodotto={""}
           showTablePreez={showTablePreez}
           descrizioneDinamica={undefined}
-          TotaleProvisorio={undefined}
+          TotaleProvisorio={TotaleProvisorio}
           showTemplate={dimensionniStr?.showTamplate}
+          handleCampioneGratutito={handleCampioneGratutito}
         />
       </div>
     </div>

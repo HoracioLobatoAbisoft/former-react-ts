@@ -3,21 +3,22 @@ import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 import { ObjCarrello } from "../../formProdottoV1/interface/ObjCarrrello";
 
 type ProspGliAquisti = {
-    changebuttonstep: (step: number) => string;
+    changebuttonstep?: (step: number) => string ;
     step: number;
     ArrayLocalCarrello?: ObjCarrello[]
+    text?:string;
 }
 
-const ContinuaGliAcquisti = ({ step, changebuttonstep, ArrayLocalCarrello }: ProspGliAquisti) => {
+const ContinuaGliAcquisti = ({ step, changebuttonstep, ArrayLocalCarrello,text }: ProspGliAquisti) => {
 
     const handleIndexReload = () => {
-        window.parent.postMessage({ operation: enOperationFrame.returnIndex }, GLOBAL_CONFIG.IMG_IP);
+        window.parent.postMessage({ operation: enOperationFrame.reliadUrl ,uri:'' }, GLOBAL_CONFIG.IMG_IP);
     }
 
     return (
         <div>
             {ArrayLocalCarrello && ArrayLocalCarrello.length > 0 || step > 1 ? <p style={{ 'marginTop': '15px' }}>
-                <span style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> {changebuttonstep(step + 1)}</strong></span>
+                <span style={{ 'fontSize': 12 }}>Se vuoi completare l'acquisto clicca su <strong> {text}</strong></span>
             </p> : null}
 
             <p style={{ 'marginTop': '10px' }}>

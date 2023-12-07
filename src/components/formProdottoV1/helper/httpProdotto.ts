@@ -1,5 +1,5 @@
 import { httpGetUtente } from "../../../services/UtenteService";
-import { getSvgImageService, httpGetAggiornaReview, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDescrizioniDinamica, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetFormatoStr, httpGetHelperData, httpGetOpzioni, httpGetOpzioniCarrello, httpGetProdottoConsigliato, httpGetRecensioni, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from "../services";
+import { getSvgImageService, httpGetAggiornaReview, httpGetCalcolaTuto, httpGetColoreStampa, httpGetDescrizioniDinamica, httpGetDisabledProfundita, httpGetFormatoArray, httpGetFormatoParams, httpGetFormatoStr, httpGetHelperData, httpGetOpzioni, httpGetOpzioniCarrello, httpGetProdottoConsigliato, httpGetRecensioni, httpGetShowAlertMassimo, httpGetShowBloccoMisure, httpGetShowColumTable, httpGetShowFogliPagine, httpGetShowOpzioni, httpGetShowOrientmiento, httpGetShowQtaCustom, httpGetShowSVG, httpGetShowTabellaPrezzi, httpGetStampaCaldo, httpGetTableDate, httpGetTablePrezzi, httpGetTipoCarta } from "../services";
 
 interface httpProps {
     idPrev:number,
@@ -174,5 +174,10 @@ export const getAggiornaReview =async ({idPrev,idFormProd,IdTipoCarta,IdColoreSt
 
 export const getDescrizioniDinammica =async ({idPrev,idFormProd,IdTipoCarta,IdColoreStampa}:httpProps) => {
     const response = await httpGetDescrizioniDinamica(idPrev,idFormProd,IdTipoCarta,IdColoreStampa);
+    return response.data;
+}
+
+export const getShowAlertMassimo =async ({idPrev,IdTipoCarta,IdColoreStampa,idFormProd,base,profundita,altezza,quantita,facciatePagine,iva,idUt,valuesStampaCaldoOpz}:httpTablePrezzi) => {
+    const response = await httpGetShowAlertMassimo(idPrev,IdTipoCarta,IdColoreStampa,idFormProd,base,profundita,altezza,quantita,facciatePagine,iva,idUt,valuesStampaCaldoOpz);
     return response.data;
 }

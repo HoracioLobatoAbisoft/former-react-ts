@@ -17,7 +17,7 @@ const RadioStampa = ({handleChange,label,name,options,value }: Props) => {
 
     const {hoverState,setHoverState} = useCheckbox({});
 
-    console.log(value);
+    //console.log(value);
 
     return (
         <div className=" p-0 m-0 mt-[2px] mb-[40px] relative">
@@ -39,7 +39,7 @@ const RadioStampa = ({handleChange,label,name,options,value }: Props) => {
                                     <img 
                                         onMouseEnter={() => {(elem.value != 0) &&  setHoverState(elem)}}
                                         onMouseLeave={() => setHoverState(undefined)}
-                                        src={`https://tipografiaformer.it/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] ${/*selectedOption*/0 == i ? 'border-[#d6e03d]' : 'border-[#fff]'}`} />
+                                        src={`https://tipografiaformer.it/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] border-[#fff]`} />
                                 </label>
                             </div>
                         )
@@ -47,7 +47,7 @@ const RadioStampa = ({handleChange,label,name,options,value }: Props) => {
                     })
                 }
                 {(hoverState  )&& (
-                    <div className={`absolute right-[10px] left-[100px] ${options.length > 7 ?"top-[180px]" :'top-[80px]'}  w-[400px]  max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px] z-10`}>
+                    <div className={`absolute right-[10px] left-[100px] ${options.length > 7 ?"top-[180px]" :'top-[80px]'}  w-[400px]  max-w-[400px] min-w-[200px] mt-5 me-[35%]  text-white rounded-[4px] shadow-md p-4  text-[11px] z-10`} style={{backgroundImage:'-webkit-linear-gradient(top,#4A4A4A 0,#000 100%)'}}>
                         <div className="flex">
                             <div className="w-48 max-w-full">
                                 <img

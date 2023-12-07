@@ -52,7 +52,7 @@ const InputComponent = ({
             </td>
             <td className=" p-[6px]">
                 <span
-                    className={`text-xs  text-gray-800  relative ${showIcon == false ? "opacity-0" : "cursor-pointer"
+                    className={`text-xs  text-gray-800   ${showIcon == false ? "opacity-0" : "cursor-pointer"
                         } `}
                     onMouseEnter={() => {
                         showIcon == false ? null : handleHover();
@@ -61,17 +61,17 @@ const InputComponent = ({
                 >
                     <img
                         src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`}
-                        style={{ transform: "scale(1.3)" }}
+                        style={{ transform: "scale(1.1)" }}
                         className=""
                     />
                 </span>
                 {hoverIcon && (
-                    <div className="absolute  right-[10px] left-[100px]   max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px] z-10">
+                    <div className="absolute right-0 max-w-[400px] min-w-[200px] mt-5 me-[35%]  text-white rounded-[4px] shadow-md p-4  text-[11px] z-10" style={{backgroundImage:'-webkit-linear-gradient(top,#4A4A4A 0,#000 100%)'}}>
                         <div
                             className="flex gap-1 leading-[12px]"
                             style={{ wordWrap: "break-word", direction: "ltr" }}
                         >
-                            {idPrev === '34' ?
+                            {name === 'valueFormat' ?
                                 < img
                                     src={`${GLOBAL_CONFIG.IMG_IP}/listino/img/` + uriImage}
                                     alt=""

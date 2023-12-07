@@ -29,6 +29,7 @@ const CheckBoxStampa = ({handleChange,label,name,options,value}:Props) => {
                                 <input
                                     type="checkbox"
                                     name={elem.label}
+                                    className="element-logo"
                                     value={elem.value}
                                     checked={!!value[elem.label]}
                                     onChange={handleChange}
@@ -38,14 +39,14 @@ const CheckBoxStampa = ({handleChange,label,name,options,value}:Props) => {
                                     <img 
                                         onMouseEnter={() => setHoverState(elem)}
                                         onMouseLeave={() => setHoverState(undefined)}
-                                        src={`https://tipografiaformer.it/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] ${/*selectedOption*/0 == i ? 'border-[#d6e03d]' : 'border-[#fff]'}`} />
+                                        src={`https://tipografiaformer.it/listino/img/${elem.image}`} alt="" className={`w-[77px]  hover:border-[#d6e03d] cursor-pointer rounded border-[3px] border-[#fff]`} />
                                 </label>
                             </div>
                         )
                     })
                 }
                 {hoverState?.label && (
-                    <div className="absolute   right-[10px] left-[100px] top-[80px] w-[400px]  max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px] z-10">
+                    <div className="absolute   right-[10px] left-[100px] top-[80px] w-[400px]  max-w-[400px] min-w-[200px] mt-5 me-[35%]  text-white rounded-[4px] shadow-md p-4  text-[11px] z-10" style={{backgroundImage:'-webkit-linear-gradient(top,#4A4A4A 0,#000 100%)'}}>
                         <div className="flex gap-1 leading-[12px]"
                             style={{ wordWrap: "break-word", direction: "ltr" }}>
                             <div className="w-48 max-w-full">

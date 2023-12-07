@@ -39,7 +39,7 @@ function TabPanel(props: TabPanelProps) {
 
 function a11yProps(index: number) {
   return {
-    'id': `full-width-tab-${index}`, 
+    'id': `full-width-tab-${index}`,
     'aria-control': `full-width-tabpanel-${index}`,
   };
 }
@@ -47,7 +47,7 @@ function a11yProps(index: number) {
 export default function Effettuato() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const {handleRedirectITuoiOrdini} = useCarrello();
+  const { handleRedirectITuoiOrdini } = useCarrello();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -59,96 +59,96 @@ export default function Effettuato() {
 
   return (
     <Box sx={{ bgcolor: 'transparent', width: 810 }}>
-     
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          textColor="inherit"
-          className='custom-tabs'
-        
-        >
-          <Tab 
-            className="custom-tab" 
-            label={ 
-                <p className='tab-p'> 
-                    <span className='ml-1 capitalize text-[11px]'>
-                      Ordine Confermato
-                    </span>
-                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoProdotti.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
-                </p>}
-            {...a11yProps(0)} 
-            />
-          <Tab iconPosition='start'
-            className="custom-tab" 
-            label={ 
-                <p className='labPromo flex flex-row items-center justify-center'> 
-                  <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`} alt="I nostri prodotti" className="icoImg tab-img-left"/>
-                  <span className='ml-1 text-[11px]'>
-                    Promo
-                  </span>
-                </p>} 
-            {...a11yProps(1)} 
-            />
-        </Tabs>
-      
+
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        textColor="inherit"
+        className='custom-tabs'
+
+      >
+        <Tab
+          className="custom-tab"
+          label={
+            <p className='tab-p'>
+              <span className='ml-1 capitalize text-[11px]'>
+                Ordine Confermato
+              </span>
+              <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoProdotti.png`} alt="I nostri prodotti" className="icoImg tab-img-left" />
+            </p>}
+          {...a11yProps(0)}
+        />
+        <Tab iconPosition='start'
+          className="custom-tab"
+          label={
+            <p className='labPromo flex flex-row items-center justify-center'>
+              <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`} alt="I nostri prodotti" className="icoImg tab-img-left" />
+              <span className='ml-1 text-[11px]'>
+                Promo
+              </span>
+            </p>}
+          {...a11yProps(1)}
+        />
+      </Tabs>
+
       <div className='custom-tab-container'>
         <TabPanel value={value} index={0} dir={theme.direction}>
-            <div className='row'>
-                <div className='col col-12 text-center mb-5'>
-                    <h2 className='font-bold text-lg'>Ordine effettuato correttamente!</h2>
-                </div>
-                <div className='col col-12 mb-3'>
-                    Il tuo ordine è stato effettuato in maniera corretta! 
-                </div>
-                <div className='col col-12 mb-3'>
-                    A breve riceverai tramite email una conferma dell'ordine.
-                </div>
-                <div className='col col-12 justify-center mb-5'>
-                    <div className='card-click-aqui'>
-                        <div className='row'>
-                            <div className='col col-12 mt-3 mb-4'>
-                              <Link to={'/AreaPersonale'}>
-                                <span 
-                                  className='font-bold text-[red]'
-                                  onClick={()=>handleRedirectITuoiOrdini()}
-                                >
-                                      CLICCA QUI
-                                </span>
-                              </Link>
-                                
-                            </div>
-                            <div className='col col-12 mb-4'>
-                            <Link to={'/AreaPersonale'}>
-                                <p onClick={()=>handleRedirectITuoiOrdini()} >
-                                    per <span className='font-bold'>CARICARE I FILE DI STAMPA</span>
-                                </p>
-                                </Link>
-                            </div>
-                            <div className='col col-12 mb-1'>
-                              <Link to={'/AreaPersonale'}>
-                              <p onClick={()=>handleRedirectITuoiOrdini()}>
-                                    o <span className='font-bold'> EFFETTUARE IL PAGAMENTO</span>
-
-                                </p>
-                              </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='col col-12 mt-5 mb-40'>
-                    <p>
-                        Grazie,
-                    </p>
-                    <p className='font-bold'>
-                        Lo staff Tipografia Former
-                    </p>
-                </div>
+          <div className='row'>
+            <div className='col col-12 text-center mb-5'>
+              <h2 className='font-bold text-lg'>Ordine effettuato correttamente!</h2>
             </div>
+            <div className='col col-12 mb-3'>
+              Il tuo ordine è stato effettuato in maniera corretta!
+            </div>
+            <div className='col col-12 mb-3'>
+              A breve riceverai tramite email una conferma dell'ordine.
+            </div>
+            <div className='col col-12 justify-center mb-5'>
+              <div className='card-click-aqui'>
+                <div className='row cursor-pointer'>
+                  <div className='col col-12 mt-3 mb-4'>
+                    {/* <Link to={'/AreaPersonale'}> */}
+                    <a
+                      className='font-bold text-[red]'
+                      onClick={() => handleRedirectITuoiOrdini()}
+                    >
+                      CLICCA QUI
+                    </a>
+                    {/* </Link> */}
+
+                  </div>
+                  <div className='col col-12 mb-4'>
+                    {/* <Link to={'/AreaPersonale'}> */}
+                    <a onClick={() => handleRedirectITuoiOrdini()} >
+                      per <span className='font-bold'>CARICARE I FILE DI STAMPA</span>
+                    </a>
+                    {/* </Link> */}
+                  </div>
+                  <div className='col col-12 mb-1'>
+                    {/* <Link to={'/AreaPersonale'}> */}
+                    <a onClick={() => handleRedirectITuoiOrdini()}>
+                      o <span className='font-bold'> EFFETTUARE IL PAGAMENTO</span>
+
+                    </a>
+                    {/* </Link> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='col col-12 mt-5 mb-40'>
+              <p>
+                Grazie,
+              </p>
+              <p className='font-bold'>
+                Lo staff Tipografia Former
+              </p>
+            </div>
+          </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Promo/>
+          <Promo />
         </TabPanel>
-       
+
       </div>
     </Box>
   );

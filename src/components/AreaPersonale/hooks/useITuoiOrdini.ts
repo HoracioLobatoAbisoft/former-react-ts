@@ -73,13 +73,12 @@ const useITuoiOrdini = () => {
     }, [])
 
     const handleRedirectToDetaglioOrdini = (idOrdini: number | string) => {
-        navigate('/dettaglio-lavoro')
-        window.parent.postMessage({ operation: enOperationFrame.hidden }, GLOBAL_CONFIG.IMG_IP);
-
-        //window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioOrdini, id: idOrdini }, GLOBAL_CONFIG.IMG_IP);
+        //navigate('/dettaglio-lavoro')
+        window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioOrdini, id: idOrdini }, GLOBAL_CONFIG.IMG_IP);
     }
 
     const handleRedirectToDetaglioLavoro = (idLavoro: number | string) => {
+        //navigate(`/${idLavoro}/dettaglio-lavoro`)
         window.parent.postMessage({ operation: enOperationFrame.redirectDetaglioLavoro, id: idLavoro }, GLOBAL_CONFIG.IMG_IP);
     }
 
@@ -95,16 +94,7 @@ const useITuoiOrdini = () => {
         deleteOrdini(idOrdine);
     }
 
-    /*
-        *!----------!!!------ Pay Pal--------- !!!-----! 
-    */
-
-    const handleCheackOutPayPal = async () => {
-        if (tokenPP != null || tokenPP != undefined) {
-            const responseCheckOutPayPal = await httpCheckOutPayPal(tokenPP);
-            console.log('responseCheckOutPayPal',responseCheckOutPayPal)
-        }
-    }
+    
 
 
     return {
@@ -117,7 +107,6 @@ const useITuoiOrdini = () => {
         handleDeleteLavoro,
         handleDeleteOrdine,
         openLoading,
-        handleCheackOutPayPal
     }
 }
 

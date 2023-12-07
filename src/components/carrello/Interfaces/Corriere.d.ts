@@ -1,3 +1,6 @@
+import { DataGetCaricaCorriere } from "./CaricaCorriere";
+import { DataGetIndirizzo } from "./Indirizzo";
+
 export interface ResponseGetCorriereSelezionata {
     data: DataGgetCorriereSelezionata;
     message: string;
@@ -60,4 +63,34 @@ export interface DateConsegna {
     dataNormaleProduzione: Date;
     dataSlow: Date;
     dataSlowProduzione: Date;
+    giornoStrN: string,
+    giornoIntN: string,
+    meseN: string,
+    giornoStrF: string,
+    giornoIntF: string,
+    meseF: string,
+    giornoStrS: string,
+    giornoIntS: string,
+    meseS: string
+    giornoStrNP: string
+    giornoIntNP: string
+    giornoStrFP: string,
+    giornoIntFP: string,
+    giornoStrSP: string,
+    giornoIntSP: string
+}
+
+export interface IDataConsegna {
+    dateProduzione?: Date,
+    dateProduzioneStr?: String,
+    date?: Date,
+    dateStr?: String,
+}
+
+export interface ISegliConsegnaData{
+    dateConsenga: IDataConsegna | undefined;
+    dataIndirizzo: DataGetIndirizzo | undefined;
+    dataCorriere:DataGetCaricaCorriere | undefined;
+    pesoTotale: number | undefined;
+    email:string | undefined;
 }

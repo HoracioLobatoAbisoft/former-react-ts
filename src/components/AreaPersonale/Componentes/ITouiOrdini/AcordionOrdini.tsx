@@ -23,14 +23,14 @@ type PropsAcordionOrdini = {
 const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, }: PropsAcordionOrdini) => {
 
     return (
-        <>  
-            
+        <>
+
             <div className='w-[790px] p-4'>
                 <div className=' w-full bg-white'>
                     <div className='flex flex-row'>
                         <div className='w- full text-[10px]'>
                             <span className=''>
-                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul + che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' ordine.
+                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul + che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' ordine. 
                             </span>
                         </div>
                     </div>
@@ -75,7 +75,6 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                             return (
                                 <Accordion
                                     key={index}
-
                                 >
                                     <AccordionSummary
                                         //expandIcon={<ExpandMoreIcon />}
@@ -84,7 +83,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                         sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: '760px' }}
                                         className={`arcodion-ordini`}
                                     >
-                                        <div className='w-full flex flex-row items-center hover:font-bold'>
+                                        <div className='w-full flex flex-row items-center '>
                                             <div className="w-[30px]  text-center">+</div>
                                             <div className="w-[30px]  items-center justify-center">
                                                 <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaCorriere} alt="" />
@@ -95,10 +94,8 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                     className={` w-[25px] h-[25px] rounded border-[1px] border-[#aaa]`}
                                                 />
                                             </div>
-                                            <div className="w-[80px]">
-                                                <span className='text-[11px] p-0 m-0 '>
-                                                    {item.statoStr}
-                                                </span>
+                                            <div className="w-[80px] text-[11px] leading-[16px]">
+                                                {item.statoStr}
                                             </div>
                                             <div className="w-[140px] justify-center">
                                                 <span className='text-[11px] font-bold text-center'>
@@ -247,7 +244,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                 TOTALE:
                                                             </span>
                                                             <span className='text-end font-bold pl-[5px] border-l border-l-[white]'>
-                                                            € {item.importoTotStr}
+                                                                € {item.importoTotStr}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -283,12 +280,12 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                             <div className="flex mx-0 items-center justify-end">
 
                                                                 {item.idStatoConsegna == 10 ?
-                                                                    <Link to={`/dettaglioOrdine/${item.idConsegna}`}>
-                                                                        <button className="ml-2  p-[4px] flex rounded px-[4px] bg-[#e70031] hover:bg-[#ff5829]">
+                                                                    // <Link to={`/dettaglioOrdine/${item.idConsegna}`}>
+                                                                        <button className="ml-2  p-[4px] flex rounded px-[4px] bg-[#e70031] hover:bg-[#ff5829]"onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)} >
                                                                             <img src="https://tipografiaformer.it/img/icoPrezzo16.png" />
                                                                             <b>EFFETTUA IL PAGAMENTO</b>
                                                                         </button>
-                                                                    </Link>
+                                                                    // </Link>
 
                                                                     : item.tracciabile ?
                                                                         <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
@@ -297,15 +294,15 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                         </button>
                                                                         : null
                                                                 }
-                                                                <Link to={`/dettaglioOrdine/${item.idConsegna}`}>
+                                                                {/* <Link to={`/dettaglioOrdine/${item.idConsegna}`}> */}
                                                                     <button
                                                                         className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
-                                                                    //onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)}
+                                                                        onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)}
                                                                     >
                                                                         <img src="https://tipografiaformer.it/img/icoFreccia16.png" />
                                                                         Vai al Dettaglio Ordine
                                                                     </button>
-                                                                </Link>
+                                                                {/* </Link> */}
 
                                                                 {item.modificabile &&
                                                                     <button
@@ -328,7 +325,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                             )
                         })
                     }
-                    <p className="w-full flex my-[5px]">
+                    <p className="w-full flex my-[5px] text-[11px]">
                         <span>
                             Vai alla pagina
                         </span>

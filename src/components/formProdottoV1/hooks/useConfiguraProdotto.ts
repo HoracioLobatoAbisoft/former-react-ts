@@ -648,13 +648,13 @@ export const useConfiguraProdotto = () => {
       valuesStampaCaldoOpz
     );
 
-    if (showAlertMassimo.data != '') {
-      setShowTablePreez(false)
-      setAlertMassimo(showAlertMassimo.data);
-      settablaDataPrezzi([])
-    } else {
-      setAlertMassimo('')
-    }
+    // if (showAlertMassimo.data != '') {
+    //   setShowTablePreez(false)
+    //   setAlertMassimo(showAlertMassimo.data);
+    //   settablaDataPrezzi([])
+    // } else {
+    //   setAlertMassimo('')
+    // }
 
   }
 

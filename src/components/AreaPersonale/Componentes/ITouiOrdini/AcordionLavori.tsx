@@ -14,7 +14,6 @@ type PropsAcordionLavori = {
 }
 //AreaPersonale/iTuoiOrdini
 const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro,width }: PropsAcordionLavori) => {
-    console.log('list', listLavori);
     return (
         <div className='w-full'>
             {listLavori.map((item, index) => (
@@ -164,9 +163,8 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                         }
                                     </p>
                                     {item.boxLavorazioni.length > 0 ?
-
                                         item.boxLavorazioni.map((elem, i) => (
-                                            <p className="flex">
+                                            <p className="flex" key={i}>
                                                 {(i == 0)
                                                     &&
                                                     <span className='w-[82px] text-[11px]'>

@@ -19,6 +19,7 @@ interface Props {
   metrics: string;
   value: string | number;
   maxLengt: number;
+  descrizioneTooltip?:string;
 }
 export const InputCustom = ({
   label,
@@ -33,7 +34,7 @@ export const InputCustom = ({
   mm = true,
   xx ,
   fn,
-  metrics, value, maxLengt
+  metrics, value, maxLengt,descrizioneTooltip,
 }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const setHoveredState = (stateBool: boolean) => {
@@ -60,7 +61,7 @@ export const InputCustom = ({
         {(mm && name != 'valueQuantita')?
           ` (${metrics})` : ""}
         {
-          (value === "" && name != 'valueQuantita') ?<span className="text-[red]">*</span> : ''  
+          ((value == "" || value == 0) && name != 'valueQuantita') ?<span className="text-[red]">*</span> : ''  
         }
       </td>
       <td className=" p-[6px]">
@@ -70,12 +71,12 @@ export const InputCustom = ({
             onMouseEnter={() => setHoveredState(true)}
             onMouseLeave={() => setHoveredState(false)}
           >
-            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.3)', }} />
+            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.1)', }} />
           </span>
         )}
         {isHovered && (
-          <div className="absolute right-0 max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px] z-10">
-            <div className="flex gap-1 leading-[12px]" style={{ wordWrap: 'break-word', direction: 'ltr' }}>
+          <div className="absolute right-0 max-w-[400px] min-w-[200px] mt-5 me-[35%]  text-white rounded-[4px] shadow-md p-4  text-[11px] z-10" style={{backgroundImage:'-webkit-linear-gradient(top,#4A4A4A 0,#000 100%)'}}>
+            <div className="flex gap-1 leading-[12px]" style={{ wordWrap: 'break-word', direction: 'ltr', }}>
               <div className="">
                 <div className="flex flex-col " style={{ wordWrap: 'break-word', direction: 'ltr' }}>
                   <h2 className="text-[12px] font-[400] text-[#d6e03d] border-b border-[#fff] mb-[2em]">
@@ -84,9 +85,9 @@ export const InputCustom = ({
                   {/* <hr className="border border-white" /> */}
                 </div>
                 <p className="">
-                  {(name === "valueBase") && <span>Inserisci la <strong className="text-justify text-white">BASE (mm) </strong> del formato che desideri realizzare</span>}
-                  {(name === "valueProfundita") && <span>Inserisci la <strong className="text-justify text-white">PROFONDITÀ (mm) </strong> del formato che desideri realizzare</span>}
-                  {(name === "valueAltezza") && <span>Inserisci la <strong className="text-justify text-white">ALTEZZA (mm) </strong> del formato che desideri realizzare</span>}
+                  {(name === "valueBase") && <span dangerouslySetInnerHTML={{__html:String(descrizioneTooltip)}}></span>}
+                  {(name === "valueProfundita") && <span dangerouslySetInnerHTML={{__html:String(descrizioneTooltip)}}></span>}
+                  {(name === "valueAltezza") && <span dangerouslySetInnerHTML={{__html:String(descrizioneTooltip)}}></span>}
                 </p>
               </div>
             </div>

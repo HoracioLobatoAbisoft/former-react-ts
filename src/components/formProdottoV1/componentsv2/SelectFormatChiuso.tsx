@@ -45,7 +45,7 @@ const SelectFormatChiuso = ({ formatoDinamico, idBaseEtiquete, valueAlteza = 0, 
                 <span
                     className={` text-gray-800 cursor-pointer text-xs`}
                 >
-                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.3)', }} />
+                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.1)', }} />
                 </span>
             </td>
         </tr>

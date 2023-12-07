@@ -11,6 +11,7 @@ export interface TablePrezzi {
     prezzoRiv: number;
     prezzoPromo:number;
     richiestaCalcoloPrezzo: RichiestaCalcoloPrezzo;
+    selezionato:boolean;
 }
 export interface SelectRow {
     conditional: boolean,

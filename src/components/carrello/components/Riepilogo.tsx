@@ -20,33 +20,27 @@ type PropsRepilogo = {
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
     step: number;
-    handleAquistaOra: () => Promise<void>;
+    handleAquistaOra?: () => Promise<void>;
 }
 
-// const Riepilogo = ({ ArrayLocalCarrello, countLavori, TotalPrezo, TotaleProvisorio, handleDeleteAllCarrello,handleRetornaProdotto, }: PropsRepilogo) => {
-//     handleDeleteAllCarrello: () => void,
-//     setArrayLocalCarrello : any
-// }
-
-// const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, deleteItem }: PropsRepilogo) => {
-const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem ,handleAquistaOra}: PropsRepilogo) => {
+const Riepilogo = ({ ArrayLocalCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayLocalCarrello, setStepperStep, changebuttonstep, setSteptext, step, deleteItem, handleAquistaOra, }: PropsRepilogo) => {
     const [open, setOpen] = useState(false)
     return (
         <div className="flex gap-[50px]">
             <div className="w-[73%] ">
-                <h3 className="flex gap-3"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} /> CARRELLO</h3>
+                <div className="flex w-full justify-between text-[13px]">
+                    <h3 className="flex gap-3  font-bold"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} /> CARRELLO </h3>
+                    <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full text-white rounded">React V^18.2.0</span>
+                </div>
                 <hr className="border my-1" />
                 {ArrayLocalCarrello.length === 0 ?
                     <div className="h-[260px] border rounded-[5px] border-[#aaa] w-full flex items-center justify-center text-[24px] text-[#f58220] font-bold">Il tuo carrello è vuoto</div> :
                     <AcordionCarrello handleRetornaProdotto={handleRetornaProdotto} ArrayLocalCarrello={ArrayLocalCarrello} handleDeleteAllCarrello={handleDeleteAllCarrello} setArrayLocalCarrello={setArrayLocalCarrello} deleteItem={deleteItem} />
                 }
-                <ContinuaGliAcquisti changebuttonstep={changebuttonstep} step={step} ArrayLocalCarrello={ArrayLocalCarrello}/>
+                <ContinuaGliAcquisti changebuttonstep={changebuttonstep} step={step} ArrayLocalCarrello={ArrayLocalCarrello} />
             </div>
             <div className="w-[22%]">
-                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step}  handleAquistaOra={handleAquistaOra} ArrayLocalCarrello={ArrayLocalCarrello}/>
-                {/* <div className="w-[20%]">
-                    <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} />
-                </div> */}
+                <TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra} ArrayLocalCarrello={ArrayLocalCarrello} />
             </div>
         </div>
     )

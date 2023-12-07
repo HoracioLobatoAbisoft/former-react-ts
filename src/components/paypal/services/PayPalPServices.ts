@@ -27,12 +27,13 @@ export const httpGetTokenPayPal = async () => {
 }
 
 export const httpPostPayPalServices = async (order: PayPalOrder, accesToken: string) => {
-    const response = await axios.post(`${GLOBAL_CONFIG.PAYPAL_API}/v2/checkout/orders`, order,
+    const response = await axios.post(`${GLOBAL_CONFIG.PAYPAL_API}/v2/checkout/orders`,order,
         {
             headers: {
                 'Authorization': `Bearer ${accesToken}`,
             }
-        });
+        }
+        );
     return response.data;
 }
 

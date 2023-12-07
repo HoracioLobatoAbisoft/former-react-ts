@@ -16,6 +16,7 @@ export const handleFormatoList = (formatoList: IFormato[]) => {
       image: elem.imgRif,
       formatoCartaStr: elem.formatoCartaStr,
       pdfTemplate: elem.pdfTemplate,
+      pdfTemplate3d:elem.pdfTemplate3d,
     };
   });
 
@@ -98,7 +99,7 @@ export const handleOptionSottoblocco = (sotoblocco: Sotoblocco) => {
     text: sotoblocco.textSottoBlocco,
   }];
   if (optionSotoblocco.length === 0) return []
-  if (sotoblocco.showSotoblocco) return []
+  if (sotoblocco.showSotoblocco === 0) return []
   const option: OptionsSelect[] = optionSotoblocco.map((elem) => {
     return {
       label: elem.tipologia,

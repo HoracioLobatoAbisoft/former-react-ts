@@ -40,7 +40,10 @@ type PropsScegliLaConsegna = {
     corriereSelezionata: DataGgetCorriereSelezionata | undefined;
     handleGetCorriereSelezionata: (IdCorriere?: number | undefined, Cap?: string | undefined, IdPrev?: number | undefined, IdFormProd?: number | undefined, IdTipoCarta?: number | undefined, IdColoreStampa?: number | undefined) => Promise<void>
     handleScandeza: (Cap: string) => Promise<void>;
-    handleAquistaOra: () => Promise<void>
+    handleAquistaOra: () => Promise<void>;
+    setEmail: React.Dispatch<React.SetStateAction<string>>;
+    email: string;
+    alertEmail: boolean;
 }
 
 type indirizoJson = {
@@ -48,10 +51,9 @@ type indirizoJson = {
     nome: string,
     id: number
 }
-const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, indirizzoList, alleghiPDF, indexScandeza, arrayCarrello, dataUtente, radio, setRadio, caricaCorriere, getTotaleProvisorio, dataTotale, radioPagamento, setTotaleProvisorio, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza, handleAquistaOra }: PropsScegliLaConsegna) => {
+const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, indirizzoList, alleghiPDF, indexScandeza, arrayCarrello, dataUtente, radio, setRadio, caricaCorriere, getTotaleProvisorio, dataTotale, radioPagamento, setTotaleProvisorio, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza, handleAquistaOra, email, setEmail, alertEmail }: PropsScegliLaConsegna) => {
 
 
-    const [email, setEmail] = useState<string>('')
     const handleRadio = async (i: number) => {
         setRadio(i)
         console.log(i)
@@ -108,7 +110,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
 
     const handleEmail = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value)
-        localStorage.setItem('mil', event.target.value)
+        //localStorage.setItem('mil', event.target.value)
     }
 
     const handleCapTotaleProvisorio = async (event: ChangeEvent<HTMLSelectElement>) => {
@@ -120,7 +122,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
         const IdFormProd = arrayCarrello[indexScandeza].IdFormProd;
         const IdTipoCarta = arrayCarrello[indexScandeza].IdTipoCarta;
         const IdColoreStampa = arrayCarrello[indexScandeza].IdColoreStampa;
-
+        
         await handleGetCorriereSelezionata(radio, selectedValue.cap, Number(IdPrev), Number(IdFormProd), Number(IdTipoCarta), Number(IdColoreStampa))
 
         if (dataUtente) {
@@ -187,7 +189,6 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
         } else {
             localStorage.setItem('cons', '1');
         }
-
         localStorage.setItem('pzo', String(TotaleProvisorio?.pesoKG))
 
     }, [])
@@ -195,8 +196,11 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
     return (
         <div className="flex scegli-container">
             <div className="w-[73%]">
-                <h1 className="flex gap-2 "><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCorriere20.png`} alt="" height={25} width={21} /><strong>Scegli la Consegna</strong></h1>
-                <hr className="border-[1px] mt-[5px]" />
+                <div className="flex w-full justify-between text-[13px]">
+                    <h3 className="text-[14px] font-bold  flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} /> Scegli la Consegna </h3>
+                    <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full text-white rounded">React V^18.2.0</span>
+                </div>
+                <hr className="border border-[#aaa] my-1" />
                 <div className="information">
                     {caricaCorriere.map((item, i) => (
                         <React.Fragment key={i}>
@@ -266,7 +270,10 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
                 {(corriereSelezionata && corriereSelezionata.pnlTrace == true && radio === 1) &&
                     <div className="border leading-6 border-[#aaa] rounded-[5px] text-[12px] h-[92px] w-[700px] mt-[10px] p-[20px]">
                         <p>Vuoi ricevere tramite email gli aggiornamenti sullo stato della spedizione dal Corriere?</p>
-                        <p>Indica qui una email dove ricevere le notifiche <input className="text-[13px] mx-[2px] w-[207px] h-[21px] 3outline-none border border-[#aaa]" type="text" placeholder="Indica un email per ricevere aggiornamenti sulla spedizione dal corriere" value={email} onChange={handleEmail} /> <a className="text-[12px] cursor-pointer font-normal bg-[#f58220] px-[4px] py-[2px]" onClick={() => { handleUseMiaMail() }}>Usa la mia mail</a></p>
+                        <p>Indica qui una email dove ricevere le notifiche <input className="text-[13px] mx-[2px] w-[207px] h-[21px] 3outline-none border border-[#aaa]" type="email" placeholder="Indica un email per ricevere aggiornamenti sulla spedizione dal corriere" value={email} onChange={handleEmail} /> <a className="text-[12px] cursor-pointer font-normal bg-[#f58220] px-[4px] py-[2px]" onClick={() => { handleUseMiaMail() }}>Usa la mia mail</a></p>
+                        {alertEmail &&
+                            <p className="text-[15px] font-bold text-[red] text-center">Attenzione! L'email non sembra valida</p>   
+                        }
                     </div>
                 }
 
@@ -276,7 +283,7 @@ const ScegliLaConsegna = ({ TotaleProvisorio, setStepperStep, changebuttonstep, 
             <div className="w-[23%]">
                 {<TotaleProvvisorio TotaleProvisorio={TotaleProvisorio} setStepperStep={setStepperStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra} />}
             </div>
-        </div>
+        </div >
     )
 }
 

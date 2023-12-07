@@ -16,12 +16,13 @@ type PropsTotale = {
     changebuttonstep: (number: number) => string;
     setSteptext: React.Dispatch<React.SetStateAction<string>>
     step: number;
-    handleAquistaOra: () => Promise<void>;
-    ArrayLocalCarrello?: ObjCarrello[]
+    handleAquistaOra?: () => Promise<void>;
+    ArrayLocalCarrello?: ObjCarrello[];
+    handleTotaleChange?:()=>void;
 }
 
 // const TotaleProvvisorio = ({TotaleProvisorio}:PropsTotale) => {
-const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, handleAquistaOra, ArrayLocalCarrello }: PropsTotale) => {
+const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, handleAquistaOra, ArrayLocalCarrello,handleTotaleChange }: PropsTotale) => {
     const navigate = useNavigate();
 
     const scontoLocal = localStorage.getItem('sc')
@@ -100,12 +101,17 @@ const TotaleProvvisorio = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                     </tbody></table>
                 <center>
                     { carr  ? <button
-                        onClick={() => { handleAquistaOra(); setStepperStep(step + 1); setSteptext(changebuttonstep(step + 1)); }} 
+                        onClick={() => {(handleAquistaOra && handleAquistaOra());  }} 
                         className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "
                     >
                         <b>{changebuttonstep(step + 1)}</b>
                     </button>:null}
-                    
+                     {/* { carr  ? <button
+                        onClick={() => {handleTotaleChange()}} 
+                        className="text-[14px] w-[180px] my-[10px] h-[30px] rounded-[4px] bg-[#d6e03d] text-center p-[5px] "
+                    >
+                        <b>{changebuttonstep(step + 1)}</b>
+                    </button>:null} */}
 
                 </center>
             </div>

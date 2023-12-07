@@ -9,7 +9,7 @@ import { PayPalOrder, amountPayPal, purchaseUnits } from "../../paypal/interface
 
 const useDettaglioOrdine = () => {
 
-    const { idConsegna,tokenPP } = useParams()
+    const { idConsegna, tokenPP } = useParams()
 
     //console.log('tokenppDO',tokenPP)
     const [ordiniData, setOrdiniData] = useState<DataGetOrdiniById>()
@@ -26,9 +26,6 @@ const useDettaglioOrdine = () => {
             console.log('error', error);
         }
     }
-
-
-
 
     /*
         *--------------------------->Funciones Handle secundarias<------------------------ 
@@ -75,10 +72,12 @@ const useDettaglioOrdine = () => {
                 value: String(item.importoNetto),
                 currency_code: 'EUR',
                 description: item.title,
+                
             }
 
             return {
-                amount: amountList
+                amount: amountList,
+                reference_id: String(i),
             }
         })
         return listLavori
@@ -89,6 +88,7 @@ const useDettaglioOrdine = () => {
     */
 
     const handleTokenAuth = async () => {
+        console.log('aca esta')
         try {
             setOpenloadingBackdrop(true);
             const products: purchaseUnits[] = handleOrdineData();
@@ -99,19 +99,21 @@ const useDettaglioOrdine = () => {
                 application_context: {
                     brand_name: 'Tipografia Former',
                     landing_page: 'NO_PREFERENCE',
-                    cancel_url: `${GLOBAL_CONFIG.IMG_IP}/appIframe`,
+                    cancel_url: `${GLOBAL_CONFIG.IMG_IP}/pagamento-non-confermato-paypal`,
                     user_action: "PAY_NOW",
-                    return_url: `${GLOBAL_CONFIG.IMG_IP}/appIframe`,
+                    return_url: `${GLOBAL_CONFIG.IMG_IP}/pagamento-confermato-paypal`,
                 }
             }
 
             const responsePayPalToken = await httpGetTokenPayPal();
-            const responsePayPal = await httpPostPayPalServices(order, responsePayPalToken.access_token)
-            console.log('responsePayPal', responsePayPalToken, '\n ----', order, '\n----', responsePayPal)
-            if (responsePayPal.status === "CREATED") {
-                window.parent.postMessage({ operation: enOperationFrame.redirectOtherUri, uri: responsePayPal.links[1].href }, GLOBAL_CONFIG.IMG_IP);
+            if (responsePayPalToken) {
+                const responsePayPal = await httpPostPayPalServices(order, responsePayPalToken.access_token)
+                if (responsePayPal.status === "CREATED") {
+                    window.parent.postMessage({ operation: enOperationFrame.redirectOtherUri, uri: responsePayPal.links[1].href }, GLOBAL_CONFIG.IMG_IP);
+                }
             }
         } catch (error) {
+            console.log(error);
         }
     }
 

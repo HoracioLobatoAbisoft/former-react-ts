@@ -96,7 +96,7 @@ export const httpGetCaricaCorriere =async (IdUt:number) => {
     }
 }
 
-export const httpGetCorriereSelezionata =async (IdCorriere:number,Cap:string,IdPrev?:number,IdFormProd?:number,IdTipoCarta?:number,IdColoreStampa?:number) => {
+export const httpGetCorriereSelezionata =async (IdCorriere:number,Cap:string,IdPrev?:number,IdFormProd?:number,IdTipoCarta?:number,IdColoreStampa?:number,IdUt?:number,Base?:number,Produndita?:number,Altezza?:number) => {
     try {
         const response = await applicationConnect.get<ResponseGetCorriereSelezionata>('Packagin/GetCorriereSelezionata',{params:{
             IdCorriere,
@@ -104,7 +104,7 @@ export const httpGetCorriereSelezionata =async (IdCorriere:number,Cap:string,IdP
             IdPrev,
             IdFormProd,
             IdTipoCarta,
-            IdColoreStampa
+            IdColoreStampa,IdUt,Base,Produndita,Altezza,
         }})
         return response.data
     } catch (error) {

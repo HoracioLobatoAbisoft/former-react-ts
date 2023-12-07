@@ -8,7 +8,7 @@ import { DataGetTotaleProvisorio } from "../../carrello/Interfaces/totaleProvvis
 import { formatNumber } from "../../../services/NumberFormat";
 
 type PropsMenuCarrrelo = {
-    handleHidden: (operation: enOperationFrame, uri?: string | undefined,nav?:string) => void;
+    handleHidden: (operation: enOperationFrame, uri?: string | undefined, nav?: string) => void;
     idUt: string | undefined
     handleLogin: () => void;
     handleCarrello: () => Promise<void>;
@@ -21,12 +21,18 @@ type PropsMenuCarrrelo = {
     showTablePreez: boolean;
     descrizioneDinamica: DataGetDescrizioniDinamica | undefined;
     TotaleProvisorio: DataGetTotaleProvisorio | undefined;
-    showTemplate:boolean | undefined;
+    showTemplate: boolean | undefined;
+    template3D: string | undefined;
+    handleCampioneGratutito: () => void
 }
 
-const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto, handleCompraloSubito, calcolaTuto, qtaSelezinata, menuDateConsegna, showTablePreez, descrizioneDinamica, TotaleProvisorio,showTemplate }: PropsMenuCarrrelo) => {
+const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTemplate, prodotto, handleCompraloSubito, calcolaTuto, qtaSelezinata, menuDateConsegna, showTablePreez, descrizioneDinamica, TotaleProvisorio, showTemplate, template3D,handleCampioneGratutito }: PropsMenuCarrrelo) => {
     const OpenTemplateWindow = (pdfTemplate: string | undefined) => {
         window.open(`https://www.tipografiaformer.it/listino/template/${pdfTemplate}`)
+    }
+    const openTemplate3d = (template3D: string | undefined) => {
+        window.open(`https://www.tipografiaformer.it/listino/template/${template3D}`)
+
     }
 
     const scontoLocal = localStorage.getItem('sc')
@@ -42,7 +48,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 Totale Netto
                             </td>
                             <td className="pt-[5px] pr-[10px]">
-                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.prezzoTotaleOrdini) : "00,00"}
+                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.prezzoTotaleOrdini) : "0,00"}
                             </td>
                         </tr>
                         {scontoLocal ?
@@ -51,13 +57,13 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                     <td className="px-[10px]">
                                         Totale Sconto:
                                     </td>
-                                    <td className="px-[10px] text-end text-[red] font-semibold"> - € {TotaleProvisorio ? formatNumber(Number(scontoLocal)) : "00,00"}</td>
+                                    <td className="px-[10px] text-end text-[red] font-semibold"> - € {TotaleProvisorio ? formatNumber(Number(scontoLocal)) : "0,00"}</td>
                                 </tr>
                                 <tr>
                                     <td className="px-[10px]">
                                         Totale Netto:
                                     </td>
-                                    <td className="px-[10px] text-end">€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.totalNeto) : "00,00"}</td>
+                                    <td className="px-[10px] text-end">€ {TotaleProvisorio ? formatNumber(TotaleProvisorio.totalNeto) : "0,00"}</td>
                                 </tr>
                             </> : null
                         }
@@ -66,7 +72,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 Spedizioni
                             </td>
                             <td className="pr-[10px]">
-                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.spedizioni) : "00,00"}
+                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.spedizioni) : "0,00"}
                             </td>
                         </tr>
                         <tr>
@@ -74,7 +80,7 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                                 IVA (22%)
                             </td>
                             <td className="pr-[10px] ">
-                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.iva) : "00,00"}
+                                {TotaleProvisorio ? formatNumber(TotaleProvisorio.iva) : "0,00"}
                             </td>
                         </tr>
                         <tr>
@@ -94,10 +100,10 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                 <center>
                     {idUt != undefined && idUt > '0' ?
                         //<Link to={'/carrello'} onClick={() => handleHidden(enOperationFrame.hidden)}>
-                            <button className="flex gap-[5px]  items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]" onClick={() => handleHidden(enOperationFrame.reliadUrl,'carrello')}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
+                        <button className="flex gap-[5px]  items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]" onClick={() => handleHidden(enOperationFrame.reliadUrl, 'carrello')}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
                         //</Link>
                         :
-                        <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]" onClick={()=>handleHidden(enOperationFrame.redirectLogin)}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
+                        <button className="flex gap-[5px] items-center bg-[#d6e03d] rounded-[4px] w-[150px] h-[30px]  mt-[10px] text-[11.5px] font-medium uppercase px-[4px] py-[6px]  hover:bg-[#FCFF33]" onClick={() => handleHidden(enOperationFrame.redirectLogin)}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello.png`} width={22} /> Vai al Carrello</button>
                     }
                 </center>
             </div>
@@ -155,14 +161,24 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                             <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} />
                             Scarica Template
                         </a>
+                        {(template3D != undefined && template3D.length > 0) ?
+                            <button
+                                onClick={() => openTemplate3d(template3D)}
+                                className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center pl-[6px] gap-[2px] uppercase rounded text-[#fff] font-semibold">
+                                <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/ico3D.png`} />
+                                Modello 3D
+                            </button> : null
+                        }
+
                         <button
-                           // to={`/richiedi-un-campione-gratuito`}
+                            // to={`/richiedi-un-campione-gratuito`}
                             //state={prodotto}
-                            onClick={()=>handleHidden(enOperationFrame.reliadUrl,"richiedi-un-campione-gratuito")}
+                            onClick={() => handleCampioneGratutito()}
                             className="bg-[#009ec9] w-[150px] mt-[10px] flex h-[30px] items-center justify-center gap-[2px] uppercase rounded text-[#fff] font-semibold">
                             <img width={22} src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCampGratuito.png`} />
                             Campione Gratuito
                         </button>
+
                     </center>
                     <br />
                 </div>

@@ -11,40 +11,24 @@ import Effettuato from "./components/Effettuato"
 import { useEffect, useState } from "react"
 import Cerca from "../Cerca/Cerca"
 import LoadingBackdrop from "../loadingBackdrop"
-const changebuttonstep = (step: number) => {
-    let textreturn = "";
-    if (step === 1) {
-        textreturn = "REPILOGO";
-    } else if (step === 2) {
-        textreturn = "ALLEGA I FILE";
-    } else if (step === 3) {
-        textreturn = "SCEGLI LA CONSEGNA";
-    } else if (step === 4) {
-        textreturn = "SCEGLI IL PAGAMENTO";
-    } else if (step === 5) {
-        textreturn = "RIVEDI E ACQUISTA";
-    } else if (step === 6) {
-        textreturn = "ACQUISTA ORA"
-    } else if (step === 7) {
-        //console.log("aca cayo en 7");
-    }
-    return textreturn;
-}
+import { enOperationFrame } from "../../enHelpers/enOperationFrame"
+import { GLOBAL_CONFIG } from "../../_config/global"
+
 
 const CarrelloProdotto = () => {
 
 
-    const { arrayCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayCarrello, deleteItem, handleReturnIndex, indirizzoList, alleghiPDF, indexScandeza, dataUtente, radio, setRadio, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, dataTotale, messageCoupon, setMessageCoupon, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, caricaCorriere, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza, postAquistaOra, handleAquistaOra, setStep, setSteptext, step, steptext, handleShow, dataOrdine,getMetodiPagamento,
-        setDataOrdine,loading,setTipoPagamento } = useCarrello()
+    const { arrayCarrello, TotaleProvisorio, handleDeleteAllCarrello, handleRetornaProdotto, setArrayCarrello, deleteItem, handleReturnIndex, indirizzoList, alleghiPDF, indexScandeza, dataUtente, radio, setRadio, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, dataTotale, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, caricaCorriere, corriereSelezionata, handleGetCorriereSelezionata, handleScandeza, postAquistaOra, handleAquistaOra, setStep, setSteptext, step, steptext, handleShow, dataOrdine,getMetodiPagamento,
+        setDataOrdine,loading,setTipoPagamento,setEmail,email,alertEmail,changebuttonstep ,} = useCarrello()
 
 
     const itemPage: { [key: number]: any } = {
         1: <Riepilogo deleteItem={deleteItem} ArrayLocalCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto={handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra} />,
         2: <AllegaIFile TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} handleAquistaOra={handleAquistaOra} />,
-        3: <ScegliLaConsegna arrayCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} indirizzoList={indirizzoList} alleghiPDF={alleghiPDF} indexScandeza={indexScandeza} dataUtente={dataUtente} radio={radio} setRadio={setRadio} caricaCorriere={caricaCorriere} getTotaleProvisorio={getTotaleProvisorio} dataTotale={dataTotale} radioPagamento={radioPagamento} setTotaleProvisorio={setTotaleProvisorio} corriereSelezionata={corriereSelezionata} handleGetCorriereSelezionata={handleGetCorriereSelezionata} handleScandeza={handleScandeza} handleAquistaOra={handleAquistaOra} />,
-        4: <ScegliIlPagamento TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} tipoPagamento={tipoPagamento} setTipoPagamento={setTipoPagamento} radioPagamento={radioPagamento} setRadioPagamento={setRadioPagamento} getAplicaCouponSconto={getAplicaCouponSconto} setArrayCarrello={setArrayCarrello} dataUtente={dataUtente} dataTotale={dataTotale} arrayCarrello={arrayCarrello} messageCoupon={messageCoupon} setMessageCoupon={setMessageCoupon} showInputCoupon={showInputCoupon} setShowInputCoupon={setShowInputCoupon} getTotaleProvisorio={getTotaleProvisorio} setTotaleProvisorio={setTotaleProvisorio} handleRadioPagamento={handleRadioPagamento} radio={radio} handleAquistaOra={handleAquistaOra} getMetodiPagamento={getMetodiPagamento}/>,
+        3: <ScegliLaConsegna arrayCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} indirizzoList={indirizzoList} alleghiPDF={alleghiPDF} indexScandeza={indexScandeza} dataUtente={dataUtente} radio={radio} setRadio={setRadio} caricaCorriere={caricaCorriere} getTotaleProvisorio={getTotaleProvisorio} dataTotale={dataTotale} radioPagamento={radioPagamento} setTotaleProvisorio={setTotaleProvisorio} corriereSelezionata={corriereSelezionata} handleGetCorriereSelezionata={handleGetCorriereSelezionata} handleScandeza={handleScandeza} handleAquistaOra={handleAquistaOra} email={email} setEmail={setEmail} alertEmail={alertEmail}/>,
+        4: <ScegliIlPagamento TotaleProvisorio={TotaleProvisorio} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} tipoPagamento={tipoPagamento} setTipoPagamento={setTipoPagamento} radioPagamento={radioPagamento} setRadioPagamento={setRadioPagamento} getAplicaCouponSconto={getAplicaCouponSconto} setArrayCarrello={setArrayCarrello} dataUtente={dataUtente} dataTotale={dataTotale} arrayCarrello={arrayCarrello}  showInputCoupon={showInputCoupon} setShowInputCoupon={setShowInputCoupon} getTotaleProvisorio={getTotaleProvisorio} setTotaleProvisorio={setTotaleProvisorio} handleRadioPagamento={handleRadioPagamento} radio={radio} handleAquistaOra={handleAquistaOra} getMetodiPagamento={getMetodiPagamento}/>,
         5: <CompletaLOrdine deleteItem={deleteItem} dataTotale={dataTotale} ArrayLocalCarrello={arrayCarrello} TotaleProvisorio={TotaleProvisorio} handleDeleteAllCarrello={handleDeleteAllCarrello} handleRetornaProdotto={handleRetornaProdotto} setArrayLocalCarrello={setArrayCarrello} setStepperStep={setStep} changebuttonstep={changebuttonstep} setSteptext={setSteptext} step={step} postAquistaOra={postAquistaOra} handleAquistaOra={handleAquistaOra} dataOrdine={dataOrdine} setDataOrdine={setDataOrdine} />,
-        6: <Effettuato />
+        //6: <Effettuato />
     }
 
     return (

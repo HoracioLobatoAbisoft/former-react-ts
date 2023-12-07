@@ -11,9 +11,19 @@ export interface TableDate {
     dataNormaleProduzione: Date;
     dataSlow: Date;
     dataSlowProduzione: Date;
-}
-
-export interface DateConsegna {
-    date1:Date ,
-    date2:Date ,
+    giornoIntF: string;
+    giornoIntN: string;
+    giornoIntS: string;
+    giornoStrF: string;
+    giornoStrN: string;
+    giornoStrS: string;
+    meseF: string;
+    meseN: string;
+    meseS: string;
+    giornoStrNP: string
+    giornoIntNP: string
+    giornoStrFP: string,
+    giornoIntFP: string,
+    giornoStrSP: string,
+    giornoIntSP: string
 }

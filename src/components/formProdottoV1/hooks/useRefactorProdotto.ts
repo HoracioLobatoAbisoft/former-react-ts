@@ -6,7 +6,7 @@ import { ResponseApi, TipoDiCarta } from '../interface/tipoCarta';
 import { ColoreStampa } from '../interface/coloreStampa';
 import { Opzioni } from '../interface/opzioni';
 import { OptionsSelectS, StaCalOpz } from '../interface/stampaCaldo';
-import { DateConsegna, TableDate } from '../interface/tableDate';
+import {  TableDate } from '../interface/tableDate';
 import { PrezzoValue } from '../interface/showColumPrezzo';
 import { SelectRow, TablePrezzi } from '../interface/table';
 import { IFormato } from '../interface/Formato';
@@ -112,7 +112,7 @@ const useRefactorProdotto = () => {
     const [codeStart, setCodeStart] = useState<string>("N")
     const [textTipoCarta, setTextTipoCarta] = useState<string>('')
 
-    const [dateConsegna, setDateConsegna] = useState<DateConsegna>();
+    //const [dateConsegna, setDateConsegna] = useState<DateConsegna>();
     const [menuDateConsegna, setMenuDateConsegna] = useState<string>()
 
     const [qtaSelezinata, setQtaSelezinata] = useState<number>(0)
@@ -193,7 +193,7 @@ const useRefactorProdotto = () => {
                 initialState.height === null ? 0 : initialState.height,)
 
             setTablaDate(responseDateTable.data);
-            setDateConsegna({ ...dateConsegna, date1: responseDateTable.data.dataNormale, date2: responseDateTable.data.dataNormaleProduzione })
+            //setDateConsegna({ ...dateConsegna, date1: responseDateTable.data.dataNormale, date2: responseDateTable.data.dataNormaleProduzione })
 
             if (menuDateConsegna === undefined) {
                 const menuDate = DateFormatDDMM(responseDateTable.data.dataNormale);
@@ -934,7 +934,7 @@ const useRefactorProdotto = () => {
         //console.log('Code: ', code, "Date1", date1, "Date2", date2)
 
         if (date1 != undefined && date2 != undefined) {
-            setDateConsegna({ date1: date1, date2: date2 })
+            //setDateConsegna({ date1: date1, date2: date2 })
         }
     }
 
@@ -961,11 +961,11 @@ const useRefactorProdotto = () => {
             initialState.iva === null ? 0 : initialState.iva,
             valuesStampaCaldoOpz)
 
-        setAlertMassimo(responseGetShowAlertMassimo.data)
-        if (responseGetShowAlertMassimo.data != '') {
-            setShowTablePreez(false)
-            setTablaDataPrezzi([])
-        }
+        // setAlertMassimo(responseGetShowAlertMassimo.data)
+        // if (responseGetShowAlertMassimo.data != '') {
+        //     setShowTablePreez(false)
+        //     setTablaDataPrezzi([])
+        // }
     }
 
     const handleCarrello = async () => {
@@ -1006,7 +1006,7 @@ const useRefactorProdotto = () => {
             stampaOPZ: OPZ._stampaOpz,
             _stampaOpzId: OPZ._stampaOpzId,
             nomeUrl: helperDataProdotto?.url,
-            scadenza: dateConsegna,
+            scadenza: '',
             code: codeStart,
             idListinoBase: helperDataProdotto?.idListinoBase,
             showFogli: showFaciatePagine,
@@ -1017,6 +1017,7 @@ const useRefactorProdotto = () => {
             base: initialState.base ?? 0,
             produndita: initialState.base ?? 0,
             altezza: initialState.base ?? 0,
+            promo:false
         }//Buste Intestate 11x23 con Finestra e strip a colori solo fronte
         const existCarreloLocal = localStorage.getItem('c');
         let dataCarrelli: any[] = [];

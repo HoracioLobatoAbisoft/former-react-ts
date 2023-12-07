@@ -35,10 +35,10 @@ const ListCustom = ({ label, options }: Props) => {
               // onMouseLeave={() => setHoveredState(false)} 
               >
                 <span className="text-xs  text-gray-800  relative">
-                  <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.3)', }} />
+                  <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo20.png`} style={{ transform: 'scale(1.1)', }} />
                 </span>
                 {(iView == i) && (
-                  <div className="absolute right-0 left-1 max-w-[400px] min-w-[200px] mt-5 me-[35%] bg-[#000] text-white rounded-[4px] shadow-md p-4  text-[11px] z-10">
+                  <div className="absolute right-0 left-1 max-w-[400px] min-w-[200px] mt-5 me-[35%]  text-white rounded-[4px] shadow-md p-4  text-[11px] z-10" style={{backgroundImage:'-webkit-linear-gradient(top,#4A4A4A 0,#000 100%)'}}>
                     <div className="flex gap-1 leading-[12px]" style={{ wordWrap: 'break-word', direction: 'ltr' }}>
                       <img
                         src={`${GLOBAL_CONFIG.IMG_IP}/listino/img/` + item?.image}

@@ -32,8 +32,6 @@ type PropsScegliIlPagamento = {
         Colli: number;
     }
     arrayCarrello: ObjCarrello[];
-    messageCoupon: string
-    setMessageCoupon: React.Dispatch<React.SetStateAction<string>>;
     setShowInputCoupon: React.Dispatch<React.SetStateAction<boolean>>;
     showInputCoupon: boolean;
     getTotaleProvisorio: (idUt: number, TotalePeso: number, cero: number, TotalePrezzo: number, Sconto: number | null, tp: number, IdCorriere: number) => Promise<DataGetTotaleProvisorio | undefined>;
@@ -44,10 +42,13 @@ type PropsScegliIlPagamento = {
     setTipoPagamento: React.Dispatch<React.SetStateAction<DataGetTipoPagamenti[]>>;
     getMetodiPagamento: (IdUt: number, TotaleCarrello: number, IdMetodoConsegnaScelto: number) => Promise<DataGetTipoPagamenti[]>
 }
-const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, setArrayCarrello, dataUtente, dataTotale, arrayCarrello, messageCoupon, setMessageCoupon, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, radio, handleAquistaOra, setTipoPagamento,getMetodiPagamento }: PropsScegliIlPagamento) => {
+const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep, setSteptext, step, tipoPagamento, radioPagamento, setRadioPagamento, getAplicaCouponSconto, setArrayCarrello, dataUtente, dataTotale, arrayCarrello, setShowInputCoupon, showInputCoupon, getTotaleProvisorio, setTotaleProvisorio, handleRadioPagamento, radio, handleAquistaOra, setTipoPagamento,getMetodiPagamento }: PropsScegliIlPagamento) => {
 
     const [codice, setCodice] = useState<string>('')
-    const [openModal, setOpenModal] = useState<boolean>(false)
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [messageCoupon, setMessageCoupon] = useState<string>("")
+
+
     const handleCodice = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCodice(event.target.value)
     }
@@ -103,8 +104,11 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
     return (
         <div className='flex gap-5'>
             <div className="w-[73%]">
-                <h2 className='text-[14px] font-bold flex gap-2'><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo16.png"`} className='w-[13px] h-[16px]' /> Scegli il Pagamento</h2>
-                <hr className='my-[5px] border-[1px]' />
+                <div className="flex w-full justify-between text-[13px]">
+                    <h3 className="text-[14px] font-bold  flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} />Scegli il Pagamento </h3>
+                    <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full text-white rounded">React V^18.2.0</span>
+                </div>
+                <hr className="border border-[#aaa] my-1" />
                 <div className="border border-[#aaa] rounded-[5px] px-[10px] py-[10px]">
                     {tipoPagamento.map((item, index) => (
                         <div className="flex gap-2" key={index}>
@@ -113,7 +117,7 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                             <div className="">
                                 <input type="radio" onChange={() => handleRadioPagamento(item.idTipoPagamento)} checked={item.idTipoPagamento == radioPagamento} value={item.idTipoPagamento} />
                                 <label htmlFor="" className='text-[14px] font-bold ml-[3px]'>{item.titulo} </label>
-                                <p className='text-[12px]'>{item.descrizione} {item.idTipoPagamento === 8 ? "(* Può comportare una maggiorazione di € 5,00)" : null}</p>
+                                <p className='text-[12px]'>{item.descrizione} <span dangerouslySetInnerHTML={{__html:item.note != null? item.note : ''}}></span></p>
                             </div>
                         </div>
                     ))}
@@ -127,7 +131,7 @@ const ScegliIlPagamento = ({ TotaleProvisorio, setStepperStep, changebuttonstep,
                             <a className="text-[12px] ms-1 bg-[#f58220] h-[20px] py-[2px] px-[4px] cursor-pointer" onClick={handleAplicaCouponSconto}>Applica</a>
                         </div> : null
                     }
-                    <p className="text-[12px] flex justify-center text-[red] font-bold">{localStorage.getItem('m') ? localStorage.getItem('m') : messageCoupon}</p>
+                    <p className="text-[12px] flex justify-center text-[red] font-bold">{messageCoupon}</p>
                     <div className="flex justify-end gap-2 text-[12px]">
                         <a className='flex  cursor-pointer hover:underline' onClick={handleITuoiCouponSconto}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoMieiCoupon20.png`} className='w-[16px] h-[12px] ' /> Vai ai tuoi Coupon di Sconto</a>
                         <ModalSegliPagamento openModal={openModal} setOpenModal={setOpenModal} />

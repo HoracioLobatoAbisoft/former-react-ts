@@ -24,8 +24,6 @@ import "./App.css";
 import ConfiguraProdottoRefactor from "./components/formProdottoV1/ConfiguraProdottoRefactor";
 import CarrelloProdotto from "./components/carrello/CarrelloProdotto";
 import AllegaIFile from "./components/carrello/components/AllegaIFile"; import AreaPersonale from "./components/AreaPersonale/AreaPersonale";
-import RichiediUnCampioneGratuitoPage from "./components/RichiediUnCampioneGratuito/pages/RichiediUnCampioneGratuitoPage";
-import CampioneGratuitoRichiestoPage from "./components/CampioneGratuitoRichiesto/pages/CampioneGratuitoRichiestoPage";
 import DettaglioOrdine from "./components/AreaPersonale/Componentes/ITouiOrdini/DettaglioOrdine";
 "./components/carrello/components/AllegaIFile";
 import DettaglioLavoroPage from "./components/DettaglioLavoro/pages/DettaglioLavoroPage";
@@ -35,6 +33,14 @@ import Prodotto from "./components/formProdottoV1/Prodotto";
 import Cerca from "./components/Cerca/Cerca";
 import { GLOBAL_CONFIG } from "./_config/global";
 import BtnCarrello from "./components/frameBtnCarrello/BtnCarrello";
+import ITouiOrdini from "./components/AreaPersonale/pages/ITouiOrdini";
+import PayPalOk from "./components/paypal/components/PayPalOk";
+import CarrelloStp1 from "./components/carrello/CarrelloStp1";
+import CarrelloStp2 from "./components/carrello/CarrelloStp2";
+import CarrelloStp3 from "./components/carrello/CarrelloStp3";
+import CarrelloStp4 from "./components/carrello/CarrelloStp4";
+import CarrelloStp5 from "./components/carrello/CarrelloStp5";
+import CampioneGratuito from "./components/CampioneGratuito/CampioneGratuito";
 
 function App() {
   const location = useLocation();
@@ -78,7 +84,14 @@ function App() {
           {/* <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoV2 />} /> */}
           <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<Prodotto />} />
           <Route path="/cerca/:idUt/:differenzza" element={<Cerca />} />
+
           <Route path="/carrello" element={<CarrelloProdotto />} />
+          <Route path="/carrelloStp1" element={<CarrelloStp1 />} />
+          <Route path='/carrelloStp2' element={<CarrelloStp2/>}/>
+          <Route path="/carrelloStp3" element={<CarrelloStp3 />} />
+          <Route path="/carrelloStp4" element={<CarrelloStp4 />} />
+          <Route path="/carrelloStp5" element={<CarrelloStp5 />} />
+          
           <Route path="/btnCarrello" element={<BtnCarrello/>} />
           <Route
             path="/OrdineDetails/:userId"
@@ -92,11 +105,14 @@ function App() {
           <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
           <Route path="/dettaglioOrdine/:idConsegna" element={<DettaglioOrdine />} />
           <Route path="/dettaglioOrdine/:idConsegna/:tokenPP" element={<DettaglioOrdine />} />
-          <Route path="/richiedi-un-campione-gratuito" element={<RichiediUnCampioneGratuitoPage />} />
-          <Route path="/campione-gratuito-registrata" element={<CampioneGratuitoRichiestoPage />} />
           {/* <Route path="/preventiView" element={ <PreventivoPDF/>} /> */}
           <Route path="/dettaglio-lavoro" element={<DettaglioLavoroPage />} />
           <Route path="/:idDettaglioLavoro/dettaglio-lavoro" element={<DettaglioLavoroPage />} />
+          <Route path="iTuoiOrdini/:id" element={<ITouiOrdini />} />
+          <Route path="/pagamento-confermato-paypal" element={<PayPalOk />} />
+
+          <Route path="/richiedi-un-campione-gratuito" element={<CampioneGratuito />} />
+
         </Routes>
       </UserContextProvider>
     </div>

@@ -23,6 +23,8 @@ const DettaglioLavoroPage = () => {
                         {dataLavoro?.idOrdineInt ? dataLavoro?.idOrdineInt : "PROVVISORIO " + dataLavoro?.idOrdine}
                     </span>
                 </div>
+                <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full rounded text-white">React V^18.2.0</span>
+
             </div>
             <div className="w-full flex flex-row items-center justify-center my-[10px]">
                 <div className="w-[800px] ">
@@ -258,7 +260,7 @@ const DettaglioLavoroPage = () => {
                     {(dataLavoro && dataLavoro?.stato == 15)
                         ? (dataLavoro.noAttachFile != 1) ? <SectionFileInviato dataLavoro={dataLavoro} /> : null
 
-                        : (dataLavoro?.noAttachFile != 1) ? <FileSection dataLavoro={dataLavoro} /> : null
+                        : (dataLavoro?.noAttachFile == 1) ? <FileSection dataLavoro={dataLavoro} /> : null
                     }
                     <div className="w-full flex flex-row justify-end items-center my-[10px] ">
                         <span className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#f58220] hover:bg-[#e96b00] text-center rounded mx-[3px]">

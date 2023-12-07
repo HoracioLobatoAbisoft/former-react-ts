@@ -14,6 +14,8 @@ export interface FofliPagine {
     showProfundita: boolean;
     sotoblocco: Sotoblocco;
     tipoCartaText: string;
+    misueres: Misueres;
+    formatoText:string;
 }
 
 export interface Datum {
@@ -33,6 +35,11 @@ export interface Sotoblocco {
     showSotoblocco: number;
     textSottoBlocco: string;
     tipologia: string;
+}
+export interface Misueres {
+    altezzaMisure: string;
+    baseMisure: string;
+    profunditaMisure: string;
 }
 
 export interface ArraySotoblocco {
