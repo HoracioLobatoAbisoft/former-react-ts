@@ -10,9 +10,10 @@ type TotaleProps = {
     TotaleProvisorio: DataGetTotaleProvisorio | undefined;
     handleTotaleChange: () => void;
     textBtn: string
+    showContinueBuyBtn?: boolean
 }
 
-const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn}:TotaleProps) => {
+const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinueBuyBtn}:TotaleProps) => {
 
 
     const [expanded, setExpanded] = useState<string | false>('panel1');
@@ -20,6 +21,10 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn}:TotaleProp
     const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
     };
+
+    const goToHome = () => {
+        window.parent.postMessage({ color: 'bg_hidden', operation: 3, uri: '/' }, GLOBAL_CONFIG.IMG_IP);
+    }
 
     return (
         <div className="">
@@ -107,7 +112,23 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn}:TotaleProp
                 //     </center>
                 // </div>
             }
-            <div></div>
+            <br />
+            {
+                showContinueBuyBtn && (
+                    <>
+                        <br />
+                        <center>
+                            <button onClick={ goToHome } className="flex gap-2 bg-[#f58220] rounded-[4px] w-[160px] text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center">
+                                <img
+                                    src={GLOBAL_CONFIG.IMG_IP + "/img/icoCarrelloW.png"}
+                                    width={22}
+                                />
+                                Continua Acquisti
+                            </button>
+                        </center>
+                    </>
+                )
+            }
             <div className="mt-[38px] w-full">
                 <h2 className="text-[14px] font-bold text-center border-b-[2px]  border-[#d6e03d] mb-[5px]">Informazioni sul Carrello</h2>
                 <Accordion sx={{ width: "100%", }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>

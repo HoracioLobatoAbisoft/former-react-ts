@@ -53,7 +53,7 @@ export const InputCustom = ({
           //defaultValue={disabled?.txt_Profundita}
           placeholder={placeHolder}
           value={value}
-          className={`disabled:border-gray-300 focus:outline-none border-[0.1px] px-[3px] py-[]  border-gray-500 rounded-[2px]   ${classWhidtInput ? classWhidtInput : "text-end"
+          className={`disabled:border-gray-300 focus:outline-none border-[0.1px] px-[3px] pl-[10px]  border-gray-500 rounded-[2px]   ${classWhidtInput ? classWhidtInput : "text-end"
             }`}
           onBlur={fn}
           onChange={handleChange}

@@ -110,7 +110,7 @@ const CarrelloStp5 = () => {
                     </div>
                 </div>
                 <div className="w-[23%]">
-                    <TotaleProdotto TotaleProvisorio={TotaleProvisorio} handleTotaleChange={handleTotaleChange} textBtn={'ACQUISTA ORA'} />
+                    <TotaleProdotto TotaleProvisorio={TotaleProvisorio} handleTotaleChange={handleTotaleChange} textBtn={'ACQUISTA ORA'} showContinueBuyBtn />
                 </div>
             </div>
         </div>

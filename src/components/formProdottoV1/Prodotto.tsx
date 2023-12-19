@@ -63,6 +63,7 @@ const Prodotto = () => {
     textMetrics,
     showOpzzioni,
     showTablePreez,
+    listWhite,
     showProfundita,
     disableProfundita,
     uriImage,
@@ -70,7 +71,7 @@ const Prodotto = () => {
     handleChangeDinamyc,
     handleChangeValue,
     handleChangeInput,
-    handleChangeCheckbox, valueNome, valueNote, handleCarrello, handleChangeRadio, textTipoCarta, handleOperationFrame, handleDonwloadPDF, setIndexTable, handleCompraloSubito, prodottoConsigliato, formatoLabel,handleCampioneGratutito,
+    handleChangeCheckbox, valueNome, valueNote, handleCarrello, handleChangeRadio, textTipoCarta, handleOperationFrame, handleDonwloadPDF, setIndexTable, handleCompraloSubito, prodottoConsigliato, formatoLabel, handleCampioneGratutito,
   } = useProdtto();
 
   //*TODO revisar los presios con una cantidad de 100000 especialmente en 10/87/44/2/50/Stampa-Blocchi-autocopianti-A5-fogli-50x2-Copie-a-colori-solo-fronte
@@ -255,34 +256,78 @@ const Prodotto = () => {
             )}
           </div>
         </div>
-        {stampaCalOpz.map((item, i) => {
-          if (item.tipoControllo === 2) {
-            return (
-              <CheckBoxStampa
-                handleChange={handleChangeCheckbox}
-                label={item.label}
-                name={item.label}
-                options={item.options}
-                value={valuesStampaCaldoOpz}
-                key={i}
-              />
-            );
-          }
-        })}
-        {stampaCalOpz.map((item, i) => {
-          if (item.tipoControllo === 0) {
-            return (
-              <RadioStampa
-                handleChange={handleChangeRadio}
-                label={item.label}
-                name={item.label}
-                options={item.options}
-                value={valuesStampaCaldoOpz}
-                key={i}
-              />
-            );
-          }
-        })}
+        {
+          listWhite.includes(+idPrev!) ? (
+            <>
+              {stampaCalOpz.map((item, i) => {
+                if (item.tipoControllo === 0) {
+                  return (
+                    <RadioStampa
+                      handleChange={handleChangeRadio}
+                      label={item.label}
+                      name={item.label}
+                      options={item.options}
+                      value={valuesStampaCaldoOpz}
+                      key={i}
+                    />
+                  );
+                }
+              })}
+              {stampaCalOpz.map((item, i) => {
+                if (item.tipoControllo === 2) {
+                  return (
+                    <>
+                      <CheckBoxStampa
+                        handleChange={handleChangeCheckbox}
+                        label={item.label}
+                        name={item.label}
+                        options={item.options}
+                        value={valuesStampaCaldoOpz}
+                        key={i}
+                      />
+
+                    </>
+                  );
+                }
+              })}
+            </>
+          )
+            :
+            <>
+              {stampaCalOpz.map((item, i) => {
+                if (item.tipoControllo === 2) {
+                  return (
+                    <CheckBoxStampa
+                      handleChange={handleChangeCheckbox}
+                      label={item.label}
+                      name={item.label}
+                      options={item.options}
+                      value={valuesStampaCaldoOpz}
+                      key={i}
+                    />
+                  );
+                }
+              })}
+              {stampaCalOpz.map((item, i) => {
+                if (item.tipoControllo === 0) {
+                  return (
+                    <>
+                      <RadioStampa
+                        handleChange={handleChangeRadio}
+                        label={item.label}
+                        name={item.label}
+                        options={item.options}
+                        value={valuesStampaCaldoOpz}
+                        key={i}
+                      />
+                    </>
+                  );
+                }
+              })}
+            </>
+
+        }
+
         <div className="w-full text-xs">
           {(alertMassimo?.showErroreMisure && (valueAltezza != 0 && valueBase != 0)) ?
             <p className=" text-center my-3 tracking-tighter text-[#ff0000] text-[12.5px] font-semibold text-">PER RICEVERE UN PREVENTIVO PER LE MISURE INSERITE CONTATTARCI TELEFONICAMENTE <br /><span className="uppercase italic">{alertMassimo?.lblErroreMisureText}</span></p> : null
