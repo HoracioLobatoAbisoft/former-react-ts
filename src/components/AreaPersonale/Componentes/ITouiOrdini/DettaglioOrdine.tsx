@@ -59,7 +59,7 @@ const DettaglioOrdine = () => {
                         </div>
                         <div className="w-full">
                             <div className="w-full flex justify-end text-[11px] pr-[2em] mb-[1.5em]">
-                                <p className="tracking-wide font-bold bg-[#E81616] py-[3px] px-[10px] border border-[#aaa] rounded-[3px]">In attesa di Pagamento</p>
+                                <p className={`tracking-wide font-bold bg-[${ordiniData?.coloreStatoHtml}] py-[3px] px-[10px] border border-[#aaa] rounded-[3px]`}>{ordiniData?.statoStr}</p>
                             </div>
                             <div className="flex w-full justify-end">
                                 <div className="flex gap-[5em] text-justify items-end">
