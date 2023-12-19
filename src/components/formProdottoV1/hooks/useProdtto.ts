@@ -1633,7 +1633,7 @@ const useProdtto = () => {
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : utenteData!.idPagamento;
+    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
 
     const responseScandeza = await httpGetCorriereSelezionata(radioConsegna, String(capL), IdPrevL,
       IdFormProdL,
@@ -1746,7 +1746,7 @@ const useProdtto = () => {
 
     const localCarrello = getLocalCarrelloHelper();
     if (localCarrello.arrayCarrello.length > 0) {
-      const responseTotale = await httpGetTotaleProvisorio(Number(idUt), localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, null, radioPagamento, radioConsegna);
+      const responseTotale = await httpGetTotaleProvisorio(Number(idUt), localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, null, radioPagamento, radioConsegna,utenteData?.cap);
       setTotaleProvisorio(responseTotale.data);
     }
 

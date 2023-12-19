@@ -22,15 +22,15 @@ const useCarrelloStep2 = () => {
     const [loading, setLoading] = useState(false);
 
     //*Storage
-    const localPagamento = localStorage.getItem('tp')
-    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : 5;
-    const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
-
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.idCorriere : 1;
-    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : undefined;
+    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
+    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : "";
+
+    const localPagamento = localStorage.getItem('tp')
+    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
+    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
+    const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
 
     const getLocalCarrello = async () => {
         setLoading(true);

@@ -4,8 +4,10 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { OrdineList } from '../../Interfaces/OrdiniIntarface';
-import useITuoiOrdini from '../../hooks/useITuoiOrdini';
-import { Link } from 'react-router-dom';
+
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { useState } from 'react';
 type PropsAcordionOrdini = {
     listOrdini: OrdineList[]
     pageOrdini: number[];
@@ -22,6 +24,13 @@ type PropsAcordionOrdini = {
 
 const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, }: PropsAcordionOrdini) => {
 
+    const [expanded, setExpanded] = useState<string | false>('panel0');
+    const handleChange =
+        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panel : false);
+        };
+
+
     return (
         <>
 
@@ -30,7 +39,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                     <div className='flex flex-row'>
                         <div className='w- full text-[10px]'>
                             <span className=''>
-                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul + che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' ordine. 
+                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul + che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' ordine.
                             </span>
                         </div>
                     </div>
@@ -75,16 +84,20 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                             return (
                                 <Accordion
                                     key={index}
+                                    expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}
                                 >
                                     <AccordionSummary
                                         //expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1a-content"
                                         id="panel1a-header"
-                                        sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: '760px' }}
+                                        sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: '760px', }}
                                         className={`arcodion-ordini`}
                                     >
                                         <div className='w-full flex flex-row items-center '>
-                                            <div className="w-[30px]  text-center">+</div>
+                                            {expanded === `panel${index}` ?
+                                                <RemoveIcon sx={{ fontSize: 18 }} /> :
+                                                <AddIcon sx={{ fontSize: 18 }} />
+                                            }
                                             <div className="w-[30px]  items-center justify-center">
                                                 <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaCorriere} alt="" />
                                             </div>
@@ -281,10 +294,10 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
 
                                                                 {item.idStatoConsegna == 10 ?
                                                                     // <Link to={`/dettaglioOrdine/${item.idConsegna}`}>
-                                                                        <button className="ml-2  p-[4px] flex rounded px-[4px] bg-[#e70031] hover:bg-[#ff5829]"onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)} >
-                                                                            <img src="https://tipografiaformer.it/img/icoPrezzo16.png" />
-                                                                            <b>EFFETTUA IL PAGAMENTO</b>
-                                                                        </button>
+                                                                    <button className="ml-2  p-[4px] flex rounded px-[4px] bg-[#e70031] hover:bg-[#ff5829]" onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)} >
+                                                                        <img src="https://tipografiaformer.it/img/icoPrezzo16.png" />
+                                                                        <b>EFFETTUA IL PAGAMENTO</b>
+                                                                    </button>
                                                                     // </Link>
 
                                                                     : item.tracciabile ?
@@ -295,13 +308,13 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                         : null
                                                                 }
                                                                 {/* <Link to={`/dettaglioOrdine/${item.idConsegna}`}> */}
-                                                                    <button
-                                                                        className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
-                                                                        onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)}
-                                                                    >
-                                                                        <img src="https://tipografiaformer.it/img/icoFreccia16.png" />
-                                                                        Vai al Dettaglio Ordine
-                                                                    </button>
+                                                                <button
+                                                                    className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
+                                                                    onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)}
+                                                                >
+                                                                    <img src="https://tipografiaformer.it/img/icoFreccia16.png" />
+                                                                    Vai al Dettaglio Ordine
+                                                                </button>
                                                                 {/* </Link> */}
 
                                                                 {item.modificabile &&

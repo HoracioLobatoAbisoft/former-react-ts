@@ -8,17 +8,17 @@ import LoadingBackdrop from '../../loadingBackdrop';
 
 const ITouiOrdini = () => {
     const [activeTab, setActiveTab] = React.useState(0);
-    const { listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro,openLoading, } = useITuoiOrdini();
+    const { listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, openLoading, } = useITuoiOrdini();
 
     return (
         <>
-            <LoadingBackdrop isOpen={openLoading}  x={2} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around',alignItems: 'center',flexDirection:'column',zIndex:10  }}/>
+            <LoadingBackdrop isOpen={openLoading} x={2} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column', zIndex: 10 }} />
             <div className=' ml-[15px] my-[10px]'>
                 <div className='col col-12 w-full flex justify-between'>
                     <div className='flex flex-row items-center'>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCart50.png`} alt="" className="w-[50px] h-[26px]" />
-                        <span className={`text-[15px] text-[#f58220] `}>
-                            I TUOI ORDINI 
+                        <span className={`text-[15px] text-[#f58220] uppercase`}>
+                            Le Tue Consegna
                         </span>
                     </div>
                     <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full rounded text-white">React V^18.2.0</span>

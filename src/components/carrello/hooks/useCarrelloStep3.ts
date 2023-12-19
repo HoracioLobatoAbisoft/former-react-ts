@@ -62,15 +62,15 @@ const useCarrelloStep3 = () => {
     })
     const [valuesIndirizzo, setValuesIndirizzo] = useState(valuesFormIndirizzo)
     //*Storage
-    const localPagamento = localStorage.getItem('tp')
-    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : 5;
-    const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
-
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.idCorriere : 1;
-    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : undefined;
+    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
+    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : "";
+
+    const localPagamento = localStorage.getItem('tp')
+    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
+    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8: 5;
+    const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
 
     const { getLocalCarrelloHelper, handleOperationFrame } = useHelpers();
 
@@ -78,7 +78,7 @@ const useCarrelloStep3 = () => {
     const handleData = async () => {
         setLoading(true)
         const localCarrello = getLocalCarrelloHelper();
-        await handleGetDataUt(localCarrello.idUt);
+        const utenteData = await handleGetDataUt(localCarrello.idUt);
         const responseCaricaCorriere = await getCaricaCorriere(localCarrello.idUt);
         setCaricaCorriere(responseCaricaCorriere.data);
         setdataCarrello({ idUt: localCarrello.idUt, Colli: localCarrello.Colli, TotalPeso: localCarrello.TotalPeso, TotalPrezo: localCarrello.TotalPrezo })
@@ -89,19 +89,42 @@ const useCarrelloStep3 = () => {
         setArrayCarrello(localCarrello.arrayCarrello);
         if (listIndi != undefined) {
             var capVar: undefined | string = undefined;
-            if (capConsegna == undefined) {
+            if (capConsegna == undefined || capConsegna == "") {
                 capVar = listIndi.find(x => x.predefinito == true)?.cap
-                setValueCap(String(capVar));
-                console.log(capVar)
+                // <option value={dataUtente?.cap}>{dataUtente?.nominativo}, {dataUtente?.indirizzo} - {dataUtente?.cap} {dataUtente?.citta} ({dataUtente?.provincia})</option>
+                if (utenteData) {
+                    const dataInd: DataGetIndirizzo = {
+                        cap: utenteData.cap,
+                        destinatario: utenteData.nominativo,
+                        idIndirizzo: 0,
+                        indirisso: utenteData.indirizzo,
+                        localitaStr: '',
+                        nazioneStr: '',
+                        nome: utenteData.nominativo,
+                        predefinito: true,
+                        riassunto: utenteData.indirizzo + "," + utenteData.cap ?? '' + "," + utenteData.citta + utenteData.provincia,
+                        telefono: '',
+                    }
+                    setIndirizzoList([...listIndi, dataInd]);
+                }
+
+                if (!listIndi.some(x => x.predefinito) && utenteData) {
+
+                    setValueCap(utenteData.cap);
+                    capVar = utenteData.cap;
+                } else {
+                    setValueCap(String(capVar));
+                }
+
             } else {
+                console.log('aca')
                 setValueCap(capConsegna)
                 capVar = capConsegna;
-                console.log(capVar)
 
             }
             //console.log(capVar)
             if (capVar != undefined) {
-                await handleScandeza(capVar, localCarrello.arrayCarrello, localCarrello.mayorFecha1, radioConsegna,localCarrello.idUt);
+                await handleScandeza(capVar, localCarrello.arrayCarrello, localCarrello.mayorFecha1, radioConsegna, localCarrello.idUt);
                 handleTotaleProvisorio(localCarrello.idUt, localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, radioPagamento, radioConsegna, capVar);
             }
         }
@@ -138,7 +161,6 @@ const useCarrelloStep3 = () => {
     //*Funciones handle Secundarias
     const handleTotaleProvisorio = async (idUt: number, TotalePeso: number, cero: number, TotalePrezzo: number, radioPagamento: number, radioConsegna: number, cap?: string) => {
         setLoading(true);
-        const scontoLocal = localStorage.getItem('sc');
         const responseTotale = await getTotaleProvisorio(idUt, TotalePeso, 0, TotalePrezzo, scontoL, radioPagamento, radioConsegna, cap);
         setTotaleProvisorio(responseTotale);
         setLoading(false);
@@ -148,6 +170,7 @@ const useCarrelloStep3 = () => {
             setLoading(true);
             const response = await getIndirizzoUt(IdUt);
             if (response) {
+
                 setIndirizzoList(response);
                 return response;
             }
@@ -162,6 +185,7 @@ const useCarrelloStep3 = () => {
         try {
             const response = await getDataUtn(IdUt);
             setDataUtente(response)
+            return response;
         } catch (error) {
 
         } finally {
@@ -169,11 +193,11 @@ const useCarrelloStep3 = () => {
         }
     }
 
-    const handleScandeza = async (Cap: string | undefined, arrCarrello: ObjCarrello[], index: number, consegnaRadio: number,idUt:number) => {
+    const handleScandeza = async (Cap: string | undefined, arrCarrello: ObjCarrello[], index: number, consegnaRadio: number, idUt: number) => {
         //setLoading(true)
-        const base = arrCarrello[index].base ;
-        const produndita = arrCarrello[index].produndita ;
-        const altezza = arrCarrello[index].altezza ;
+        const base = arrCarrello[index].base;
+        const produndita = arrCarrello[index].produndita;
+        const altezza = arrCarrello[index].altezza;
 
         const IdPrev = arrCarrello[index].idPrev;
         const IdFormProd = arrCarrello[index].IdFormProd;
@@ -181,12 +205,8 @@ const useCarrelloStep3 = () => {
         const IdColoreStampa = arrCarrello[index].IdColoreStampa;
         const code = arrCarrello[index].code;
 
-        
-
-        const responseDateConsegna = await httpGetCorriereSelezionata(consegnaRadio, String(Cap), Number(IdPrev), Number(IdFormProd), Number(IdTipoCarta), Number(IdColoreStampa), idUt, base, produndita, altezza);
+        const responseDateConsegna = await httpGetCorriereSelezionata(consegnaRadio, Cap ? Cap : 'null', Number(IdPrev), Number(IdFormProd), Number(IdTipoCarta), Number(IdColoreStampa), idUt, base, produndita, altezza);
         setCorriereSelezionata(responseDateConsegna.data);
-        
-        console.log(responseDateConsegna.data.dateConsegna)
 
         handleSelectedDataConsegna(String(code), responseDateConsegna.data.dateConsegna);
         //setLoading(false);
@@ -254,9 +274,28 @@ const useCarrelloStep3 = () => {
                 return;
             }
         }
+
+        var dataInd: DataGetIndirizzo | undefined;
+        if (inputConsegna == 0) {
+            dataInd = {
+                cap: "",
+                destinatario: "",
+                idIndirizzo: 0,
+                indirisso: "",
+                localitaStr: '',
+                nazioneStr: '',
+                nome: "Tipografia Former",
+                predefinito: true,
+                riassunto: "Via Cassia, 2010 - 00123 Roma",
+                telefono: '',
+            }
+        } else {
+            dataInd = indirizzoList.find(x => x.cap == valueCap)
+        }
+
         const data: ISegliConsegnaData = {
-            dataCorriere: caricaCorriere.find(x => x.idCorriere == inputConsegna),
-            dataIndirizzo: indirizzoList.find(x => x.cap == valueCap),
+            dataCorriere: corriereSelezionata?.corrDaUsare,
+            dataIndirizzo: dataInd,
             dateConsenga: dataConsegna,
             pesoTotale: dataCarrello.TotalPeso,
             email: emailValue,
@@ -304,12 +343,13 @@ const useCarrelloStep3 = () => {
 
     //*Efects helpers
     const efectRadioConsegna = async () => {
-        await handleTotaleProvisorio(dataCarrello.idUt, dataCarrello.TotalPeso, 0, dataCarrello.TotalPrezo, radioPagamento, inputConsegna);
+        await handleTotaleProvisorio(dataCarrello.idUt, dataCarrello.TotalPeso, 0, dataCarrello.TotalPrezo, radioPagamento, inputConsegna, valueCap);
+        await handleScandeza(valueCap, arrayCarrello, indexScandeza, inputConsegna, dataCarrello.idUt);
     }
 
     const efectSelectIndirizzo = async () => {
         setLoading(true)
-        await handleScandeza(valueCap, arrayCarrello, indexScandeza, inputConsegna,dataCarrello.idUt);
+        await handleScandeza(valueCap, arrayCarrello, indexScandeza, inputConsegna, dataCarrello.idUt);
         await handleTotaleProvisorio(dataCarrello.idUt, dataCarrello.TotalPeso, 0, dataCarrello.TotalPrezo, radioPagamento, inputConsegna, valueCap)
         setLoading(false)
     }

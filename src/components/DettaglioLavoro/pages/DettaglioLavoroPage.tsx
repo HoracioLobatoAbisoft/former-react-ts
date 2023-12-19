@@ -6,13 +6,23 @@ import useDetaglioLavoro from "../hooks/useDetaglioLavoro";
 import { numberFormat } from "../../../Helpers/formatNumber";
 import SectionFileInviato from "../components/SectionFileInviato";
 import CustomTextAreaEdiit from "../components/CustomTextAreaEdiit";
+import LoadingBackdrop from "../../loadingBackdrop";
+import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 
 const DettaglioLavoroPage = () => {
-    
-    const { dataLavoro,dataEdit,sectionEditable,setDataEdit,setSectionEditable,handleChange,handlePutModificaNoteNome,clearEditSection,selectedFronte,setSelectedFronte,selectedRetro,setSelectedRetro,handlePutUploadFileLavoro,setUploadOk,uploadOk,setUploadOkStr,uploadOkStr } = useDetaglioLavoro()
+
+    const { dataLavoro, dataEdit, sectionEditable, setDataEdit,  handleChange, handlePutModificaNoteNome, clearEditSection, selectedFronte, setSelectedFronte, selectedRetro, setSelectedRetro, handlePutUploadFileLavoro, setUploadOk, uploadOk, setUploadOkStr, uploadOkStr, loadingDettaglio, clearSelectFile, handleOperationFrame, handleInderito, handleOpenNomeInput} = useDetaglioLavoro()
 
     return <>
         <div className="font-[arial]">
+            <LoadingBackdrop isOpen={loadingDettaglio} x={1} sx={{
+                bgcolor: "rgba(225,225,225,0.4)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                pr: 8,
+                zIndex: '1000'
+            }} />
             <div className="w-full flex flex-row items-center justify-center my-[10px]">
                 <div className="w-[860px] flex flex-row items-center">
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoLavoro50.png`} />
@@ -161,7 +171,7 @@ const DettaglioLavoroPage = () => {
                                 <div className="flex flex-row bg-[#d6e03d] p-[5px] rounded-[5px] gap-3">
                                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} className="w-[20px] h-[25px]" />
                                     <span className="text-[18px]   ">
-                                        {`€ ${numberFormat(Number(dataLavoro?.importoNettoStr))} + iva`}
+                                        {`€ ${dataLavoro?.importoNettoStr} + iva`}
                                     </span>
                                 </div>
                             </div>
@@ -182,7 +192,7 @@ const DettaglioLavoroPage = () => {
                                 {dataLavoro?.lnkEditNomeVisible ?
                                     <button
                                         className="text-[12px] flex flex-row bg-[#ffd30c] hover:bg-[#ffe055] m-0 rounded-[5px] p-[4px]"
-                                        onClick={() => setSectionEditable({name:'nomeLavoro',open:true})}
+                                        onClick={() => handleOpenNomeInput('nomeLavoro')}
                                     >
                                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoEdit20.png`} alt="" className="w-[19px] h-[16px]" />
                                         Modifica Nome
@@ -233,7 +243,7 @@ const DettaglioLavoroPage = () => {
                                 {dataLavoro?.lnkEditNoteVisible == true ?
                                     <button
                                         className="text-[12px] flex flex-row bg-[#ffd30c] hover:bg-[#ffe055] m-0 rounded-[5px] p-[4px]"
-                                        onClick={() => setSectionEditable({name:'note',open:true})}
+                                        onClick={() => handleOpenNomeInput('note')}
                                     >
                                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoEdit20.png`} alt="" className="w-[19px] h-[16px]" />
                                         Modifica Note
@@ -246,47 +256,47 @@ const DettaglioLavoroPage = () => {
                         </div>
                     </div>
                     {sectionEditable.open &&
-                        <CustomTextAreaEdiit sectionEditable={sectionEditable} setSectionEditable={setSectionEditable} handleChange={handleChange} handlePutModificaNoteNome={handlePutModificaNoteNome} clearEditSection={clearEditSection}/>
+                        <CustomTextAreaEdiit sectionEditable={sectionEditable}  handleChange={handleChange} handlePutModificaNoteNome={handlePutModificaNoteNome} clearEditSection={clearEditSection} dataEdit={dataEdit}/>
                     }
                     {dataLavoro?.fileDaInviare ?
-                        <RowFileEnviato dataLavoro={dataLavoro} selectedFronte={selectedFronte} setSelectedFronte={setSelectedFronte} selectedRetro={selectedRetro} setSelectedRetro={setSelectedRetro} handlePutUploadFileLavoro={handlePutUploadFileLavoro} uploadOk={uploadOk} setUploadOk={setUploadOk} uploadOkStr={uploadOkStr} setUploadOkStr={setUploadOkStr} />
-                        : null
+                        <RowFileEnviato dataLavoro={dataLavoro} selectedFronte={selectedFronte} setSelectedFronte={setSelectedFronte} selectedRetro={selectedRetro} setSelectedRetro={setSelectedRetro} handlePutUploadFileLavoro={handlePutUploadFileLavoro} uploadOk={uploadOk} setUploadOk={setUploadOk} uploadOkStr={uploadOkStr} setUploadOkStr={setUploadOkStr} clearSelectFile={clearSelectFile} />
+                        : 
+                        (dataLavoro && dataLavoro?.stato == 15) &&
+                            ((dataLavoro.noAttachFile != 1) ?
+                                <FileSection dataLavoro={dataLavoro} /> : <SectionFileInviato dataLavoro={dataLavoro} handleOperationFrame={handleOperationFrame} />
+                            )
+    
+                        
                     }
-                    {/* {dataLavoro?.noAttachFile != 1 ?
+                    {
+                        (dataLavoro?.noAttachFile != 1 && !dataLavoro?.fileDaInviare) &&
                         <FileSection dataLavoro={dataLavoro} />
-
-                        : null
-                    } */}
-                    {(dataLavoro && dataLavoro?.stato == 15)
-                        ? (dataLavoro.noAttachFile != 1) ? <SectionFileInviato dataLavoro={dataLavoro} /> : null
-
-                        : (dataLavoro?.noAttachFile == 1) ? <FileSection dataLavoro={dataLavoro} /> : null
                     }
                     <div className="w-full flex flex-row justify-end items-center my-[10px] ">
-                        <span className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#f58220] hover:bg-[#e96b00] text-center rounded mx-[3px]">
+                        <button className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#f58220] hover:bg-[#e96b00] text-center rounded mx-[3px]" onClick={handleInderito}>
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoIndietroW.png`} className="w-[22px] h-[22px]" />
                             <span className="mx-[2px] text-[11px] uppercase">
                                 Indietro
                             </span>
-                        </span>
-                        <span className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#f58220] hover:bg-[#e96b00] text-center rounded mx-[3px]">
+                        </button>
+                        <button className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#f58220] hover:bg-[#e96b00] text-center rounded mx-[3px]" onClick={() => { handleOperationFrame(enOperationFrame.print) }}>
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrinterW.png`} className="w-[22px] h-[22px]" />
                             <span className="mx-[2px] text-[11px] uppercase">
                                 Stampa
                             </span>
-                        </span>
-                        <span className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#009ec9] hover:bg-[#30c9f2] text-center rounded mx-[3px]">
+                        </button>
+                        <a className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#009ec9] hover:bg-[#30c9f2] text-center rounded mx-[3px]" href={"https://www.tipografiaformer.it/listino/template/" + dataLavoro?.templatePDF} target="_blank">
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} className="w-[22px] h-[22px]" />
                             <span className="mx-[2px] text-[11px] uppercase font-bold">
                                 Template PDF
                             </span>
-                        </span>
-                        <span className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#d6e03d] hover:bg-[#f1fc45] text-center rounded mx-[3px]">
+                        </a>
+                        <button className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#d6e03d] hover:bg-[#f1fc45] text-center rounded mx-[3px]" onClick={() => handleOperationFrame(enOperationFrame.redirectDetaglioOrdini, undefined, undefined, dataLavoro?.idConsegna)}>
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello32.png`} className="w-[22px] h-[22px]" />
                             <span className="mx-[2px] text-[11px] uppercase text-[black] font-bold">
                                 Vai all' Ordine
                             </span>
-                        </span>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -14,6 +14,7 @@ export interface AquistaOraDTO {
     peso: number;
     idConsegna?: number;
     periodoPagam: number;
+    idIndirizzoUtn:number;
 }
 
 export interface DataPostAquistaOra {

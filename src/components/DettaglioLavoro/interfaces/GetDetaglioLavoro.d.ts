@@ -56,6 +56,7 @@ export interface DataGetDetaglioLavoro {
     hrefRetroTarget: string;
     hrefRetroInnerText: string;
     hrefRetroVisible: boolean;
+    templatePDF:string;
 }
 
 export interface ElencoLavorazioni {

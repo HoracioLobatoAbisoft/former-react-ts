@@ -54,9 +54,9 @@ const CarrelloStp5 = () => {
                                     <p className="">{consenga?.email && 'Email notifiche:'}</p>
                                 </div>
                                 <div className=" leading-6">
-                                    <p className="bg-[#d6e03d] text-center  w-[100%] text-[16px] ps-[1px] font-bold capitalize ">{consenga?.dataCorriere?.idCorriere == 1 ? consenga.dateConsenga?.dateStr : consenga?.dateConsenga?.dateProduzioneStr}</p>
-                                    <p className="text-[16px] font-bold">{consenga?.dataCorriere?.idCorriere == 1 ? 'Con Corriere' : 'Compra e Ritira '}</p>
-                                    <p className="">{consenga?.dataCorriere?.idCorriere == 1 ? `${consenga?.dataIndirizzo?.nome} : ${consenga?.dataIndirizzo?.riassunto}` : 'Tipografia Former, Via Cassia, 2010 - 00123 Roma'}</p>
+                                    <p className=" text-start  w-[100%] text-[16px]  font-bold capitalize "> <span className="bg-[#d6e03d] ps-[1px]">{consenga?.dataCorriere?.metodoDiConsegna?.idMetodoConsegna == 0 ? consenga.dateConsenga?.dateProduzioneStr : consenga?.dateConsenga?.dateStr}</span></p>
+                                    <p className="text-[16px] font-bold">{consenga?.dataCorriere?.metodoDiConsegna.descrizione}</p>
+                                    <p className="">{ `${consenga?.dataIndirizzo?.nome} : ${consenga?.dataIndirizzo?.riassunto}` }</p>
                                     <p className="">{consenga?.pesoTotale} kg ±</p>
                                     <p className="">{consenga?.email}</p>
                                 </div>

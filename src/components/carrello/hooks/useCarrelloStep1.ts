@@ -8,7 +8,7 @@ import { GLOBAL_CONFIG } from '../../../_config/global';
 import { httpGetTotaleProvisorio } from '../services/Services';
 import { DataGetTotaleProvisorio } from '../Interfaces/totaleProvvisorio';
 import { DataOrdineStep5, DataOrdineVoid } from '../Interfaces/DataTotaleORdineStep5.d';
-import { getTotaleProvisorio } from '../helpers/servicesHelpers';
+import { getDataUtn, getTotaleProvisorio } from '../helpers/servicesHelpers';
 import useHelpers from '../helpers/useHelpers';
 import { ISegliConsegnaData } from '../Interfaces/Corriere';
 import { DataLocalPagamento } from '../Interfaces/TipoPagamento';
@@ -33,7 +33,8 @@ const useCarrelloStep1 = () => {
     const [dataUtente, setdataUtente] = useState<DataResponseGetUtente>()
     const [TotaleProvisorio, setTotaleProvisorio] = useState<DataGetTotaleProvisorio>()
     const [dataOrdine, setDataOrdine] = useState<DataOrdineStep5>(DataOrdineVoid)
-
+    const [consegna, setConsegna] = useState(0);
+    const [pagamento, setPagamento] = useState(0);
 
     //*States booleanos
     const [loading, setLoading] = useState(false);
@@ -43,20 +44,26 @@ const useCarrelloStep1 = () => {
 
     //*States Strings
 
-    const localPagamento = localStorage.getItem('tp')
-    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : 5;
-    const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
+    
 
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.idCorriere : 1;
-    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : undefined;
+    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
+    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : "";
 
+    const localPagamento = localStorage.getItem('tp')
+    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
+    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
+    const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
 
     const getLocalCarrello = async () => {
         setLoading(true);
         const localCarrello = getLocalCarrelloHelper();
+        const utenteData = await handleGetDataUt(localCarrello.idUt);
+        if(utenteData?.cap){
+            console.log(utenteData.cap)
+        }
+
         setArrayCarrello(localCarrello.arrayCarrello);
         setDataTotale({ Colli: localCarrello.Colli, idUt: localCarrello.idUt, TotalPeso: localCarrello.TotalPeso, TotalPrezo: localCarrello.TotalPrezo, desconto: 0 })
         handleTotaleProvisorio(localCarrello.idUt, localCarrello.TotalPeso, 0, localCarrello.TotalPrezo);
@@ -89,7 +96,17 @@ const useCarrelloStep1 = () => {
         }
     }
 
+    const handleGetDataUt = async (IdUt: number) => {
+        try {
+            const response = await getDataUtn(IdUt);
+            setdataUtente(response)
+            return response;
+        } catch (error) {
 
+        } finally {
+
+        }
+    }
 
     //*Funciones handle
     const handleDeleteAllCarrello = () => {

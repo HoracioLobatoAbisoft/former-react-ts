@@ -4,30 +4,51 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { ListLavori } from '../../Interfaces/OrdiniIntarface';
 import { GLOBAL_CONFIG } from '../../../../_config/global';
 import '../../styles/acordion.css'
-import useITuoiOrdini from '../../hooks/useITuoiOrdini';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { useState } from 'react';
+
 type PropsAcordionLavori = {
     listLavori: ListLavori[],
     handleRedirectToDetaglioLavoro: Function;
     handleNewTagListinoTemplate: Function;
     handleDeleteLavoro: Function;
-    width:string | number
+    width: string | number
 }
 //AreaPersonale/iTuoiOrdini
-const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro,width }: PropsAcordionLavori) => {
+const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, width }: PropsAcordionLavori) => {
+
+
+    const [expanded, setExpanded] = useState<string>('panel0')
+
+    const handleAcordion = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+
+        if (panel === expanded) {
+            setExpanded('')
+        } else {
+            setExpanded(panel)
+
+        }
+    }
+
     return (
         <div className='w-full'>
             {listLavori.map((item, index) => (
-                <Accordion key={index}>
+                <Accordion key={index} onChange={handleAcordion(`panel${index}`)}>
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: width }}
                         className='acodion-lavori w-full'
+                        
                     >
-                        <div className={` flex w-[100%] items-center`}>
+                        <div className={` flex w-[100%] items-center justify-between px-[1em]`}>
                             <div className="flex flew-row justify-center items-center w-[85px]">
                                 <span className='font-bold text-[12px] ml-[10px]'>
-                                    +
+                                    {expanded === `panel${index}` ?
+                                        <RemoveIcon sx={{ fontSize: 18 }} /> :
+                                        <AddIcon sx={{ fontSize: 18 }} />
+                                    }
                                 </span>
                                 <div className="mx-[5px] w-[40px] flex justify-center items-center">
                                     <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaStato} alt="" />
@@ -35,7 +56,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                 <div style={{ 'backgroundColor': item.coloreStatoHTMLO }} className="w-[25px] h-[25px] rounded border border-[#aaa]"></div>
 
                             </div>
-                            
+
                             <div className="flex w-[268px] px-[2px]">
                                 <span className='text-[11px] font-bold'>
                                     {item.title}
@@ -44,17 +65,17 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                             <div className="w-[160px] flex justify-end ">
                                 <span className='text-[11px] font-bold text-[red]'>
                                     {
-                                    //(item.stato == 5 && item.idOrdineWeb != 0 && item.omaggio != 1) ? "ALLEGARE I FILE!" : "EFFETTUA IL PAGAMENTO! "
-                                    (item.stato == 5 && item.idOrdineWeb != 0 && item.omaggio != 1) ? "ALLEGARE I FILE!" : item.stato == 15 ?  "EFFETTUA IL PAGAMENTO!  "  :''
+                                        //(item.stato == 5 && item.idOrdineWeb != 0 && item.omaggio != 1) ? "ALLEGARE I FILE!" : "EFFETTUA IL PAGAMENTO! "
+                                        (item.stato == 5 && item.idOrdineWeb != 0 && item.omaggio != 1) ? "ALLEGARE I FILE!" : item.stato == 15 ? "EFFETTUA IL PAGAMENTO!  " : ''
                                     }
                                 </span>
                             </div>
                             <div className="w-[70px] flex justify-end">
                                 <span className='font-bold text-[11px]'>
-                                    { `${item.nOrdineStr}`}
+                                    {`${item.nOrdineStr}`}
                                 </span>
                             </div>
-                            <div className="w-[110px] flex justify-end">
+                            <div className="w-[110px] flex justify-end bg">
                                 <span className='font-bold text-[11px]'>
                                     {item.omaggio ? "OMAGGIO" : `${item.importoNettoStr}`}
                                 </span>
@@ -70,7 +91,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                             <div className="flex flex-row">
                                 <div className='w-[100px]'>
                                     {item.showSVG == false ?
-                                        <img src={"	https://tipografiaformer.it/listino/img/" + item.boxImgRif} alt="" className='w-[100px] h-[100px]' /> :
+                                        <img src={`${GLOBAL_CONFIG.IMG_IP}/listino/img/` + item.boxImgRif} alt="" className='w-[100px] h-[100px]' /> :
                                         <img src="" alt="" className="" />
                                     }
                                 </div>
@@ -244,9 +265,9 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                             </p>
                                             <div className='flex justify-center'>
                                                 {item.anteprimaWeb.length > 0 ?
-                                                    <img src={`https://tipografiaformer.it/ordini/${item.idOrdineWeb}/${item.anteprimaWeb}`} alt="" />
+                                                    <img src={`${GLOBAL_CONFIG.IMG_IP}/ordini/${item.idOrdineWeb}/${item.anteprimaWeb}`} alt="" />
                                                     :
-                                                    <img src={`https://tipografiaformer.it/img/NoAnteprima.png`} alt="" className="" />
+                                                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/NoAnteprima.png`} alt="" className="" />
 
                                                 }
                                             </div>
@@ -266,7 +287,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                                 className="flex items-center rounded p-[2px] px-[4px] bg-[#e70031] hover:bg-[#ff5829]"
                                                 onClick={() => handleRedirectToDetaglioLavoro(item.idOrdineWeb)}
                                             >
-                                                <img src="https://tipografiaformer.it/img/icoAttach16.png" alt="" />
+                                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoAttach16.png`} alt="" />
                                                 <b>INVIA I FILE</b>
                                             </button>
                                             : null
@@ -276,7 +297,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                                 className="flex items-center rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"
                                                 onClick={() => handleRedirectToDetaglioLavoro(item.idOrdineWeb)}
                                             >
-                                                <img src="https://tipografiaformer.it/img/icoFreccia16.png" alt="" />Vai al Dettaglio Lavoro
+                                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFreccia16.png`} alt="" />Vai al Dettaglio Lavoro
                                             </button>
                                             : null
                                         }
@@ -288,7 +309,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                         className="flex items-center rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"
                                         onClick={() => handleNewTagListinoTemplate(item.pathTemplate)}
                                     >
-                                        <img src="https://tipografiaformer.it/img/icoInfo16.png" />
+                                        <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInfo16.png`} />
                                         Scarica il Template
                                     </button>
                                     : null
@@ -297,7 +318,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                     className="flex items-center rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"
                                     onClick={() => handleDeleteLavoro(item.idOrdineWeb)}
                                 >
-                                    <img src="https://tipografiaformer.it/img/icoCestino16.png" />
+                                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCestino16.png`} />
                                     Elimina lavoro
                                 </button>
                             </div>

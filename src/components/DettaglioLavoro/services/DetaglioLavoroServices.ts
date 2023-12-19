@@ -3,10 +3,10 @@ import { ResponseGetDetagglioLavoro } from "../interfaces/GetDetaglioLavoro";
 import { FormEditData, ResponsePutModificaNoteNome, } from "../interfaces/PutEditNomeNote";
 import { ResponsePutUploadFileLavoto } from "../interfaces/PutUploadFileLavoro";
 
-export const httpGetDettaglioLavoro = async (IdLavoro: number) => {
+export const httpGetDettaglioLavoro = async (IdLavoro: number,uri:string) => {
     const response = await applicationConnect.get<ResponseGetDetagglioLavoro>('/Lavori/GetDettaglioLavoro', {
         params: {
-            IdLavoro
+            IdLavoro,uri
         }
     })
     return response.data;

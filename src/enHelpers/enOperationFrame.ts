@@ -13,4 +13,5 @@ export enum enOperationFrame {
     redirectOtherUri = 12,
     hiddenPage = 13,
     counterCarrello = 14,
+    print = 15,
 }

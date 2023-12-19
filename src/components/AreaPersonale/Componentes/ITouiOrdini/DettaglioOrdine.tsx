@@ -13,7 +13,7 @@ const DettaglioOrdine = () => {
 
     //AreaPersonale/iTuoiOrdini
 
-    const { ordiniData, handleDeleteLavoro, handleNewTagListinoTemplate, handleRedirectToDetaglioOrdini, handleTokenAuth, openloadingBackdrop } = useDettaglioOrdine()
+    const { ordiniData, handleDeleteLavoro, handleNewTagListinoTemplate, handleRedirectToDetaglioOrdini, handleTokenAuth, openloadingBackdrop,handleRedirectToDetaglioLavoro } = useDettaglioOrdine()
 
 
 
@@ -80,10 +80,10 @@ const DettaglioOrdine = () => {
                         </div>
                     </div>
                     <div className="w-full leading-3 bg-">
-                        <h4 className="font-bold">LAVORI NELL' ORDINE</h4>
+                        <h4 className="font-bold">LAVORI NELL' ORDINE </h4>
                         <p className="">Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.</p>
                         <div className="w-full ">
-                            <AcordionLavori listLavori={ordiniData ? ordiniData.listLavori : []} handleDeleteLavoro={handleDeleteLavoro} handleNewTagListinoTemplate={handleNewTagListinoTemplate} handleRedirectToDetaglioLavoro={handleRedirectToDetaglioOrdini} width={'100%'} />
+                            <AcordionLavori listLavori={ordiniData ? ordiniData.listLavori : []} handleDeleteLavoro={handleDeleteLavoro} handleNewTagListinoTemplate={handleNewTagListinoTemplate} handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro} width={'100%'} />
                         </div>
                     </div>
                     <div className="">
@@ -143,7 +143,7 @@ const DettaglioOrdine = () => {
                             </p>
                             <p className="mt-[.8em]">Potrà eseguire il pagamento tramite Bonifico Bancario utilizzando i seguenti dati:</p>
                             <div className="ml-[30px] mt-[1.2em]">
-                                Causale: <b>Pagamento Ordine Online 245369</b><br />
+                                Causale: <b>Pagamento Ordine Online {ordiniData?.idConsegna}</b><br />
                                 Banca di Credito Cooperativo della Provincia Romana<br />
                                 Conto corrente intestato a <b>Tipografia Former S.r.l.</b><br />
                                 IBAN: IT 11 H 08787 39091 000000034748<br />

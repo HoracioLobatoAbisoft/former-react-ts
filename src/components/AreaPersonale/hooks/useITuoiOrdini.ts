@@ -5,26 +5,33 @@ import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { GLOBAL_CONFIG } from '../../../_config/global';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { httpCheckOutPayPal } from '../../paypal/services/PayPalPServices';
+import { getDataUtn } from '../../carrello/helpers/servicesHelpers';
+import { DataResponseGetUtente } from '../../../interface/Utente';
 const useITuoiOrdini = () => {
     const navigate = useNavigate()
 
     const [listOrdini, setListOrdini] = useState<OrdineList[]>([])
     const [pageOrdini, setPageOrdini] = useState<number[]>([])
     const [openLoading, setOpenLoading] = useState(false)
+    const [dataUtente, setDataUtente] = useState<DataResponseGetUtente>()
 
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
+    // const location = useLocation();
+    // const params = new URLSearchParams(location.search);
 
-    const tokenPP = params.get('tokenPP');
-    const idUt = params.get('id');
+    // const tokenPP = params.get('tokenPP');
+    // const idUt = params.get('id');
 
-    console.log('tokenpp', tokenPP, idUt)
+    const {id} = useParams()
+    const idUt = id ? Number(id) : 0;
+    console.log('tokenpp',  id)
     /**
      * *Funciones Get 
      * @param idUt id del usuario
      * @param pageNumber numero de paginas
      * @returns retorna la respuesta del servicio
      */
+
+
 
     const getOrdini = async (idUt: number, pageNumber: number) => {
         try {
@@ -38,7 +45,8 @@ const useITuoiOrdini = () => {
     const deleteOrdini = async (idOrdine: number | string) => {
         try {
             const responseDeleteOrdine = await httpDeleteOrdine(idOrdine);
-            handleGetOrdini(1)
+            handleGetOrdini(1,);
+
         } catch (error) {
             console.log('error', error)
         }
@@ -59,7 +67,7 @@ const useITuoiOrdini = () => {
         *Funcones handle
     */
 
-    const handleGetOrdini = async (pageNumber: number, idUt = 1684,) => {
+    const handleGetOrdini = async (pageNumber: number,) => {
         setOpenLoading(true);
         const responseGetOrdini = await getOrdini(idUt, pageNumber);
         setListOrdini(responseGetOrdini ? responseGetOrdini.ordineList : []);
@@ -68,8 +76,9 @@ const useITuoiOrdini = () => {
     }
 
 
+
     useEffect(() => {
-        handleGetOrdini(1);
+        handleGetOrdini(1)
     }, [])
 
     const handleRedirectToDetaglioOrdini = (idOrdini: number | string) => {
@@ -94,7 +103,7 @@ const useITuoiOrdini = () => {
         deleteOrdini(idOrdine);
     }
 
-    
+
 
 
     return {

@@ -343,6 +343,7 @@ const useCarrello = () => {
                     numColli: dataTotale.Colli,
                     periodoPagam: Number(localStorage.getItem('tppr')),
                     peso: dataTotale.TotalPeso,
+                    idIndirizzoUtn:0,
                 },
                 ordineDataDTO: arrayCarrello,
             }

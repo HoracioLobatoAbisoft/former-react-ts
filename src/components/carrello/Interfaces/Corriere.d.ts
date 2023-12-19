@@ -90,7 +90,7 @@ export interface IDataConsegna {
 export interface ISegliConsegnaData{
     dateConsenga: IDataConsegna | undefined;
     dataIndirizzo: DataGetIndirizzo | undefined;
-    dataCorriere:DataGetCaricaCorriere | undefined;
+    dataCorriere:CorrDaUsare | undefined;
     pesoTotale: number | undefined;
     email:string | undefined;
 }

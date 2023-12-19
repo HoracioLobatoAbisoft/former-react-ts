@@ -10,6 +10,8 @@ import { DataOrdineStep5, DataOrdineVoid } from "../Interfaces/DataTotaleORdineS
 import { DataPostAquistaOra } from "../Interfaces/AquistaOra";
 import { httpPostAquistaOra } from "../services/Services";
 import { GLOBAL_CONFIG } from "../../../_config/global";
+import { httpGetUtente } from "../../../services/UtenteService";
+import { DataResponseGetUtente, ResponseGetUtente } from "../../../interface/Utente";
 
 const dataDefault = {
     TotalPrezo: 0,
@@ -31,22 +33,23 @@ const useCarrelloStep5 = () => {
     const [dataTotale, setDataTotale] = useState(dataDefault)
     const [dataOrdine, setDataOrdine] = useState<DataOrdineStep5>(DataOrdineVoid)
     const [consenga, setConsenga] = useState<ISegliConsegnaData>();
-    const [pagamento, setPagamento] = useState<DataLocalPagamento>()
+    const [pagamento, setPagamento] = useState<DataLocalPagamento>();
+    const [dataUtente, setdataUtente] = useState<DataResponseGetUtente>()
 
     //*States booleanos
     const [loading, setLoading] = useState(false);
 
     //*Storage
 
-    const localPagamento = localStorage.getItem('tp')
-    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : 5;
-    const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
-
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.idCorriere : 1;
-    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : undefined;
+    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
+    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : "";
+
+    const localPagamento = localStorage.getItem('tp')
+    const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
+    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
+    const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
 
 
     const handleData = async () => {
@@ -56,7 +59,8 @@ const useCarrelloStep5 = () => {
         setArrayCarrello(localCarrello.arrayCarrello);
         await handleTotaleProvisorio(localCarrello.idUt, localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, radioPagamento, radioConsegna, capConsegna)
         localConsegnaObj.pesoTotale =  localCarrello.TotalPeso;
-        //setDataOrdine(localConsegnaObj?.dataCorriere.)
+        //setDataOrdine(localConsegnaObj?.dataCorriere.);
+        await getDataUtn(localCarrello.idUt)
         setDataTotale({ Colli: localCarrello.Colli, idUt: localCarrello.idUt, TotalPeso: localCarrello.TotalPeso, TotalPrezo: localCarrello.TotalPrezo, desconto: 0 })
         setArrayCarrello(localCarrello.arrayCarrello);
         setConsenga(localConsegnaObj);
@@ -71,6 +75,15 @@ const useCarrelloStep5 = () => {
         const responseTotale = await getTotaleProvisorio(idUt, TotalePeso, 0, TotalePrezzo, scontoL, radioPagamento, radioConsegna, cap);
         setTotaleProvisorio(responseTotale);
         setLoading(false);
+    }
+
+    const getDataUtn = async (idUt: number) => {
+        try {
+            const responseDataUtn = await httpGetUtente(idUt);
+            setdataUtente(responseDataUtn.data)
+        } catch (error) {
+            //console.log(error)
+        }
     }
 
     const handleDeleteAllCarrello = () => {
@@ -114,9 +127,9 @@ const useCarrelloStep5 = () => {
         setLoading(true);
         const data: DataPostAquistaOra = {
             aquistaOraDTO: {
-                dataPrevistaOriginale: String(consenga?.dateConsenga?.date),
+                dataPrevistaOriginale: consenga?.dataCorriere?.metodoDiConsegna.idMetodoConsegna == 0 ? String(consenga?.dateConsenga?.dateProduzione) : String(consenga?.dateConsenga?.date),
                 emailNotificheCorriere: String(consenga?.email),
-                giorno: String(consenga?.dateConsenga?.dateProduzione),
+                giorno: consenga?.dataCorriere?.metodoDiConsegna.idMetodoConsegna == 0 ? String(consenga?.dateConsenga?.dateProduzione) : String(consenga?.dateConsenga?.date),
                 idCorriere: Number(consenga?.dataCorriere?.idCorriere),
                 idIndirizzo: Number(consenga?.dataIndirizzo?.idIndirizzo),
                 idPagam: Number(pagamento?.tipoPagamento?.idTipoPagamento),
@@ -125,6 +138,7 @@ const useCarrelloStep5 = () => {
                 numColli: dataTotale.Colli,
                 periodoPagam: Number(pagamento?.tipoPagamento?.periodoPagamento),
                 peso: dataTotale.TotalPeso,
+                idIndirizzoUtn:dataUtente?.idIndirizzo ? dataUtente.idIndirizzo : 0,
             },
             ordineDataDTO: arrayCarrello,
         }

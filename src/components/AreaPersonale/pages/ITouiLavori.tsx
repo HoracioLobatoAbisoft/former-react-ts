@@ -15,7 +15,7 @@ const ITouiLavori = () => {
                     <div className='flex flex-row items-center'>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoLavoro50.png`} alt="" className="w-[50px] h-[42px]" />
                         <span className={`text-[15px] text-[#f58220] `}>
-                            I TUOI LAVORI
+                            I TUOI ORDINI
                         </span>
                     </div>
 
