@@ -68,7 +68,7 @@ import { GLOBAL_CONFIG } from "../../../_config/global";
 import jsPDF from "jspdf";
 import logo from "../../../assets/iconsLast/logo.png";
 import { DateFormatDDMM, DateFormatDDMSYYHHSS, DateFormatItWDMY } from "../../../Helpers/formatDates";
-import { numberFormat, numberPercentuale } from "../../../Helpers/formatNumber";
+import { numberFormat, numberPercentuale, replaceComaPoint } from "../../../Helpers/formatNumber";
 import { httpGetCorriereSelezionata, httpGetIndirizzo, httpGetMetodiPagamento, httpGetTotaleProvisorio } from "../../carrello/services/Services";
 import { DataGgetCorriereSelezionata, IDataConsegna, ISegliConsegnaData } from "../../carrello/Interfaces/Corriere";
 import { DataGetProduttoConsigliato } from "../interface/prodottoConsigliato";
@@ -1574,11 +1574,13 @@ const useProdtto = () => {
     pdf.line(mx, lineY + 217, fullwidth, lineY + 217);
 
     //*Totale
+    const IVaPDf = showTablePreez ? numberFormat(numberPercentuale(Number(calcolaTuto?.prezzoCalcolatoNetto), 22)) : '-';
+    const TotImportoPDF = showTablePreez ? numberFormat(calcolaTuto?.prezzoCalcolatoNetto) : '-';
 
     pdf.setFont("helvetica", "bold");
-    pdf.text(`Imponibile € ${showTablePreez ? numberFormat(calcolaTuto?.prezzoCalcolatoNetto) : '-'}`, fullwidth, my + 313, { align: 'right' });
-    pdf.text("IVA € 2,64", fullwidth, my + 323, { align: 'right' });
-    pdf.text(`Totale con IVA € ${showTablePreez ? numberFormat(numberPercentuale(Number(calcolaTuto?.prezzoCalcolatoNetto), 22)) : '-'}`, fullwidth, my + 333, { align: 'right' });
+    pdf.text(`Imponibile € ${TotImportoPDF}`, fullwidth, my + 313, { align: 'right' });
+    pdf.text(`IVA € ${IVaPDf == '-' ? "-" : IVaPDf}`, fullwidth, my + 323, { align: 'right' });
+    pdf.text(`Totale con IVA € ${IVaPDf == '-' ? "-" : replaceComaPoint(IVaPDf) +  replaceComaPoint(TotImportoPDF)}`, fullwidth, my + 333, { align: 'right' });
     pdf.setFontSize(6.4);
     pdf.setFont("helvetica", "normal");
     pdf.text("CONDIZIONI DI VENDITA", mx, my + 383,);
