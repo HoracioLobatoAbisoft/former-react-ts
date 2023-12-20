@@ -82,6 +82,7 @@ import { getIndirizzoUt } from "../../carrello/helpers/servicesHelpers";
 import { DataGetIndirizzo } from "../../carrello/Interfaces/Indirizzo";
 import { DataLocalPagamento } from "../../carrello/Interfaces/TipoPagamento";
 
+const listWhite = [32]
 const useProdtto = () => {
   let {
     idPrev,
@@ -1128,6 +1129,7 @@ const useProdtto = () => {
             ...formValues,
             [name]: defaultValue,
           })
+          setLoading(false);
         }
       } else {
         const valueValdiate = (name === 'valueBase' && !Number.isNaN(BaseN)) ? Math.floor(BaseN) : (name === 'valueAltezza' && !Number.isNaN(AltezzaN)) ? Math.floor(AltezzaN) : (name === 'valueProfundita' && !Number.isNaN(ProfunditaN)) ? Math.floor(ProfunditaN) : (name === 'valueQuantita' && !Number.isNaN(QtaN)) ? "" : !Number.isNaN(parseFloat(value)) ? Math.floor(parseFloat(value)) : "";
@@ -1135,6 +1137,7 @@ const useProdtto = () => {
           ...formValues,
           [name]: valueValdiate,
         })
+        setLoading(false);
         //setChangeInput(true);
       }
     }else{
@@ -1746,7 +1749,7 @@ const useProdtto = () => {
 
     const localCarrello = getLocalCarrelloHelper();
     if (localCarrello.arrayCarrello.length > 0) {
-      const responseTotale = await httpGetTotaleProvisorio(Number(idUt), localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, null, radioPagamento, radioConsegna,utenteData?.cap);
+      const responseTotale = await httpGetTotaleProvisorio(Number(idUt), localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, null, radioPagamento, utenteData?.corriere.idMetodoConsegna! ,utenteData?.cap);
       setTotaleProvisorio(responseTotale.data);
     }
 
@@ -1879,6 +1882,7 @@ const useProdtto = () => {
     showProfundita,
     disableProfundita,
     uriImage,
+    listWhite,
     valuesStampaCaldoOpz, formatoDinamico, idBaseEtiquete, showSvg, imageSvg, textTipoCarta, rowSelectedIva, menuDateConsegna,
     idAltezaEtiquete, dimensionniStr, copertina, idPrev, prodottoConsigliato, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, formatoLabel, TotaleProvisorio,
     //*
