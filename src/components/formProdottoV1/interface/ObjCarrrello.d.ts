@@ -7,10 +7,10 @@ export interface ObjCarrello {
     nome: string | null;
     note: string | null;
     qta?: number | null | string ;
-    img: string | undefined |SvgImage ;
-    svgImg: boolean | undefined;
+    img: string | undefined  ;
+    svgImg: SvgImage | undefined;
     prodotto: string | undefined;
-    orientamiento: string | false | undefined;
+    orientamiento: string | bool | undefined;
     idOrientamiento?: number | undefined | null |strin; 
     suporto?: string ;
     stampa?: string;
@@ -42,4 +42,5 @@ export interface ObjCarrello {
     IdColoreStampa: string | number | undefined;
     promo:boolean;
     percentualePromo?:number |string;
+    idTipoFustella?:number;
 }

@@ -33,7 +33,7 @@ const DettaglioOrdine = () => {
                 <div className="w-full flex justify-between items-center">
                     <h4 className="flex my-[13px] ms-[80px] text-[13px] items-center text-[#f58220] font-bold gap-1">
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCart50.png`} className="w-[50px] h-[26px]" />
-                        DETTAGLIO DEL TUO ORDINE N°
+                        DETTAGLIO DEL TUO CONSEGNA N°
                         <b className="text-black">{ordiniData?.idConsegnaView} </b> del <b className="text-black"> {ordiniData?.dataInserimentoStr}</b>
                     </h4>
                     <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full rounded text-white">React V^18.2.0</span>
@@ -45,9 +45,9 @@ const DettaglioOrdine = () => {
                     <div className="flex justify-between">
                         <div className="w-full bg- flex gap-[5em] ps-[1px]">
                             <div className="leading-[20px]">
-                                <p className="">N° Ordine</p>
-                                <p className="">Data Ordine</p>
-                                <p className="">N° Lavori</p>
+                                <p className="">N° Consegna</p>
+                                <p className="">Data Consegna</p>
+                                <p className="">N° Ordini</p>
                                 <p className="">Pagamento</p>
                             </div>
                             <div className="text-[14px] font-bold">
@@ -59,12 +59,12 @@ const DettaglioOrdine = () => {
                         </div>
                         <div className="w-full">
                             <div className="w-full flex justify-end text-[11px] pr-[2em] mb-[1.5em]">
-                                <p className="tracking-wide font-bold bg-[#E81616] py-[3px] px-[10px] border border-[#aaa] rounded-[3px]">In attesa di Pagamento</p>
+                                <p className={`tracking-wide font-bold bg-[] py-[3px] px-[10px] border border-[#aaa] rounded-[3px]`} style={{background:ordiniData?.coloreStatoHtml}}>{ordiniData?.statoStr}</p>
                             </div>
                             <div className="flex w-full justify-end">
                                 <div className="flex gap-[5em] text-justify items-end">
                                     <div className="">
-                                        <p className="">Totale Lavori:</p>
+                                        <p className="">Totale Consegna:</p>
                                         <p className="">Totale Spedizioni:</p>
                                         <p className="">IVA (22%):</p>
                                         <p className="">TOTALE:</p>
@@ -80,8 +80,8 @@ const DettaglioOrdine = () => {
                         </div>
                     </div>
                     <div className="w-full leading-3 bg-">
-                        <h4 className="font-bold">LAVORI NELL' ORDINE </h4>
-                        <p className="">Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.</p>
+                        <h4 className="font-bold">ORDINI NELL' CONSEGNA </h4>
+                        <p className="">Qui trovi l'elenco dei lavori che sono contenuti in questo ORDINI.</p>
                         <div className="w-full ">
                             <AcordionLavori listLavori={ordiniData ? ordiniData.listLavori : []} handleDeleteLavoro={handleDeleteLavoro} handleNewTagListinoTemplate={handleNewTagListinoTemplate} handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro} width={'100%'} />
                         </div>

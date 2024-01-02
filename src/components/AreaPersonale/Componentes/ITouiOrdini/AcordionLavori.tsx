@@ -19,10 +19,9 @@ type PropsAcordionLavori = {
 const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, width }: PropsAcordionLavori) => {
 
 
-    const [expanded, setExpanded] = useState<string>('panel0')
+    const [expanded, setExpanded] = useState<string>('')
 
     const handleAcordion = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-
         if (panel === expanded) {
             setExpanded('')
         } else {
@@ -34,27 +33,27 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
     return (
         <div className='w-full'>
             {listLavori.map((item, index) => (
-                <Accordion key={index} className='py-[1.3px]' onChange={handleAcordion(`panel${index}`)}>
+                <Accordion key={index} className='py-[1.3px]' expanded={expanded === `panel${index}`} onChange={handleAcordion(`panel${index}`)}>
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: width }}
                         className='acodion-lavori w-full'
-                        
+
                     >
                         <div className={` flex w-[100%] items-center justify-between px-[1em]`}>
                             <div className="flex flew-row justify-center items-center w-[85px]">
                                 <span className='font-bold text-[12px]'>
                                     {expanded === `panel${index}` ?
-                                        <RemoveIcon sx={{ fontSize: 18 }} /> :
-                                        <AddIcon sx={{ fontSize: 18 }} />
+                                        <RemoveIcon sx={{ fontSize: 15 }} /> :
+                                        <AddIcon sx={{ fontSize: 15 }} />
+
                                     }
                                 </span>
-                                <div className="mx-[5px] w-[30px] flex justify-center items-center">
+                                <div className="mx-[5px] w-[40px]  flex justify-center items-center" >
                                     <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaStato} alt="" />
                                 </div>
                                 <div style={{ 'backgroundColor': item.coloreStatoHTMLO }} className="w-[35px] h-[25px] rounded border border-[#aaa]"></div>
-
                             </div>
 
                             <div className="flex w-[268px] px-[2px]">
@@ -98,7 +97,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                 <div className="w-[450px] ml-[2px] flex flex-col gap-[5px]">
                                     <p className="flex">
                                         <span className='w-[82px] text-[11px]'>
-                                            Nome lavoro:
+                                            Nome ordini:
                                         </span>
                                         <span className='text-[11px] font-bold'>
                                             {item.nomeLavoro}
@@ -224,7 +223,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                         }
                                     </p>
                                     <p className="flex mt-1">
-                                        <div className='ml-[82px] p-[3px] text-[18px] font-bold rounded bg-[#d6e03d] flex flex-row'>
+                                        <div className='ml-[82px] p-[3px] text-[18px] font-bold rounded bg-[#d6e03d] flex items-center'>
                                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo.png`} className='w-[20px] h-[25px]' />
                                             <span className='ml-1'>
                                                 {item.omaggio != 1 ? `${item.importoNettoStr} ${item.promo ? `Promo ${item.promo} % ` : ''}` : ''}
@@ -254,13 +253,13 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                             <p
                                                 className={`flex justify-center`}
                                             >
-                                                <span className={`bg-[${item.coloreStatoHTMLO}] ${item.omaggio == 1 ? 'text-[white]' : ''} min-w-[118px] text-center text-[11px] tracking-wide font-bold  py-[3px] px-[10px] border border-[#aaa] rounded-[3px]`}>
+                                                <span className={`bg-[${item.coloreStatoHTMLO}] ${item.omaggio == 1 ? 'text-[white]' : ''} min-w-[118px] text-center text-[11px] tracking-wide font-bold  py-[3px] px-[10px] border border-[#aaa] rounded-[3px]`} style={{background:item.coloreStatoHTMLO}}>
                                                     {item.statoStrO}
                                                 </span>
                                             </p>
                                             <p className="flex justify-center mt-[8px]">
                                                 <span className={`text-[11px]`}>
-                                                    N° Lavoro: {item.nOrdineStr}
+                                                    N° Ordini: {item.nOrdineStr}
                                                 </span>
                                             </p>
                                             <div className='flex justify-center'>
@@ -297,7 +296,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                                 className="flex items-center rounded p-[2px] px-[4px] bg-[#ffd30c] hover:bg-[#ffe055]"
                                                 onClick={() => handleRedirectToDetaglioLavoro(item.idOrdineWeb)}
                                             >
-                                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFreccia16.png`} alt="" />Vai al Dettaglio Lavoro
+                                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFreccia16.png`} alt="" />Vai al Dettaglio Ordini
                                             </button>
                                             : null
                                         }
@@ -319,7 +318,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                     onClick={() => handleDeleteLavoro(item.idOrdineWeb)}
                                 >
                                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCestino16.png`} />
-                                    Elimina lavoro
+                                    Elimina ordini
                                 </button>
                             </div>
 

@@ -39,7 +39,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                     <div className='flex flex-row'>
                         <div className='w- full text-[10px]'>
                             <span className=''>
-                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul + che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' ordine.
+                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul + che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' le tue consegne.
                             </span>
                         </div>
                     </div>
@@ -51,7 +51,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                         </div>
                         <div className='w-[120px] flex justify-center px-1'>
                             <span className='text-[red] text-[10px] font-bold'>
-                                ORDINE
+                                CONSEGNA
                             </span>
                         </div>
                         <div className='w-[100px] flex justify-center px-1'>
@@ -66,7 +66,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                         </div>
                         <div className='w-[70px]  flex justify-start self-end'>
                             <span className='text-[red] text-[10px] font-bold'>
-                                N° LAVORI
+                                N° ORDINE
                             </span>
                         </div>
                         <div className='flex w-[110px] justify-end ml-[10px] px-1 self-end'>
@@ -94,10 +94,10 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                         sx={{ bgcolor: '#f1f1f1', border: 1, borderColor: '#aaa', borderRadius: 1, display: 'flex', alignItems: 'center', padding: 0, height: '15px', width: '760px', }}
                                         className={`arcodion-ordini`}
                                     >
-                                        <div className='w-full flex flex-row items-center '>
+                                        <div className='w-full flex flex-row items-center justify-center'>
                                             {expanded === `panel${index}` ?
-                                                <RemoveIcon sx={{ fontSize: 18 }} /> :
-                                                <AddIcon sx={{ fontSize: 18 }} />
+                                                <RemoveIcon sx={{ fontSize: 15 }} /> :
+                                                <AddIcon sx={{ fontSize: 15 }} />
                                             }
                                             <div className="w-[30px]  items-center justify-center">
                                                 <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaCorriere} alt="" />
@@ -147,7 +147,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                 <div className="col m-0 col-9">
                                                     <div className='row'>
                                                         <div className='col col-12'>
-                                                            <b>Riepilogo Ordine</b>
+                                                            <b>Riepilogo Consegna</b>
                                                         </div>
                                                     </div>
                                                     <div className='row'>
@@ -165,7 +165,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                     <div className='row mt-1'>
                                                         <div className='col col-4'>
                                                             <span>
-                                                                N° Lavori
+                                                                N° Ordine
                                                             </span>
                                                         </div>
                                                         <div className='col col-8'>
@@ -188,9 +188,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                             </div>
                                                             <div className='row mt-[3px]'>
                                                                 <div className='col col-12'>
-                                                                    <p className="">
-                                                                        (Colli <b>{item.numeroColliStr}</b>, Peso <b>{item.pesoKG}</b> kg ±)
-                                                                    </p>
+                                                                    <p className="">(Colli <b>{item.numeroColliStr}</b>, Peso <b>{item.pesoKG}</b> kg ±)</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -233,7 +231,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                     <div className='row mt-[15px]'>
                                                         <div className='w-full flex justify-between'>
                                                             <span>
-                                                                Totale Lavori:
+                                                                Totale Ordini:
                                                             </span>
                                                             <span className='text-end font-bold'>
                                                                 € {item.importoTotOrdiniNettoOriginaleStr}
@@ -266,14 +264,14 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                     </div>
 
                                                 </div>
-                                                <div className='col col-12'>
+                                                <div className='col col-12 mt-[1.2em]'>
                                                     <div className='row'>
                                                         <div className='col col-12'>
-                                                            <b>LAVORI NELL' ORDINE</b>
+                                                            <b>ORDINE NELL' CONSEGNA</b>
                                                         </div>
                                                         <div className='col col-12'>
                                                             <p>
-                                                                Qui trovi l'elenco dei lavori che sono contenuti in questo Ordine.
+                                                                Qui trovi l'elenco dei lavori che sono contenuti in questo Consegna.
                                                             </p>
                                                         </div>
                                                     </div>
@@ -316,7 +314,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                     onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)}
                                                                 >
                                                                     <img src="https://tipografiaformer.it/img/icoFreccia16.png" />
-                                                                    Vai al Dettaglio Ordine
+                                                                    Vai al Dettaglio Consegna
                                                                 </button>
                                                                 {/* </Link> */}
 
@@ -326,7 +324,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                         onClick={() => handleDeleteOrdine(item.idConsegna)}
                                                                     >
                                                                         <img src="https://tipografiaformer.it/img/icoCestino16.png" />
-                                                                        Elimina Ordine
+                                                                        Elimina Consegna
                                                                     </button>
                                                                 }
                                                             </div>

@@ -17,3 +17,8 @@ export  const FormatNumber0_000 = (value: number) => {
 export const numberPercentuale = (monto:number, porcentuaje:number) => {
     return (monto * porcentuaje) / 100
 }
+
+export const replaceComaPoint = (str: string): number => {
+    const strConPunto = str.replace(',', '.');
+    return Number(strConPunto);
+};

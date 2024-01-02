@@ -11,7 +11,7 @@ import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 
 const DettaglioLavoroPage = () => {
 
-    const { dataLavoro, dataEdit, sectionEditable, setDataEdit,  handleChange, handlePutModificaNoteNome, clearEditSection, selectedFronte, setSelectedFronte, selectedRetro, setSelectedRetro, handlePutUploadFileLavoro, setUploadOk, uploadOk, setUploadOkStr, uploadOkStr, loadingDettaglio, clearSelectFile, handleOperationFrame, handleInderito, handleOpenNomeInput} = useDetaglioLavoro()
+    const { dataLavoro, dataEdit, sectionEditable, setDataEdit, handleChange, handlePutModificaNoteNome, clearEditSection, selectedFronte, setSelectedFronte, selectedRetro, setSelectedRetro, handlePutUploadFileLavoro, setUploadOk, uploadOk, setUploadOkStr, uploadOkStr, loadingDettaglio, clearSelectFile, handleOperationFrame, handleInderito, handleOpenNomeInput } = useDetaglioLavoro()
 
     return <>
         <div className="font-[arial]">
@@ -27,7 +27,7 @@ const DettaglioLavoroPage = () => {
                 <div className="w-[860px] flex flex-row items-center">
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoLavoro50.png`} />
                     <span className="text-[#f58220] text-[14px] font-bold mx-[2px]">
-                        DETTAGLIO DEL TUO LAVORO N°
+                        DETTAGLIO DEL TUO ORDINE N°
                     </span>
                     <span className="text-[black] text-[14px] font-bold mx-[2px]">
                         {dataLavoro?.idOrdineInt ? dataLavoro?.idOrdineInt : "PROVVISORIO " + dataLavoro?.idOrdine}
@@ -184,7 +184,7 @@ const DettaglioLavoroPage = () => {
                         <div className="w-full">
                             <div className=" flex flex-row py-[5px] items-start gap-1">
                                 <p className="text-[11px] pl-[10px]">
-                                    Nome Lavoro:
+                                    Nome Ordine:
                                 </p>
                                 <p className={`${dataLavoro?.lnkEditNomeVisible ? 'w-[390px] ml-[32px]' : 'w-[650px] ml-[15px]'}  bg-[#f1f1f1]  p-[10px] text-[11px] `}>
                                     {dataLavoro?.nomeLavoro}
@@ -256,17 +256,17 @@ const DettaglioLavoroPage = () => {
                         </div>
                     </div>
                     {sectionEditable.open &&
-                        <CustomTextAreaEdiit sectionEditable={sectionEditable}  handleChange={handleChange} handlePutModificaNoteNome={handlePutModificaNoteNome} clearEditSection={clearEditSection} dataEdit={dataEdit}/>
+                        <CustomTextAreaEdiit sectionEditable={sectionEditable} handleChange={handleChange} handlePutModificaNoteNome={handlePutModificaNoteNome} clearEditSection={clearEditSection} dataEdit={dataEdit} />
                     }
                     {dataLavoro?.fileDaInviare ?
                         <RowFileEnviato dataLavoro={dataLavoro} selectedFronte={selectedFronte} setSelectedFronte={setSelectedFronte} selectedRetro={selectedRetro} setSelectedRetro={setSelectedRetro} handlePutUploadFileLavoro={handlePutUploadFileLavoro} uploadOk={uploadOk} setUploadOk={setUploadOk} uploadOkStr={uploadOkStr} setUploadOkStr={setUploadOkStr} clearSelectFile={clearSelectFile} />
-                        : 
+                        :
                         (dataLavoro && dataLavoro?.stato == 15) &&
-                            ((dataLavoro.noAttachFile != 1) ?
-                                <FileSection dataLavoro={dataLavoro} /> : <SectionFileInviato dataLavoro={dataLavoro} handleOperationFrame={handleOperationFrame} />
-                            )
-    
-                        
+                        ((dataLavoro.noAttachFile != 1) ?
+                            <FileSection dataLavoro={dataLavoro} /> : <SectionFileInviato dataLavoro={dataLavoro} handleOperationFrame={handleOperationFrame} />
+                        )
+
+
                     }
                     {
                         (dataLavoro?.noAttachFile != 1 && !dataLavoro?.fileDaInviare) &&
@@ -285,12 +285,15 @@ const DettaglioLavoroPage = () => {
                                 Stampa
                             </span>
                         </button>
-                        <a className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#009ec9] hover:bg-[#30c9f2] text-center rounded mx-[3px]" href={"https://www.tipografiaformer.it/listino/template/" + dataLavoro?.templatePDF} target="_blank">
-                            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} className="w-[22px] h-[22px]" />
-                            <span className="mx-[2px] text-[11px] uppercase font-bold">
-                                Template PDF
-                            </span>
-                        </a>
+                        {dataLavoro?.templatePDF &&
+                            <a className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#009ec9] hover:bg-[#30c9f2] text-center rounded mx-[3px]" href={"https://www.tipografiaformer.it/listino/template/" + dataLavoro?.templatePDF} target="_blank">
+                                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoFileTypePdf.png`} className="w-[22px] h-[22px]" />
+                                <span className="mx-[2px] text-[11px] uppercase font-bold">
+                                    Template PDF
+                                </span>
+                            </a>
+                        }
+
                         <button className="w-[120px] h-[30px] flex flex-row justify-center items-center text-[white] bg-[#d6e03d] hover:bg-[#f1fc45] text-center rounded mx-[3px]" onClick={() => handleOperationFrame(enOperationFrame.redirectDetaglioOrdini, undefined, undefined, dataLavoro?.idConsegna)}>
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello32.png`} className="w-[22px] h-[22px]" />
                             <span className="mx-[2px] text-[11px] uppercase text-[black] font-bold">

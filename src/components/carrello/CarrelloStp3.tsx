@@ -31,7 +31,7 @@ const CarrelloStp3 = () => {
             <div className="flex scegli-container">
                 <div className="w-[73%]">
                     <div className="flex w-full justify-between text-[13px]">
-                        <h3 className="text-[14px] font-bold  flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} /> Scegli la Consegna </h3>
+                        <h3 className="text-[14px] font-bold  flex gap-1 items-center "><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCorriere20.png`} className="w-[16] h-[16]"/> Scegli la Consegna </h3>
                         <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full text-white rounded">React V^18.2.0</span>
                     </div>
                     <hr className="border border-[#aaa] my-1" />

@@ -76,7 +76,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                 <AccordionDetails sx={{ bgcolor: "", display: '', fontSize: 11, width: '100%', border: '1px solid #ddd' }}>
                                     <div className="w-full flex gap-2">
 
-                                        {typeof elem.img === 'object' ? <ImageCustom svgImage={elem.img} /> : <img src={`https://tipografiaformer.it/listino/img/${elem.img}`} className='w-[100px] h-[100px] ' alt="" />}
+                                        {elem.svgImg ? <ImageCustom svgImage={elem.svgImg} /> : <img src={`https://tipografiaformer.it/listino/img/${elem.img}`} className='w-[100px] h-[100px] ' alt="" />}
 
                                         <div className=" flex gap-5 w-full ">
                                             <div className="flex flex-col gap-[1.5px]">

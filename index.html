@@ -10,11 +10,11 @@
       //   ? "https://www.tipografiaformertest.it"
       //   : "https://localhost:44311";
       window.addEventListener("message", function (aea) {
-        //if (aea.origin === produccion) {
-          console.log("entra el mensaje", aea.origin, aea.data.operation);
+        console.log(aea)
+        if (aea.data && aea.data.operation) {
+          console.log('entreo en react')
           localStorage.clear();
-          
-        //}
+        }
       });
     </script>
     <title>Vite + React + TS</title>

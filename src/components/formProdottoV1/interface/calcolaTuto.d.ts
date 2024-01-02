@@ -19,4 +19,5 @@ export interface DataGetCalcolaTuto {
     dataFineValidita:Date;
     nomePreventivo:string;
     code:string;
+    idTipoFustella:number;
 }

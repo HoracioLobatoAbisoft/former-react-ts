@@ -31,7 +31,7 @@ const CarrelloStp4 = () => {
             <div className='flex gap-5'>
                 <div className="w-[73%]">
                     <div className="flex w-full justify-between text-[13px]">
-                        <h3 className="text-[14px] font-bold  flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello16.png`} width={16} height={16} />Scegli il Pagamento </h3>
+                        <h3 className="text-[14px] font-bold  flex gap-1"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPrezzo16.png`} width={16} height={16} />Scegli il Pagamento </h3>
                         <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full text-white rounded">React V^18.2.0</span>
                     </div>
                     <hr className="border border-[#aaa] my-1" />

@@ -18,7 +18,7 @@ const ITouiOrdini = () => {
                     <div className='flex flex-row items-center'>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCart50.png`} alt="" className="w-[50px] h-[26px]" />
                         <span className={`text-[15px] text-[#f58220] uppercase`}>
-                            Le Tue Consegna
+                            Le Tue Consegna  
                         </span>
                     </div>
                     <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full rounded text-white">React V^18.2.0</span>
@@ -36,7 +36,7 @@ const ITouiOrdini = () => {
                         <div className='flex flex-row items-center'>
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCarrello20.png`} alt="" className="w-[16px] h-[16px]" />
                             <span className={`text-[12px] ml-1`}>
-                                Tutti Tuoi Ordini
+                                Tutti Tue Consegna
                             </span>
                         </div>
 
@@ -50,7 +50,7 @@ const ITouiOrdini = () => {
                         <div className='flex flex-row items-center'>
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoLavOpz16.png`} alt="" className="w-[16px] h-[16px]" />
                             <span className={`text-[12px] ml-1`}>
-                                Legenda Status Ordini
+                                Legenda Status Consegna
                             </span>
                         </div>
 

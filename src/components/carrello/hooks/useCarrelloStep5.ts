@@ -129,7 +129,7 @@ const useCarrelloStep5 = () => {
             aquistaOraDTO: {
                 dataPrevistaOriginale: consenga?.dataCorriere?.metodoDiConsegna.idMetodoConsegna == 0 ? String(consenga?.dateConsenga?.dateProduzione) : String(consenga?.dateConsenga?.date),
                 emailNotificheCorriere: String(consenga?.email),
-                giorno: consenga?.dataCorriere?.metodoDiConsegna.idMetodoConsegna == 0 ? String(consenga?.dateConsenga?.dateProduzione) : String(consenga?.dateConsenga?.date),
+                giorno:  String(consenga!.dateConsenga!.dateProduzione),
                 idCorriere: Number(consenga?.dataCorriere?.idCorriere),
                 idIndirizzo: Number(consenga?.dataIndirizzo?.idIndirizzo),
                 idPagam: Number(pagamento?.tipoPagamento?.idTipoPagamento),
@@ -142,9 +142,10 @@ const useCarrelloStep5 = () => {
             },
             ordineDataDTO: arrayCarrello,
         }
+        
         const responsePostAquistaOra = await httpPostAquistaOra(data);
         if (responsePostAquistaOra) {
-            setLoading(false);
+            //setLoading(false);
             window.parent.postMessage({ operation: enOperationFrame.reliadUrl, uri: 'ordine-confermato' }, GLOBAL_CONFIG.IMG_IP);
             handleOperationFrame(enOperationFrame.counterCarrello, '0');
             localStorage.clear();

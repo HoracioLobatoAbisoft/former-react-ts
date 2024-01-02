@@ -42,7 +42,7 @@ const useCarrelloStep4 = () => {
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 5 : 8;
+    var radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 5 : 8;
     const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
     const showInputL = (localPagamentoObj.dataSconto && localPagamentoObj.dataSconto.importoFisso != 0) ? false : true;
 
@@ -60,6 +60,7 @@ const useCarrelloStep4 = () => {
         const localCarrello = getLocalCarrelloHelper();
         const metodiPagamento = await getMetodiPagamento(localCarrello.idUt, localCarrello.TotalPrezo, radioConsegna);
         await handleGetDataUt(localCarrello.idUt);
+        radioPagamento = metodiPagamento.length == 3 ? metodiPagamento[2].idTipoPagamento : radioPagamento
         setTipoPagamento(metodiPagamento);
         setValuePagamento(radioPagamento)
         setValueConsegna(radioConsegna);
