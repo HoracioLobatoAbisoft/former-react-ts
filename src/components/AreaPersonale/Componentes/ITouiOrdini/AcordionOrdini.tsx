@@ -78,7 +78,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
 
                     </div>
                 </div>
-                <div className='w-full bg-white' id="acc-ordini">
+                <div className='w-full bg-white acc-ordini'>
                     {
                         listOrdini.map((item, index) => {
                             return (

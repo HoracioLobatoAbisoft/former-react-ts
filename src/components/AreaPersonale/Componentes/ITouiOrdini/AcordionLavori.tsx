@@ -31,7 +31,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
     }
 
     return (
-        <div className='w-full'>
+        <div className='w-full acc-ordini'>
             {listLavori.map((item, index) => (
                 <Accordion key={index} className='py-[1.3px]' expanded={expanded === `panel${index}`} onChange={handleAcordion(`panel${index}`)}>
                     <AccordionSummary
@@ -253,7 +253,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                             <p
                                                 className={`flex justify-center`}
                                             >
-                                                <span className={`bg-[${item.coloreStatoHTMLO}] ${item.omaggio == 1 ? 'text-[white]' : ''} min-w-[118px] text-center text-[11px] tracking-wide font-bold  py-[3px] px-[10px] border border-[#aaa] rounded-[3px]`} style={{background:item.coloreStatoHTMLO}}>
+                                                <span className={`bg-[${item.coloreStatoHTMLO}] ${item.omaggio == 1 ? 'text-[white]' : ''} min-w-[118px] text-center text-[11px] tracking-wide font-bold  py-[3px] px-[8px] border border-[#aaa] rounded-[3px]`} style={{background:item.coloreStatoHTMLO}}>
                                                     {item.statoStrO}
                                                 </span>
                                             </p>
