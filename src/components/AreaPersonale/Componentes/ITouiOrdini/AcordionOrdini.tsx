@@ -78,12 +78,13 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
 
                     </div>
                 </div>
-                <div className='w-full bg-white'>
+                <div className='w-full bg-white' id="acc-ordini">
                     {
                         listOrdini.map((item, index) => {
                             return (
                                 <Accordion
                                     key={index}
+                                    className='py-[1.3px]'
                                     expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}
                                 >
                                     <AccordionSummary

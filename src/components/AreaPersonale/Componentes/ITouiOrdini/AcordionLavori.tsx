@@ -34,7 +34,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
     return (
         <div className='w-full'>
             {listLavori.map((item, index) => (
-                <Accordion key={index} onChange={handleAcordion(`panel${index}`)}>
+                <Accordion key={index} className='py-[1.3px]' onChange={handleAcordion(`panel${index}`)}>
                     <AccordionSummary
                         aria-controls="panel1a-content"
                         id="panel1a-header"
