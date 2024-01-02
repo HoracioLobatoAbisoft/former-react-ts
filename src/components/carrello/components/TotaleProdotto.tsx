@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { useState } from "react";
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import AddIcon from '@mui/icons-material/Add';
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import { DataGetTotaleProvisorio } from "../Interfaces/totaleProvvisorio";
 import { formatNumber } from "../../../services/NumberFormat";
 import { DataLocalPagamento } from "../Interfaces/TipoPagamento";
@@ -129,7 +130,7 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinu
                     </>
                 )
             }
-            <div className="mt-[38px] w-full">
+            <div className="mt-[38px] w-full" id="cart-info">
                 <h2 className="text-[14px] font-bold text-center border-b-[2px]  border-[#d6e03d] mb-[5px]">Informazioni sul Carrello</h2>
                 <Accordion sx={{ width: "100%", }} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                     <AccordionSummary
@@ -138,7 +139,7 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinu
                         className='summary'
                         sx={{ fontSize: 11, bgcolor: "#f1f1f1", border: '1px solid #aaa', borderRadius: "3px", }}
                     >
-                        <p className='m-0 py-[5px] ps-[7px] w-full flex gap-1 text-justify pe-[5px]'> <AddIcon sx={{ fontSize: 15 }} /> Come funziona il Carrello?</p>
+                        <p className='m-0 py-[5px] ps-[7px] w-full flex gap-1 text-justify pe-[5px]'> { ( expanded === 'panel1' ) ? <HorizontalRuleIcon sx={{ fontSize: 15 }} /> : <AddIcon sx={{ fontSize: 15 }} /> } Come funziona il Carrello?</p>
                     </AccordionSummary>
                     <AccordionDetails sx={{ border: '1px solid #ddd' }}>
                         <div className="text-[11px]" >
@@ -162,7 +163,7 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinu
                         className='summary'
                         sx={{ fontSize: 11, bgcolor: "#f1f1f1", border: '1px solid #aaa', borderRadius: "3px" }}
                     >
-                        <p className=' py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Quando posso allegare i file PDF ai lavori contenuti nell'ordine?</p>
+                        <p className=' py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'>{ ( expanded === 'panel2' ) ? <HorizontalRuleIcon sx={{ fontSize: 15 }} /> : <AddIcon sx={{ fontSize: 15 }} /> } Quando posso allegare i file PDF ai lavori contenuti nell'ordine?</p>
                     </AccordionSummary>
                     <AccordionDetails sx={{ border: '1px solid #ddd' }}>
                         <div className='text-[11px] text-justify'>
@@ -177,7 +178,7 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinu
                         className='summary'
                         sx={{ fontSize: 11, bgcolor: "#f1f1f1", border: '1px solid #aaa', borderRadius: "3px" }}
                     >
-                        <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Come posso utilizzare un Coupon di Sconto?</p>
+                        <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'>{ ( expanded === 'panel3' ) ? <HorizontalRuleIcon sx={{ fontSize: 15 }} /> : <AddIcon sx={{ fontSize: 15 }} /> } Come posso utilizzare un Coupon di Sconto?</p>
                     </AccordionSummary>
                     <AccordionDetails sx={{ border: '1px solid #ddd' }}>
                         <div className='text-[11px] text-justify'>
@@ -193,7 +194,7 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinu
                         className='summary'
                         sx={{ fontSize: 11, bgcolor: "#f1f1f1", border: '1px solid #aaa', borderRadius: "3px" }}
                     >
-                        <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Perchè il mio Carrello è vuoto?</p>
+                        <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'>{ ( expanded === 'panel4' ) ? <HorizontalRuleIcon sx={{ fontSize: 15 }} /> : <AddIcon sx={{ fontSize: 15 }} /> } Perchè il mio Carrello è vuoto?</p>
                     </AccordionSummary>
                     <AccordionDetails sx={{ border: '1px solid #ddd' }}>
                         <div className='text-[11px] text-justify'>
@@ -208,7 +209,7 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinu
                         className='summary'
                         sx={{ fontSize: 11, bgcolor: "#f1f1f1", border: '1px solid #aaa', borderRadius: "3px" }}
                     >
-                        <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'><AddIcon sx={{ fontSize: 15 }} /> Dove posso scegliere il tipo di Consegna che preferisco?</p>
+                        <p className='py-[5px] ps-[7px] flex gap-1 text-justify pe-[5px]'>{ ( expanded === 'panel5' ) ? <HorizontalRuleIcon sx={{ fontSize: 15 }} /> : <AddIcon sx={{ fontSize: 15 }} /> } Dove posso scegliere il tipo di Consegna che preferisco?</p>
                     </AccordionSummary>
                     <AccordionDetails sx={{ border: '1px solid #ddd' }}>
                         <div className='text-[11px] text-justify'>
@@ -223,7 +224,7 @@ const TotaleProdotto = ({TotaleProvisorio,handleTotaleChange,textBtn,showContinu
                         className='summary'
                         sx={{ fontSize: 11, bgcolor: "#f1f1f1", border: '1px solid #aaa', borderRadius: "3px" }}
                     >
-                        <p className='py-[5px] ps-[7px] text-justify pe-[5px] flex gap-1 items-center '><AddIcon sx={{ fontSize: 15 }} /> In che modo posso pagare il mio ordine? </p>
+                        <p className='py-[5px] ps-[7px] text-justify pe-[5px] flex gap-1 items-center '>{ ( expanded === 'panel6' ) ? <HorizontalRuleIcon sx={{ fontSize: 15 }} /> : <AddIcon sx={{ fontSize: 15 }} /> } In che modo posso pagare il mio ordine? </p>
                     </AccordionSummary>
                     <AccordionDetails sx={{ border: '1px solid #ddd' }}>
                         <div className='text-[11px] text-justify'>

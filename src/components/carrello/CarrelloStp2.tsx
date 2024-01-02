@@ -62,7 +62,7 @@ const CarrelloStp2 = () => {
 
                         <br></br>
                         <p className='text-[12px]'>
-                            Una volta completato l'ordine, ed eventualmente effettuato il pagamento (se sceglierai una modalità di pagamento anticipata), potrai allegare i file PDF entrando nel dettaglio di ogni lavoro dalla sezione <b>'I tuoi lavori'.</b>
+                            Una volta completato l'ordine, ed eventualmente effettuato il pagamento (se sceglierai una modalità di pagamento anticipata), potrai allegare i file PDF entrando nel dettaglio di ogni lavoro dalla sezione <b>'I tuoi ordini'.</b>
                         </p>
                     </Container>
                     <ContinuaGliAcquisti step={2} text='SCEGLI LA CONSEGNA' />

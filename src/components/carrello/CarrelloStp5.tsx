@@ -38,7 +38,7 @@ const CarrelloStp5 = () => {
                             <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoAttach16.png`} className='w-[16px] h-[16px]' />File allegati
                         </h2>
                         <div className="border border-[#aaa] ps-[15px] py-[5px] text-[12px] rounded-[5px] bg-[#f1f1f1]">
-                            Una volta completato l'ordine, ed eventualmente effettuato il pagamento (se sceglierai una modalità di pagamento anticipata), potrai allegare i file PDF entrando nel dettaglio di ogni lavoro dalla sezione <b>'I tuoi lavori'</b>.
+                            Una volta completato l'ordine, ed eventualmente effettuato il pagamento (se sceglierai una modalità di pagamento anticipata), potrai allegare i file PDF entrando nel dettaglio di ogni lavoro dalla sezione <b>'I tuoi ordini'</b>.
                         </div>
                     </div>
                     <div className="mt-[25px]">

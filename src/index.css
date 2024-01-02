@@ -63,3 +63,7 @@
 .ReactCollapse--collapse {
   transition: height 500ms;
 }
+
+#cart-info > .css-183mf81-MuiPaper-root-MuiAccordion-root.Mui-expanded {
+  margin: 0px !important;
+}
