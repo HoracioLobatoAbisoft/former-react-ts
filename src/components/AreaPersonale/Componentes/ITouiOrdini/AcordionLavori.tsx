@@ -43,7 +43,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                     >
                         <div className={` flex w-[100%] items-center justify-between px-[1em]`}>
                             <div className="flex flew-row justify-center items-center w-[85px]">
-                                <span className='font-bold text-[12px] ml-[10px]'>
+                                <span className='font-bold text-[12px]'>
                                     {expanded === `panel${index}` ?
                                         <RemoveIcon sx={{ fontSize: 15 }} /> :
                                         <AddIcon sx={{ fontSize: 15 }} />
@@ -57,7 +57,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                             </div>
 
                             <div className="flex w-[268px] px-[2px]">
-                                <span className='text-[11px] font-bold'>
+                                <span className='text-[11px] ml-3 font-bold'>
                                     {item.title}
                                 </span>
                             </div>
