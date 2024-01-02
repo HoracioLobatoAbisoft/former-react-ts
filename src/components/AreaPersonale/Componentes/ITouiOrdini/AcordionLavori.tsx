@@ -44,21 +44,21 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                     >
                         <div className={` flex w-[100%] items-center justify-between px-[1em]`}>
                             <div className="flex flew-row justify-center items-center w-[85px]">
-                                <span className='font-bold text-[12px] ml-[10px]'>
+                                <span className='font-bold text-[12px]'>
                                     {expanded === `panel${index}` ?
                                         <RemoveIcon sx={{ fontSize: 18 }} /> :
                                         <AddIcon sx={{ fontSize: 18 }} />
                                     }
                                 </span>
-                                <div className="mx-[5px] w-[40px] flex justify-center items-center">
+                                <div className="mx-[5px] w-[30px] flex justify-center items-center">
                                     <img src={GLOBAL_CONFIG.IMG_IP + "/" + item.iconaStato} alt="" />
                                 </div>
-                                <div style={{ 'backgroundColor': item.coloreStatoHTMLO }} className="w-[25px] h-[25px] rounded border border-[#aaa]"></div>
+                                <div style={{ 'backgroundColor': item.coloreStatoHTMLO }} className="w-[35px] h-[25px] rounded border border-[#aaa]"></div>
 
                             </div>
 
                             <div className="flex w-[268px] px-[2px]">
-                                <span className='text-[11px] font-bold'>
+                                <span className='text-[11px] ml-3 font-bold'>
                                     {item.title}
                                 </span>
                             </div>

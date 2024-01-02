@@ -98,7 +98,7 @@ const DettaglioOrdine = () => {
                                     <p className="">Indirizzo</p>
                                 </div>
                                 <div className="font-bold">
-                                    <p className={`p-[2px] rounded-[3px] text-black text-center bg-[${ordiniData?.dataOrdineClasse}] `}>{ordiniData?.dateConsegna}{ordiniData?.dataOrdineLabel}</p>
+                                    <p className={`pt-[2px] pb-[2px] rounded-[3px] text-black text-center bg-[${ordiniData?.dataOrdineClasse}] `}><span className="capitalize">{ordiniData?.dateConsegna}</span> {ordiniData?.dataOrdineLabel}</p>
                                     <p className="">{ordiniData?.corriereStr}</p>
                                     <p className="">(<span className="font-normal">Colli</span> {ordiniData?.numeroColliStr},<span className="font-normal">Peso</span>  {ordiniData?.pesoKG} <span className="font-normal">kg ±</span>)</p>
                                     <p className="">{ordiniData?.indirizzoStr}</p>
