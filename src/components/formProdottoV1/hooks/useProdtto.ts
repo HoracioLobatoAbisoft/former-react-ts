@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   httpGetColoreStampa,
   httpGetFormatoArray,
+  httpGetInputValues,
   httpGetShowOrientmiento,
   httpGetTipoCarta,
 } from "../services";
@@ -81,6 +82,7 @@ import useHelpers from "../../carrello/helpers/useHelpers";
 import { getIndirizzoUt } from "../../carrello/helpers/servicesHelpers";
 import { DataGetIndirizzo } from "../../carrello/Interfaces/Indirizzo";
 import { DataLocalPagamento } from "../../carrello/Interfaces/TipoPagamento";
+import { enAsseXYZ } from "../../../schemas/InputsEnums";
 
 const listWhite = [1148, 134]
 const useProdtto = () => {
@@ -487,12 +489,11 @@ const useProdtto = () => {
     >
   ) => {
     const { name, value } = evt.target;
-    // if (value == '' && name != 'valueQuantita') {
-    //   setShowTablePreez(false);
-
-    // }
-    setChangeInput(false);
-
+    if (value == '' && name != 'valueQuantita') {
+      setChangeInput(true);
+    } else {
+      setChangeInput(false);
+    }
     setFormValues({
       ...formValues,
       [name]: value,
@@ -586,7 +587,7 @@ const useProdtto = () => {
   const handleChangFormat = async () => {
     if (!execute) return;
     setLoading(true);
-    const { idPrev, idUt,IdTipoCarta } = handleParamsFormat();
+    const { idPrev, idUt, IdTipoCarta } = handleParamsFormat();
     const { valueFormat, valueAltezza, valueBase, valueProfundita, valueFogli, valueRadio, valueQuantita } = formValues;
     const IdFormatN = Number(valueFormat);
     const idFogli = Number(valueFogli);
@@ -594,7 +595,7 @@ const useProdtto = () => {
 
     const responseTipoCarta = await getTipoCarta(idPrev, Number(valueFormat));
 
-    const IdTipoCartaN = responseTipoCarta.some(x=>x.idTipoCarta == IdTipoCarta) ? IdTipoCarta :  responseTipoCarta[0].idTipoCarta;
+    const IdTipoCartaN = responseTipoCarta.some(x => x.idTipoCarta == IdTipoCarta) ? IdTipoCarta : responseTipoCarta[0].idTipoCarta;
     //console.log()
     const responseColoreStampa = await getColoreStampa({
       idPrev,
@@ -1097,19 +1098,34 @@ const useProdtto = () => {
     const QtaN = Number(valueQuantita), BaseN = Number(valueBase), AltezzaN = Number(valueAltezza), ProfunditaN = Number(valueProfundita);
     var defaultValue = '';//= (name === 'valueAltezza') ? '40' : (name === 'valueProfundita') ? '14' : (name === 'valueBase') ?'20': " ";
 
-    if (name != 'valueQuantita') {
-      if (disableProfundita?.disabled === true) {
-        defaultValue = (name === 'valueBase' && (BaseN < 70 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 70)) ? "70" : (name === 'valueAltezza' && (AltezzaN < 100 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 100) ? '100' : defaultValue;
-      } else if (showProfundita === false) {
-        defaultValue = (name === 'valueBase' && (BaseN < 1 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 1)) ? "1" : (name === 'valueAltezza' && (AltezzaN < 1 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 1) ? '1' : defaultValue;
-        defaultValue = (name === 'valueBase' && (BaseN > 440)) ? "440" : (name === 'valueAltezza' && (AltezzaN > 310)) ? '310' : defaultValue;
-      } else {
-        defaultValue = (name === 'valueBase' && (BaseN < 20 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 20)) ? "20" : (name === 'valueAltezza' && (AltezzaN < 40 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 40) ? '40' : defaultValue;
-      }
-      if (showProfundita === true && name === 'valueProfundita') {
-        defaultValue = (name === 'valueProfundita' && (ProfunditaN < 14 || Number.isNaN(parseFloat(String(valueProfundita)))) || parseFloat(String(valueProfundita)) < 14) ? "14" : defaultValue;
-      }
-    } else if (name === 'valueQuantita') {
+    // if (name != 'valueQuantita') {
+    //   if (disableProfundita?.disabled === true) {
+    //     defaultValue = (name === 'valueBase' && (BaseN < 70 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 70)) ? "70" : (name === 'valueAltezza' && (AltezzaN < 100 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 100) ? '100' : defaultValue;
+    //   } else if (showProfundita === false) {
+    //     defaultValue = (name === 'valueBase' && (BaseN < 1 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 1)) ? "1" : (name === 'valueAltezza' && (AltezzaN < 1 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 1) ? '1' : defaultValue;
+    //     defaultValue = (name === 'valueBase' && (BaseN > 440)) ? "440" : (name === 'valueAltezza' && (AltezzaN > 310)) ? '310' : defaultValue;
+    //   } else {
+    //     defaultValue = (name === 'valueBase' && (BaseN < 20 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 20)) ? "20" : (name === 'valueAltezza' && (AltezzaN < 40 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 40) ? '40' : defaultValue;
+    //   }
+    //   if (showProfundita === true && name === 'valueProfundita') {
+    //     defaultValue = (name === 'valueProfundita' && (ProfunditaN < 14 || Number.isNaN(parseFloat(String(valueProfundita)))) || parseFloat(String(valueProfundita)) < 14) ? "14" : defaultValue;
+    //   }
+    // } else
+
+    switch (name) {
+      case "valueBase":
+        defaultValue = (await httpGetInputValues(String(valueBase), Number(idPrev), enAsseXYZ.Base)).toString();
+        break;
+      case "valueProfundita":
+        defaultValue = (await httpGetInputValues((String(valueProfundita)), Number(idPrev), enAsseXYZ.Profondita)).toString();
+        break;
+      case "valueAltezza":
+        defaultValue = (await httpGetInputValues((String(valueAltezza)), Number(idPrev), enAsseXYZ.Altezza)).toString();
+        break;
+      default:
+        break;
+    }
+    if (name === 'valueQuantita') {
       var qtaStr = parseFloat(valueQuantita);
       defaultValue = (Number.isNaN(QtaN) || (qtaStr <= 0) || Number.isNaN(qtaStr)) ? defaultValue : (Math.floor(QtaN)).toString();
     }
@@ -1206,7 +1222,7 @@ const useProdtto = () => {
         profundita: ProfunditaN,
         idUt,
       }),
-      
+
     ])
     const [responseTablePrezzo, responseShowTablePrezzo, responseOpzioni, tableDate] = petitions;
 
@@ -1264,7 +1280,7 @@ const useProdtto = () => {
     setTablaDataPrezzi(responseTablePrezzo);
     setCalcolaTuto(responseCalcolaTuto);
     setOpzioniList(responseOpzioniOption);
-    if (BaseN != 0 && AltezzaN != 0 && (ProfunditaN != 0  || !showProfundita)) {
+    if (BaseN != 0 && AltezzaN != 0 && (ProfunditaN != 0 || !showProfundita)) {
       const responseSV = await getSVG({ base: BaseN, altezza: AltezzaN, profundita: ProfunditaN, idPrev });
       setImageSvg(responseSV);
       const responseDimensioniStr = await getFormatoStr({ idPrev, idFormProd: IdFormatN, IdColoreStampa: IdColoreStampaN, IdTipoCarta: IdTipoCartaN, altezza: AltezzaN, base: BaseN, profundita: ProfunditaN, idUt })
@@ -1388,7 +1404,7 @@ const useProdtto = () => {
       svgImg: imageSvg,
       prodotto: dimensionniStr?.prodotto,
       orientamiento: showOrientamiento && handleOrientamiento().find(x => x.value == formValues.valueOrientamento)?.label,
-      idOrientamiento: showOrientamiento ?  formValues.valueOrientamento : undefined,
+      idOrientamiento: showOrientamiento ? formValues.valueOrientamento : undefined,
       suporto: optionTipoCarta.find(x => x.value == formValues.valueTipoCarta)?.label,
       stampa: optionColoreStampa.find(x => x.value == formValues.valueColoreStampa)?.label,
       dimencioni: parseInt(String(idBaseEtiquete)) != 0 ? `(${idBaseEtiquete}B x ${idAltezaEtiquete}A mm)` : dimensionniStr?.dimensioniStr,
@@ -1412,7 +1428,7 @@ const useProdtto = () => {
       altezza: Number(formValues.valueAltezza) ?? 0,
       promo: tablaDataPrezzi.some(x => x.prezzoPromo > 0),
       percentualePromo: calcolaTuto?.promoPercentuale,
-      idTipoFustella:calcolaTuto?.idTipoFustella,
+      idTipoFustella: calcolaTuto?.idTipoFustella,
     }
     const existCarreloLocal = localStorage.getItem('c');
     let dataCarrelli: ObjCarrello[] = [];

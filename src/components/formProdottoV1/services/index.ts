@@ -1,4 +1,6 @@
 import applicationConnect from "../../../api";
+import { enAsseXYZ } from "../../../schemas/InputsEnums";
+import { ResponseGetInputValue } from "../GetInputValue";
 import { ResponseGetAggiornaReview } from "../interface/AggiornaReview";
 import { DataAlertMassimo } from "../interface/AlertMassimo";
 import { ResponseGetDescrizioniDinamica } from "../interface/DescrizioneDinamica";
@@ -639,5 +641,18 @@ export const httpGetDescrizioniDinamica =async (IdPrev:number,IdFormProd:number,
 
   } catch (error) {
     throw new Error('')
+  }
+}
+
+export const httpGetInputValues =async (dimensione:string,IdPrev:number,estensione:enAsseXYZ) => {
+  try {
+    const result = await applicationConnect.get<ResponseGetInputValue>('Packagin/GetInputValidate',{params:{
+      dimensione,
+      IdPrev,
+      estensione,
+    }})
+    return result.data.data;
+  } catch (error) {
+    throw new Error(String(error))
   }
 }

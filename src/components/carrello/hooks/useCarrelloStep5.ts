@@ -145,7 +145,7 @@ const useCarrelloStep5 = () => {
         
         const responsePostAquistaOra = await httpPostAquistaOra(data);
         if (responsePostAquistaOra) {
-            setLoading(false);
+            //setLoading(false);
             window.parent.postMessage({ operation: enOperationFrame.reliadUrl, uri: 'ordine-confermato' }, GLOBAL_CONFIG.IMG_IP);
             handleOperationFrame(enOperationFrame.counterCarrello, '0');
             localStorage.clear();
