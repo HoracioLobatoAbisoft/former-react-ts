@@ -187,7 +187,9 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                             </div>
                                                             <div className='row mt-[3px]'>
                                                                 <div className='col col-12'>
-                                                                    <p className="">{`(Colli ${item.numeroColliStr}, Peso ${item.pesoKG} kg ±)`}</p>
+                                                                    <p className="">
+                                                                        (Colli <b>{item.numeroColliStr}</b>, Peso <b>{item.pesoKG}</b> kg ±)
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </div>
