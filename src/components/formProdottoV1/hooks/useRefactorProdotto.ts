@@ -991,7 +991,7 @@ const useRefactorProdotto = () => {
             nome: initialState.nome,
             note: initialState.note,
             qta: qtaSelezinata,
-            img: showSvg ? imageSvg : helperDataProdotto?.imgRif,
+            img:  helperDataProdotto?.imgRif,
             svgImg: showSvg,
             prodotto: dimensionniStr?.prodotto,
             orientamiento: orientamiento && handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,

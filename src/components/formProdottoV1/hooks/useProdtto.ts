@@ -82,7 +82,7 @@ import { getIndirizzoUt } from "../../carrello/helpers/servicesHelpers";
 import { DataGetIndirizzo } from "../../carrello/Interfaces/Indirizzo";
 import { DataLocalPagamento } from "../../carrello/Interfaces/TipoPagamento";
 
-const listWhite = [32]
+const listWhite = [1148, 134]
 const useProdtto = () => {
   let {
     idPrev,
@@ -397,6 +397,7 @@ const useProdtto = () => {
       setTableDate(tableDate);
       setUtenteData(dataUtn);
       setCalcolaTuto(responseCalculaTuto);
+      setQtaSelected(responseCalculaTuto.qta);
       setShowOpzzioni(responseShowOopzioni.data);
       setShowTablePreez(responseShowTablePrezzi.data);
       setUriImage(formatoStr.imgSelezionato);
@@ -488,7 +489,7 @@ const useProdtto = () => {
     const { name, value } = evt.target;
     // if (value == '' && name != 'valueQuantita') {
     //   setShowTablePreez(false);
-      
+
     // }
     setChangeInput(false);
 
@@ -585,7 +586,7 @@ const useProdtto = () => {
   const handleChangFormat = async () => {
     if (!execute) return;
     setLoading(true);
-    const { idPrev, idUt, } = handleParamsFormat();
+    const { idPrev, idUt,IdTipoCarta } = handleParamsFormat();
     const { valueFormat, valueAltezza, valueBase, valueProfundita, valueFogli, valueRadio, valueQuantita } = formValues;
     const IdFormatN = Number(valueFormat);
     const idFogli = Number(valueFogli);
@@ -593,8 +594,8 @@ const useProdtto = () => {
 
     const responseTipoCarta = await getTipoCarta(idPrev, Number(valueFormat));
 
-    const IdTipoCartaN = responseTipoCarta[0].idTipoCarta;
-
+    const IdTipoCartaN = responseTipoCarta.some(x=>x.idTipoCarta == IdTipoCarta) ? IdTipoCarta :  responseTipoCarta[0].idTipoCarta;
+    //console.log()
     const responseColoreStampa = await getColoreStampa({
       idPrev,
       idFormProd: IdFormatN,
@@ -1140,7 +1141,7 @@ const useProdtto = () => {
         setLoading(false);
         //setChangeInput(true);
       }
-    }else{
+    } else {
       handleChangeValuesInput();
     }
   };
@@ -1205,6 +1206,7 @@ const useProdtto = () => {
         profundita: ProfunditaN,
         idUt,
       }),
+      
     ])
     const [responseTablePrezzo, responseShowTablePrezzo, responseOpzioni, tableDate] = petitions;
 
@@ -1262,8 +1264,7 @@ const useProdtto = () => {
     setTablaDataPrezzi(responseTablePrezzo);
     setCalcolaTuto(responseCalcolaTuto);
     setOpzioniList(responseOpzioniOption);
-    console.log('aca')
-    if (BaseN != 0 && AltezzaN != 0 && (ProfunditaN != 0 && showProfundita)) {
+    if (BaseN != 0 && AltezzaN != 0 && (ProfunditaN != 0  || !showProfundita)) {
       const responseSV = await getSVG({ base: BaseN, altezza: AltezzaN, profundita: ProfunditaN, idPrev });
       setImageSvg(responseSV);
       const responseDimensioniStr = await getFormatoStr({ idPrev, idFormProd: IdFormatN, IdColoreStampa: IdColoreStampaN, IdTipoCarta: IdTipoCartaN, altezza: AltezzaN, base: BaseN, profundita: ProfunditaN, idUt })
@@ -1384,10 +1385,10 @@ const useProdtto = () => {
       qta: calcolaTuto?.qta,
       //img: showSvg ? imageSvg : helperDataProdotto?.imgRif,
       img: helperDataProdotto?.imgRif,
-      svgImg: false,
+      svgImg: imageSvg,
       prodotto: dimensionniStr?.prodotto,
       orientamiento: showOrientamiento && handleOrientamiento().find(x => x.value == formValues.valueOrientamento)?.label,
-      idOrientamiento: formValues.valueOrientamento,
+      idOrientamiento: showOrientamiento ?  formValues.valueOrientamento : undefined,
       suporto: optionTipoCarta.find(x => x.value == formValues.valueTipoCarta)?.label,
       stampa: optionColoreStampa.find(x => x.value == formValues.valueColoreStampa)?.label,
       dimencioni: parseInt(String(idBaseEtiquete)) != 0 ? `(${idBaseEtiquete}B x ${idAltezaEtiquete}A mm)` : dimensionniStr?.dimensioniStr,
@@ -1402,7 +1403,7 @@ const useProdtto = () => {
       code: calcolaTuto?.code,
       idListinoBase: helperDataProdotto?.idListinoBase,
       showFogli: flogliPagine.length > 0 ? true : false,
-      fogli: flogliPagine.find(x => x.value == formValues.valueFogli)?.label,
+      fogli: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.label : '0',
       labelFogli: flogliPagine[0]?.description,
       pdfTemplate: optionFormato.find(x => x.value == formValues.valueFormat)?.pdfTemplate,
       idReparto: dimensionniStr?.idReparto,
@@ -1411,6 +1412,7 @@ const useProdtto = () => {
       altezza: Number(formValues.valueAltezza) ?? 0,
       promo: tablaDataPrezzi.some(x => x.prezzoPromo > 0),
       percentualePromo: calcolaTuto?.promoPercentuale,
+      idTipoFustella:calcolaTuto?.idTipoFustella,
     }
     const existCarreloLocal = localStorage.getItem('c');
     let dataCarrelli: ObjCarrello[] = [];
@@ -1580,7 +1582,7 @@ const useProdtto = () => {
     pdf.setFont("helvetica", "bold");
     pdf.text(`Imponibile € ${TotImportoPDF}`, fullwidth, my + 313, { align: 'right' });
     pdf.text(`IVA € ${IVaPDf == '-' ? "-" : IVaPDf}`, fullwidth, my + 323, { align: 'right' });
-    pdf.text(`Totale con IVA € ${IVaPDf == '-' ? "-" : replaceComaPoint(IVaPDf) +  replaceComaPoint(TotImportoPDF)}`, fullwidth, my + 333, { align: 'right' });
+    pdf.text(`Totale con IVA € ${IVaPDf == '-' ? "-" : replaceComaPoint(IVaPDf) + replaceComaPoint(TotImportoPDF)}`, fullwidth, my + 333, { align: 'right' });
     pdf.setFontSize(6.4);
     pdf.setFont("helvetica", "normal");
     pdf.text("CONDIZIONI DI VENDITA", mx, my + 383,);
@@ -1633,23 +1635,23 @@ const useProdtto = () => {
 
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.idCorriere : 1;
-    const capL = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : utenteData?.defaultCap;
+    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
+    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : utenteData?.defaultCap;
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
     const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
+    const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
 
-    const responseScandeza = await httpGetCorriereSelezionata(utenteData?.corriere.idMetodoConsegna!, String(capL), IdPrevL,
+    const responseScandeza = await httpGetCorriereSelezionata(utenteData?.corriere.idMetodoConsegna!, String(capConsegna), IdPrevL,
       IdFormProdL,
       IdTipoCartaL,
-      IdColoreStampaL,utenteData?.idUt,Number(valueBase),Number(valueProfundita),Number(valueAltezza))
-
+      IdColoreStampaL, utenteData?.idUt, Number(valueBase), Number(valueProfundita), Number(valueAltezza))
     if (responseScandeza) {
       const carrellostp3 = await handleSelectedDataConsegna(codeSelected, responseScandeza.data.dateConsegna)
 
       const dataCorrR = responseScandeza.data.corrDaUsare;
-      dataCorrR.idCorriere = dataCorrR.tipoCorriere;
+      //dataCorrR.idCorriere = dataCorrR.tipoCorriere;
       const dataCorrL = localConsegnaObj.dataCorriere;
       const indirizzoL = localConsegnaObj.dataIndirizzo;
       const indirizzoR: DataGetIndirizzo = {
@@ -1667,7 +1669,7 @@ const useProdtto = () => {
 
       const corrUsare = localConsegnaObj.dataCorriere == undefined ? dataCorrR : dataCorrL;
       const indirizzo = localConsegnaObj.dataIndirizzo == undefined ? indirizzoR : indirizzoL;
-      const emailC = localConsegnaObj.email == undefined ? utenteData?.email : localConsegnaObj.email;
+      const emailC = localConsegnaObj.email == undefined ? "" : localConsegnaObj.email;
 
       const data: ISegliConsegnaData = {
         dataCorriere: corrUsare,
@@ -1677,13 +1679,14 @@ const useProdtto = () => {
         email: emailC,
       }
 
-      localStorage.setItem('cons', JSON.stringify(data));
       const responseMetodiPagamento = await httpGetMetodiPagamento(Number(utenteData?.idUt), localCarrello.TotalPrezo, Number(corrUsare?.idCorriere));
 
       const dataP: DataLocalPagamento = {
         tipoPagamento: responseMetodiPagamento.data.find(x => x.idTipoPagamento === radioPagamento),
         dataSconto: localPagamentoObj.dataSconto,
       }
+
+      localStorage.setItem('cons', JSON.stringify(data));
 
       localStorage.setItem('tp', JSON.stringify(dataP));
 
@@ -1742,16 +1745,16 @@ const useProdtto = () => {
 
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.idCorriere : 1;
-    const capL = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : utenteData?.defaultCap;
+    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
+    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : utenteData?.defaultCap;
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : 5;
+    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
 
     const localCarrello = getLocalCarrelloHelper();
     if (localCarrello.arrayCarrello.length > 0) {
-      const responseTotale = await httpGetTotaleProvisorio(Number(idUt), localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, null, radioPagamento, utenteData?.corriere.idMetodoConsegna! ,utenteData?.cap);
+      const responseTotale = await httpGetTotaleProvisorio(Number(idUt), localCarrello.TotalPeso, 0, localCarrello.TotalPrezo, null, radioPagamento, radioConsegna, capConsegna);
       setTotaleProvisorio(responseTotale.data);
     }
 
@@ -1887,7 +1890,7 @@ const useProdtto = () => {
     uriImage,
     listWhite,
     valuesStampaCaldoOpz, formatoDinamico, idBaseEtiquete, showSvg, imageSvg, textTipoCarta, rowSelectedIva, menuDateConsegna,
-    idAltezaEtiquete, dimensionniStr, copertina, idPrev, prodottoConsigliato, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, formatoLabel, TotaleProvisorio,
+    idAltezaEtiquete, dimensionniStr, copertina, idPrev, idFormProd, IdTipoCarta, prodottoConsigliato, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, formatoLabel, TotaleProvisorio,
     //*
     handleChange,
     handlePrezzoTable,

@@ -20,6 +20,7 @@ import { ImageCustom } from "./components/ImageCustom";
 import ProdottiSuggeriti from "./components/ProdottiSuggeriti";
 import { enOperationFrame } from "../../enHelpers/enOperationFrame";
 import RecencioniC from "./components/RecencioniC";
+import React from "react";
 
 const Prodotto = () => {
   const {
@@ -67,7 +68,7 @@ const Prodotto = () => {
     showProfundita,
     disableProfundita,
     uriImage,
-    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, TotaleProvisorio,
+    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev,idFormProd, IdTipoCarta,rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, TotaleProvisorio,
     handleChangeDinamyc,
     handleChangeValue,
     handleChangeInput,
@@ -257,8 +258,8 @@ const Prodotto = () => {
           </div>
         </div>
         {
-          listWhite.includes(+idPrev!) ? (
-            <>
+          (listWhite.includes(+valueFormat!) && (listWhite.includes(+valueTipoCarta!))  )? (
+            <React.Fragment>
               {stampaCalOpz.map((item, i) => {
                 if (item.tipoControllo === 0) {
                   return (
@@ -290,7 +291,7 @@ const Prodotto = () => {
                   );
                 }
               })}
-            </>
+            </React.Fragment>
           )
             :
             <>

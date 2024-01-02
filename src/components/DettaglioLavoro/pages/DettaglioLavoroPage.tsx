@@ -27,7 +27,7 @@ const DettaglioLavoroPage = () => {
                 <div className="w-[860px] flex flex-row items-center">
                     <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoLavoro50.png`} />
                     <span className="text-[#f58220] text-[14px] font-bold mx-[2px]">
-                        DETTAGLIO DEL TUO LAVORO N°
+                        DETTAGLIO DEL TUO ORDINE N°
                     </span>
                     <span className="text-[black] text-[14px] font-bold mx-[2px]">
                         {dataLavoro?.idOrdineInt ? dataLavoro?.idOrdineInt : "PROVVISORIO " + dataLavoro?.idOrdine}
@@ -184,7 +184,7 @@ const DettaglioLavoroPage = () => {
                         <div className="w-full">
                             <div className=" flex flex-row py-[5px] items-start gap-1">
                                 <p className="text-[11px] pl-[10px]">
-                                    Nome Lavoro:
+                                    Nome Ordine:
                                 </p>
                                 <p className={`${dataLavoro?.lnkEditNomeVisible ? 'w-[390px] ml-[32px]' : 'w-[650px] ml-[15px]'}  bg-[#f1f1f1]  p-[10px] text-[11px] `}>
                                     {dataLavoro?.nomeLavoro}

@@ -69,7 +69,7 @@ const useCarrelloStep3 = () => {
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8: 5;
+    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
     const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
 
     const { getLocalCarrelloHelper, handleOperationFrame } = useHelpers();
@@ -221,41 +221,45 @@ const useCarrelloStep3 = () => {
             dateStr: "",
         }
 
-        const fechaActual = new Date();
-        const añoActual = fechaActual.getFullYear();
-
         switch (code) {
             case "F":
+                const yearDataFast = new Date(dateConsegna.dataFast).getFullYear();
                 Dates = {
                     date: dateConsegna.dataFast,
                     dateProduzione: dateConsegna.dataFastProduzione,
-                    dateProduzioneStr: `${dateConsegna.giornoStrFP} ${dateConsegna.giornoIntFP} ${dateConsegna.meseF} ${añoActual}`,
-                    dateStr: `${dateConsegna.giornoStrF} ${dateConsegna.giornoIntF} ${dateConsegna.meseF} ${añoActual}`
+                    dateProduzioneStr: `${dateConsegna.giornoStrFP} ${dateConsegna.giornoIntFP} ${dateConsegna.meseF} ${yearDataFast}`,
+                    dateStr: `${dateConsegna.giornoStrF} ${dateConsegna.giornoIntF} ${dateConsegna.meseF} ${yearDataFast}`
                 }
                 setDataConsegna(Dates);
+                return Dates
+                //localStorage.setItem('datecons', JSON.stringify(Dates));
                 break;
-            //localStorage.setItem('datecons', JSON.stringify(Dates));
             case "N":
+                const yearDataNormale = new Date(dateConsegna.dataNormale).getFullYear();
                 Dates = {
                     date: dateConsegna.dataNormale,
                     dateProduzione: dateConsegna.dataNormaleProduzione,
-                    dateProduzioneStr: `${dateConsegna.giornoStrNP} ${dateConsegna.giornoIntNP} ${dateConsegna.meseN} ${añoActual}`,
-                    dateStr: `${dateConsegna.giornoStrN} ${dateConsegna.giornoIntN} ${dateConsegna.meseN} ${añoActual}`
+                    dateProduzioneStr: `${dateConsegna.giornoStrNP} ${dateConsegna.giornoIntNP} ${dateConsegna.meseN} ${yearDataNormale}`,
+                    dateStr: `${dateConsegna.giornoStrN} ${dateConsegna.giornoIntN} ${dateConsegna.meseN} ${yearDataNormale}`
                 }
                 setDataConsegna(Dates);
+                return Dates
+
+                //localStorage.setItem('datecons', JSON.stringify(Dates));
                 break;
-            //localStorage.setItem('datecons', JSON.stringify(Dates));
             case "S":
+                const yearDataSlow = new Date(dateConsegna.dataSlow).getFullYear();
                 Dates = {
                     date: dateConsegna.dataSlow,
                     dateProduzione: dateConsegna.dataSlowProduzione,
-                    dateProduzioneStr: `${dateConsegna.giornoStrSP} ${dateConsegna.giornoIntSP} ${dateConsegna.meseS} ${añoActual}`,
-                    dateStr: `${dateConsegna.giornoStrS} ${dateConsegna.giornoIntS} ${dateConsegna.meseS} ${añoActual}`
+                    dateProduzioneStr: `${dateConsegna.giornoStrSP} ${dateConsegna.giornoIntSP} ${dateConsegna.meseS} ${yearDataSlow}`,
+                    dateStr: `${dateConsegna.giornoStrS} ${dateConsegna.giornoIntS} ${dateConsegna.meseS} ${yearDataSlow}`
                 }
-                console.log(Dates)
                 setDataConsegna(Dates);
+                return Dates
+
+                //localStorage.setItem('datecons', JSON.stringify(Dates));
                 break;
-            //localStorage.setItem('datecons', JSON.stringify(Dates));
             default:
                 return
         }
@@ -284,9 +288,9 @@ const useCarrelloStep3 = () => {
                 indirisso: "",
                 localitaStr: '',
                 nazioneStr: '',
-                nome: "Tipografia Former",
+                nome: "",
                 predefinito: true,
-                riassunto: "Via Cassia, 2010 - 00123 Roma",
+                riassunto: "<b style='font-size:16px'>Tipografia Former</b>, Via Cassia, 2010 - 00123 Roma",
                 telefono: '',
             }
         } else {
