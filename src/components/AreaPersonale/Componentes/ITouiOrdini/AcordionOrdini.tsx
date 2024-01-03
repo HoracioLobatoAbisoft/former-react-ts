@@ -39,7 +39,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                     <div className='flex flex-row'>
                         <div className='w- full text-[10px]'>
                             <span className=''>
-                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul + che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' le tue consegne.
+                                Da qui puoi visualizzare lo stato dei tuoi Ordini. Clicca sul <b style={{ fontSize: '14px' }}>+</b> che vedi accanto a ogni Ordine per visualizzare il dettaglio dell' le tue consegne.
                             </span>
                         </div>
                     </div>
