@@ -29,6 +29,11 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
         (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
         };
+    const deleteOrdine = (idConsegna: number) => {
+        if(window.confirm('Sicuro di voler eliminare questo Ordine?')) {
+            handleDeleteOrdine(idConsegna)
+        }
+    }
 
 
     return (
@@ -321,7 +326,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                 {item.modificabile &&
                                                                     <button
                                                                         className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
-                                                                        onClick={() => handleDeleteOrdine(item.idConsegna)}
+                                                                        onClick={() => deleteOrdine(item.idConsegna)}
                                                                     >
                                                                         <img src="https://tipografiaformer.it/img/icoCestino16.png" />
                                                                         Elimina Consegna
