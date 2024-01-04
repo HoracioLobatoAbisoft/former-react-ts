@@ -30,7 +30,7 @@ export interface ObjCarrello {
     idCoupon?: number | undefined;
     idPromo?: number | undefined;
     showFogli: boolean | undefined;
-    fogli?: string;
+    fogli?: string | number;
     labelFogli?: string
     pdfTemplate: string | undefined;
     altezza: number  ;

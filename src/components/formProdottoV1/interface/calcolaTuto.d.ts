@@ -20,4 +20,5 @@ export interface DataGetCalcolaTuto {
     nomePreventivo:string;
     code:string;
     idTipoFustella:number;
+    idMacchinarioStampa:number;
 }

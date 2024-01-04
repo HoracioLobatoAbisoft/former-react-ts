@@ -88,10 +88,12 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                     >
                         <div className="">
                             <div className="flex flex-row">
-                                <div className='w-[100px]'>
+                                <div className='w-[100px] '>
                                     {item.showSVG == false ?
                                         <img src={`${GLOBAL_CONFIG.IMG_IP}/listino/img/` + item.boxImgRif} alt="" className='w-[100px] h-[100px]' /> :
-                                        <img src="" alt="" className="" />
+                                        <div className="w-[100px] h-[100px] absolute mr-[1em]">
+                                            <span className="" dangerouslySetInnerHTML={{ __html: item.svgStr }}></span>
+                                        </div>
                                     }
                                 </div>
                                 <div className="w-[450px] ml-[2px] flex flex-col gap-[5px]">
@@ -253,7 +255,7 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                             <p
                                                 className={`flex justify-center`}
                                             >
-                                                <span className={`bg-[${item.coloreStatoHTMLO}] ${item.omaggio == 1 ? 'text-[white]' : ''} min-w-[118px] text-center text-[11px] tracking-wide font-bold  py-[3px] px-[8px] border border-[#aaa] rounded-[3px]`} style={{background:item.coloreStatoHTMLO}}>
+                                                <span className={`bg-[${item.coloreStatoHTMLO}] ${item.omaggio == 1 ? 'text-[white]' : ''} min-w-[118px] text-center text-[11px] tracking-wide font-bold  py-[3px] px-[8px] border border-[#aaa] rounded-[3px]`} style={{ background: item.coloreStatoHTMLO }}>
                                                     {item.statoStrO}
                                                 </span>
                                             </p>

@@ -98,8 +98,10 @@ export const handleOptionSottoblocco = (sotoblocco: Sotoblocco) => {
     tipologia: sotoblocco.tipologia,
     text: sotoblocco.textSottoBlocco,
   }];
+
   if (optionSotoblocco.length === 0) return []
-  if (sotoblocco.showSotoblocco === 0) return []
+  if (sotoblocco.showSotoblocco == 0) return []
+  
   const option: OptionsSelect[] = optionSotoblocco.map((elem) => {
     return {
       label: elem.tipologia,
@@ -147,8 +149,8 @@ export const handleOptionsOpzioni = (opzioniList: Opzioni[]): OptionsSelect[] =>
   })
   return options
 }
-export const handleFogliPagine = (showFlogliPagine: Datum[] ,fogliLabel:string) => {
-
+export const handleFogliPagine = (showFlogliPagine: Datum[] ,fogliLabel:string,showFogli:boolean) => {
+  if (!showFogli) return []
   if (showFlogliPagine.length === 0) return []
   const options: OptionsSelect[] = showFlogliPagine.map(elem => {
       return {

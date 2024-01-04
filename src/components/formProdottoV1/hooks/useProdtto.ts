@@ -362,7 +362,8 @@ const useProdtto = () => {
       const responseStampaCaldoOPZ = handleStampaCaldoDesc(stampaCaldo);
       const responseFogliPagine = handleFogliPagine(
         responseShowFoliPagine.data.data,
-        responseShowFoliPagine.data.fogliLabel
+        responseShowFoliPagine.data.fogliLabel,
+        responseShowFoliPagine.data.showFogliPagine,
       );
       const responseOptionSotoblocco = handleOptionSottoblocco(
         responseShowFoliPagine.data.sotoblocco
@@ -529,7 +530,6 @@ const useProdtto = () => {
 
     if (!isExits) {
       setValuesStampaCaldoOpz({ ...valuesStampaCaldoOpz, [name]: Number(value) });
-      console.log('entra if')
     } else {
       const valid = stampaCalOpz.find(x => x.tipoControllo === 2);
       const checkDefault = valid!.options[0].label;
@@ -546,7 +546,6 @@ const useProdtto = () => {
   const handleChangeRadio = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { name, id } = evt.target;
     const valueForm = { [name]: Number(id) }
-    console.log(id)
     setFirstCall(false);
     setExecute(true);
     setValuesStampaCaldoOpz({ ...valuesStampaCaldoOpz, ...valueForm });
@@ -596,7 +595,6 @@ const useProdtto = () => {
     const responseTipoCarta = await getTipoCarta(idPrev, Number(valueFormat));
 
     const IdTipoCartaN = responseTipoCarta.some(x => x.idTipoCarta == IdTipoCarta) ? IdTipoCarta : responseTipoCarta[0].idTipoCarta;
-    //console.log()
     const responseColoreStampa = await getColoreStampa({
       idPrev,
       idFormProd: IdFormatN,
@@ -607,6 +605,7 @@ const useProdtto = () => {
 
     const values = Object.entries(valuesStampaCaldoOpz);
     const objetoDesdeEntries = Object.fromEntries(values);
+    setFirstCall(true);
     setValuesStampaCaldoOpz({});
     const responseStampaCaldo = await getStampaCaldo({
       IdColoreStampa: IdColoreStampaN,
@@ -615,33 +614,34 @@ const useProdtto = () => {
       IdTipoCarta: IdTipoCartaN,
     });
     const responseOptionStampaCaldo = handleStampaCaldoDesc(responseStampaCaldo)
+
     const firstValue: any = {}
+    
     for (let index = 0; index < responseOptionStampaCaldo.length; index++) {
       const { tipoControllo, label, options } = responseOptionStampaCaldo[index];
       if (tipoControllo === 0) {
         firstValue[label] = options[0].value
-      } else if (tipoControllo === 1) {
-        if (objetoDesdeEntries[label] != undefined) {
-          const i = options.findIndex(x => x.value === objetoDesdeEntries[label])
-          firstValue[label] = options[i].value;
+      }
+      if (tipoControllo === 1) {
+        if (objetoDesdeEntries[label] != undefined && objetoDesdeEntries[label] != 0) {
+          const existOption = options.some(x=>x.value == objetoDesdeEntries[label])
+          const i = options.findIndex(x => x.value == objetoDesdeEntries[label])
+          firstValue[label] = options[!existOption ? 0 : i].value;
         } else {
-          firstValue[label] = options[0].value
+          firstValue[label] = options[0].value;
         }
-      } else if (tipoControllo === 2) {
+        //firstValue[label] = options[0].value
+      }
+      if (tipoControllo === 2) {
         firstValue[options[0].label] = options[0].value
       }
     }
 
-    const responseShowBloccoMisure = await getShowBloccoMisure({
-      IdColoreStampa: IdColoreStampaN,
-      IdTipoCarta: IdTipoCartaN,
-      idFormProd: IdFormatN,
-      idPrev,
-    })
-
+    setValuesStampaCaldoOpz(firstValue);
+    //const  = 
     const petitions = await Promise.all([
       getTablePrezzi({
-        valuesStampaCaldoOpz,
+        valuesStampaCaldoOpz: firstValue,
         altezza: altezzaN,
         base: baseN,
         facciatePagine: idFogli,
@@ -655,7 +655,7 @@ const useProdtto = () => {
         quantita: QtaN,
       }),
       getCalcolaTuto({
-        valuesStampaCaldoOpz,
+        valuesStampaCaldoOpz: firstValue,
         altezza: altezzaN,
         base: baseN,
         IdColoreStampa: IdColoreStampaN,
@@ -666,13 +666,13 @@ const useProdtto = () => {
         iva: IvaN,
         profundita: profunditaN,
         code: codeSelected,
-        idFogli,
+        idFogli: idFogli,
         prezzo: 0,
         qtaSlezionata: qtaSelected,
         quantity: QtaN,
       }),
       getFormatoStr({ altezza: altezzaN, base: baseN, profundita: profunditaN, IdColoreStampa: IdColoreStampaN, idFormProd: IdFormatN, idPrev, IdTipoCarta: IdTipoCartaN, idUt }),
-      getHelpersData({ IdColoreStampa: IdColoreStampaN, idFogli, idFormProd: IdFormatN, idPrev, IdTipoCarta: IdTipoCartaN }),
+      getHelpersData({ IdColoreStampa: IdColoreStampaN, idFogli: idFogli, idFormProd: IdFormatN, idPrev, IdTipoCarta: IdTipoCartaN }),
       getOpzioni({ altezza: altezzaN, base: baseN, profundita: profunditaN, IdColoreStampa: IdColoreStampaN, idFormProd: IdFormatN, idPrev, IdTipoCarta: IdTipoCartaN, idUt }),
       getShowFogliPagine({
         IdColoreStampa: IdColoreStampaN,
@@ -684,7 +684,7 @@ const useProdtto = () => {
         base: baseN,
         profundita: profunditaN,
         iva: IvaN,
-        valuesStampaCaldoOpz: valuesStampaCaldoOpz,
+        valuesStampaCaldoOpz: firstValue,
         facciatePagine: idFogli,
         quantita: QtaN,
       }),
@@ -699,10 +699,22 @@ const useProdtto = () => {
         idUt,
       }),
       getShowQtaCustom({ IdColoreStampa: IdColoreStampaN, IdTipoCarta: IdTipoCartaN, idFormProd: IdFormatN, idPrev }),
+      getShowBloccoMisure({
+        IdColoreStampa: IdColoreStampaN,
+        IdTipoCarta: IdTipoCartaN,
+        idFormProd: IdFormatN,
+        idPrev,
+      }),
+      // getStampaCaldo({
+      //   IdColoreStampa: IdColoreStampaN,
+      //   idFormProd: IdFormatN,
+      //   idPrev,
+      //   IdTipoCarta: IdTipoCartaN,
+      // })
+
     ])
 
-    const [responseTablePrezzo, responseCalcolaTuto, responseDimensioniStr, responseHelperData, opzioni, showFogliPagine, responseShowTablePrezzi, responseShowQtaCustom] = petitions;
-
+    const [responseTablePrezzo, responseCalcolaTuto, responseDimensioniStr, responseHelperData, opzioni, showFogliPagine, responseShowTablePrezzi, responseShowQtaCustom, responseShowBloccoMisure,/*responseStampaCaldo*/] = petitions;
     const responseOpzioni = handleOptionsOpzioni(opzioni);
     setOptionTipoCarta(handleTipoCarta(responseTipoCarta));
     setOptionColoreStampa(handleColoriStampa(responseColoreStampa));
@@ -720,7 +732,8 @@ const useProdtto = () => {
 
     const responseFogliPagine = handleFogliPagine(
       showFogliPagine.data.data,
-      showFogliPagine.data.fogliLabel
+      showFogliPagine.data.fogliLabel,
+      showFogliPagine.data.showFogliPagine
     );
     const responseOptionSotoblocco = handleOptionSottoblocco(
       showFogliPagine.data.sotoblocco
@@ -732,16 +745,15 @@ const useProdtto = () => {
       const responseFormatoDinamico = await getFormatoDinamico(String(idCategoria));
       setFormatoDinamico(responseFormatoDinamico.categoria);
     }
-
-    showFogliPagine.data.showFogliPagine &&
-      setFlogiPagine(responseFogliPagine);
-    showFogliPagine.data.sotoblocco.showSotoblocco &&
-      setSotoblocco(responseOptionSotoblocco);
+    //showFogliPagine.data.showFogliPagine &&
+    setFlogiPagine(responseFogliPagine);
+    //showFogliPagine.data.sotoblocco.showSotoblocco &&
+    setSotoblocco(responseOptionSotoblocco);
     // const stampaDefault = responseOptionStampaCaldo.find(x => x.options[0].value != 0);
     // const nameRecord = String(stampaDefault?.label);
     // const valueRecord = Number(stampaDefault?.options[0].value);
     setExecute(false);
-    setValuesStampaCaldoOpz({ ...firstValue });
+
     setFormValues((lastValues) => {
       return {
         ...lastValues,
@@ -779,22 +791,26 @@ const useProdtto = () => {
     });
     const responseOptionStampaCaldo = handleStampaCaldoDesc(responseStampaCaldo);
     const firstValue: any = {}
+    console.log('Aca')
+
     for (let index = 0; index < responseOptionStampaCaldo.length; index++) {
       const { tipoControllo, label, options } = responseOptionStampaCaldo[index];
       if (tipoControllo === 0) {
-        firstValue[label] = options[0].value
+        firstValue[label] = options[0].value;
+        setIdLav(Number(options[0].value));
       } else if (tipoControllo === 1) {
         if (objetoDesdeEntries[label] != undefined) {
           const i = options.findIndex(x => x.value === objetoDesdeEntries[label])
           firstValue[label] = options[i].value;
+
         } else {
           firstValue[label] = options[0].value
+
         }
       } else if (tipoControllo === 2) {
         firstValue[options[0].label] = options[0].value
       }
     }
-
     const petitions = await Promise.all([
       getTablePrezzi({
         valuesStampaCaldoOpz: firstValue,
@@ -1419,8 +1435,8 @@ const useProdtto = () => {
       code: calcolaTuto?.code,
       idListinoBase: helperDataProdotto?.idListinoBase,
       showFogli: flogliPagine.length > 0 ? true : false,
-      fogli: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.label : '0',
-      labelFogli: flogliPagine[0]?.description,
+      fogli: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.value : '0',
+      labelFogli: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.label : '',
       pdfTemplate: optionFormato.find(x => x.value == formValues.valueFormat)?.pdfTemplate,
       idReparto: dimensionniStr?.idReparto,
       base: Number(formValues.valueBase) ?? 0,
@@ -1856,7 +1872,9 @@ const useProdtto = () => {
   }, [formValues.valueFogli]);
 
   useEffect(() => {
+    console.log('aca')
     if (firstCall) return;
+    console.log('aca')
     handleChangeParams("valuesStampaCaldo");
   }, [valuesStampaCaldoOpz]);
 

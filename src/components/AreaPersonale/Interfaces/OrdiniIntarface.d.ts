@@ -93,6 +93,7 @@ export interface ListLavori {
     showSVG:boolean;
     labelCopertina:string;
     importoNetto:number;
+    svgStr:string;
 }
 
 export interface ReponseDeleteOridine {
