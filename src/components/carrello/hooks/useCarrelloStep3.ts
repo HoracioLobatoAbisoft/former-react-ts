@@ -109,7 +109,6 @@ const useCarrelloStep3 = () => {
                 }
 
                 if (!listIndi.some(x => x.predefinito) && utenteData) {
-
                     setValueCap(utenteData.cap);
                     capVar = utenteData.cap;
                 } else {

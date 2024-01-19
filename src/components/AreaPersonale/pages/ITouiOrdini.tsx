@@ -18,7 +18,7 @@ const ITouiOrdini = () => {
                     <div className='flex flex-row items-center'>
                         <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoCart50.png`} alt="" className="w-[50px] h-[26px]" />
                         <span className={`text-[15px] text-[#f58220] uppercase`}>
-                            Le Tue Consegna  
+                            Le Tue Consegne
                         </span>
                     </div>
                     <span className="bg-[#009ec9] font-bold uppercase px-[2px] h-full rounded text-white">React V^18.2.0</span>

@@ -31,7 +31,8 @@ export interface ObjCarrello {
     idPromo?: number | undefined;
     showFogli: boolean | undefined;
     fogli?: string | number;
-    labelFogli?: string
+    labelFogli?: string;
+    fogliStr?:string;
     pdfTemplate: string | undefined;
     altezza: number  ;
     base: number ;

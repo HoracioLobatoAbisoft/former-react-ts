@@ -79,10 +79,10 @@ function App() {
           <Route path="/form-prodotto" element={<FormProdotto />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd" element={<FormProdottoModificated />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt" element={<FormProdottoModificated />} />
-          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<FormProdottoModificated />} />
+          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete/:ImageEtiquete" element={<FormProdottoModificated />} />
           {/* <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoRefactor />} /> */}
           {/* <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoV2 />} /> */}
-          <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<Prodotto />} />
+          <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete/:ImageEtiquete" element={<Prodotto />} />
           <Route path="/cerca/:idUt/:differenzza" element={<Cerca />} />
 
           <Route path="/carrello" element={<CarrelloProdotto />} />

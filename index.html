@@ -5,14 +5,71 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous"> -->
+    <!-- Google tag (gtag.js) Google Analitycs -->
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=G-KSRG534D24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-KSRG534D24");
+    </script>
+    <!-- Google Zoho -->
+    <script>
+      var w = window;
+      var p = w.location.protocol;
+      if (p.indexOf("http") < 0) {
+        p = "http" + ":";
+      }
+      var d = document;
+      var f = d.getElementsByTagName("script")[0],
+        s = d.createElement("script");
+      s.type = "text/javascript";
+      s.async = false;
+      if (s.readyState) {
+        s.onreadystatechange = function () {
+          if (s.readyState == "loaded" || s.readyState == "complete") {
+            s.onreadystatechange = null;
+            try {
+              loadwaprops(
+                "3z028b08e95fc683f6275de4529595292c",
+                "3zc2e41397ab6b0ae34ef86368ccbee603",
+                "3zd3a2e7929871ec85b420bd634eacbce1aadb10ee8cb12a3b1b53c03b1f30dba5",
+                "3z1f999a8acc4d146215cbe8a91592f9a27ac9db2440a1f0e26a27890156d08414",
+                "0.0"
+              );
+            } catch (e) {}
+          }
+        };
+      } else {
+        s.onload = function () {
+          try {
+            loadwaprops(
+              "3z028b08e95fc683f6275de4529595292c",
+              "3zc2e41397ab6b0ae34ef86368ccbee603",
+              "3zd3a2e7929871ec85b420bd634eacbce1aadb10ee8cb12a3b1b53c03b1f30dba5",
+              "3z1f999a8acc4d146215cbe8a91592f9a27ac9db2440a1f0e26a27890156d08414",
+              "0.0"
+            );
+          } catch (e) {}
+        };
+      }
+      s.src = p + "//ma.zoho.eu/hub/js/WebsiteAutomation.js";
+      f.parentNode.insertBefore(s, f);
+    </script>
     <script text="script">
       // const produccion = false
       //   ? "https://www.tipografiaformertest.it"
       //   : "https://localhost:44311";
       window.addEventListener("message", function (aea) {
-        console.log(aea)
+        console.log(aea);
         if (aea.data && aea.data.operation) {
-          console.log('entreo en react')
+          console.log("entreo en react");
           localStorage.clear();
         }
       });

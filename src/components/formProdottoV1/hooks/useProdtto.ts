@@ -96,7 +96,7 @@ const useProdtto = () => {
     idFustella,
     idCategoria,
     idBaseEtiquete,
-    idAltezaEtiquete,
+    idAltezaEtiquete,ImageEtiquete,
   } = useParams();
 
   interface FormValue {
@@ -223,7 +223,7 @@ const useProdtto = () => {
     try {
       setLoading(true);
 
-      const { IdColoreStampa, IdTipoCarta, idFormProd, idPrev, idUt, idFogli, idCategoria } =
+      const { IdColoreStampa, IdTipoCarta, idFormProd, idPrev, idUt, idFogli, idCategoria,idBaseEtiquete,idAltezaEtiquete } =
         handleParamsFormat();
 
       const initialState = await Promise.all([
@@ -423,6 +423,8 @@ const useProdtto = () => {
         valueRadio: "0",
         valueFogli: idFogli,
         valueProfundita: profundita,
+        valueBase: idBaseEtiquete == 0 ? "" :idBaseEtiquete,
+        valueAltezza: idAltezaEtiquete == 0 ? "" : idAltezaEtiquete
       });
 
       const firstValue: any = {}
@@ -1400,7 +1402,7 @@ const useProdtto = () => {
   const handleCarrello = async (stp = "1", reload = true) => {
 
     const { valueAltezza, valueBase, valueProfundita } = formValues;
-    if ((showBloccoMisure && valueAltezza == 0 && valueBase == 0 && (valueProfundita == 0 || !showProfundita)) || (alertMassimo && alertMassimo.showErroreMisure == true)) return
+    if ((showBloccoMisure && valueAltezza == 0 && valueBase == 0 || (valueProfundita == 0 && showProfundita)) || (alertMassimo && alertMassimo.showErroreMisure == true)) return
     setLoading(true);
     localStorage.setItem('stp', stp);
 
@@ -1436,7 +1438,8 @@ const useProdtto = () => {
       idListinoBase: helperDataProdotto?.idListinoBase,
       showFogli: flogliPagine.length > 0 ? true : false,
       fogli: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.value : '0',
-      labelFogli: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.label : '',
+      labelFogli: flogliPagine.length ? flogliPagine[0].description: '',
+      fogliStr:flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.label : '0',
       pdfTemplate: optionFormato.find(x => x.value == formValues.valueFormat)?.pdfTemplate,
       idReparto: dimensionniStr?.idReparto,
       base: Number(formValues.valueBase) ?? 0,
@@ -1653,7 +1656,7 @@ const useProdtto = () => {
   const handleCompraloSubito = async () => {
 
     const { valueAltezza, valueBase, valueProfundita } = formValues;
-    if ((showBloccoMisure && valueAltezza == 0 && valueBase == 0 && (valueProfundita == 0 || !showProfundita)) || (alertMassimo && alertMassimo.showErroreMisure == true)) return
+    if ((showBloccoMisure && valueAltezza == 0 && valueBase == 0 || (valueProfundita == 0 && showProfundita)) || (alertMassimo && alertMassimo.showErroreMisure == true)) return
 
     handleCarrello(undefined, false);
 
@@ -1872,7 +1875,6 @@ const useProdtto = () => {
   }, [formValues.valueFogli]);
 
   useEffect(() => {
-    console.log('aca')
     if (firstCall) return;
     console.log('aca')
     handleChangeParams("valuesStampaCaldo");
@@ -1924,7 +1926,7 @@ const useProdtto = () => {
     uriImage,
     listWhite,
     valuesStampaCaldoOpz, formatoDinamico, idBaseEtiquete, showSvg, imageSvg, textTipoCarta, rowSelectedIva, menuDateConsegna,
-    idAltezaEtiquete, dimensionniStr, copertina, idPrev, idFormProd, IdTipoCarta, prodottoConsigliato, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, formatoLabel, TotaleProvisorio,
+    idAltezaEtiquete, dimensionniStr, copertina, idPrev, idFormProd, IdTipoCarta, prodottoConsigliato, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, formatoLabel, TotaleProvisorio,ImageEtiquete,
     //*
     handleChange,
     handlePrezzoTable,

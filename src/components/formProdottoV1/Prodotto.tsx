@@ -68,7 +68,7 @@ const Prodotto = () => {
     showProfundita,
     disableProfundita,
     uriImage,
-    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev,idFormProd, IdTipoCarta,rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, TotaleProvisorio,
+    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev,idFormProd, IdTipoCarta,rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, TotaleProvisorio,ImageEtiquete,
     handleChangeDinamyc,
     handleChangeValue,
     handleChangeInput,
@@ -125,7 +125,7 @@ const Prodotto = () => {
                 <InputComponent
                   handleChange={handleChange}
                   value={valueOrientamento}
-                  label="Orientamiento"
+                  label="Orientamento"
                   name="valueOrientamento"
                   options={optionOrientamiento}
                 />
@@ -243,12 +243,12 @@ const Prodotto = () => {
               })}
             </tbody>
           </table>
-          <div className="w-[25%]">
+          <div className="w-[25%] mt-1">
             {showSvg ? (
               <ImageCustom svgImage={imageSvg} />
             ) : (
               <img
-                src={GLOBAL_CONFIG.IMG_IP + "/listino/img/" + uriImage}
+                src={GLOBAL_CONFIG.IMG_IP + "/listino/img/" + (ImageEtiquete == "0" ? uriImage : ImageEtiquete)}
                 alt=""
                 className=""
               />

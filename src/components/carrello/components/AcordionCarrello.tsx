@@ -106,7 +106,7 @@ const AcordionCarrello = ({ ArrayLocalCarrello, handleDeleteAllCarrello, handleR
                                                 <p className="">{elem.orientamiento && elem.orientamiento}</p>
                                                 <p className="">{elem.suporto}</p>
                                                 <p className="">{elem.stampa}</p>
-                                                <p className="">{elem.showFogli && elem.fogli}</p>
+                                                <p className="">{elem.showFogli && elem.fogliStr}</p>
                                                 <p className="">
                                                     {Array.isArray(elem.stampaOPZ) &&
                                                         elem.stampaOPZ.map(e => {

@@ -47,7 +47,6 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                     {expanded === `panel${index}` ?
                                         <RemoveIcon sx={{ fontSize: 15 }} /> :
                                         <AddIcon sx={{ fontSize: 15 }} />
-
                                     }
                                 </span>
                                 <div className="mx-[5px] w-[40px]  flex justify-center items-center" >
@@ -91,8 +90,8 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                 <div className='w-[100px] '>
                                     {item.showSVG == false ?
                                         <img src={`${GLOBAL_CONFIG.IMG_IP}/listino/img/` + item.boxImgRif} alt="" className='w-[100px] h-[100px]' /> :
-                                        <div className="w-[100px] h-[100px] absolute mr-[1em]">
-                                            <span className="" dangerouslySetInnerHTML={{ __html: item.svgStr }}></span>
+                                        <div className="w-[100px] h-[100px] ">
+                                            <p className="w-full h-full" dangerouslySetInnerHTML={{ __html: item.svgStr }}></p>
                                         </div>
                                     }
                                 </div>
@@ -185,20 +184,20 @@ const AcordionLavori = ({ listLavori, handleRedirectToDetaglioLavoro, handleNewT
                                         }
                                     </p>
                                     {item.boxLavorazioni.length > 0 ?
-                                        item.boxLavorazioni.map((elem, i) => (
-                                            <p className="flex" key={i}>
-                                                {(i == 0)
-                                                    &&
-                                                    <span className='w-[82px] text-[11px]'>
-                                                        Opzioni:
-                                                    </span>}
-                                                <span className={`${i == 0 ? '' : 'ml-[100px]'} text-[11px] font-bold`}>
-                                                    {elem}
-                                                </span>
-                                            </p>
-
-                                        )) : null
-
+                                        <ul>
+                                            {
+                                                item.boxLavorazioni.map((elem, i) => (
+                                                    <ul className="flex" key={i}>
+                                                        <span className='w-[82px] text-[11px] '>
+                                                            {i == 0 ?  'Opzioni:' : ''}
+                                                        </span>
+                                                        <li className={`${i == 0 ? '' : ''} text-[11px] font-bold list-disc`}>
+                                                            {elem}
+                                                        </li>
+                                                    </ul>
+                                                ))
+                                            }
+                                        </ul> : null
                                     }
                                     <p className="flex">
                                         <span className='w-[82px] text-[11px]'>
