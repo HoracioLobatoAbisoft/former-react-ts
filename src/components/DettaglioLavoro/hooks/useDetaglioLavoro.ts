@@ -122,7 +122,9 @@ const useDetaglioLavoro = () => {
                 alert("Scegli un file per il Fronte")
                 okayFronte = false;
             }
-            if (dataLavoro?.fronteRetro) {
+            //! dataLavoro?.fronteRetro
+            
+            if (tipoRetroValue === 0) {
                 if (selectedRetro === null) {
                     alert('Scegli un file per il Retro')
                     okayRetro = false;
