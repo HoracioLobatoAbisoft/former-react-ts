@@ -11,7 +11,9 @@ import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
 
 const DettaglioLavoroPage = () => {
 
-    const { dataLavoro, dataEdit, sectionEditable, setDataEdit, handleChange, handlePutModificaNoteNome, clearEditSection, selectedFronte, setSelectedFronte, selectedRetro, setSelectedRetro, handlePutUploadFileLavoro, setUploadOk, uploadOk, setUploadOkStr, uploadOkStr, loadingDettaglio, clearSelectFile, handleOperationFrame, handleInderito, handleOpenNomeInput } = useDetaglioLavoro()
+    const { dataLavoro, dataEdit, sectionEditable, setDataEdit, handleChange, handlePutModificaNoteNome, clearEditSection, selectedFronte, setSelectedFronte, selectedRetro, setSelectedRetro, handlePutUploadFileLavoro, setUploadOk, uploadOk, setUploadOkStr, uploadOkStr, loadingDettaglio, clearSelectFile, handleOperationFrame, handleInderito, handleOpenNomeInput, tipoRetroValue,handleChangeTipoRetro,handleChangePreventivo,preventivoValue } = useDetaglioLavoro()
+
+
 
     return <>
         <div className="font-[arial]">
@@ -205,7 +207,10 @@ const DettaglioLavoroPage = () => {
                                         Tipo Retro:
                                     </p>
                                     <select
-                                        className="ml-[45px] border-[1px] border-[#ddd] py-[3px] font-['opensans'] w-[200px] text-[13px]"
+                                        className="ml-[45px] border-[1px] border-[#ddd] py-[3px] font-['opensans'] w-[200px] text-[13px] "
+                                        disabled={!dataLavoro.tipoRetroEnabled}
+                                        value={tipoRetroValue}
+                                        onChange={handleChangeTipoRetro}
                                     >
                                         {dataLavoro?.tipoRetro.map((item, i) => (
                                             <option value={item.value} key={i}>{item.text}</option>
@@ -222,8 +227,10 @@ const DettaglioLavoroPage = () => {
                                     <div className="ml-[55px] flex flex-row text-[13px] gap-1 items-start">
                                         <input
                                             type="checkbox"
-                                            checked={dataLavoro && dataLavoro.chkPreventivoChecked}
+                                            checked={preventivoValue}
                                             id="preventivo"
+                                            disabled={!dataLavoro.chkPreventivoEnabled}
+                                            onChange={handleChangePreventivo}
                                         />
                                         <label className="" htmlFor="preventivo">
                                             (richiedi preventivo)

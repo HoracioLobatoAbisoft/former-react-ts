@@ -88,17 +88,16 @@ const TableComponent = ({ tablaDate, tablaDataPrezzi, valueRadio, viewRow, calco
 
     return (
         <div className={` flex  flex-col ${(tablaDataPrezzi.length < 9 || !showTablePreez) ? "h-[380px]" : ""}`}>
-            {tablaDate &&
                 <div className="flex gap-1 overflow-hidden mb-[5px]" >
                     <div className="w-[104px] h-[70px] text-xs text-center  flex items-end justify-center">Quantità</div>
                     {showColumTable?.prezzoFazt ?
                         <div className={`w-[223px] ${promo ? "h-[90px]" : 'h-[70px]'}    py-1   rounded text-xl text-center capitalize flex justify-center items-center bg-[#eef3f1]`}>
                             <div className={` bg-gray-400 rounded  w-[63px] ${promo ? 'h-[75%]' : "h-[95%]"} `}>
                                 <div className="text-center w-full flex-col bg-[#f1f1f1] flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
-                                    <p className="bg-[#d6e03d]  w-full rounded-t font-medium">{tablaDate.giornoStrF}</p>
+                                    <p className="bg-[#d6e03d]  w-full rounded-t font-medium">{tablaDate?.giornoStrF}</p>
                                     <div className="flex flex-col items-center leading-[10px]">
-                                        <p className="p-0 m-0  text-lg font-bold ">{tablaDate.giornoIntF}</p>
-                                        <p className="p-0 m-0 text-[10px]">{tablaDate.meseF}</p>
+                                        <p className="p-0 m-0  text-lg font-bold ">{tablaDate?.giornoIntF}</p>
+                                        <p className="p-0 m-0 text-[10px]">{tablaDate?.meseF}</p>
                                     </div>
                                 </div>
                             </div>
@@ -109,10 +108,10 @@ const TableComponent = ({ tablaDate, tablaDataPrezzi, valueRadio, viewRow, calco
                         <div className={`w-[225px] ${promo ? "h-[90px]" : 'h-[70px]'}  py-1 m-0 rounded text-xl text-center cursor-pointer hover: capitalize flex justify-center items-center bg-[#d4e8df]`}>
                             <div className={` bg-gray-400 rounded w-[63px] ${promo ? 'h-[75%]' : "h-[95%]"} `}>
                                 <div className="text-center w-full flex-col bg-[#f1f1f1] flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
-                                    <p className="bg-[#d6e03d] w-full rounded-t  font-medium">{tablaDate.giornoStrN}</p>
+                                    <p className="bg-[#d6e03d] w-full rounded-t  font-medium">{tablaDate?.giornoStrN}</p>
                                     <div className="flex flex-col items-center  leading-[10px]">
-                                        <p className="p-0 m-0  text-lg font-bold">{tablaDate.giornoIntN}</p>
-                                        <p className="p-0 m-0 text-[10px]">{tablaDate.meseN}</p>
+                                        <p className="p-0 m-0  text-lg font-bold">{tablaDate?.giornoIntN}</p>
+                                        <p className="p-0 m-0 text-[10px]">{tablaDate?.meseN}</p>
                                     </div>
                                 </div>
                             </div>
@@ -124,10 +123,10 @@ const TableComponent = ({ tablaDate, tablaDataPrezzi, valueRadio, viewRow, calco
                             <div className={` ${promo ? "h-[70px]" : 'h-full'}  py-1  m-0 rounded-t text-xl text-center cursor-pointer hover: capitalize flex gap-[3px]  items-center bg-[#a4d9d1] flex-col`}>
                                 <div className={` bg-gray-400 rounded w-[63px] ${promo ? 'h-[95%]' : 'h-[95%]'} `}>
                                     <div className="text-center w-full flex-col bg-[#f1f1f1] flex  h-full rounded-t rounded-bl rounded-br-3xl  text-xs">
-                                        <p className={`${promo ? 'bg-[#009ec9] text-white font-normal' : 'bg-[#d6e03d] font-medium'} w-full rounded-t  `}>{tablaDate.giornoStrS}</p>
+                                        <p className={`${promo ? 'bg-[#009ec9] text-white font-normal' : 'bg-[#d6e03d] font-medium'} w-full rounded-t  `}>{tablaDate?.giornoStrS}</p>
                                         <div className="flex flex-col items-center  leading-[10px]">
-                                            <p className="p-0 m-0  text-lg font-bold">{tablaDate.giornoIntS}</p>
-                                            <p className="p-0 m-0 text-[10px]">{tablaDate.meseS}</p>
+                                            <p className="p-0 m-0  text-lg font-bold">{tablaDate?.giornoIntS}</p>
+                                            <p className="p-0 m-0 text-[10px]">{tablaDate?.meseS}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +139,6 @@ const TableComponent = ({ tablaDate, tablaDataPrezzi, valueRadio, viewRow, calco
                         : null
                     }
                 </div>
-            }
             {showTablePreez ? tablaDataPrezzi.map((elem, i) => {
                 return (
                     <div key={i} className={`${i > 9 && viewRow ? "hidden" : ''} w-full overflow-hidden flex gap-[2px] items-center justify-center`}>

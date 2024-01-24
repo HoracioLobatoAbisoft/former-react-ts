@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-import { httpGetDettaglioLavoro, httpPutModificaNoteNome, httpPutUploadFileLavoro } from "../services/DetaglioLavoroServices";
-import { DataGetDetaglioLavoro } from "../interfaces/GetDetaglioLavoro";
+import { httpGetDettaglioLavoro, httpPostPreventivo, httpPostTipoRetro, httpPutModificaNoteNome, httpPutUploadFileLavoro } from "../services/DetaglioLavoroServices";
+import { DataGetDetaglioLavoro, TipoRetro } from "../interfaces/GetDetaglioLavoro";
 import { FormEditData, SectionEditable } from "../interfaces/PutEditNomeNote";
 import { httpGetTokenPayPal } from "../../paypal/services/PayPalPServices";
 import { enOperationFrame } from "../../../enHelpers/enOperationFrame";
@@ -31,6 +31,9 @@ const useDetaglioLavoro = () => {
     const [uploadOk, setUploadOk] = useState(false);
     const [uploadOkStr, setUploadOkStr] = useState('');
     const [loadingDettaglio, setLoadingDettaglio] = useState(false);
+
+    const [tipoRetroValue, setTipoRetroValue] = useState(0);
+    const [preventivoValue, setPreventivoValue] = useState(false);
     /*
         * <=================Get Services API'Rest===========================> 
     */
@@ -67,6 +70,17 @@ const useDetaglioLavoro = () => {
         })
     }
 
+    const handleChangeTipoRetro = (e:React.ChangeEvent<HTMLSelectElement>) => {
+        const {value} = e.target;
+        setTipoRetroValue(Number(value));
+        handlePostTipoRetro(Number(value));
+    }
+
+    const handleChangePreventivo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { checked } = e.target;
+        setPreventivoValue(checked);
+        handlePostPreventivo(Number(checked));
+    }
 
     /*
         *_______________Funciones Handle Secundarias______________
@@ -77,8 +91,11 @@ const useDetaglioLavoro = () => {
         try {
             const response = await getDettaglioLavoro(Number(idDettaglioLavoro), GLOBAL_CONFIG.IMG_IP);
             setDataLavoro(response);
+            setTipoRetroValue(response.tipoRetroSelectedValue);
+            setPreventivoValue(response.chkPreventivoChecked)
             if (response) {
                 setLoadingDettaglio(false);
+                
             }
         } catch (err) {
             throw new Error(String(err))
@@ -136,7 +153,35 @@ const useDetaglioLavoro = () => {
         }
     }
 
+    const handlePostTipoRetro =async (IdTipoRetro:number) => {
+        setLoadingDettaglio(true)
+        try {
+            const response = await httpPostTipoRetro(IdTipoRetro,Number(idDettaglioLavoro));
+            if (response && dataLavoro) {
+                const newdataLavoro = {...dataLavoro,lblRetroText:response.data.lblRetroText,lblRetroVisible:response.data.lblRetroVisible}
+                setDataLavoro(newdataLavoro)
+            }
+        }catch (error){
+            throw new Error(String(error))
+        }finally{
+            setLoadingDettaglio(false);
+        }
+    }
 
+    const handlePostPreventivo = async (cheked:number) => {
+        setLoadingDettaglio(true)
+        try {
+            const response = await httpPostPreventivo(cheked,Number(idDettaglioLavoro));
+            if (response) {
+
+                setLoadingDettaglio(false)
+            }
+        }catch (error){
+            throw new Error(String(error))
+        }finally{
+            setLoadingDettaglio(false);
+        }
+    }
     /*
         *_______________________UtilsFuncions_________________
      */
@@ -183,7 +228,7 @@ const useDetaglioLavoro = () => {
 
     return {
         //*States
-        dataLavoro, loadingDettaglio,
+        dataLavoro, loadingDettaglio,tipoRetroValue,preventivoValue,
         dataEdit,
         //*Handle
         setDataEdit,
@@ -200,7 +245,7 @@ const useDetaglioLavoro = () => {
         setUploadOk,
         uploadOkStr,
         setUploadOkStr,
-        clearSelectFile, handleOperationFrame, handleInderito, handleOpenNomeInput,
+        clearSelectFile, handleOperationFrame, handleInderito, handleOpenNomeInput,handleChangeTipoRetro,handleChangePreventivo,
     }
 }
 

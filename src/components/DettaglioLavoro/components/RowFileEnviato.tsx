@@ -52,7 +52,10 @@ const RowFileEnviato = ({ dataLavoro, selectedFronte, setSelectedFronte, selecte
                                 <div className="flex items-center gap-2">
                                     <p className="p-[10px]"><b>Retro: </b></p>
                                     <img src={GLOBAL_CONFIG.IMG_IP + "/img/icoFileTypePDF.png"} className="h-[16px] mr-[1px] ml-[3px]"></img>
-                                    <SectionEnviaFile selectedFile={selectedRetro} setSelectedFIle={setSelectedRetro} idInput="retro" uploadOk={uploadOk} setUploadOk={setUploadOk} uploadOkStr={uploadOkStr} setUploadOkStr={setUploadOkStr} clearSelectFile={clearSelectFile} />
+                                    {!dataLavoro.lblRetroVisible ?
+                                        <SectionEnviaFile selectedFile={selectedRetro} setSelectedFIle={setSelectedRetro} idInput="retro" uploadOk={uploadOk} setUploadOk={setUploadOk} uploadOkStr={uploadOkStr} setUploadOkStr={setUploadOkStr} clearSelectFile={clearSelectFile} /> :
+                                        <p className="">{dataLavoro.lblRetroText}</p>
+                                    }
                                 </div>
                                 : null
                             }

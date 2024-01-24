@@ -66,6 +66,7 @@ export interface ElencoLavorazioni {
 }
 
 export interface TipoRetro {
-    text: string;
+    //text: string;
     value: number;
+    disabled: boolean;
 }

@@ -96,7 +96,7 @@ const useProdtto = () => {
     idFustella,
     idCategoria,
     idBaseEtiquete,
-    idAltezaEtiquete,ImageEtiquete,
+    idAltezaEtiquete, ImageEtiquete,
   } = useParams();
 
   interface FormValue {
@@ -218,14 +218,13 @@ const useProdtto = () => {
   const [textTipoCarta, setTextTipoCarta] = useState<string>('')
 
   const [showOpzzioni, setShowOpzzioni] = useState<number>();
-  const [loading, setLoading] = useState(true);
-  const handleData = async () => {
+  const [loading, setLoading] = useState(false);
+
+  const handlePrimaryData = async () => {
+    const { IdColoreStampa, IdTipoCarta, idFormProd, idPrev, idUt, idFogli, idCategoria, idBaseEtiquete, idAltezaEtiquete } =
+      handleParamsFormat();
     try {
-      setLoading(true);
-
-      const { IdColoreStampa, IdTipoCarta, idFormProd, idPrev, idUt, idFogli, idCategoria,idBaseEtiquete,idAltezaEtiquete } =
-        handleParamsFormat();
-
+      setLoading(true)
       const initialState = await Promise.all([
         getFotmato(idPrev),
         getShowOrientamiento({
@@ -248,6 +247,86 @@ const useProdtto = () => {
         }),
         getShowQtaCustom({ IdColoreStampa, IdTipoCarta, idFormProd, idPrev }),
         getStampaCaldo({ IdColoreStampa, IdTipoCarta, idFormProd, idPrev }),
+        getShowFogliPagine({
+          IdColoreStampa,
+          IdTipoCarta,
+          idFormProd,
+          idPrev,
+          idUt,
+          altezza: 0,
+          base: 0,
+          profundita: 0,
+          iva: 0,
+          valuesStampaCaldoOpz: valuesStampaCaldoOpz,
+          facciatePagine: idFogli,
+          quantita: 0,
+        }),
+        getFormatoStr({ idPrev, idFormProd, IdTipoCarta, IdColoreStampa, altezza: 0, base: 0, profundita: 0, idUt })
+      ])
+      const [format, showOrientamiento, tipoCarta, coloreStampa, opzioni, qtaCustom, stampaCaldo, responseShowFoliPagine, formatoStr,] = initialState
+      const responseFormat = handleFormatoList(format);
+      const responseOrientamiento = handleOrientamiento();
+      const responseTipoCarta = handleTipoCarta(tipoCarta);
+      const responseColoreStampa = handleColoriStampa(coloreStampa);
+      const responseOpzioni = handleOptionsOpzioni(opzioni);
+      const responseStampaCaldoOPZ = handleStampaCaldoDesc(stampaCaldo);
+      handleOpzioneInclusa(stampaCaldo)
+      idFustella === "0" && setOpzioniList(responseOpzioni);
+      setStampaCalOpz(responseStampaCaldoOPZ);
+      setOptionOrientamiento(responseOrientamiento);
+      setShowOrientamiento(showOrientamiento);
+      setOptionFormato(responseFormat);
+      setOptionTipoCarta(responseTipoCarta);
+      setOptionColoreStampa(responseColoreStampa);
+      setShowQtaCustom(qtaCustom?.data);
+      const firstValue: any = {}
+      for (let index = 0; index < responseStampaCaldoOPZ.length; index++) {
+        const { tipoControllo, label, options } = responseStampaCaldoOPZ[index];
+        if (tipoControllo === 0 || tipoControllo === 1) {
+          firstValue[label] = options[0].value
+        } else if (tipoControllo === 2) {
+          firstValue[options[0].label] = options[0].value
+        }
+      }
+      setValuesStampaCaldoOpz({ ...valuesStampaCaldoOpz, ...firstValue });
+      const responseFogliPagine = handleFogliPagine(
+        responseShowFoliPagine.data.data,
+        responseShowFoliPagine.data.fogliLabel,
+        responseShowFoliPagine.data.showFogliPagine,
+      );
+      const responseOptionSotoblocco = handleOptionSottoblocco(
+        responseShowFoliPagine.data.sotoblocco
+      );
+      const responseOptionCopertina = handleOptionCopertina(responseShowFoliPagine.data.copertina)
+      setCopertina(responseOptionCopertina);
+      responseShowFoliPagine.data.showFogliPagine && setFlogiPagine(responseFogliPagine);
+      responseShowFoliPagine.data.sotoblocco.showSotoblocco && setSotoblocco(responseOptionSotoblocco);
+      setTextMetrics(responseShowFoliPagine.data.getEtichettaMisure);
+      setShowProfundita(responseShowFoliPagine.data.showProfundita)
+      setTextTipoCarta(responseShowFoliPagine.data.tipoCartaText);
+      setDescrizioneMisure(responseShowFoliPagine.data.misueres);
+      setFormatoLabel(responseShowFoliPagine.data.formatoText);
+      setUriImage(formatoStr.imgSelezionato);
+      setDimensionniStr(formatoStr);
+      setFormValues({...formValues,valueOrientamento: formatoStr.orientamiento,})
+    } catch (error) {
+      throw new Error(String(error));
+    } finally {
+      setLoading(false);
+    }
+
+  }
+
+  const handleData = async () => {
+
+    try {
+      //setLoading(true);
+
+      const { IdColoreStampa, IdTipoCarta, idFormProd, idPrev, idUt, idFogli, idCategoria, idBaseEtiquete, idAltezaEtiquete } =
+        handleParamsFormat();
+
+      const initialState = await Promise.all([
+
         getTableDate({
           IdColoreStampa,
           idFormProd,
@@ -291,20 +370,7 @@ const useProdtto = () => {
           facciatePagine: idFogli,
           quantita: 0,
         }),
-        getShowFogliPagine({
-          IdColoreStampa,
-          IdTipoCarta,
-          idFormProd,
-          idPrev,
-          idUt,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          iva: 0,
-          valuesStampaCaldoOpz: valuesStampaCaldoOpz,
-          facciatePagine: idFogli,
-          quantita: 0,
-        }),
+
         getShowBloccoMisure({
           IdColoreStampa,
           IdTipoCarta,
@@ -332,116 +398,62 @@ const useProdtto = () => {
           idPrev,
           IdTipoCarta,
         }),
-        getFormatoStr({ idPrev, idFormProd, IdTipoCarta, IdColoreStampa, altezza: 0, base: 0, profundita: 0, idUt })
+
       ]);
 
       const [
-        format,
-        showOrientamiento,
-        tipoCarta,
-        coloreStampa,
-        opzioni,
-        qtaCustom,
-        stampaCaldo,
         tableDate,
         dataUtn,
         responseCalculaTuto,
         columnTable,
         responseTablePrezzi,
-        responseShowFoliPagine,
         responseShowBloccoMisure,
         responseShowOopzioni,
         responseShowTablePrezzi,
-        responseDisableProfundita, showSVG, opzioniCarrello, helperData, formatoStr,
+        responseDisableProfundita, showSVG, opzioniCarrello, helperData,
       ] = initialState;
-      const responseFormat = handleFormatoList(format);
-      const responseOrientamiento = handleOrientamiento();
-      const responseTipoCarta = handleTipoCarta(tipoCarta);
-      const responseColoreStampa = handleColoriStampa(coloreStampa);
-      const responseOpzioni = handleOptionsOpzioni(opzioni);
-      const responseStampaCaldoOPZ = handleStampaCaldoDesc(stampaCaldo);
-      const responseFogliPagine = handleFogliPagine(
-        responseShowFoliPagine.data.data,
-        responseShowFoliPagine.data.fogliLabel,
-        responseShowFoliPagine.data.showFogliPagine,
-      );
-      const responseOptionSotoblocco = handleOptionSottoblocco(
-        responseShowFoliPagine.data.sotoblocco
-      );
-      const responseOptionCopertina = handleOptionCopertina(responseShowFoliPagine.data.copertina)
-      setCopertina(responseOptionCopertina);
-
       if (idCategoria != "0") {
         const responseFormatoDinamico = await getFormatoDinamico(String(idCategoria));
         setFormatoDinamico(responseFormatoDinamico.categoria);
       }
-
-      responseShowFoliPagine.data.showFogliPagine &&
-        setFlogiPagine(responseFogliPagine);
-      responseShowFoliPagine.data.sotoblocco.showSotoblocco &&
-        setSotoblocco(responseOptionSotoblocco);
-      setShowColumTable(columnTable);
-
       responseShowTablePrezzi.data ? setTablaDataPrezzi(responseTablePrezzi) : setTablaDataPrezzi([]);
-
-      setOptionOrientamiento(responseOrientamiento);
-      setShowOrientamiento(showOrientamiento);
-      setOptionFormato(responseFormat);
-      setOptionTipoCarta(responseTipoCarta);
-      setOptionColoreStampa(responseColoreStampa);
-      setShowQtaCustom(qtaCustom?.data);
       setShowBloccoMisure(responseShowBloccoMisure?.data);
-      setTextMetrics(responseShowFoliPagine.data.getEtichettaMisure);
-      setShowProfundita(responseShowFoliPagine.data.showProfundita);
       setDisableProfundita(responseDisableProfundita);
-      setTextTipoCarta(responseShowFoliPagine.data.tipoCartaText);
-      idFustella === "0" && setOpzioniList(responseOpzioni);
-      setStampaCalOpz(responseStampaCaldoOPZ);
+
+      setShowColumTable(columnTable);
       setTableDate(tableDate);
       setUtenteData(dataUtn);
       setCalcolaTuto(responseCalculaTuto);
       setQtaSelected(responseCalculaTuto.qta);
       setShowOpzzioni(responseShowOopzioni.data);
       setShowTablePreez(responseShowTablePrezzi.data);
-      setUriImage(formatoStr.imgSelezionato);
+
       setShowSvg(showSVG);
       setOpzioniListStatic(opzioniCarrello);
       setHelperDataProdotto(helperData);
       handleSelectedDataConsegna("N", tableDate);
       handleSelectDateConsegna(tableDate.giornoIntN + " " + tableDate.meseN.substring(0, 3));
-      setDimensionniStr(formatoStr)
-      handleOpzioneInclusa(stampaCaldo)
+
+
       const profundita = responseDisableProfundita.disabled ? responseDisableProfundita.txt_Profundita : "";
-      setDescrizioneMisure(responseShowFoliPagine.data.misueres);
-      setFormatoLabel(responseShowFoliPagine.data.formatoText);
+
       setFormValues({
         ...formValues,
         valueFormat: idFormProd,
-        valueOrientamento: formatoStr.orientamiento,
         valueTipoCarta: IdTipoCarta,
         valueColoreStampa: IdColoreStampa,
         valueRadio: "0",
         valueFogli: idFogli,
         valueProfundita: profundita,
-        valueBase: idBaseEtiquete == 0 ? "" :idBaseEtiquete,
+        valueBase: idBaseEtiquete == 0 ? "" : idBaseEtiquete,
         valueAltezza: idAltezaEtiquete == 0 ? "" : idAltezaEtiquete
       });
 
-      const firstValue: any = {}
-      for (let index = 0; index < responseStampaCaldoOPZ.length; index++) {
-        const { tipoControllo, label, options } = responseStampaCaldoOPZ[index];
-        if (tipoControllo === 0 || tipoControllo === 1) {
-          firstValue[label] = options[0].value
-        } else if (tipoControllo === 2) {
-          firstValue[options[0].label] = options[0].value
-        }
-      }
-      setValuesStampaCaldoOpz({ ...valuesStampaCaldoOpz, ...firstValue });
 
     } catch (error) {
       throw new Error(String(error));
     } finally {
-      setLoading(false);
+      //setLoading(false);
       firstLoad.current = true;
     }
   };
@@ -618,7 +630,7 @@ const useProdtto = () => {
     const responseOptionStampaCaldo = handleStampaCaldoDesc(responseStampaCaldo)
 
     const firstValue: any = {}
-    
+
     for (let index = 0; index < responseOptionStampaCaldo.length; index++) {
       const { tipoControllo, label, options } = responseOptionStampaCaldo[index];
       if (tipoControllo === 0) {
@@ -626,7 +638,7 @@ const useProdtto = () => {
       }
       if (tipoControllo === 1) {
         if (objetoDesdeEntries[label] != undefined && objetoDesdeEntries[label] != 0) {
-          const existOption = options.some(x=>x.value == objetoDesdeEntries[label])
+          const existOption = options.some(x => x.value == objetoDesdeEntries[label])
           const i = options.findIndex(x => x.value == objetoDesdeEntries[label])
           firstValue[label] = options[!existOption ? 0 : i].value;
         } else {
@@ -1438,8 +1450,8 @@ const useProdtto = () => {
       idListinoBase: helperDataProdotto?.idListinoBase,
       showFogli: flogliPagine.length > 0 ? true : false,
       fogli: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.value : '0',
-      labelFogli: flogliPagine.length ? flogliPagine[0].description: '',
-      fogliStr:flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.label : '0',
+      labelFogli: flogliPagine.length ? flogliPagine[0].description : '',
+      fogliStr: flogliPagine.length ? flogliPagine.find(x => x.value == formValues.valueFogli)?.label : '0',
       pdfTemplate: optionFormato.find(x => x.value == formValues.valueFormat)?.pdfTemplate,
       idReparto: dimensionniStr?.idReparto,
       base: Number(formValues.valueBase) ?? 0,
@@ -1520,6 +1532,8 @@ const useProdtto = () => {
 
   const handleOperationFrame = (operation: enOperationFrame, uri?: string, nav?: string) => {
     window.parent.postMessage({ color: 'bg_hidden', operation: operation, uri: uri }, GLOBAL_CONFIG.IMG_IP);
+    //window.parent.postMessage({ color: 'bg_hidden', operation: operation, uri: uri }, GLOBAL_CONFIG.IMG_IPWWW);
+
     if (nav) {
       navigate(nav);
     }
@@ -1527,7 +1541,6 @@ const useProdtto = () => {
 
   const handleSelectDateConsegna = (date: string) => {
     setMenuDateConsegna(date);
-
   }
 
   const handleDonwloadPDF = () => {
@@ -1892,6 +1905,7 @@ const useProdtto = () => {
 
 
   useEffect(() => {
+    handlePrimaryData();
     handleData();
     handleSecondaryData();
   }, []);
@@ -1926,7 +1940,7 @@ const useProdtto = () => {
     uriImage,
     listWhite,
     valuesStampaCaldoOpz, formatoDinamico, idBaseEtiquete, showSvg, imageSvg, textTipoCarta, rowSelectedIva, menuDateConsegna,
-    idAltezaEtiquete, dimensionniStr, copertina, idPrev, idFormProd, IdTipoCarta, prodottoConsigliato, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, formatoLabel, TotaleProvisorio,ImageEtiquete,
+    idAltezaEtiquete, dimensionniStr, copertina, idPrev, idFormProd, IdTipoCarta, prodottoConsigliato, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, formatoLabel, TotaleProvisorio, ImageEtiquete,
     //*
     handleChange,
     handlePrezzoTable,
