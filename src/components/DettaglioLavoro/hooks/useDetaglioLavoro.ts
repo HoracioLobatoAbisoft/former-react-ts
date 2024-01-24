@@ -76,6 +76,13 @@ const useDetaglioLavoro = () => {
         handlePostTipoRetro(Number(value));
     }
 
+    useEffect(() => {
+        if(tipoRetroValue !== 0) {
+            setSelectedRetro(null);
+        }
+    }, [tipoRetroValue])
+    
+
     const handleChangePreventivo = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { checked } = e.target;
         setPreventivoValue(checked);

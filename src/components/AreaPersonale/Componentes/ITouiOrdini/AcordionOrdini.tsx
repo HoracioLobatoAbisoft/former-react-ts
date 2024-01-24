@@ -349,7 +349,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                             Vai alla pagina
                         </span>
                     </p>
-                    <div className="w-full flex">
+                    <div className="w-full flex overflow-y-hidden">
                         {pageOrdini.map((item, index) => (
                             <a key={item} className="text-[12px] hover:underline cursor-pointer py-[5px] px-[10px] bg-[#2b2b2b] text-white border-[1px] border-[#aaa] rounded-[3px]" onClick={() => { handleGetOrdini(item) }}>{item}</a>
                         ))
