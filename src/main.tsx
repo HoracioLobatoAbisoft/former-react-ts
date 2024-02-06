@@ -7,11 +7,11 @@ import { GLOBAL_CONFIG } from './_config/global';
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Router>
       <App />
     </Router>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )
 /*
     TODO: Preguntas

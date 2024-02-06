@@ -64,12 +64,12 @@ const useCarrelloStep3 = () => {
     //*Storage
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
+    var radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : -1;
     const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : "";
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
+    var radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : -1;
     const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
 
     const { getLocalCarrelloHelper, handleOperationFrame } = useHelpers();
@@ -79,15 +79,18 @@ const useCarrelloStep3 = () => {
         setLoading(true)
         const localCarrello = getLocalCarrelloHelper();
         const utenteData = await handleGetDataUt(localCarrello.idUt);
+        radioPagamento = radioPagamento == -1 ? Number(utenteData?.idPagamento) : radioPagamento;
+
         const responseCaricaCorriere = await getCaricaCorriere(localCarrello.idUt);
         setCaricaCorriere(responseCaricaCorriere.data);
         setdataCarrello({ idUt: localCarrello.idUt, Colli: localCarrello.Colli, TotalPeso: localCarrello.TotalPeso, TotalPrezo: localCarrello.TotalPrezo })
 
-        setInputConsegna(radioConsegna);
         const listIndi = await handleListIndirizo(localCarrello.idUt);
         setIndezScandeza(localCarrello.mayorFecha1);
         setArrayCarrello(localCarrello.arrayCarrello);
         if (listIndi != undefined) {
+            radioConsegna = listIndi.length > 0 ? 1 : 0;
+            setInputConsegna(radioConsegna);
             var capVar: undefined | string = undefined;
             if (capConsegna == undefined || capConsegna == "") {
                 capVar = listIndi.find(x => x.predefinito == true)?.cap

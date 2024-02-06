@@ -21,6 +21,7 @@ import ProdottiSuggeriti from "./components/ProdottiSuggeriti";
 import { enOperationFrame } from "../../enHelpers/enOperationFrame";
 import RecencioniC from "./components/RecencioniC";
 import React from "react";
+import DescrizioneSEO from "./componentsv2/DescrizioneSEO";
 
 const Prodotto = () => {
   const {
@@ -68,7 +69,7 @@ const Prodotto = () => {
     showProfundita,
     disableProfundita,
     uriImage,
-    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev,idFormProd, IdTipoCarta,rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, TotaleProvisorio,ImageEtiquete,
+    valuesStampaCaldoOpz, rowSelectedIva, menuDateConsegna, dimensionniStr, copertina, idPrev, idFormProd, IdTipoCarta, rencensioniP, recencioniC, descrizioneDinamica, opzInclusa, descrizioneMisure, indexTable, alertMassimo, TotaleProvisorio, ImageEtiquete,
     handleChangeDinamyc,
     handleChangeValue,
     handleChangeInput,
@@ -256,7 +257,7 @@ const Prodotto = () => {
           </div>
         </div>
         {
-          (listWhite.includes(+valueFormat!) && (listWhite.includes(+valueTipoCarta!))  )? (
+          (listWhite.includes(+valueFormat!) && (listWhite.includes(+valueTipoCarta!))) ? (
             <React.Fragment>
               {stampaCalOpz.map((item, i) => {
                 if (item.tipoControllo === 0) {
@@ -462,6 +463,10 @@ const Prodotto = () => {
             </button>
           </div>
         </div>
+        {dimensionniStr && optionFormato && valueFormat?
+          <DescrizioneSEO description1={dimensionniStr.googleDescr} description2={dimensionniStr.googleSeo} title={optionFormato.find(x => x.value == valueFormat)?.label}  img={optionFormato.find(x => x.value == valueFormat)?.image}/> : null
+        }
+
         <div className="mt-[15px]  w-full mb-[40px]">
           <h2 className="bg-[#d6e03d] text-[12px] mt-0 mb-[5px] pt-[2px] ps-[20px] leading-[22px]">ALCUNI PRODOTTI SUGGERITI PER TE</h2>
           <div className="">

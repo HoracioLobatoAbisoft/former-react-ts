@@ -11,4 +11,6 @@ export interface DataDimensioniStr {
     imgSelezionato:string;
     orientamiento:number;
     showTamplate:boolean;
+    googleDescr:string;
+    googleSeo:string;
 }

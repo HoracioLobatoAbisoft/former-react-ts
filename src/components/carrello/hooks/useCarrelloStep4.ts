@@ -37,13 +37,13 @@ const useCarrelloStep4 = () => {
 
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
-    const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna :1;
+    var radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : -1;
     const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : "";
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    var radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 5 : 8;
-    const scontoL = localPagamentoObj.dataSconto? localPagamentoObj.dataSconto.importoFisso : null
+    var radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento: -1 ;
+    const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
     const showInputL = (localPagamentoObj.dataSconto && localPagamentoObj.dataSconto.importoFisso != 0) ? false : true;
 
 
@@ -59,8 +59,9 @@ const useCarrelloStep4 = () => {
         setLoading(true)
         const localCarrello = getLocalCarrelloHelper();
         const metodiPagamento = await getMetodiPagamento(localCarrello.idUt, localCarrello.TotalPrezo, radioConsegna);
-        await handleGetDataUt(localCarrello.idUt);
-        radioPagamento = metodiPagamento.length == 3 ? metodiPagamento[2].idTipoPagamento : radioPagamento
+        const utenteData = await handleGetDataUt(localCarrello.idUt);
+        radioPagamento = radioPagamento == -1 ? Number(utenteData?.idPagamento) : radioPagamento ;
+        radioConsegna = radioConsegna == -1 ? Number(metodiPagamento.find(x=>x.idTipoPagamento == utenteData?.idPagamento)?.idTipoPagamento) : radioConsegna;
         setTipoPagamento(metodiPagamento);
         setValuePagamento(radioPagamento)
         setValueConsegna(radioConsegna);
@@ -97,6 +98,7 @@ const useCarrelloStep4 = () => {
         try {
             const response = await getDataUtn(IdUt);
             setDataUtente(response)
+            return response
         } catch (error) {
 
         } finally {

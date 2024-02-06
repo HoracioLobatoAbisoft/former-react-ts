@@ -1498,7 +1498,6 @@ const useProdtto = () => {
         value: value,
       }
 
-      console.log(valuesStampaCaldoOpz);
       const stampaLabel = stampaCalOpz.find(x => x.label == objVaStampa.label || x.options.find(y => y.label == objVaStampa.label))
 
       const realLabel = stampaLabel?.options.find(x => x.value == value);
@@ -1688,31 +1687,31 @@ const useProdtto = () => {
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
-    const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
-    const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
+    // const radioPagamento = localPagamentoObj.tipoPagamento ? localPagamentoObj.tipoPagamento.idTipoPagamento : localConsegnaObj.dataIndirizzo?.cap ? 8 : 5;
+    // const scontoL = localPagamentoObj.dataSconto ? localPagamentoObj.dataSconto.importoFisso : null
 
     const responseScandeza = await httpGetCorriereSelezionata(utenteData?.corriere.idMetodoConsegna!, String(capConsegna), IdPrevL,
       IdFormProdL,
       IdTipoCartaL,
       IdColoreStampaL, utenteData?.idUt, Number(valueBase), Number(valueProfundita), Number(valueAltezza))
+
     if (responseScandeza) {
       const carrellostp3 = await handleSelectedDataConsegna(codeSelected, responseScandeza.data.dateConsegna)
 
       const dataCorrR = responseScandeza.data.corrDaUsare;
-      //dataCorrR.idCorriere = dataCorrR.tipoCorriere;
       const dataCorrL = localConsegnaObj.dataCorriere;
       const indirizzoL = localConsegnaObj.dataIndirizzo;
       const indirizzoR: DataGetIndirizzo = {
-        cap: utenteData!.defaultCap,
-        destinatario: utenteData!.nominativo,
-        idIndirizzo: utenteData!.idIndirizzo,
-        nome: utenteData!.indirizoS,
-        indirisso: utenteData!.indirizzo,
+        cap: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.defaultCap,
+        destinatario: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.nominativo,
+        idIndirizzo: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? 0 : utenteData!.idIndirizzo,
+        nome: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.indirizoS,
+        indirisso: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.indirizzo,
         localitaStr: "",
         nazioneStr: '',
         predefinito: true,
-        riassunto: utenteData!.indirizoR,
-        telefono: utenteData!.tel,
+        riassunto: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "<b style='font-size:16px'>Tipografia Former</b>, Via Cassia, 2010 - 00123 Roma" : utenteData!.indirizoR,
+        telefono: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.tel,
       }
 
       const corrUsare = localConsegnaObj.dataCorriere == undefined ? dataCorrR : dataCorrL;
@@ -1727,10 +1726,9 @@ const useProdtto = () => {
         email: emailC,
       }
 
-      const responseMetodiPagamento = await httpGetMetodiPagamento(Number(utenteData?.idUt), localCarrello.TotalPrezo, Number(corrUsare?.idCorriere));
-
+      const responseMetodiPagamento = await httpGetMetodiPagamento(Number(utenteData?.idUt), localCarrello.TotalPrezo, Number(responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna));
       const dataP: DataLocalPagamento = {
-        tipoPagamento: responseMetodiPagamento.data.find(x => x.idTipoPagamento === radioPagamento),
+        tipoPagamento: localPagamentoObj.tipoPagamento != undefined ? localPagamentoObj.tipoPagamento : responseMetodiPagamento.data.find(x => x.idTipoPagamento === utenteData?.idPagamento),
         dataSconto: localPagamentoObj.dataSconto,
       }
 
@@ -1742,6 +1740,7 @@ const useProdtto = () => {
 
     }
   }
+
 
   const handleOpzioneInclusa = (responseStampaCaldo: StaCalOpz[]) => {
 

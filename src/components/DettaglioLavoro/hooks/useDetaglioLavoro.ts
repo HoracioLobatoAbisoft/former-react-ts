@@ -131,7 +131,7 @@ const useDetaglioLavoro = () => {
             }
             //! dataLavoro?.fronteRetro
             
-            if (tipoRetroValue === 0) {
+            if (tipoRetroValue === 0 && dataLavoro?.fronteRetro) {
                 if (selectedRetro === null) {
                     alert('Scegli un file per il Retro')
                     okayRetro = false;
@@ -142,7 +142,7 @@ const useDetaglioLavoro = () => {
             }
             if (okayFronte && (okayRetro || !dataLavoro?.fronteRetro)) {
                 setLoadingDettaglio(true);
-
+                //console.log(selectedFronte,selectedRetro)
                 setUploadOk(true);
                 const response = await putUploadFileLavoro(selectedFronte, selectedRetro, Number(idDettaglioLavoro));
                 if (response) {

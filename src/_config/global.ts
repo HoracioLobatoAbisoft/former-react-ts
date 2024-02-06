@@ -2,12 +2,12 @@ export const GLOBAL_CONFIG = {
   
   IMG_IP :'https://localhost:44311',
   //IMG_IP :'https://tipografiaformer.it',
-  // IMG_IP :'https://tipografiaformertest.it',
-  ///IMG_IPWWW :'https://www.tipografiaformer.it',
+  //IMG_IP :'https://tipografiaformertest.it',
+  //IMG_IPWWW :'https://www.tipografiaformer.it',
   //IMG_IP:'http://95.110.134.38',
 
-  //HOST_IP :'https://localhost:7143',
-  HOST_IP :'https://localhost:44377',
+  HOST_IP :'https://localhost:7143',
+  //HOST_IP :'https://localhost:44377',
   //HOST_IP :'http://95.110.134.38:50',
 
   PAYPAL_CLIENT_ID: 'AX6SWUyZ9ds_gVvQJejH_cAQbXppe7Ja8QqkIp-YzZyHdvD9osI7UE38Lrzl_cJj6prOmhLl_Vn_2VRz',
