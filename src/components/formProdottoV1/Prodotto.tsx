@@ -454,13 +454,13 @@ const Prodotto = () => {
             >
               oppure
             </Divider>
-            <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => handleCompraloSubito()}>
+            {/* <button className="flex gap-2 bg-[#f58220] rounded-[4px] w-full text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => handleCompraloSubito()}>
               <img
                 src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`}
                 width={22}
               />
               Compralo subito
-            </button>
+            </button> */}
           </div>
         </div>
         {dimensionniStr && optionFormato && valueFormat?

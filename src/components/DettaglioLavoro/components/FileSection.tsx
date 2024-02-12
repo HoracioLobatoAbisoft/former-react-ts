@@ -20,13 +20,13 @@ const FileSection = ({ dataLavoro }: FileSectionPros) => {
                 <div className="flex items-center ">
                     <p className="p-[10px]"><b>Fronte: </b></p>
                     <img src={GLOBAL_CONFIG.IMG_IP + "/img/icoFileTypePDF.png"} className="h-[16px] mr-[2em]"></img>
-                    <a href={GLOBAL_CONFIG.IMG_IP + dataLavoro?.hrefFronteHRef } target='_blank' className="flex  hover:underline" ><span className="flex gap-2" dangerouslySetInnerHTML={{ __html: String(dataLavoro?.hrefFronteInnerText) }}></span> </a>
+                    <a href={GLOBAL_CONFIG.IMG_IP + "/" +dataLavoro?.hrefFronteHRef } target='_blank' className="flex  hover:underline" ><span className="flex gap-2" dangerouslySetInnerHTML={{ __html: String(dataLavoro?.hrefFronteInnerText) }}></span> </a>
                 </div>
                 {(dataLavoro?.fronteRetro && dataLavoro.sorgenteRetro > 0) ?
                     <div className="flex items-center ml-[4px]">
                         <p className="p-[10px]"><b>Retro: </b></p>
                         <img src={GLOBAL_CONFIG.IMG_IP + "/img/icoFileTypePDF.png"} className="h-[16px] mr-[2em]"></img>
-                        <a href={GLOBAL_CONFIG.IMG_IP + dataLavoro?.hrefRetroHRef } target='_blank' className="flex  hover:underline  w-full"><span className="flex gap-2" dangerouslySetInnerHTML={{ __html: String(dataLavoro?.hrefRetroInnerText) }}></span></a>
+                        <a href={GLOBAL_CONFIG.IMG_IP +"/" + dataLavoro?.hrefRetroHRef } target='_blank' className="flex  hover:underline  w-full"><span className="flex gap-2" dangerouslySetInnerHTML={{ __html: String(dataLavoro?.hrefRetroInnerText) }}></span></a>
                     </div>
                     : null
                 }
