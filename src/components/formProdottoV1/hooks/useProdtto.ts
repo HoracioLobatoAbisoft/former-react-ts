@@ -326,17 +326,7 @@ const useProdtto = () => {
         handleParamsFormat();
 
       const initialState = await Promise.all([
-
-        getTableDate({
-          IdColoreStampa,
-          idFormProd,
-          IdTipoCarta,
-          idPrev,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          idUt,
-        }),
+        
         getUtenteData(idUt),
         getCalcolaTuto({
           IdColoreStampa,
@@ -356,21 +346,6 @@ const useProdtto = () => {
           quantity: 0,
         }),
         getShowColumnTable(idPrev),
-        getTablePrezzi({
-          IdColoreStampa,
-          IdTipoCarta,
-          idFormProd,
-          idPrev,
-          idUt,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          iva: 0,
-          valuesStampaCaldoOpz: valuesStampaCaldoOpz,
-          facciatePagine: idFogli,
-          quantita: 0,
-        }),
-
         getShowBloccoMisure({
           IdColoreStampa,
           IdTipoCarta,
@@ -400,13 +375,50 @@ const useProdtto = () => {
         }),
 
       ]);
+      var tableDate :any;
+      var responseTablePrezzi:any;
+      try {
+          tableDate = await getTableDate({
+          IdColoreStampa,
+          idFormProd,
+          IdTipoCarta,
+          idPrev,
+          altezza: 0,
+          base: 0,
+          profundita: 0,
+          idUt,
+        })
+        
+        responseTablePrezzi = await getTablePrezzi({
+          IdColoreStampa,
+          IdTipoCarta,
+          idFormProd,
+          idPrev,
+          idUt,
+          altezza: 0,
+          base: 0,
+          profundita: 0,
+          iva: 0,
+          valuesStampaCaldoOpz: valuesStampaCaldoOpz,
+          facciatePagine: idFogli,
+          quantita: 0,
+        })
+
+        console.log('Datos Fecha de la tabla de precios',tableDate)
+        console.log('Datos de los precios de la tabla ',responseTablePrezzi)
+
+      } catch (error) {
+        console.log('Error en la peticiones de las apis de precios y fechas\n',error)
+      }
+
+      
 
       const [
-        tableDate,
+        
         dataUtn,
         responseCalculaTuto,
         columnTable,
-        responseTablePrezzi,
+        
         responseShowBloccoMisure,
         responseShowOopzioni,
         responseShowTablePrezzi,
@@ -416,6 +428,7 @@ const useProdtto = () => {
         const responseFormatoDinamico = await getFormatoDinamico(String(idCategoria));
         setFormatoDinamico(responseFormatoDinamico.categoria);
       }
+
       responseShowTablePrezzi.data ? setTablaDataPrezzi(responseTablePrezzi) : setTablaDataPrezzi([]);
       setShowBloccoMisure(responseShowBloccoMisure?.data);
       setDisableProfundita(responseDisableProfundita);
@@ -451,6 +464,7 @@ const useProdtto = () => {
 
 
     } catch (error) {
+      console.log(error)
       throw new Error(String(error));
     } finally {
       //setLoading(false);
@@ -1683,7 +1697,7 @@ const useProdtto = () => {
     const localConsegna = localStorage.getItem('cons');
     const localConsegnaObj: ISegliConsegnaData = localConsegna ? JSON.parse(localConsegna) : {};
     const radioConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataCorriere.metodoDiConsegna.idMetodoConsegna : 1;
-    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : utenteData?.defaultCap;
+    const capConsegna = localConsegnaObj.dataCorriere ? localConsegnaObj.dataIndirizzo?.cap : utenteData?.defaultCap == null ? utenteData?.cap : utenteData.defaultCap;
 
     const localPagamento = localStorage.getItem('tp')
     const localPagamentoObj: DataLocalPagamento = localPagamento ? JSON.parse(localPagamento) : {};
@@ -1702,20 +1716,22 @@ const useProdtto = () => {
       const dataCorrL = localConsegnaObj.dataCorriere;
       const indirizzoL = localConsegnaObj.dataIndirizzo;
       const indirizzoR: DataGetIndirizzo = {
-        cap: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.defaultCap,
-        destinatario: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.nominativo,
-        idIndirizzo: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? 0 : utenteData!.idIndirizzo,
-        nome: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.indirizoS,
-        indirisso: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.indirizzo,
-        localitaStr: "",
+        cap: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.defaultCap == null ? utenteData!.cap : utenteData!.defaultCap,
+        destinatario: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.nominativo,
+        idIndirizzo: utenteData?.corriere.idMetodoConsegna == 0 ? 0 : utenteData!.idIndirizzo == null ? 0 : utenteData!.idIndirizzo,
+        nome: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.indirizoS,
+        indirisso: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.indirizzo,
+        localitaStr:utenteData?.corriere.idMetodoConsegna == 0 ?  "" : utenteData!.citta,
         nazioneStr: '',
         predefinito: true,
-        riassunto: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "<b style='font-size:16px'>Tipografia Former</b>, Via Cassia, 2010 - 00123 Roma" : utenteData!.indirizoR,
-        telefono: responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna == 0 ? "" : utenteData!.tel,
+        riassunto: utenteData?.corriere.idMetodoConsegna == 0 ? "<b style='font-size:16px'>Tipografia Former</b>, Via Cassia, 2010 - 00123 Roma" : utenteData!.indirizoR,
+        telefono: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.tel,
       }
 
       const corrUsare = localConsegnaObj.dataCorriere == undefined ? dataCorrR : dataCorrL;
       const indirizzo = localConsegnaObj.dataIndirizzo == undefined ? indirizzoR : indirizzoL;
+      console.log(indirizzoR)
+      console.log(indirizzoL)
       const emailC = localConsegnaObj.email == undefined ? "" : localConsegnaObj.email;
 
       const data: ISegliConsegnaData = {
@@ -1726,7 +1742,7 @@ const useProdtto = () => {
         email: emailC,
       }
 
-      const responseMetodiPagamento = await httpGetMetodiPagamento(Number(utenteData?.idUt), localCarrello.TotalPrezo, Number(responseScandeza?.data.corrDaUsare.metodoDiConsegna.idMetodoConsegna));
+      const responseMetodiPagamento = await httpGetMetodiPagamento(Number(utenteData?.idUt), localCarrello.TotalPrezo, Number(utenteData?.corriere.idMetodoConsegna));
       const dataP: DataLocalPagamento = {
         tipoPagamento: localPagamentoObj.tipoPagamento != undefined ? localPagamentoObj.tipoPagamento : responseMetodiPagamento.data.find(x => x.idTipoPagamento === utenteData?.idPagamento),
         dataSconto: localPagamentoObj.dataSconto,

@@ -56,7 +56,7 @@ const CarrelloStp5 = () => {
                                 <div className=" leading-6">
                                     <p className=" text-start  w-[100%] text-[16px]  font-bold capitalize "> <span className="bg-[#d6e03d] ps-[1px]">{consenga?.dataCorriere?.metodoDiConsegna?.idMetodoConsegna == 0 ? consenga.dateConsenga?.dateProduzioneStr : consenga?.dateConsenga?.dateStr}</span></p>
                                     <p className="text-[16px] font-bold">{consenga?.dataCorriere?.metodoDiConsegna.descrizione}</p>
-                                    <p className="" dangerouslySetInnerHTML={{__html:consenga?.dataIndirizzo?.riassunto ?? "<b>Tipografia Former</b>, Via Cassia, 2010 - 00123 Roma"}}>{}</p>
+                                    <p className="" dangerouslySetInnerHTML={{__html:consenga?.dataIndirizzo?.riassunto ?? String("<b>" + consenga?.dataIndirizzo?.destinatario + "</b> " + consenga?.dataIndirizzo?.indirisso + ",- " + consenga?.dataIndirizzo?.cap + " " + consenga?.dataIndirizzo?.localitaStr ) }}>{}</p>
                                     <p className="">{consenga?.pesoTotale} kg ±</p>
                                     <p className="">{consenga?.email}</p>
                                 </div>

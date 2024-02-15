@@ -141,13 +141,13 @@ const MenuCarrelo = ({ handleHidden, idUt, handleLogin, handleCarrello, pdfTempl
                         </tr>
                     </tbody></table>
                 <center>
-                    {/* {idUt != undefined && idUt > '0' ?
+                    {idUt != undefined && idUt > '0' ?
                         // <Link to={"/carrello"} onClick={() => { localStorage.setItem('stp', '1'); handleCarrello() }}>
                         <button className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center" onClick={() => handleCompraloSubito()}><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
                         // </Link>
                         :
                         <button onClick={handleLogin} className="flex gap-2  w-[160px] h-[30px] bg-[#f58220] rounded-[4px]  text-[12px] text-[#fff] font-bold uppercase hover:bg-[#E5781B] px-[4px] py-[4px] items-center"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico1Click.png`} width={22} />Compralo subito</button>
-                    } */}
+                    }
 
                 </center>
             </div>

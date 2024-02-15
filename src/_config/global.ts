@@ -14,5 +14,4 @@ export const GLOBAL_CONFIG = {
   PAYPAL_API: "https://api-m.sandbox.paypal.com",
 
   
-
 };
