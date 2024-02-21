@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { httpDeleteLavoro, httpDeleteOrdine, httpGetOrdini } from '../services/OrdiniServices';
+import { httpDeleteLavoro, httpDeleteOrdine, httpGetOrdini, httpGetOrdiniById } from '../services/OrdiniServices';
 import { OrdineList } from '../Interfaces/OrdiniIntarface';
 import { enOperationFrame } from '../../../enHelpers/enOperationFrame';
 import { GLOBAL_CONFIG } from '../../../_config/global';
@@ -7,6 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { httpCheckOutPayPal } from '../../paypal/services/PayPalPServices';
 import { getDataUtn } from '../../carrello/helpers/servicesHelpers';
 import { DataResponseGetUtente } from '../../../interface/Utente';
+import { DataGetOrdiniById } from '../Interfaces/GetOrdiniById';
 const useITuoiOrdini = () => {
     const navigate = useNavigate()
 
@@ -14,7 +15,8 @@ const useITuoiOrdini = () => {
     const [pageOrdini, setPageOrdini] = useState<number[]>([])
     const [openLoading, setOpenLoading] = useState(false)
     const [dataUtente, setDataUtente] = useState<DataResponseGetUtente>()
-
+    const [expanded, setExpanded] = useState<string | false>('');
+    const [dataOrdini, setDataOrdini] = useState<DataGetOrdiniById>()
     // const location = useLocation();
     // const params = new URLSearchParams(location.search);
 
@@ -23,7 +25,6 @@ const useITuoiOrdini = () => {
 
     const {id} = useParams()
     const idUt = id ? Number(id) : 0;
-    console.log('tokenpp',  id)
     /**
      * *Funciones Get 
      * @param idUt id del usuario
@@ -36,6 +37,8 @@ const useITuoiOrdini = () => {
     const getOrdini = async (idUt: number, pageNumber: number) => {
         try {
             const responseGetOrdini = await httpGetOrdini(idUt, pageNumber);
+            getOrdiniById(responseGetOrdini.data.ordineList[0].idConsegna);
+            setExpanded(String(responseGetOrdini.data.ordineList[0].idConsegna))
             return responseGetOrdini.data;
         } catch (error) {
             console.log('error', error)
@@ -75,10 +78,25 @@ const useITuoiOrdini = () => {
         setOpenLoading(false);
     }
 
+    const handleChange =(panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false);
+        getOrdiniById(Number(panel));
+    };
+
+    const getOrdiniById = async (IdConsegna:number) => {
+        try {
+            const responseDetaglio = await httpGetOrdiniById(IdConsegna);
+            console.log(responseDetaglio.data);
+            setDataOrdini(responseDetaglio.data)
+        } catch (error) {
+            throw new Error(String(error));
+        }
+    }
 
 
     useEffect(() => {
-        handleGetOrdini(1)
+        handleGetOrdini(1);
+
     }, [])
 
     const handleRedirectToDetaglioOrdini = (idOrdini: number | string) => {
@@ -107,15 +125,13 @@ const useITuoiOrdini = () => {
 
 
     return {
-        listOrdini,
-        pageOrdini,
+        openLoading,listOrdini,pageOrdini,expanded,dataOrdini,
         handleGetOrdini,
         handleRedirectToDetaglioOrdini,
         handleRedirectToDetaglioLavoro,
         handleNewTagListinoTemplate,
         handleDeleteLavoro,
-        handleDeleteOrdine,
-        openLoading,
+        handleDeleteOrdine,handleChange,
     }
 }
 

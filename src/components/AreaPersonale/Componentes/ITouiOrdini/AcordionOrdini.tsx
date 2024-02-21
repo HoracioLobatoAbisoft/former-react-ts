@@ -8,6 +8,7 @@ import { OrdineList } from '../../Interfaces/OrdiniIntarface';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useState } from 'react';
+import { DataGetOrdiniById } from '../../Interfaces/GetOrdiniById';
 type PropsAcordionOrdini = {
     listOrdini: OrdineList[]
     pageOrdini: number[];
@@ -17,23 +18,17 @@ type PropsAcordionOrdini = {
     handleRedirectToDetaglioLavoro: Function;
     handleNewTagListinoTemplate: Function;
     handleDeleteLavoro: Function;
+    handleChange: (panel: string) => (event: React.SyntheticEvent<Element, Event>, isExpanded: boolean) => void;
+    expanded: string | false;
+    dataOrdini: DataGetOrdiniById | undefined
 }
 
 
 
 
-const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, }: PropsAcordionOrdini) => {
+const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro,dataOrdini,expanded,handleChange }: PropsAcordionOrdini) => {
 
-    const [expanded, setExpanded] = useState<string | false>('panel0');
-    const handleChange =
-        (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-            setExpanded(isExpanded ? panel : false);
-        };
-    const deleteOrdine = (idConsegna: number) => {
-        if(window.confirm('Sicuro di voler eliminare questo Ordine?')) {
-            handleDeleteOrdine(idConsegna)
-        }
-    }
+    
 
 
     return (
@@ -90,7 +85,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                 <Accordion
                                     key={index}
                                     className='py-[1.3px]'
-                                    expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}
+                                    expanded={expanded === `${item.idConsegna}`} onChange={handleChange(`${item.idConsegna}`)}
                                 >
                                     <AccordionSummary
                                         //expandIcon={<ExpandMoreIcon />}
@@ -100,7 +95,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                         className={`arcodion-ordini`}
                                     >
                                         <div className='w-full flex flex-row items-center justify-center'>
-                                            {expanded === `panel${index}` ?
+                                            {expanded === `${item.idConsegna}` ?
                                                 <RemoveIcon sx={{ fontSize: 15 }} /> :
                                                 <AddIcon sx={{ fontSize: 15 }} />
                                             }
@@ -162,8 +157,8 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                             </p>
                                                         </div>
                                                         <div className='col col-8'>
-                                                            <span className={`bg-[${item.dataOrdineClasse}] ${['purple', 'green'].includes(item.dataOrdineClasse) ? 'text-[white]' : ''} p-1 rounded font-bold`} >
-                                                                {item.giornoStr} {item.dataOrdineLabel}
+                                                            <span className={`bg-[${dataOrdini?.dataOrdineClasse}] ${['purple', 'green'].includes(String(dataOrdini?.dataOrdineClasse)) ? 'text-[white]' : ''} p-1 rounded font-bold`} >
+                                                                {dataOrdini?.giornoStr} {dataOrdini?.dataOrdineLabel}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -175,7 +170,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                         </div>
                                                         <div className='col col-8'>
                                                             <span className='m-1 font-bold'>
-                                                                {item.count}
+                                                                {dataOrdini?.count}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -188,12 +183,12 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                         <div className='col col-8'>
                                                             <div className='row mt-[3px]'>
                                                                 <div className='col col-12'>
-                                                                    <p className="font-bold"> {item.corriereStr}</p>
+                                                                    <p className="font-bold"> {dataOrdini?.corriereStr}</p>
                                                                 </div>
                                                             </div>
                                                             <div className='row mt-[3px]'>
                                                                 <div className='col col-12'>
-                                                                    <p className="">(Colli <b>{item.numeroColliStr}</b>, Peso <b>{item.pesoKG}</b> kg ±)</p>
+                                                                    <p className="">(Colli <b>{dataOrdini?.numeroColliStr}</b>, Peso <b>{dataOrdini?.pesoKG}</b> kg ±)</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -206,7 +201,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                         </div>
                                                         <div className='col col-8'>
                                                             <p className='font-bold'>
-                                                                {item.indirizzoStr}
+                                                                {dataOrdini?.indirizzoStr}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -218,7 +213,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                         </div>
                                                         <div className='col col-8'>
                                                             <p className='font-bold'>
-                                                                {item.pagamentoStr}
+                                                                {dataOrdini?.pagamentoStr}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -227,8 +222,8 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                     <div className='row mt-[20px]'>
                                                         <div className={`col col-12`}>
                                                             <div className='flex  justify-center items-center'>
-                                                                <span style={{ background: item.coloreStatoHtml }} className={`p-1 rounded font-bold`}>
-                                                                    {item.statoStr}
+                                                                <span style={{ background: dataOrdini?.coloreStatoHtml }} className={`p-1 rounded font-bold`}>
+                                                                    {dataOrdini?.statoStr}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -239,7 +234,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                 Totale Ordini:
                                                             </span>
                                                             <span className='text-end font-bold'>
-                                                                € {item.importoTotOrdiniNettoOriginaleStr}
+                                                                € {dataOrdini?.importoTotOrdiniNettoOriginaleStr}
                                                             </span>
                                                         </div>
                                                         <div className='w-full flex justify-between'>
@@ -247,7 +242,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                 Totale Spedizioni:
                                                             </span>
                                                             <span className='text-end font-bold'>
-                                                                € {item.importoConsegnaStr}
+                                                                € {dataOrdini?.importoConsegnaStr}
                                                             </span>
                                                         </div>
                                                         <div className='w-full flex justify-between'>
@@ -255,7 +250,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                 IVA (22%):
                                                             </span>
                                                             <span className='text-end font-bold'>
-                                                                € {item.importoTotIvaStr}
+                                                                € {dataOrdini?.importoTotIvaStr}
                                                             </span>
                                                         </div>
                                                         <div className='w-full flex justify-between bg-[#d6e03d]'>
@@ -263,7 +258,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                 TOTALE:
                                                             </span>
                                                             <span className='text-end font-bold pl-[5px] border-l border-l-[white]'>
-                                                                € {item.importoTotStr}
+                                                                € {dataOrdini?.importoTotStr}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -283,7 +278,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                 </div>
                                                 <div className='col col-12'>
                                                     <AcordionLavori
-                                                        listLavori={item.listLavori}
+                                                        listLavori={dataOrdini ? dataOrdini.listLavori : [] }
                                                         handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro}
                                                         handleNewTagListinoTemplate={handleNewTagListinoTemplate}
                                                         handleDeleteLavoro={handleDeleteLavoro}
@@ -298,7 +293,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                         <div className='col col-12 px-0 pr-[3px]'>
                                                             <div className="flex mx-0 items-center justify-end">
 
-                                                                {item.idStatoConsegna == 10 ?
+                                                                {dataOrdini?.idStatoConsegna == 10 ?
                                                                     // <Link to={`/dettaglioOrdine/${item.idConsegna}`}>
                                                                     <button className="ml-2  p-[4px] flex rounded px-[4px] bg-[#e70031] hover:bg-[#ff5829]" onClick={() => handleRedirectToDetaglioOrdini(item.idConsegna)} >
                                                                         <img src="https://tipografiaformer.it/img/icoPrezzo16.png" />
@@ -306,7 +301,7 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                     </button>
                                                                     // </Link>
 
-                                                                    : item.tracciabile ?
+                                                                    : dataOrdini?.tracciabile ?
                                                                         <button className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]">
                                                                             <img src="https://tipografiaformer.it/img/icoCorriere20.png" width="16" />
                                                                             <b>TRACCIA IL MIO PACCO</b>
@@ -323,10 +318,10 @@ const AcordionOrdini = ({ listOrdini, pageOrdini, handleGetOrdini, handleRedirec
                                                                 </button>
                                                                 {/* </Link> */}
 
-                                                                {item.modificabile &&
+                                                                {dataOrdini?.modificabile &&
                                                                     <button
                                                                         className="ml-2 p-1 flex rounded bg-[#ffd30c] hover:bg-[#ffe055]"
-                                                                        onClick={() => deleteOrdine(item.idConsegna)}
+                                                                        onClick={() => handleDeleteOrdine(item.idConsegna)}
                                                                     >
                                                                         <img src="https://tipografiaformer.it/img/icoCestino16.png" />
                                                                         Elimina Consegna

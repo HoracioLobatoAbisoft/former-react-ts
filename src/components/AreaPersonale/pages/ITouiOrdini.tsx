@@ -5,14 +5,17 @@ import AcordionOrdini from '../Componentes/ITouiOrdini/AcordionOrdini';
 import { GLOBAL_CONFIG } from "../../../_config/global";
 import LegendaStatoOrdini from '../Componentes/ITouiOrdini/LegendaStatoOrdini';
 import LoadingBackdrop from '../../loadingBackdrop';
+import Skeleton from '@mui/material/Skeleton';
 
 const ITouiOrdini = () => {
     const [activeTab, setActiveTab] = React.useState(0);
-    const { listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, openLoading, } = useITuoiOrdini();
+    const { listOrdini, pageOrdini, handleGetOrdini, handleRedirectToDetaglioOrdini, handleDeleteOrdine, handleRedirectToDetaglioLavoro, handleNewTagListinoTemplate, handleDeleteLavoro, openLoading, handleChange, expanded, dataOrdini } = useITuoiOrdini();
 
     return (
         <>
-            <LoadingBackdrop isOpen={openLoading} x={2} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column', zIndex: 10 }} />
+
+
+            {/* <LoadingBackdrop isOpen={openLoading} x={2} sx={{ bgcolor: 'rgba(225,225,225,0.4)', display: 'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'column', zIndex: 10 }} /> */}
             <div className=' ml-[15px] my-[10px]'>
                 <div className='col col-12 w-full flex justify-between'>
                     <div className='flex flex-row items-center'>
@@ -65,16 +68,26 @@ const ITouiOrdini = () => {
                         index={0}
                         value={activeTab}
                     >
-                        <AcordionOrdini
-                            listOrdini={listOrdini}
-                            pageOrdini={pageOrdini}
-                            handleGetOrdini={handleGetOrdini}
-                            handleDeleteLavoro={handleDeleteLavoro}
-                            handleDeleteOrdine={handleDeleteOrdine}
-                            handleNewTagListinoTemplate={handleNewTagListinoTemplate}
-                            handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro}
-                            handleRedirectToDetaglioOrdini={handleRedirectToDetaglioOrdini}
-                        />
+                        {openLoading ?
+                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i, index) =>
+                                <Skeleton animation="wave" sx={{height:60}}/>
+                            )
+                            :
+                            <AcordionOrdini
+                                listOrdini={listOrdini}
+                                pageOrdini={pageOrdini}
+                                handleGetOrdini={handleGetOrdini}
+                                handleDeleteLavoro={handleDeleteLavoro}
+                                handleDeleteOrdine={handleDeleteOrdine}
+                                handleNewTagListinoTemplate={handleNewTagListinoTemplate}
+                                handleRedirectToDetaglioLavoro={handleRedirectToDetaglioLavoro}
+                                handleRedirectToDetaglioOrdini={handleRedirectToDetaglioOrdini}
+                                expanded={expanded}
+                                handleChange={handleChange}
+                                dataOrdini={dataOrdini}
+                            />
+                        }
+
                     </TabPanel>
                     <TabPanel
                         index={1}
