@@ -378,17 +378,6 @@ const useProdtto = () => {
       var tableDate :any;
       var responseTablePrezzi:any;
       try {
-          tableDate = await getTableDate({
-          IdColoreStampa,
-          idFormProd,
-          IdTipoCarta,
-          idPrev,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          idUt,
-        })
-        
         responseTablePrezzi = await getTablePrezzi({
           IdColoreStampa,
           IdTipoCarta,
@@ -403,9 +392,18 @@ const useProdtto = () => {
           facciatePagine: idFogli,
           quantita: 0,
         })
-
-        console.log('Datos Fecha de la tabla de precios',tableDate)
-        console.log('Datos de los precios de la tabla ',responseTablePrezzi)
+        tableDate = await getTableDate({
+          IdColoreStampa,
+          idFormProd,
+          IdTipoCarta,
+          idPrev,
+          altezza: 0,
+          base: 0,
+          profundita: 0,
+          idUt,
+        })
+        // console.log('Datos Fecha de la tabla de precios',tableDate)
+        // console.log('Datos de los precios de la tabla ',responseTablePrezzi)
 
       } catch (error) {
         console.log('Error en la peticiones de las apis de precios y fechas\n',error)
@@ -428,18 +426,20 @@ const useProdtto = () => {
         const responseFormatoDinamico = await getFormatoDinamico(String(idCategoria));
         setFormatoDinamico(responseFormatoDinamico.categoria);
       }
-
-      responseShowTablePrezzi.data ? setTablaDataPrezzi(responseTablePrezzi) : setTablaDataPrezzi([]);
+      setTableDate(tableDate);
+      setShowColumTable(columnTable);
+      responseShowTablePrezzi.data ? setTablaDataPrezzi(responseTablePrezzi)  : setTablaDataPrezzi([]);
+      setShowTablePreez(responseShowTablePrezzi.data);
       setShowBloccoMisure(responseShowBloccoMisure?.data);
       setDisableProfundita(responseDisableProfundita);
 
-      setShowColumTable(columnTable);
-      setTableDate(tableDate);
+      
+      
       setUtenteData(dataUtn);
       setCalcolaTuto(responseCalculaTuto);
       setQtaSelected(responseCalculaTuto.qta);
       setShowOpzzioni(responseShowOopzioni.data);
-      setShowTablePreez(responseShowTablePrezzi.data);
+      
 
       setShowSvg(showSVG);
       setOpzioniListStatic(opzioniCarrello);
@@ -462,7 +462,7 @@ const useProdtto = () => {
         valueAltezza: idAltezaEtiquete == 0 ? "" : idAltezaEtiquete
       });
 
-
+      
     } catch (error) {
       console.log(error)
       throw new Error(String(error));
@@ -1918,11 +1918,14 @@ const useProdtto = () => {
     handleChangeParams("valueInputs");
   }, [formValues.valueAltezza, formValues.valueBase, formValues.valueProfundita, formValues.valueQuantita]);
 
-
+  const fetchDataInitial = async () => {
+    
+    await handlePrimaryData();
+    await handleData();
+    await handleSecondaryData();
+  };
   useEffect(() => {
-    handlePrimaryData();
-    handleData();
-    handleSecondaryData();
+    fetchDataInitial()
   }, []);
 
   return {

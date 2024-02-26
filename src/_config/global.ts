@@ -4,8 +4,8 @@ export const GLOBAL_CONFIG = {
   //IMG_IP :'https://tipografiaformer.it',
   //IMG_IP :'https://tipografiaformertest.it',
 
-  HOST_IP :'https://localhost:7143',
-  //HOST_IP :'https://localhost:44377',
+  //HOST_IP :'https://localhost:7143',
+  HOST_IP :'https://localhost:44377',
   //HOST_IP : 'https://tipografiaformertest.it:5050',
   //HOST_IP : 'https://tipografiaformer.it:60',
 
