@@ -541,101 +541,60 @@ export const httpGetFormatoStr = async (
   IdFormProd: number,
   IdTipoCarta: number,
   IdColoreStampa: number,
-  Larghezza: number | null | undefined ,
-  Profondita: number | null | undefined ,
-  Altezza: number | null | undefined ,
-  IdLav?:number | null,
+  Larghezza: number | null | undefined,
+  Profondita: number | null | undefined,
+  Altezza: number | null | undefined,
+  IdLav?: number | null,
 ) => {
   try {
-    const result = await applicationConnect.get<ResponseDimensioniStr>('Packagin/GetDimensioniStr',{params:{
-      IdPrev,
-      IdFormProd,
-      IdTipoCarta,
-      IdColoreStampa,
-      Larghezza,
-      Profondita,
-      Altezza,
-      IdLav
-    }})
+    const result = await applicationConnect.get<ResponseDimensioniStr>('Packagin/GetDimensioniStr', {
+      params: {
+        IdPrev,
+        IdFormProd,
+        IdTipoCarta,
+        IdColoreStampa,
+        Larghezza,
+        Profondita,
+        Altezza,
+        IdLav
+      }
+    })
     return result.data;
   } catch (error) {
     throw new Error('')
   }
 }
 
-export const httpGetOpzioniCarrello =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number) => {
+export const httpGetOpzioniCarrello = async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number) => {
   try {
-    
-    const result = await applicationConnect.get<ResponseGetOpzioniStatic>('Packagin/GetOpzioniCarrello',{params:{
-      IdPrev,
-      IdFormProd,
-      IdTipoCarta,
-      IdColoreStampa,
-    }})
+
+    const result = await applicationConnect.get<ResponseGetOpzioniStatic>('Packagin/GetOpzioniCarrello', {
+      params: {
+        IdPrev,
+        IdFormProd,
+        IdTipoCarta,
+        IdColoreStampa,
+      }
+    })
     return result.data;
   } catch (error) {
     throw new Error('')
-    
+
   }
 }
 
-export const httpGetProdottoConsigliato =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number,uri:string) => {
+export const httpGetProdottoConsigliato = async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number, uri: string) => {
   try {
-    
-    const result = await applicationConnect.get<ResponseGetProduttoConsigliato>('Packagin/GetProdottoConsigliato',{params:{
-      IdPrev,
-      IdFormProd,
-      IdTipoCarta,
-      IdColoreStampa,
-      uri,
-    }})
 
-    return result.data;
-
-  } catch (error) { 
-    throw new Error('')
-  }
-}
-
-export const httpGetRecensioni =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number,uri:string) => {
-  try {
-    const result = await applicationConnect.get<ResponseGetRecensioni>('Packagin/GetRecensioni',{params:{
-      IdPrev,
-      IdFormProd,
-      IdTipoCarta,
-      IdColoreStampa,
-      uri,
-    }})
-
-    return result.data;
-  } catch (error) {
-      throw new Error('')
-  }
-}
-
-export const httpGetAggiornaReview =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number,uri:string) => {
-  try {
-    const result = await applicationConnect.get<ResponseGetAggiornaReview>('Packagin/GetAggiornaReview',{params:{
-      IdPrev,
-      IdFormProd,
-      IdTipoCarta,
-      IdColoreStampa,
-      uri,
-    }})
-    return result.data;
-  } catch (error) {
-      throw new Error('')
-  }
-}
-
-export const httpGetDescrizioniDinamica =async (IdPrev:number,IdFormProd:number,IdTipoCarta:number,IdColoreStampa:number) => {
-  try {
-    const result = await applicationConnect.get<ResponseGetDescrizioniDinamica>('Packagin/GetDescrizioneDinamica',{params:{
-      IdPrev,
-      IdFormProd,
-      IdTipoCarta,
-      IdColoreStampa,
-    }})
+    const result = await applicationConnect.get<ResponseGetProduttoConsigliato>('Packagin/GetProdottoConsigliato', {
+      params: {
+        IdPrev,
+        IdFormProd,
+        IdTipoCarta,
+        IdColoreStampa,
+        uri,
+      }
+    })
 
     return result.data;
 
@@ -644,13 +603,68 @@ export const httpGetDescrizioniDinamica =async (IdPrev:number,IdFormProd:number,
   }
 }
 
-export const httpGetInputValues =async (dimensione:string,IdPrev:number,estensione:enAsseXYZ) => {
+export const httpGetRecensioni = async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number, uri: string) => {
   try {
-    const result = await applicationConnect.get<ResponseGetInputValue>('Packagin/GetInputValidate',{params:{
-      dimensione,
-      IdPrev,
-      estensione,
-    }})
+    const result = await applicationConnect.get<ResponseGetRecensioni>('Packagin/GetRecensioni', {
+      params: {
+        IdPrev,
+        IdFormProd,
+        IdTipoCarta,
+        IdColoreStampa,
+        uri,
+      }
+    })
+
+    return result.data;
+  } catch (error) {
+    throw new Error('')
+  }
+}
+
+export const httpGetAggiornaReview = async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number, uri: string) => {
+  try {
+    const result = await applicationConnect.get<ResponseGetAggiornaReview>('Packagin/GetAggiornaReview', {
+      params: {
+        IdPrev,
+        IdFormProd,
+        IdTipoCarta,
+        IdColoreStampa,
+        uri,
+      }
+    })
+    return result.data;
+  } catch (error) {
+    throw new Error('')
+  }
+}
+
+export const httpGetDescrizioniDinamica = async (IdPrev: number, IdFormProd: number, IdTipoCarta: number, IdColoreStampa: number) => {
+  try {
+    const result = await applicationConnect.get<ResponseGetDescrizioniDinamica>('Packagin/GetDescrizioneDinamica', {
+      params: {
+        IdPrev,
+        IdFormProd,
+        IdTipoCarta,
+        IdColoreStampa,
+      }
+    })
+
+    return result.data;
+
+  } catch (error) {
+    throw new Error('')
+  }
+}
+
+export const httpGetInputValues = async (dimensione: string, IdPrev: number, estensione: enAsseXYZ) => {
+  try {
+    const result = await applicationConnect.get<ResponseGetInputValue>('Packagin/GetInputValidate', {
+      params: {
+        dimensione,
+        IdPrev,
+        estensione,
+      }
+    })
     return result.data.data;
   } catch (error) {
     throw new Error(String(error))

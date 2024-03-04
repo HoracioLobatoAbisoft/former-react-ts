@@ -6,7 +6,7 @@ import { ResponseApi, TipoDiCarta } from '../interface/tipoCarta';
 import { ColoreStampa } from '../interface/coloreStampa';
 import { Opzioni } from '../interface/opzioni';
 import { OptionsSelectS, StaCalOpz } from '../interface/stampaCaldo';
-import {  TableDate } from '../interface/tableDate';
+import { TableDate } from '../interface/tableDate';
 import { PrezzoValue } from '../interface/showColumPrezzo';
 import { SelectRow, TablePrezzi } from '../interface/table';
 import { IFormato } from '../interface/Formato';
@@ -156,7 +156,7 @@ const useRefactorProdotto = () => {
                 initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,
                 initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
                 initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
-                initialState.facciatePagine === null ? Number(idFogli) : initialState.facciatePagine,)
+                initialState.facciatePagine === null ? Number(idFogli) : initialState.facciatePagine)
             setHelperDataProdotto(reponseHelperData.data);
             const responseTipoCartaList = await getTipoCartaList(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,);
             setTipoCartaList(responseTipoCartaList.data);
@@ -190,7 +190,7 @@ const useRefactorProdotto = () => {
                 initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
                 initialState.base === null ? 0 : initialState.base,
                 initialState.depth === null ? 0 : initialState.depth,
-                initialState.height === null ? 0 : initialState.height,)
+                initialState.height === null ? 0 : initialState.height)
 
             setTablaDate(responseDateTable.data);
             //setDateConsegna({ ...dateConsegna, date1: responseDateTable.data.dataNormale, date2: responseDateTable.data.dataNormaleProduzione })
@@ -209,15 +209,15 @@ const useRefactorProdotto = () => {
                 initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,
                 initialState.base === null ? 0 : initialState.base,
                 initialState.depth === null ? 0 : initialState.depth,
-                initialState.height === null ? 0 : initialState.height,);
+                initialState.height === null ? 0 : initialState.height);
             setShowTablePreez(responseShowTablePrezzi.data);
             //await effectTablePrezzi();
-            
+
 
             const responseShowOrientamiento = await getShowOrientamiento(Number(idPrev),
                 initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,
                 initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
-                initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,)
+                initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa)
             setOrientamiento(responseShowOrientamiento.data)
 
             // const responseFormatoList = await getFormatoList(Number(idPrev));
@@ -991,7 +991,7 @@ const useRefactorProdotto = () => {
             nome: initialState.nome,
             note: initialState.note,
             qta: qtaSelezinata,
-            img:  helperDataProdotto?.imgRif,
+            img: helperDataProdotto?.imgRif,
             svgImg: showSvg,
             prodotto: dimensionniStr?.prodotto,
             orientamiento: orientamiento && handleCarrelloData(initialState.orientamiento, responseHandOrientamiento).label,
@@ -1017,7 +1017,7 @@ const useRefactorProdotto = () => {
             base: initialState.base ?? 0,
             produndita: initialState.base ?? 0,
             altezza: initialState.base ?? 0,
-            promo:false
+            promo: false
         }//Buste Intestate 11x23 con Finestra e strip a colori solo fronte
         const existCarreloLocal = localStorage.getItem('c');
         let dataCarrelli: any[] = [];
@@ -1229,7 +1229,7 @@ const useRefactorProdotto = () => {
         const responseScandeza = httpGetCorriereSelezionata(1, String(utenteData?.defaultCap), Number(idPrev),
             initialState.formatoS === null ? Number(idFormProd) : initialState.formatoS,
             initialState.tipoCarta === null ? Number(IdTipoCarta) : initialState.tipoCarta,
-            initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa,)
+            initialState.coloreStampa === null ? Number(IdColoreStampa) : initialState.coloreStampa)
 
         responseScandeza.then(r => {
             if (r) {
@@ -1439,7 +1439,7 @@ const useRefactorProdotto = () => {
         }
     }
 
-    const handleChangePrezzo =async () => {
+    const handleChangePrezzo = async () => {
         setOpenLoadingBackdrop(true);
         //debugger
         await effectTablePrezzi();
@@ -1594,7 +1594,7 @@ const useRefactorProdotto = () => {
             const responseStampaCaldo = await getStampaCaldoPlaz(Number(idPrev), initialState.formatoS === null ? Number(idFormProd) : Number(initialState.formatoS), initialState.tipoCarta, responseColoreStampa.data[0].idColoreStampa)
             setStampaCalOpz(responseStampaCaldo.data);
 
-            
+
             // const valueRespone = responseStampaCaldo.data.map((item, i) => {
             //     //valuesStampaCaldoOpz[item.descrizione] = item.optionsSelect[0].idLavoro;
             //     return({ [item.descrizione]: item.optionsSelect[0].idLavoro });
@@ -1650,7 +1650,7 @@ const useRefactorProdotto = () => {
     //     efectTipoCarta();
     // }, [initialState.tipoCarta])
 
-    
+
 
     // useEffect(() => {
     //     if (initialState.iva != null && initialState.iva != 0) {

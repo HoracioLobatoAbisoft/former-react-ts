@@ -308,7 +308,7 @@ const useProdtto = () => {
       setFormatoLabel(responseShowFoliPagine.data.formatoText);
       setUriImage(formatoStr.imgSelezionato);
       setDimensionniStr(formatoStr);
-      setFormValues({...formValues,valueOrientamento: formatoStr.orientamiento,})
+      setFormValues({ ...formValues, valueOrientamento: formatoStr.orientamiento, })
     } catch (error) {
       throw new Error(String(error));
     } finally {
@@ -326,7 +326,7 @@ const useProdtto = () => {
         handleParamsFormat();
 
       const initialState = await Promise.all([
-        
+
         getUtenteData(idUt),
         getCalcolaTuto({
           IdColoreStampa,
@@ -375,10 +375,10 @@ const useProdtto = () => {
         }),
 
       ]);
-      var tableDate :any;
-      var responseTablePrezzi:any;
+      var tableDate: any;
+      var responseTablePrezzi: any;
       try {
-          tableDate = await getTableDate({
+        tableDate = await getTableDate({
           IdColoreStampa,
           idFormProd,
           IdTipoCarta,
@@ -388,7 +388,7 @@ const useProdtto = () => {
           profundita: 0,
           idUt,
         })
-        
+
         responseTablePrezzi = await getTablePrezzi({
           IdColoreStampa,
           IdTipoCarta,
@@ -404,21 +404,21 @@ const useProdtto = () => {
           quantita: 0,
         })
 
-        console.log('Datos Fecha de la tabla de precios',tableDate)
-        console.log('Datos de los precios de la tabla ',responseTablePrezzi)
+        console.log('Datos Fecha de la tabla de precios', tableDate)
+        console.log('Datos de los precios de la tabla ', responseTablePrezzi)
 
       } catch (error) {
-        console.log('Error en la peticiones de las apis de precios y fechas\n',error)
+        console.log('Error en la peticiones de las apis de precios y fechas\n', error)
       }
 
-      
+
 
       const [
-        
+
         dataUtn,
         responseCalculaTuto,
         columnTable,
-        
+
         responseShowBloccoMisure,
         responseShowOopzioni,
         responseShowTablePrezzi,
@@ -792,6 +792,7 @@ const useProdtto = () => {
 
     setLoading(false);
   };
+
   const handleChangeTipoCarta = async () => {
     if (!execute) return;
     setLoading(true);
@@ -903,6 +904,7 @@ const useProdtto = () => {
 
     setLoading(false);
   };
+
   const handleChangeColoreStampa = async () => {
     if (!execute) return;
     setLoading(true);
@@ -1721,7 +1723,7 @@ const useProdtto = () => {
         idIndirizzo: utenteData?.corriere.idMetodoConsegna == 0 ? 0 : utenteData!.idIndirizzo == null ? 0 : utenteData!.idIndirizzo,
         nome: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.indirizoS,
         indirisso: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.indirizzo,
-        localitaStr:utenteData?.corriere.idMetodoConsegna == 0 ?  "" : utenteData!.citta,
+        localitaStr: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.citta,
         nazioneStr: '',
         predefinito: true,
         riassunto: utenteData?.corriere.idMetodoConsegna == 0 ? "<b style='font-size:16px'>Tipografia Former</b>, Via Cassia, 2010 - 00123 Roma" : utenteData!.indirizoR,

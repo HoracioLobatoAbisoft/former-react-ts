@@ -1,8 +1,8 @@
 import MasterService from "./MasterService";
 import { conf } from "../../config";
- //const CLIENTE_API_URL = "https://localhost:7143" + "/api";
- const CLIENTE_API_URL = "http://95.110.133.251:5050" + "/api";
-//const CLIENTE_API_URL = "http://localhost:5183" + "/api";
+//const CLIENTE_API_URL = "https://localhost:7143" + "/api";
+//const CLIENTE_API_URL = "http://95.110.133.251:5050" + "/api";
+const CLIENTE_API_URL = "http://localhost:5183" + "/api";
 
 class LoginService {
     getUtenti() {
@@ -11,20 +11,20 @@ class LoginService {
         return MasterService.getDataUtenti(CURRENT_API_URL);
     }
 
-    getUser(idUdt:string) {
+    getUser(idUdt: string) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Login/GetUserLoginById`;
         //console.log(CURRENT_API_URL);
         return MasterService.getDataUser(CURRENT_API_URL, idUdt);
     }
 
-    getLavori(idUdt:string) {
+    getLavori(idUdt: string) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Lavori`;
         //console.log(CURRENT_API_URL);
         return MasterService.getDataLavori(CURRENT_API_URL, idUdt);
     }
 
 
-    postUser(data:any) {
+    postUser(data: any) {
         var CURRENT_API_URL = `${CLIENTE_API_URL}/Login`;
         //console.log(CURRENT_API_URL);
         return MasterService.postUserLogin(CURRENT_API_URL, data);
