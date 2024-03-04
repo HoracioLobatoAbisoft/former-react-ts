@@ -121,13 +121,130 @@ const Prodotto = () => {
   }
 
 
-
+  const goSearch = (e:any) => {
+    console.log(e)
+  }
 
   //*TODO revisar los presios con una cantidad de 100000 especialmente en 10/87/44/2/50/Stampa-Blocchi-autocopianti-A5-fogli-50x2-Copie-a-colori-solo-fronte
 
   return (
+<div className="page">
+  <div id="testataCompleta">
+    <div className="headerRow">
+    <div style={{height:"60px"}}>
+    <div className="logo">
+      <a href="#"><img  src={`${GLOBAL_CONFIG.IMG_IP}/img/logo.png`} /></a>    
+    </div>            
+    <div className="benvenuto">
+      Benvenuto Visitatore,               
+      <a href="#" className="orange"><b>Registrati</b></a> o <a href="#" className="orange"><b>Accedi</b></a>
+    </div>       
+    <a className="assistenza hasTooltip" href="#" data-hasqtip="0"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoAssistenza32.png`}/></a>
+    <div className="hidden tooltiptext">
+      <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInformation.png`} className="imgSx"/>
+      <h4>Hai bisogno di Aiuto?</h4>Qui troverai tutte le risposte alle domande più comuni, e se non sarai ancora soddisfatto potrai contattare il nostro Call Center per una domanda specifica!
+    </div>
+    <a className="socialbuttonY hasTooltip" href="https://www.youtube.com/user/tipografiaformer" target="_blank" data-hasqtip="1" aria-describedby="qtip-1">
+    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnYoutube.png`}/>
+    </a>          
+    <a className="socialbuttonT hasTooltip" href="https://twitter.com/FormerOfficial" target="_blank" data-hasqtip="2">              
+      <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icons8-twitterx.svg`} width="30px" height="30px"/>
+    </a>
+    <div className="hidden tooltiptext">
+          <img src="/img/icons8-twitterx.svg" style={{float:"left",marginRight:"5px",border:0,borderRadius:"5px",width:"30px",height:"30px"}}/>
+          <h4>Seguici su Twitter</h4>Seguici su Twitter e resta sempre aggiornato sulle novità riguardanti offerte sui nostri prodotti e lavorazioni
+      </div>
+    <a className="socialbuttonI hasTooltip" href="https://www.instagram.com/tipografiaformer/" target="_blank" data-hasqtip="3"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnInstagram.png`} /></a>
+    <div className="hidden tooltiptext">
+      <img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnInstagram.png`} className="imgSx"/>
+      <h4>Visita la nostra pagina Instagram</h4>Visita la nostra pagina Instagram e troverai foto e video riguardanti il mondo delle arti grafiche
+    </div>
+    <a className="socialbuttonF hasTooltip" href="https://www.facebook.com/tipografiaformer.it" target="_blank" data-hasqtip="4">
+    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnFacebook.png`} /></a>
+    <div className="hidden tooltiptext">
+    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnFacebook.png`} className="imgSx" style={{backgroundColor:"#43609c"}} /> 
+      <h4>Visita la nostra pagina Facebook</h4>Visita la nostra pagina Facebook e troverai offerte speciali, informazioni e comunicazioni riguardanti i nostri prodotti e la nostra azienda
+    </div>
+    <a className="socialbuttonB hasTooltip" href="https://www.tipografiaformer.net" target="_blank" data-hasqtip="5">
+    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico_Blog.png`} style={{height:"26px", width:"100%"}} /></a> 
+    <div className="hidden tooltiptext">
+    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/ico_Blog.png`} className="imgSx" style={{backgroundColor:"white", height:"26px"}} /> 
+      <h4>Visita il nostro Blog</h4>Visita il nostro Blog e troverai offerte speciali, informazioni e comunicazioni riguardanti i nostri prodotti e la nostra azienda
+    </div>
+    </div>
+    <div className="menutxt">            
+    <a href="/area-riservata">Area Riservata</a>&nbsp;&nbsp;|&nbsp;&nbsp;           
+    <a href="/i-tuoi-ordini">Le Tue Consegne</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/i-tuoi-lavori">I tuoi Ordini</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/i-tuoi-coupon-di-sconto">I tuoi Coupon di Sconto</a>&nbsp;&nbsp;|&nbsp;&nbsp;              
+    <a href="/le-tue-recensioni">Le tue Recensioni</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="/assistenza-clienti">Contattaci</a>
+    </div>
+    </div>  
+    <div className="menuRow ">
+      <div className="menuRowInside">
+            <img src={`${GLOBAL_CONFIG.IMG_IP}/img/lblCosaStaiCercando.png`} className="cosaCerchi" alt="Cosa stai cercando?  " onClick={(e) => { goSearch(e.target) }} />
+            <div className="cerca">
+              <div id="ctl00_pnlCerca">
+              <input name="ctl00$txtCerca" type="text" style={{maxLength: 30}} id="txtCerca" className="cercaTxt ui-autocomplete-input" title="Cerca nei nostri prodotti" autocomplete="off"/>
+			        <input type="image" name="ctl00$btnCerca" id="ctl00_btnCerca" className="btnCerca hasTooltip" src={`${GLOBAL_CONFIG.IMG_IP}/img/btnCercaSmall.png`} style={{borderWidth:"0px"}} data-hasqtip="6"/>
+                <div className="hidden tooltiptext">
+                  <img src={`${GLOBAL_CONFIG.IMG_IP}/img/btnCercaSmall.png`} className="imgSx"/>
+                  <h4>Cosa stai cercando?</h4>Da oggi il nostro motore di ricerca è tutto nuovo!!!<br/><br/>Scrivi ciò che ti serve, <b>PREMI INVIO ↵</b><br/><br/>Scoprirai un nuovo modo di scegliere i nostri prodotti
+                </div>
+              </div>
+            </div>
 
-    <div className="w-full flex gap-3 relative">
+            <div className="pulsantiera">   
+              <a href="#" className="pulsante120Black hasTooltip" data-hasqtip="9">
+                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoLock32W.png`}/>Accedi</a>
+                <div className="hidden tooltiptext">
+                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInformation.png`} className="imgSx"/> 
+                <h4>Accedi alla tua Area Riservata</h4>Solo registrandoti ed effettuando l'accesso potrai effettuare un ordine, accedere alla tua area riservata, scaricare i documenti fiscali e tenere costantemente sotto controllo lo stato di avanzamento dei tuoi ordini
+                </div>
+                <a href="javascript:NewsletterFissa();" className="pulsante120Green hasTooltip" data-hasqtip="8"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoMsg50.png`}/>Newsletter</a>
+                <div className="hidden tooltiptext">
+                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoInformation.png`} className="imgSx"/> <h4>Iscrizione alla Newsletter</h4>
+                Iscrivendoti alla nostra Newsletter riceverai direttamente nella tua email le nostre offerte e promozioni.
+                </div>
+                <a href="/i-tuoi-lavori" className="pulsante55Green hasFixedTooltip" data-hasqtip="14">
+                <img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoNotifica24gray.png`}/>
+                </a>
+                <div className="hidden tooltiptext">
+                    <img src={`${GLOBAL_CONFIG.IMG_IP}/img/coNotifica30W.png`} className="imgSx"/> <h4>Le tue notifiche</h4> 
+                    <div className="CarrelloBox">
+                    <table id="ctl00_Notifica_tblNotifiche" border={0} style={{width:"100%"}}>
+                    </table>
+                    </div>
+                </div>
+			      </div>          
+      </div>
+    </div>
+  </div>
+      
+  <div className="Content">
+    <div className="colSx">
+      <div className="treeview" id="divHidden">
+          <a href="/promo"><div className="tvwPromo"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`}/> PRODOTTI IN PROMO</div></a>						
+          <a href="/"><div className="tvwCatVirtuali"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoPromo16w.png`}/> IN EVIDENZA</div></a>				
+          <a href="/in-evidenza/1/I-piu-visitati" title="I piu' visitati">
+          <div className="treeviewitem bkgOfferte">
+          I piu' visitati
+          </div>
+          </a>			
+
+          <a href="/stampa-offset"><div className="tvwViolet"><img src={`${GLOBAL_CONFIG.IMG_IP}/img/icoOffset16w.png.png`}/> STAMPA OFFSET</div></a>                          
+
+          <a href="/2/Stampa-Biglietti-da-Visita" title="Stampa i tuoi Biglietti da Visita Online a Roma con Tipografia Former. Troverai fantastiche offerte di Biglietti da Visita da stampare in qualsiasi formato. Cordonati, fustellati. Stampa a colori su carta patinata fino a 350gr, LUCIDATI UV, Plastificati">
+          <div className="treeviewitem treeviewitemSelected">
+          Biglietti da Visita  
+          </div>
+          </a>
+      </div>         
+
+      
+          
+      </div>
       <div className="w-[75%] relative">
         <h5 className="ps-[20px] py-[2px] bg-[#f58220] text-[#fff] text-[12px] tracking-normal flex justify-between">
           CONFIGURA IL TUO PRODOTTO
@@ -671,10 +788,11 @@ const Prodotto = () => {
           showTemplate={dimensionniStr?.showTamplate}
           handleCampioneGratutito={handleCampioneGratutito}
         />
-      </div>
-        
-    </div>
-  );
+      </div> 
+  </div>  
+
+</div>
+);
 };
 
 export default Prodotto;
