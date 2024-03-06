@@ -15,7 +15,7 @@ export interface StaCalOpz {
 
 export interface OptionsSelectS {
     descrizione: string;
-    descrizioneEstesa: string;
+    descrizioneEstesa: string
     idCatLav: number;
     idLavoro: number;
     idMacchinario: number;

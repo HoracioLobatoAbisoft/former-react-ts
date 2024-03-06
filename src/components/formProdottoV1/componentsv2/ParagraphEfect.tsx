@@ -16,8 +16,8 @@ const ParagraphEfect = ({description,title}:Props) => {
                 <span
                     key={index}
                     className={index <= hoverIndex ? 'resaltado' : ''}
-                    onMouseEnter={() => setHoverIndex(index)}
-                    onMouseLeave={() => setHoverIndex(-1)}
+                    // onMouseEnter={() => setHoverIndex(index)}
+                    // onMouseLeave={() => setHoverIndex(-1)}
                     dangerouslySetInnerHTML={{__html:palabra + ' '}}
                 >
                     

@@ -1,6 +1,7 @@
 import applicationConnect from "../../../api";
 import { enAsseXYZ } from "../../../schemas/InputsEnums";
 import { ResponseGetInputValue } from "../GetInputValue";
+import { RequestData } from "../helper/httpProdotto";
 import { ResponseGetAggiornaReview } from "../interface/AggiornaReview";
 import { DataAlertMassimo } from "../interface/AlertMassimo";
 import { ResponseGetDescrizioniDinamica } from "../interface/DescrizioneDinamica";
@@ -13,6 +14,7 @@ import { ColoreStampa } from "../interface/coloreStampa";
 import { ResponseDisabledProfundita } from "../interface/disabledProfundita";
 import { FofliPagine } from "../interface/fogliPagine";
 import { ResponseFormatDinamico } from "../interface/formatoDinamico";
+import { RootObject } from "../interface/generalInfo";
 import { ResposeGetHelperDataProdotto } from "../interface/helpersDataProdotto";
 import { Opzioni } from "../interface/opzioni";
 import { ResponseGetOpzioniStatic } from "../interface/opzioniStatic";
@@ -321,6 +323,19 @@ export const httpGetFormatoArray = async (idPrev: number) => {
   }
 }
 
+export const httpGetAllData = async (request: RequestData) => {
+  try {
+    const result = await applicationConnect.get<RootObject>("Packagin/GetAllData", {
+      params: {
+        ...request
+      },
+    });
+    //console.warn('httpGetFormatoArray',result.data)
+    return result.data
+  } catch (error) {
+    throw new Error("");
+  }
+}
 export const httpGetShowOpzioni = async (idPrev: number) => {
   try {
     const result = await applicationConnect.get<IShowOpzioni>("Packagin/GetShowOpzioni", {

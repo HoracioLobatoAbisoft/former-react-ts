@@ -263,6 +263,7 @@ const useProdtto = () => {
         }),
         getFormatoStr({ idPrev, idFormProd, IdTipoCarta, IdColoreStampa, altezza: 0, base: 0, profundita: 0, idUt })
       ])
+
       const [format, showOrientamiento, tipoCarta, coloreStampa, opzioni, qtaCustom, stampaCaldo, responseShowFoliPagine, formatoStr,] = initialState
       const responseFormat = handleFormatoList(format);
       const responseOrientamiento = handleOrientamiento();
@@ -1919,10 +1920,12 @@ const useProdtto = () => {
   }, [formValues.valueAltezza, formValues.valueBase, formValues.valueProfundita, formValues.valueQuantita]);
 
   const fetchDataInitial = async () => {
-    
+    //console.log(new Date())
     await handlePrimaryData();
     await handleData();
     await handleSecondaryData();
+   //console.log(new Date())
+
   };
   useEffect(() => {
     fetchDataInitial()
