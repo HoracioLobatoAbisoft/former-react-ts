@@ -22,6 +22,7 @@ import {
 } from "../helper/ProdottoHelper";
 import {
   getAggiornaReview,
+  getAllData,
   getCalcolaTuto,
   getColoreStampa,
   getDescrizioniDinammica,
@@ -223,30 +224,32 @@ const useProdtto = () => {
   const handlePrimaryData = async () => {
     const { IdColoreStampa, IdTipoCarta, idFormProd, idPrev, idUt, idFogli, idCategoria, idBaseEtiquete, idAltezaEtiquete } =
       handleParamsFormat();
+      
     try {
       setLoading(true)
       const initialState = await Promise.all([
-        getFotmato(idPrev),
-        getShowOrientamiento({
-          IdColoreStampa,
-          IdTipoCarta,
-          idFormProd,
-          idPrev,
-        }),
-        getTipoCarta(idPrev, idFormProd),
-        getColoreStampa({ IdTipoCarta, idFormProd, idPrev }),
-        getOpzioni({
-          IdColoreStampa,
-          IdTipoCarta,
-          idFormProd,
-          idPrev,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          idUt,
-        }),
-        getShowQtaCustom({ IdColoreStampa, IdTipoCarta, idFormProd, idPrev }),
-        getStampaCaldo({ IdColoreStampa, IdTipoCarta, idFormProd, idPrev }),
+        getAllData({ idPrev, idFormProd, IdTipoCarta, IdColoreStampa, altezza: 0, bases: 0, profundita: 0, idUt, uri: GLOBAL_CONFIG.IMG_IP }),
+        // getFotmato(idPrev),
+        // getShowOrientamiento({
+        //   IdColoreStampa,
+        //   IdTipoCarta,
+        //   idFormProd,
+        //   idPrev,
+        // }),
+        // getTipoCarta(idPrev, idFormProd),
+        // getColoreStampa({ IdTipoCarta, idFormProd, idPrev }),
+        // getOpzioni({
+        //   IdColoreStampa,
+        //   IdTipoCarta,
+        //   idFormProd,
+        //   idPrev,
+        //   altezza: 0,
+        //   base: 0,
+        //   profundita: 0,
+        //   idUt,
+        // }),
+        // getShowQtaCustom({ IdColoreStampa, IdTipoCarta, idFormProd, idPrev }),
+        // getStampaCaldo({ IdColoreStampa, IdTipoCarta, idFormProd, idPrev }),
         getShowFogliPagine({
           IdColoreStampa,
           IdTipoCarta,
@@ -261,17 +264,31 @@ const useProdtto = () => {
           facciatePagine: idFogli,
           quantita: 0,
         }),
-        getFormatoStr({ idPrev, idFormProd, IdTipoCarta, IdColoreStampa, altezza: 0, base: 0, profundita: 0, idUt })
+        getTablePrezzi({
+          IdColoreStampa,
+          IdTipoCarta,
+          idFormProd,
+          idPrev,
+          idUt,
+          altezza: 0,
+          base: 0,
+          profundita: 0,
+          iva: 0,
+          valuesStampaCaldoOpz: valuesStampaCaldoOpz,
+          facciatePagine: idFogli,
+          quantita: 0,
+        }),
+        // getFormatoStr({ idPrev, idFormProd, IdTipoCarta, IdColoreStampa, altezza: 0, base: 0, profundita: 0, idUt })
       ])
 
-      const [format, showOrientamiento, tipoCarta, coloreStampa, opzioni, qtaCustom, stampaCaldo, responseShowFoliPagine, formatoStr,] = initialState
-      const responseFormat = handleFormatoList(format);
+      const [allData, responseShowFoliPagine, responseTablePrezzi /*format, showOrientamiento, tipoCarta, coloreStampa, opzioni, qtaCustom, stampaCaldo, formatoStr,*/] = initialState
+      const responseFormat = handleFormatoList(allData.formatoProdotto);
       const responseOrientamiento = handleOrientamiento();
-      const responseTipoCarta = handleTipoCarta(tipoCarta);
-      const responseColoreStampa = handleColoriStampa(coloreStampa);
-      const responseOpzioni = handleOptionsOpzioni(opzioni);
-      const responseStampaCaldoOPZ = handleStampaCaldoDesc(stampaCaldo);
-      handleOpzioneInclusa(stampaCaldo)
+      const responseTipoCarta = handleTipoCarta(allData.tipoCarta);
+      const responseColoreStampa = handleColoriStampa(allData.coloreStampa);
+      const responseOpzioni = handleOptionsOpzioni(allData.opzioni);
+      const responseStampaCaldoOPZ = handleStampaCaldoDesc(allData.stampaCaldoPlatificacione);
+      handleOpzioneInclusa(allData.stampaCaldoPlatificacione)
       idFustella === "0" && setOpzioniList(responseOpzioni);
       setStampaCalOpz(responseStampaCaldoOPZ);
       setOptionOrientamiento(responseOrientamiento);
@@ -279,7 +296,7 @@ const useProdtto = () => {
       setOptionFormato(responseFormat);
       setOptionTipoCarta(responseTipoCarta);
       setOptionColoreStampa(responseColoreStampa);
-      setShowQtaCustom(qtaCustom?.data);
+      setShowQtaCustom(allData.showQtaCustom);
       const firstValue: any = {}
       for (let index = 0; index < responseStampaCaldoOPZ.length; index++) {
         const { tipoControllo, label, options } = responseStampaCaldoOPZ[index];
@@ -307,9 +324,32 @@ const useProdtto = () => {
       setTextTipoCarta(responseShowFoliPagine.data.tipoCartaText);
       setDescrizioneMisure(responseShowFoliPagine.data.misueres);
       setFormatoLabel(responseShowFoliPagine.data.formatoText);
-      setUriImage(formatoStr.imgSelezionato);
-      setDimensionniStr(formatoStr);
-      setFormValues({...formValues,valueOrientamento: formatoStr.orientamiento,})
+      setUriImage(allData.dimensioniStr.imgSelezionato);
+      setDimensionniStr(allData.dimensioniStr);
+      setTableDate(allData.listDateTable);
+      handleSelectedDataConsegna("N", allData.listDateTable);
+      handleSelectDateConsegna(allData.listDateTable.giornoIntN + " " + allData.listDateTable.meseN.substring(0, 3));
+      setDisableProfundita(allData.disabledProfundita);
+      const profundita = allData.disabledProfundita.disabled ? allData.disabledProfundita.txt_Profundita : "";
+      setFormValues({
+        ...formValues,
+        valueFormat: idFormProd,
+        valueTipoCarta: IdTipoCarta,
+        valueColoreStampa: IdColoreStampa,
+        valueRadio: "0",
+        valueFogli: idFogli,
+        valueProfundita: profundita,
+        valueBase: idBaseEtiquete == 0 ? "" : idBaseEtiquete,
+        valueAltezza: idAltezaEtiquete == 0 ? "" : idAltezaEtiquete,
+        valueOrientamento: allData.dimensioniStr.orientamiento,
+      });
+      setShowBloccoMisure(allData.showBloccoMisure);
+      setShowOpzzioni(allData.showOpzioni);
+      setShowSvg(allData.showSVG);
+      setShowColumTable(allData.showColumTabellaPrezzi);
+      allData.showTabellaPrezzi ? setTablaDataPrezzi(responseTablePrezzi) : setTablaDataPrezzi([]);
+      setShowTablePreez(allData.showTabellaPrezzi);
+
     } catch (error) {
       throw new Error(String(error));
     } finally {
@@ -322,12 +362,10 @@ const useProdtto = () => {
 
     try {
       //setLoading(true);
-
       const { IdColoreStampa, IdTipoCarta, idFormProd, idPrev, idUt, idFogli, idCategoria, idBaseEtiquete, idAltezaEtiquete } =
         handleParamsFormat();
 
       const initialState = await Promise.all([
-        
         getUtenteData(idUt),
         getCalcolaTuto({
           IdColoreStampa,
@@ -346,26 +384,6 @@ const useProdtto = () => {
           qtaSlezionata: 0,
           quantity: 0,
         }),
-        getShowColumnTable(idPrev),
-        getShowBloccoMisure({
-          IdColoreStampa,
-          IdTipoCarta,
-          idFormProd,
-          idPrev,
-        }),
-        getShowOpzioni(idPrev),
-        getShowTabellaPrezzi({
-          IdColoreStampa,
-          IdTipoCarta,
-          idFormProd,
-          idPrev,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          idUt,
-        }),
-        getDisableProfundita(idPrev),
-        getShowSVG(idPrev),
         getOpizioniCarrello({ idPrev, idFormProd, IdTipoCarta, IdColoreStampa }),
         getHelpersData({
           IdColoreStampa,
@@ -374,96 +392,24 @@ const useProdtto = () => {
           idPrev,
           IdTipoCarta,
         }),
-
       ]);
-      var tableDate :any;
-      var responseTablePrezzi:any;
-      try {
-        responseTablePrezzi = await getTablePrezzi({
-          IdColoreStampa,
-          IdTipoCarta,
-          idFormProd,
-          idPrev,
-          idUt,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          iva: 0,
-          valuesStampaCaldoOpz: valuesStampaCaldoOpz,
-          facciatePagine: idFogli,
-          quantita: 0,
-        })
-        tableDate = await getTableDate({
-          IdColoreStampa,
-          idFormProd,
-          IdTipoCarta,
-          idPrev,
-          altezza: 0,
-          base: 0,
-          profundita: 0,
-          idUt,
-        })
-        // console.log('Datos Fecha de la tabla de precios',tableDate)
-        // console.log('Datos de los precios de la tabla ',responseTablePrezzi)
-
-      } catch (error) {
-        console.log('Error en la peticiones de las apis de precios y fechas\n',error)
-      }
-
-      
-
       const [
-        
         dataUtn,
         responseCalculaTuto,
-        columnTable,
-        
-        responseShowBloccoMisure,
-        responseShowOopzioni,
-        responseShowTablePrezzi,
-        responseDisableProfundita, showSVG, opzioniCarrello, helperData,
+        opzioniCarrello, helperData,
       ] = initialState;
       if (idCategoria != "0") {
         const responseFormatoDinamico = await getFormatoDinamico(String(idCategoria));
         setFormatoDinamico(responseFormatoDinamico.categoria);
       }
-      setTableDate(tableDate);
-      setShowColumTable(columnTable);
-      responseShowTablePrezzi.data ? setTablaDataPrezzi(responseTablePrezzi)  : setTablaDataPrezzi([]);
-      setShowTablePreez(responseShowTablePrezzi.data);
-      setShowBloccoMisure(responseShowBloccoMisure?.data);
-      setDisableProfundita(responseDisableProfundita);
 
-      
-      
       setUtenteData(dataUtn);
       setCalcolaTuto(responseCalculaTuto);
       setQtaSelected(responseCalculaTuto.qta);
-      setShowOpzzioni(responseShowOopzioni.data);
-      
 
-      setShowSvg(showSVG);
       setOpzioniListStatic(opzioniCarrello);
       setHelperDataProdotto(helperData);
-      handleSelectedDataConsegna("N", tableDate);
-      handleSelectDateConsegna(tableDate.giornoIntN + " " + tableDate.meseN.substring(0, 3));
 
-
-      const profundita = responseDisableProfundita.disabled ? responseDisableProfundita.txt_Profundita : "";
-
-      setFormValues({
-        ...formValues,
-        valueFormat: idFormProd,
-        valueTipoCarta: IdTipoCarta,
-        valueColoreStampa: IdColoreStampa,
-        valueRadio: "0",
-        valueFogli: idFogli,
-        valueProfundita: profundita,
-        valueBase: idBaseEtiquete == 0 ? "" : idBaseEtiquete,
-        valueAltezza: idAltezaEtiquete == 0 ? "" : idAltezaEtiquete
-      });
-
-      
     } catch (error) {
       console.log(error)
       throw new Error(String(error));
@@ -802,7 +748,6 @@ const useProdtto = () => {
     const IdFormatN = Number(valueFormat);
     const altezzaN = Number(valueAltezza), baseN = Number(valueBase), profunditaN = Number(valueProfundita), QtaN = Number(valueQuantita), IvaN = Number(valueRadio);
     const idFogli = Number(valueFogli);
-
     const values = Object.entries(valuesStampaCaldoOpz);
     const objetoDesdeEntries = Object.fromEntries(values);
     setValuesStampaCaldoOpz({});
@@ -919,26 +864,50 @@ const useProdtto = () => {
     const iva = Number(valueRadio);
     const altezzaN = Number(valueAltezza), baseN = Number(valueBase), profunditaN = Number(valueProfundita), qtaN = Number(valueQuantita);
 
-    const responseStampaCaldo = await getStampaCaldo({
-      IdColoreStampa: IdColoreStampaN,
-      idFormProd: IdFormatN,
-      idPrev,
-      IdTipoCarta: IdTipoCartaN,
-    });
-    const responseTablePrezzo = await getTablePrezzi({
-      valuesStampaCaldoOpz: valuesStampaCaldoOpz,
-      altezza: altezzaN,
-      base: baseN,
-      facciatePagine: idFogliN,
-      IdColoreStampa: IdColoreStampaN,
-      idFormProd: IdFormatN,
-      idPrev,
-      IdTipoCarta: IdTipoCartaN,
-      idUt,
-      iva,
-      profundita: profunditaN,
-      quantita: qtaN,
-    });
+    const petitions = await Promise.all([
+      getStampaCaldo({
+        IdColoreStampa: IdColoreStampaN,
+        idFormProd: IdFormatN,
+        idPrev,
+        IdTipoCarta: IdTipoCartaN,
+      }),
+      getTablePrezzi({
+        valuesStampaCaldoOpz: valuesStampaCaldoOpz,
+        altezza: altezzaN,
+        base: baseN,
+        facciatePagine: idFogliN,
+        IdColoreStampa: IdColoreStampaN,
+        idFormProd: IdFormatN,
+        idPrev,
+        IdTipoCarta: IdTipoCartaN,
+        idUt,
+        iva,
+        profundita: profunditaN,
+        quantita: qtaN,
+      }),
+      getShowFogliPagine({
+        IdColoreStampa: IdColoreStampaN,
+        IdTipoCarta: IdTipoCartaN,
+        idFormProd: IdFormatN,
+        idPrev,
+        idUt,
+        altezza: altezzaN,
+        base: baseN,
+        profundita: profunditaN,
+        iva,
+        valuesStampaCaldoOpz: valuesStampaCaldoOpz,
+        facciatePagine: idFogliN,
+        quantita: qtaN,
+      }),
+    ])
+
+    const [responseStampaCaldo, responseTablePrezzo, responseShowFogliPagine] = petitions;
+
+    const responseFogliPagine = handleFogliPagine(
+      responseShowFogliPagine.data.data,
+      responseShowFogliPagine.data.fogliLabel,
+      responseShowFogliPagine.data.showFogliPagine,
+    );
 
     const optionStampaCaldo = handleStampaCaldoDesc(responseStampaCaldo)
     var codeStr = ""
@@ -972,7 +941,8 @@ const useProdtto = () => {
     setStampaCalOpz(optionStampaCaldo);
     setTablaDataPrezzi(responseTablePrezzo);
     setCalcolaTuto(responseCalcolaTuto);
-    handleOpzioneInclusa(responseStampaCaldo)
+    handleOpzioneInclusa(responseStampaCaldo);
+    responseShowFogliPagine.data.showFogliPagine && setFlogiPagine(responseFogliPagine);
     const firstValue: any = {}
     for (let index = 0; index < optionStampaCaldo.length; index++) {
       const { tipoControllo, label, options } = optionStampaCaldo[index];
@@ -1141,21 +1111,7 @@ const useProdtto = () => {
       valueQuantita, valueBase, valueAltezza, valueProfundita,
     } = formValues;
     const QtaN = Number(valueQuantita), BaseN = Number(valueBase), AltezzaN = Number(valueAltezza), ProfunditaN = Number(valueProfundita);
-    var defaultValue = '';//= (name === 'valueAltezza') ? '40' : (name === 'valueProfundita') ? '14' : (name === 'valueBase') ?'20': " ";
-
-    // if (name != 'valueQuantita') {
-    //   if (disableProfundita?.disabled === true) {
-    //     defaultValue = (name === 'valueBase' && (BaseN < 70 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 70)) ? "70" : (name === 'valueAltezza' && (AltezzaN < 100 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 100) ? '100' : defaultValue;
-    //   } else if (showProfundita === false) {
-    //     defaultValue = (name === 'valueBase' && (BaseN < 1 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 1)) ? "1" : (name === 'valueAltezza' && (AltezzaN < 1 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 1) ? '1' : defaultValue;
-    //     defaultValue = (name === 'valueBase' && (BaseN > 440)) ? "440" : (name === 'valueAltezza' && (AltezzaN > 310)) ? '310' : defaultValue;
-    //   } else {
-    //     defaultValue = (name === 'valueBase' && (BaseN < 20 || Number.isNaN(parseFloat(String(valueBase)))) || (parseFloat(String(valueBase)) < 20)) ? "20" : (name === 'valueAltezza' && (AltezzaN < 40 || Number.isNaN(parseFloat(String(valueAltezza)))) || parseFloat(String(valueAltezza)) < 40) ? '40' : defaultValue;
-    //   }
-    //   if (showProfundita === true && name === 'valueProfundita') {
-    //     defaultValue = (name === 'valueProfundita' && (ProfunditaN < 14 || Number.isNaN(parseFloat(String(valueProfundita)))) || parseFloat(String(valueProfundita)) < 14) ? "14" : defaultValue;
-    //   }
-    // } else
+    var defaultValue = '';
 
     switch (name) {
       case "valueBase":
@@ -1722,7 +1678,7 @@ const useProdtto = () => {
         idIndirizzo: utenteData?.corriere.idMetodoConsegna == 0 ? 0 : utenteData!.idIndirizzo == null ? 0 : utenteData!.idIndirizzo,
         nome: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.indirizoS,
         indirisso: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.indirizzo,
-        localitaStr:utenteData?.corriere.idMetodoConsegna == 0 ?  "" : utenteData!.citta,
+        localitaStr: utenteData?.corriere.idMetodoConsegna == 0 ? "" : utenteData!.citta,
         nazioneStr: '',
         predefinito: true,
         riassunto: utenteData?.corriere.idMetodoConsegna == 0 ? "<b style='font-size:16px'>Tipografia Former</b>, Via Cassia, 2010 - 00123 Roma" : utenteData!.indirizoR,
@@ -1924,7 +1880,7 @@ const useProdtto = () => {
     await handlePrimaryData();
     await handleData();
     await handleSecondaryData();
-   //console.log(new Date())
+    //console.log(new Date())
 
   };
   useEffect(() => {

@@ -76,7 +76,6 @@ const Prodotto = () => {
     handleChangeCheckbox, valueNome, valueNote, handleCarrello, handleChangeRadio, textTipoCarta, handleOperationFrame, handleDonwloadPDF, setIndexTable, handleCompraloSubito, prodottoConsigliato, formatoLabel, handleCampioneGratutito,
   } = useProdtto();
 
-  //*TODO revisar los presios con una cantidad de 100000 especialmente en 10/87/44/2/50/Stampa-Blocchi-autocopianti-A5-fogli-50x2-Copie-a-colori-solo-fronte
 
   return (
     <div className="w-full flex gap-3 relative ">

@@ -23,7 +23,7 @@ const useITuoiOrdini = () => {
     // const tokenPP = params.get('tokenPP');
     // const idUt = params.get('id');
 
-    const {id} = useParams()
+    const { id } = useParams()
     const idUt = id ? Number(id) : 0;
     /**
      * *Funciones Get 
@@ -36,7 +36,10 @@ const useITuoiOrdini = () => {
 
     const getOrdini = async (idUt: number, pageNumber: number) => {
         try {
-            const responseGetOrdini = await httpGetOrdini(idUt, pageNumber);
+            const petitions = await Promise.all([
+                httpGetOrdini(idUt, pageNumber),
+            ])
+            const [responseGetOrdini] =petitions ;
             getOrdiniById(responseGetOrdini.data.ordineList[0].idConsegna);
             setExpanded(String(responseGetOrdini.data.ordineList[0].idConsegna))
             return responseGetOrdini.data;
@@ -78,15 +81,14 @@ const useITuoiOrdini = () => {
         setOpenLoading(false);
     }
 
-    const handleChange =(panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
         getOrdiniById(Number(panel));
     };
 
-    const getOrdiniById = async (IdConsegna:number) => {
+    const getOrdiniById = async (IdConsegna: number) => {
         try {
             const responseDetaglio = await httpGetOrdiniById(IdConsegna);
-            console.log(responseDetaglio.data);
             setDataOrdini(responseDetaglio.data)
         } catch (error) {
             throw new Error(String(error));
@@ -125,13 +127,13 @@ const useITuoiOrdini = () => {
 
 
     return {
-        openLoading,listOrdini,pageOrdini,expanded,dataOrdini,
+        openLoading, listOrdini, pageOrdini, expanded, dataOrdini,
         handleGetOrdini,
         handleRedirectToDetaglioOrdini,
         handleRedirectToDetaglioLavoro,
         handleNewTagListinoTemplate,
         handleDeleteLavoro,
-        handleDeleteOrdine,handleChange,
+        handleDeleteOrdine, handleChange,
     }
 }
 

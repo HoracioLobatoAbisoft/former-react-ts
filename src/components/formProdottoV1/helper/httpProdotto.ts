@@ -50,7 +50,7 @@ export interface RequestData {
     idFormProd: number,
     IdTipoCarta: number,
     IdColoreStampa: number,
-    categoria: string
+    //categoria: string
     uri: string
     bases: number,
     profundita: number,

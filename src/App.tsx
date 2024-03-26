@@ -65,7 +65,7 @@ function App() {
       <UserContextProvider>
         <Routes>
           {/* <Route path="/" element={<OrdiniPage />}></Route> */}
-          <Route path="/:id" element={<h1>title</h1>}></Route>
+          {/* <Route path="/:id" element={<h1>title</h1>}></Route>
           <Route path="/ordiniTabella" element={<ContentOrdini />} />
           <Route path="/nav" element={<OrdiniPage />} />
           <Route path="/lavori" element={<LavoriPage />} />
@@ -79,11 +79,11 @@ function App() {
           <Route path="/form-prodotto" element={<FormProdotto />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd" element={<FormProdottoModificated />} />
           <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt" element={<FormProdottoModificated />} />
-          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete/:ImageEtiquete" element={<FormProdottoModificated />} />
+          <Route path="/form-prodotto-v1/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete/:ImageEtiquete" element={<FormProdottoModificated />} /> */}
           {/* <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoRefactor />} /> */}
           {/* <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete" element={<ConfiguraProdottoV2 />} /> */}
           <Route path="/form-prodotto-v2/:idPrev/:idFormProd/:IdTipoCarta/:IdColoreStampa/:idFogli/:idUt/:idFustella/:idCategoria/:idBaseEtiquete/:idAltezaEtiquete/:ImageEtiquete" element={<Prodotto />} />
-          <Route path="/cerca/:idUt/:differenzza" element={<Cerca />} />
+          {/* <Route path="/cerca/:idUt/:differenzza" element={<Cerca />} /> */}
 
           <Route path="/carrello" element={<CarrelloProdotto />} />
           <Route path="/carrelloStp1" element={<CarrelloStp1 />} />
@@ -92,7 +92,7 @@ function App() {
           <Route path="/carrelloStp4" element={<CarrelloStp4 />} />
           <Route path="/carrelloStp5" element={<CarrelloStp5 />} />
           
-          <Route path="/btnCarrello" element={<BtnCarrello/>} />
+          {/* <Route path="/btnCarrello" element={<BtnCarrello/>} />
           <Route
             path="/OrdineDetails/:userId"
             element={<OrdineDetailsPage />}
@@ -101,7 +101,7 @@ function App() {
           <Route path="/Contact" element={<ContactPage />} />
 
           <Route path="/Contact" element={<ContactPage />} />
-          <Route path="/indirizziCorriere" element={<IndirizziCorriere />} />
+          <Route path="/indirizziCorriere" element={<IndirizziCorriere />} /> */}
           <Route path="/AreaPersonale/*" element={<AreaPersonale />} />
           <Route path="/dettaglioOrdine/:idConsegna" element={<DettaglioOrdine />} />
           <Route path="/dettaglioOrdine/:idConsegna/:tokenPP" element={<DettaglioOrdine />} />
